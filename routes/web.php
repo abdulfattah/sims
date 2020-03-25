@@ -25,6 +25,7 @@ Route::group(array('middleware' => 'auth'), function () {
     Route::any("password", 'UserController@changePassword');
     Route::resource('user', 'UserController');
     Route::get("company/sync", 'CompanyController@sync');
+    Route::post("company/sync", 'CompanyController@doSync');
     Route::resource('company', 'CompanyController');
 
     Route::group(array("prefix" => "store"), function () {

@@ -210,11 +210,11 @@ jQuery(function ($) {
 
         if ($this.attr('data-dx') === 'fileuploader') {
             $this.dxFileUploader({
-                multiple: $this.attr('data-multiple'),
+                multiple: $this.attr('data-multiple') === 'true',
                 uploadMode: $this.attr('data-mode'),
                 accept: $this.attr('data-accept'),
                 readyToUploadMessage: "Ready to upload",
-                selectButtonText: "Pilih Fail",
+                selectButtonText: "Choose File",
                 width: '100%',
                 name: $this.attr('data-name')
             });
@@ -519,7 +519,7 @@ jQuery(function ($) {
                 visible: true
             },
             headerFilter: {
-                visible: false
+                visible: true
             },
             filterRow: {
                 visible: true,
@@ -671,9 +671,11 @@ jQuery(function ($) {
                     }
                 },
                 {
-                    caption: 'Status Name',
-                    dataField: "registration_status",
+                    caption: 'Business/Branch Name',
                     dataType: 'string',
+                    dataField: "business_name",
+                    width: '280',
+                    allowHeaderFiltering: false,
                     cellTemplate: function (container, options) {
                         $('<a/>').addClass('dx-link')
                             .text(options.text)
@@ -681,98 +683,118 @@ jQuery(function ($) {
                                 location.href = baseURL + '/show/owner/' + options.data.id;
                             })
                             .appendTo(container);
-                    },
-                    allowHeaderFiltering: false,
+                    }
+                },
+                {
+                    caption: 'Trade Name',
+                    dataType: 'string',
+                    dataField: "trade_name",
+                    visible: false,
+                    allowHeaderFiltering: false
+                },
+                {
+                    caption: 'Status Name',
+                    dataField: "registration_status",
+                    width: '90',
+                    dataType: 'string'
                 },
                 {
                     caption: 'Register Date',
                     dataType: 'registration_date',
-                    dataField: "type"
+                    dataField: "type",
+                    allowHeaderFiltering: false
                 },
                 {
                     caption: 'Cancellation Approval',
                     dataType: 'string',
-                    dataField: "cancellation_approval"
+                    dataField: "cancellation_approval",
+                    visible: false,
+                    allowHeaderFiltering: false
                 },
                 {
                     caption: 'Cancellation Effective',
                     dataType: 'string',
-                    dataField: "cancellation_effective"
+                    dataField: "cancellation_effective",
+                    visible: false,
+                    allowHeaderFiltering: false
                 },
                 {
                     caption: 'SST No',
                     dataType: 'string',
                     dataField: "sst_no",
+                    width: '120',
                     allowHeaderFiltering: false
                 },
                 {
                     caption: 'Station Code',
                     dataType: 'string',
-                    dataField: "station_code"
+                    dataField: "station_code",
+                    visible: false
                 },
                 {
                     caption: 'Station Name',
                     dataType: 'string',
+                    width: '140',
                     dataField: "station_name"
                 },
                 {
                     caption: 'GST No',
                     dataType: 'string',
-                    dataField: "gst_no"
+                    dataField: "gst_no",
+                    width: '100',
+                    allowHeaderFiltering: false
                 },
                 {
                     caption: 'Brn No',
                     dataType: 'string',
-                    dataField: "brn_no"
-                },
-                {
-                    caption: 'Business/Branch Name',
-                    dataType: 'string',
-                    dataField: "business_name"
-                },
-                {
-                    caption: 'Trade Name',
-                    dataType: 'string',
-                    dataField: "trade_name"
+                    dataField: "brn_no",
+                    allowHeaderFiltering: false
                 },
                 {
                     caption: 'SST Type',
                     dataType: 'string',
+                    width: '120',
                     dataField: "sst_type"
                 },
                 {
                     caption: 'Email Address',
                     dataType: 'string',
-                    dataField: "email_address"
+                    dataField: "email_address",
+                    allowHeaderFiltering: false
                 },
                 {
                     caption: 'Telephone No',
                     dataType: '',
-                    dataField: "telephone_no"
+                    dataField: "telephone_no",
+                    allowHeaderFiltering: false
                 },
                 {
                     caption: 'Company Address 1',
                     dataType: 'string',
                     dataField: "company_address_1",
-                    visible: false
+                    visible: false,
+                    allowHeaderFiltering: false
                 },
                 {
                     caption: 'Company Address 2',
                     dataType: 'string',
                     dataField: "company_address_2",
-                    visible: false
+                    visible: false,
+                    allowHeaderFiltering: false
                 },
                 {
                     caption: 'Company Address 3',
                     dataType: 'string',
                     dataField: "company_address_3",
-                    visible: false
+                    visible: false,
+                    allowHeaderFiltering: false
                 },
                 {
                     caption: 'Company Postcode',
                     dataType: 'string',
                     dataField: "company_postcode",
-                    visible: false
+                    visible: false,
+                    allowHeaderFiltering: false
                 },
                 {
                     caption: 'Company City',
@@ -783,31 +805,35 @@ jQuery(function ($) {
                 {
                     caption: 'Company State',
                     dataType: 'string',
-                    dataField: "company_state"
+                    dataField: "company_state",
                 },
                 {
                     caption: 'Correspondence Address 1',
                     dataType: 'string',
                     dataField: "correspondence_address_1",
-                    visible: false
+                    visible: false,
+                    allowHeaderFiltering: false
                 },
                 {
                     caption: 'Correspondence Address 2',
                     dataType: 'string',
                     dataField: "correspondence_address_2",
-                    visible: false
+                    visible: false,
+                    allowHeaderFiltering: false
                 },
                 {
                     caption: 'Correspondence Address 3',
                     dataType: 'string',
                     dataField: "correspondence_address_3",
-                    visible: false
+                    visible: false,
+                    allowHeaderFiltering: false
                 },
                 {
                     caption: 'Correspondence Postcode',
                     dataType: 'string',
                     dataField: "correspondence_postcode",
-                    visible: false
+                    visible: false,
+                    allowHeaderFiltering: false
                 },
                 {
                     caption: 'Correspondence city',
@@ -824,7 +850,8 @@ jQuery(function ($) {
                 {
                     caption: 'Factory/Registered Name',
                     dataType: 'string',
-                    dataField: "factory_name"
+                    dataField: "factory_name",
+                    allowHeaderFiltering: false
                 },
                 {
                     caption: 'Entity Type',
@@ -1033,6 +1060,31 @@ jQuery(function ($) {
                 enabled: true
             }
         });
+    }
+
+    if ($('#progress-bar-syncronization').length > 0) {
+        var intervalProgressBar = setInterval(() => {
+            $.getJSON(baseURL + '/data?b=55a0c60438203', function (data) {
+                if (data == '100') {
+                    clearInterval(intervalProgressBar);
+                    $('#progress-bar-syncronization').attr('aria-valuenow', data);
+                    $('#progress-bar-syncronization').css('width', '100%');
+                    $('#progress-bar-syncronization').html('100%');
+                    var counter = 6;
+                    setInterval(function () {
+                        counter--;
+                        $('#progress-label').html('Syncronization has been success. Redirect in ' + counter + ' seconds');
+                    }, 1000);
+                    setTimeout(() => {
+                        location.href = baseURL + '/company';
+                    }, 6000);
+                } else {
+                    $('#progress-bar-syncronization').attr('aria-valuenow', data);
+                    $('#progress-bar-syncronization').css('width', data + '%');
+                    $('#progress-bar-syncronization').html(data + '%');
+                }
+            });
+        }, 1000);
     }
 
     function deleteGridRecord(url, grid, msg) {

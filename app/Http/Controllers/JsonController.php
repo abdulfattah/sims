@@ -1,12 +1,12 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Libs\DxGridOfficial;
 use App\Libs\App;
-use App\Models;
+use App\Libs\DxGridOfficial;
+use App\Models\SYSSetting;
 
 /*
- *55a0c604380fe<br />55a0c60438163<br />55a0c604381b5<br />55a0c60438203
+ *55a0c604380fe<br />55a0c60438163<br />55a0c604381b5<br />
  */
 
 class JsonController extends Controller
@@ -30,6 +30,10 @@ class JsonController extends Controller
                     return response()->json($this->companyGrid(), 200, []);
                     break;
                 }
+            case '55a0c60438203':{ //Dapatkan % processed excel//
+                    return response()->json($this->getProcessedExcel(), 200, []);
+                    break;
+                }
         }
     }
 
@@ -39,13 +43,13 @@ class JsonController extends Controller
         if ($for == '' || $for == 'empty' || $for == 'undefined' || $for == 'null') {
             return $items;
         }
-            $lists = config('appitem.' . $for);
-            if ($for != 'roles') {
-                asort($lists);
-            }
-            foreach ($lists as $key => $value) {
-                array_push($items, ['id' => is_string($key) ? $key : $value, 'item' => $value]);
-            }
+        $lists = config('appitem.' . $for);
+        if ($for != 'roles') {
+            asort($lists);
+        }
+        foreach ($lists as $key => $value) {
+            array_push($items, ['id' => is_string($key) ? $key : $value, 'item' => $value]);
+        }
 
         return $items;
     }
@@ -77,7 +81,7 @@ class JsonController extends Controller
             'company_address_3, company_postcode, company_city, company_state, correspondence_address_1, correspondence_address_2, ' .
             'correspondence_address_3, correspondence_postcode, correspondence_city, correspondence_state, factory_name, entity_type, ' .
             'business_activity, product_tax, facility_applied, local_marketing, statement, statement_status, uncomplience_type, ' .
-            'syncronizing_at, updated_at', 
+            'syncronizing_at, updated_at',
             '');
         $params   = $controller->GetParseParams($_GET);
         $response = $controller->Get($params);
@@ -88,6 +92,16 @@ class JsonController extends Controller
             header("HTTP/1.1 500 Internal Server Error");
             header("Content-Type: application/json");
             echo json_encode(["message" => $response, "code" => 500]);
+        }
+    }
+
+    private function getProcessedExcel()
+    {
+        $setting = SYSSetting::where('param', 'syncronize')->get()->first();
+        if ($setting != null) {
+            return $setting->value;
+        } else {
+            return '100';
         }
     }
 }

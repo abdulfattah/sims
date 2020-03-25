@@ -2,9 +2,11 @@
 namespace App\Http\Controllers;
 
 use App\Exports;
-use App\Libs\DxGridOfficial;
+use App\Jobs\ProcessExcel;
 use App\Libs\App;
+use App\Libs\DxGridOfficial;
 use App\Models;
+use App\Models\SYSSetting;
 use Maatwebsite\Excel\Facades\Excel;
 
 class CompanyController extends Controller
@@ -17,17 +19,62 @@ class CompanyController extends Controller
         $data = array(
             'menu'       => ['menu' => 'Company', 'subMenu' => ''],
             'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
-                             <li class="breadcrumb-item active">Company</li>',
+                             <li class="breadcrumb-item active">Companies</li>',
         );
 
         return view('company.index', $data);
     }
 
+    public function sync()
+    {
+        $check = SYSSetting::where('param', 'syncronize')->get();
+        $data  = array(
+            'menu'       => ['menu' => 'Company', 'subMenu' => ''],
+            'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
+                             <li class="breadcrumb-item"><a href="' . \URL::to('company') . '">Companies</a></li>
+                             <li class="breadcrumb-item active">Syncronization</li>',
+            'upload'     => true,
+            'sync'       => $check->count() > 0,
+        );
+
+        return view('company.sync', $data);
+    }
+
+    public function doSync()
+    {
+        $file  = \Request::file('excel');
+        $check = SYSSetting::where('param', 'syncronize')->get();
+        if ($file != null) {
+            if ($check->count() > 0) {
+                return redirect()->to('company/sync');
+            } else {
+                $newName = 'excel.' . $file->getClientOriginalExtension();
+                $file->move(env('ASSETS_STORAGE') . 'syncronize', $newName);
+                $setting = new SYSSetting();
+                $setting->param = 'syncronize';
+                $setting->value = '1';
+                $setting->save();
+                ProcessExcel::dispatch($setting, $newName);
+            }
+        }
+
+        $data = array(
+            'menu'       => ['menu' => 'Company', 'subMenu' => ''],
+            'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
+                             <li class="breadcrumb-item"><a href="' . \URL::to('company') . '">Companies</a></li>
+                             <li class="breadcrumb-item active">Syncronization</li>',
+            'upload'     => false,
+            'sync'       => $check->count() > 0,
+        );
+
+        return view('company.sync', $data);
+    }
+
     public function store($type, $tab, $ref = null)
     {
-        $input     = \Request::all();
-        $owner     = new Models\PROOwner();
-        $owner     = $this->populateSaveValue($owner, $input, array(
+        $input = \Request::all();
+        $owner = new Models\PROOwner();
+        $owner = $this->populateSaveValue($owner, $input, array(
             'exclude' => array(
                 '_token',
                 'owner_id',
