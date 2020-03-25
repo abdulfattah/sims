@@ -418,12 +418,12 @@ jQuery(function ($) {
     $(".grid-btn-plus").click(function () {
         if ($(this).attr('data-for') == 'users') {
             location.href = baseURL + '/user/create';
-        } else if ($(this).attr('data-for') == 'company') {
+        } else if ($(this).attr('data-for') == 'tax') {
             location.href = baseURL + '/create/property/single/1';
         }
     });
     $(".grid-btn-sync").click(function () {
-        location.href = baseURL + '/company/sync';
+        location.href = baseURL + '/tax/sync';
     });
     $(".grid-btn-refresh").click(function () {
         grid.state({});
@@ -449,8 +449,8 @@ jQuery(function ($) {
         }
         if ($(this).attr('data-for') == 'users') {
             location.href = baseURL + '/export/excel/user?filter=' + JSON.stringify(grid.getCombinedFilter()) + '&sort=' + JSON.stringify(sort);
-        } else if ($(this).attr('data-for') == 'company') {
-            location.href = baseURL + '/export/excel/company?column=' + JSON.stringify(column) + '&filter=' + JSON.stringify(grid.getCombinedFilter()) + '&sort=' + JSON.stringify(sort);
+        } else if ($(this).attr('data-for') == 'tax') {
+            location.href = baseURL + '/export/excel/tax?column=' + JSON.stringify(column) + '&filter=' + JSON.stringify(grid.getCombinedFilter()) + '&sort=' + JSON.stringify(sort);
         }
     });
     $(".grid-btn-error1").click(function () {
@@ -621,7 +621,7 @@ jQuery(function ($) {
                     dataField: "role"
                 }
             ]);
-        } else if ($this.attr('data-for') == 'company') {
+        } else if ($this.attr('data-for') == 'tax') {
             grid.option('dataSource', {
                 store: DevExpress.data.AspNet.createStore({
                     key: 'reference_no',
@@ -664,7 +664,8 @@ jQuery(function ($) {
                                 if (data.itemData.id == 'edit') {
                                     editOwnerForm(options.data.id);
                                 } else if (data.itemData.id == 'delete') {
-                                    deleteGridRecord(baseURL + '/delete/user/' + options.data.reference_no, grid)
+                                    var msg = "This tax record will be deleted from system";
+                                    deleteGridRecord(baseURL + '/user/' + options.data.id, grid, msg);
                                 }
                             }
                         }).appendTo(container);
@@ -1076,7 +1077,7 @@ jQuery(function ($) {
                         $('#progress-label').html('Syncronization has been success. Redirect in ' + counter + ' seconds');
                     }, 1000);
                     setTimeout(() => {
-                        location.href = baseURL + '/company';
+                        location.href = baseURL + '/tax';
                     }, 6000);
                 } else {
                     $('#progress-bar-syncronization').attr('aria-valuenow', data);

@@ -26,8 +26,8 @@ class JsonController extends Controller
                     return response()->json($this->userGrid(), 200, []);
                     break;
                 }
-            case '55a0c60437d14':{ //Grid untuk senarai syarikat//
-                    return response()->json($this->companyGrid(), 200, []);
+            case '55a0c60437d14':{ //Grid untuk senarai tax//
+                    return response()->json($this->taxGrid(), 200, []);
                     break;
                 }
             case '55a0c60438203':{ //Dapatkan % processed excel//
@@ -72,10 +72,10 @@ class JsonController extends Controller
         }
     }
 
-    private function companyGrid()
+    private function taxGrid()
     {
         $response   = null;
-        $controller = new DxGridOfficial('tax_companies',
+        $controller = new DxGridOfficial('tax_records',
             'id, registration_status, registration_date, cancellation_approval, cancellation_effective, sst_no, station_code, station_name, ' .
             'gst_no, brn_no, business_name, trade_name, sst_type, email_address, telephone_no, company_address_1, company_address_2, ' .
             'company_address_3, company_postcode, company_city, company_state, correspondence_address_1, correspondence_address_2, ' .

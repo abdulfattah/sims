@@ -24,9 +24,9 @@ Route::group(array('middleware' => 'auth'), function () {
     Route::get("profile", 'UserController@profile');
     Route::any("password", 'UserController@changePassword');
     Route::resource('user', 'UserController');
-    Route::get("company/sync", 'CompanyController@sync');
-    Route::post("company/sync", 'CompanyController@doSync');
-    Route::resource('company', 'CompanyController');
+    Route::get("tax/sync", 'TaxController@sync');
+    Route::post("tax/sync", 'TaxController@doSync');
+    Route::resource('tax', 'TaxController');
 
     Route::group(array("prefix" => "store"), function () {
         Route::post("config/{tab}", 'ConfigController@store');

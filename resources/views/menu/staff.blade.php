@@ -6,10 +6,10 @@
     </a>
 </li>
 <li class="c-sidebar-nav-item">
-    <a class="c-sidebar-nav-link @if ($menu['menu'] == 'Company') c-active @endif" href="{!! URL::to('company') !!}">
+    <a class="c-sidebar-nav-link @if ($menu['menu'] == 'Tax') c-active @endif" href="{!! URL::to('tax') !!}">
         <svg class="c-sidebar-nav-icon">
             <use xlink:href="{!! asset('icons/free.svg#cil-tags') !!}"></use>
-        </svg> Companies
+        </svg> Tax Records
     </a>
 </li>
 <li class="c-sidebar-nav-item">

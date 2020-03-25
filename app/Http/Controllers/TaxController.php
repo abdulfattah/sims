@@ -9,7 +9,7 @@ use App\Models;
 use App\Models\SYSSetting;
 use Maatwebsite\Excel\Facades\Excel;
 
-class CompanyController extends Controller
+class TaxController extends Controller
 {
 
     use App;
@@ -17,27 +17,27 @@ class CompanyController extends Controller
     public function index()
     {
         $data = array(
-            'menu'       => ['menu' => 'Company', 'subMenu' => ''],
+            'menu'       => ['menu' => 'Tax', 'subMenu' => ''],
             'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
-                             <li class="breadcrumb-item active">Companies</li>',
+                             <li class="breadcrumb-item active">Tax Records</li>',
         );
 
-        return view('company.index', $data);
+        return view('tax.index', $data);
     }
 
     public function sync()
     {
         $check = SYSSetting::where('param', 'syncronize')->get();
         $data  = array(
-            'menu'       => ['menu' => 'Company', 'subMenu' => ''],
+            'menu'       => ['menu' => 'Tax', 'subMenu' => ''],
             'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
-                             <li class="breadcrumb-item"><a href="' . \URL::to('company') . '">Companies</a></li>
+                             <li class="breadcrumb-item"><a href="' . \URL::to('tax') . '">Tax Records</a></li>
                              <li class="breadcrumb-item active">Syncronization</li>',
             'upload'     => true,
             'sync'       => $check->count() > 0,
         );
 
-        return view('company.sync', $data);
+        return view('tax.sync', $data);
     }
 
     public function doSync()
@@ -46,7 +46,7 @@ class CompanyController extends Controller
         $check = SYSSetting::where('param', 'syncronize')->get();
         if ($file != null) {
             if ($check->count() > 0) {
-                return redirect()->to('company/sync');
+                return redirect()->to('tax/sync');
             } else {
                 $newName = 'excel.' . $file->getClientOriginalExtension();
                 $file->move(env('ASSETS_STORAGE') . 'syncronize', $newName);
@@ -59,15 +59,15 @@ class CompanyController extends Controller
         }
 
         $data = array(
-            'menu'       => ['menu' => 'Company', 'subMenu' => ''],
+            'menu'       => ['menu' => 'Tax', 'subMenu' => ''],
             'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
-                             <li class="breadcrumb-item"><a href="' . \URL::to('company') . '">Companies</a></li>
+                             <li class="breadcrumb-item"><a href="' . \URL::to('tax') . '">Tax Records</a></li>
                              <li class="breadcrumb-item active">Syncronization</li>',
             'upload'     => false,
             'sync'       => $check->count() > 0,
         );
 
-        return view('company.sync', $data);
+        return view('tax.sync', $data);
     }
 
     public function store($type, $tab, $ref = null)
@@ -145,9 +145,9 @@ class CompanyController extends Controller
     public function show()
     {
         $data = array(
-            'menu'       => ['menu' => 'Company', 'subMenu' => ''],
+            'menu'       => ['menu' => 'Tax', 'subMenu' => ''],
             'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
-                             <li class="breadcrumb-item"><a href="' . \URL::to('owner') . '">Company</a></li>
+                             <li class="breadcrumb-item"><a href="' . \URL::to('owner') . '">Tax Record</a></li>
                              <li class="breadcrumb-item active">Show</li>',
         );
 

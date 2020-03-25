@@ -4,11 +4,11 @@
 <div class="card">
     <div class="card-header">
         <div class="mt-1 float-left">
-            <strong>Syncronize Company From Excel File</strong>
+            <strong>Syncronize Tax Record From Excel File</strong>
         </div>
     </div>
     <div class="card-body">
-        <form method="POST" action="{!! \URL::to('company/sync') !!}" id="form-sync" class="form-horizontal" enctype="multipart/form-data" novalidate>
+        <form method="POST" action="{!! \URL::to('tax/sync') !!}" id="form-sync" class="form-horizontal" enctype="multipart/form-data" novalidate>
             @csrf
             <div class="row">
                 <div class="col-md-12">

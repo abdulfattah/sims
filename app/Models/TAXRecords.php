@@ -1,9 +1,9 @@
 <?php
 namespace App\Models;
 
-class TAXCompany extends \Eloquent
+class TAXRecords extends \Eloquent
 {
-    protected $table = 'tax_companies';
+    protected $table = 'tax_records';
 
     // public function properties()
     // {

@@ -3,12 +3,12 @@
 namespace App\Excel\Imports;
 
 use App\Models\SYSSetting;
-use App\Models\TAXCompany;
+use App\Models\TAXRecords;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithStartRow;
 
-class CompaniesImport implements ToModel, WithStartRow, WithBatchInserts
+class TaxImport implements ToModel, WithStartRow, WithBatchInserts
 {
     protected $setting;
 
@@ -19,7 +19,7 @@ class CompaniesImport implements ToModel, WithStartRow, WithBatchInserts
 
     public function model(array $row)
     {
-        return new TAXCompany([
+        return new TAXRecords([
             'registration_status'      => $row[0],
             'registration_date'        => $row[1] != null ? date('Y-m-d', strtotime($row[1])) : null,
             'cancellation_approval'    => $row[2] != null ? date('Y-m-d', strtotime($row[2])) : null,
