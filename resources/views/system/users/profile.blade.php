@@ -24,7 +24,7 @@
             </dl>
          </div>
          <div class="card-footer text-right">
-            <button type="button" class="btn btn-sm btn-primary" style="height: 33px" onclick="location.href = '{{ URL::to('edit/user/' . $user->id) }}';">
+            <button type="button" class="btn btn-sm btn-primary" style="height: 33px" onclick="location.href = '{{ URL::to('user/' . $user->id . '/edit') }}';">
                Update
             </button>
          </div>

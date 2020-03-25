@@ -3,7 +3,6 @@
 namespace App\Libs;
 
 use App\Models;
-use Ramsey\Uuid\Uuid;
 
 trait App
 {
@@ -116,31 +115,22 @@ trait App
         }
 
         if ($file != null) {
-            $assetId      = Uuid::uuid4()->getHex();
+
+            $asset     = new Models\SYSAsset();
+            if ($assetType == 'building_plan') {
+                $asset->for    = 'Building Plan';
+                $asset->for_id = $forId;
+            }            
+            $asset->upload_by  = \Auth::user()->id;
+            $asset->save();
+            
             $originalName = $file->getClientOriginalName();
-            $newName      = $assetId . '.' . $file->getClientOriginalExtension();
+            $newName      = $asset->id . '.' . $file->getClientOriginalExtension();
             if ($assetType == 'owner_avatar') {
                 $file->move(env('ASSETS_STORAGE') . 'avatar', $newName);
             } else {
                 $file->move($uploadPath, $newName);
             }
-
-            $asset     = new Models\SYSAsset();
-            $asset->id = $assetId;
-            if ($assetType == 'building_plan') {
-                $asset->for    = 'Building Plan';
-                $asset->for_id = $forId;
-            } elseif ($assetType == 'land_plan') {
-                $asset->for    = 'Land Plan';
-                $asset->for_id = $forId;
-            } elseif ($assetType == 'owner_avatar') {
-                $asset->for    = 'Owner Avatar';
-                $asset->for_id = $forId;
-            } elseif ($assetType == 'property_attachment') {
-                $asset->for    = 'Property Attachment';
-                $asset->for_id = $forId;
-            }
-            $asset->upload_by  = \Auth::user()->user_id;
             $asset->asset_name = $originalName;
             if ($assetType == 'owner_avatar') {
                 $asset->file_size = \Storage::disk('asset')->size('avatar' . DIRECTORY_SEPARATOR . $newName);

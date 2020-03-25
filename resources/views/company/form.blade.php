@@ -5,9 +5,9 @@
         @if(isset($user)) Update @else Create New @endif User
     </div>
     <div class="card-body">
-        <form method="POST" action="{!! isset($user) ? \URL::to('user', $user->id) : \URL::to('user') !!}" id="form-user" class="form-horizontal" enctype="multipart/form-data" novalidate>
+        <form method="POST" action="{!! isset($user) ? \URL::to('update/user', $user->id) : \URL::to('store/user') !!}" id="form-user" class="form-horizontal" enctype="multipart/form-data"
+            novalidate>
             @csrf
-            @if (isset($user)) <input type="hidden" name="_method" value="PUT" /> @endif
             <div class="row">
                 <div class="col-md-3">
                     <div class="center" style="margin-top: 20px">
@@ -34,8 +34,9 @@
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label" for="hf-email">Role</label>
                         <div class="col-md-9">
-                            <div data-dx="selectbox" data-name="role" data-source="roles" data-value-exp="id" data-value="{!! \Request::old('role', isset($user) ? $user->role : NULL) !!}"
-                                data-validate="true" data-validation-type="required" data-validation-group="form">
+                            <div data-dx="selectbox" data-name="role" data-source="roles" data-value-exp="id"
+                                data-value="{!! \Request::old('role', isset($user) ? $user->role : NULL) !!}" data-validate="true" data-validation-type="required"
+                                data-validation-group="form">
                             </div>
                         </div>
                     </div>

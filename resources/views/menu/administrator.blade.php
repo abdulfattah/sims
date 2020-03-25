@@ -6,7 +6,7 @@
     </a>
 </li>
 <li class="c-sidebar-nav-item">
-    <a class="c-sidebar-nav-link @if ($menu['menu'] == 'Users') c-active @endif" href="{!! URL::to('users') !!}">
+    <a class="c-sidebar-nav-link @if ($menu['menu'] == 'User') c-active @endif" href="{!! URL::to('user') !!}">
         <svg class="c-sidebar-nav-icon">
             <use xlink:href="{!! asset('icons/free.svg#cil-people') !!}"></use>
         </svg> Users

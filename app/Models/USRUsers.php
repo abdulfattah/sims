@@ -12,7 +12,6 @@ class USRUsers extends \Eloquent implements AuthenticatableContract, CanResetPas
     use Authenticatable, CanResetPassword;
 
     public $table        = 'usr_users';
-    public $incrementing = false;
 
     public function avatar()
     {

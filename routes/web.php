@@ -21,37 +21,26 @@ Route::group(array('middleware' => 'auth'), function () {
     Route::get("resend/activation/{id}", "UserController@resendActivation");
     Route::get("reset/password/{id}", "UserController@resetPassword");
     Route::get('data', 'JsonController@json');
-    Route::get("users", 'UserController@index');
     Route::get("profile", 'UserController@profile');
     Route::any("password", 'UserController@changePassword');
-    Route::get("owner", 'OwnerController@index');
-
-    Route::group(array("prefix" => "create"), function () {
-        Route::get("user", 'UserController@create');
-    });
+    Route::resource('user', 'UserController');
+    Route::get("company/sync", 'CompanyController@sync');
+    Route::resource('company', 'CompanyController');
 
     Route::group(array("prefix" => "store"), function () {
         Route::post("config/{tab}", 'ConfigController@store');
-        Route::post("user", 'UserController@store');
     });
 
     Route::group(array("prefix" => "edit"), function () {
         Route::get("config/{tab}", 'ConfigController@edit');
-        Route::get("user/{id}", 'UserController@edit');
     });
 
     Route::group(array("prefix" => "update"), function () {
         Route::post("config/{tab}", 'ConfigController@update');
-        Route::post("user/{id}", 'UserController@update');
-    });
-
-    Route::group(array("prefix" => "show"), function () {
-        Route::get("user/{id}", 'UserController@show');
     });
 
     Route::group(array("prefix" => "delete"), function () {
         Route::delete("config/{tab}", 'ConfigController@delete');
-        Route::delete("user/{id}", 'UserController@delete');
     });
 
     Route::group(array("prefix" => "export"), function () {
@@ -59,7 +48,7 @@ Route::group(array('middleware' => 'auth'), function () {
     });
 
     Route::group(array("prefix" => "print"), function () {
-        Route::get("assessment/item/{id}", 'AssessmentController@printItem');
+        
     });
 
     Route::get('asset/image', 'SystemController@image');
@@ -71,7 +60,7 @@ Route::group(array('middleware' => 'auth'), function () {
 });
 
 Route::group(array("prefix" => "print/preview"), function () {
-    Route::get("assessment/item/{id}", 'AssessmentController@printPreviewItem');
+    
 });
 
 Route::get('logout', 'UserController@logout');

@@ -6,9 +6,8 @@ use App\Libs\DxGridOfficial;
 use App\Libs\App;
 use App\Models;
 use Maatwebsite\Excel\Facades\Excel;
-use Ramsey\Uuid\Uuid;
 
-class OwnerController extends Controller
+class CompanyController extends Controller
 {
 
     use App;
@@ -16,19 +15,18 @@ class OwnerController extends Controller
     public function index()
     {
         $data = array(
-            'menu'       => ['menu' => 'Harta', 'subMenu' => 'Pemilik'],
+            'menu'       => ['menu' => 'Company', 'subMenu' => ''],
             'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
-                             <li class="breadcrumb-item active">Pemilik</li>',
+                             <li class="breadcrumb-item active">Company</li>',
         );
 
-        return view('property.owner.index', $data);
+        return view('company.index', $data);
     }
 
     public function store($type, $tab, $ref = null)
     {
         $input     = \Request::all();
         $owner     = new Models\PROOwner();
-        $owner->id = Uuid::uuid4()->getHex();
         $owner     = $this->populateSaveValue($owner, $input, array(
             'exclude' => array(
                 '_token',
@@ -100,10 +98,10 @@ class OwnerController extends Controller
     public function show()
     {
         $data = array(
-            'menu'       => ['menu' => 'Harta', 'subMenu' => 'Pemilik'],
+            'menu'       => ['menu' => 'Company', 'subMenu' => ''],
             'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
-                             <li class="breadcrumb-item"><a href="' . \URL::to('owner') . '">Pemilik</a></li>
-                             <li class="breadcrumb-item active">Papar</li>',
+                             <li class="breadcrumb-item"><a href="' . \URL::to('owner') . '">Company</a></li>
+                             <li class="breadcrumb-item active">Show</li>',
         );
 
         return view('property.owner.show', $data);

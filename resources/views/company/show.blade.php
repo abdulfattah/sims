@@ -35,7 +35,7 @@
                 <use xlink:href="{!! asset('icons/free.svg#cil-chevron-left') !!}"></use>
             </svg>
         </button>
-        <button type="button" class="btn btn-sm btn-primary" style="height: 33px" onclick="location.href = '{{ URL::to('user/' . $user->id . '/edit') }}';">
+        <button type="button" class="btn btn-sm btn-primary" style="height: 33px" onclick="location.href = '{{ URL::to('edit/user/' . $user->id) }}';">
             Update
         </button>
     </div>

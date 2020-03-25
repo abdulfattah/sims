@@ -54,7 +54,6 @@ class UserController extends Controller
                     $agent = new Agent();
 
                     $log                  = new Models\USRLoginLog();
-                    $log->id              = Uuid::uuid4()->getHex();
                     $log->user_id         = \Auth::user()->id;
                     $log->login_dtm       = date('Y-m-d H:i:s');
                     $log->ip_address      = $_SERVER['REMOTE_ADDR'];
@@ -107,10 +106,10 @@ class UserController extends Controller
                     'expired' => Carbon::now()->addDays(2)->format('d M Y H:i'),
                 ]));
 
-            return redirect()->to('users')->with('success', 'Activation email has been sent.');
+            return redirect()->to('user')->with('success', 'Activation email has been sent.');
         } else {
 
-            return redirect()->to('users')->with('error', 'This user already active.');
+            return redirect()->to('user')->with('error', 'This user already active.');
         }
     }
 
@@ -154,9 +153,9 @@ class UserController extends Controller
 
             $user->save();
 
-            return redirect()->to('users')->with('success', 'Email reset password has been sent to user.');
+            return redirect()->to('user')->with('success', 'Email reset password has been sent to user.');
         } else {
-            return redirect()->to('users')->with('error', 'User not active.');
+            return redirect()->to('user')->with('error', 'User not active.');
         }
     }
 
@@ -222,7 +221,7 @@ class UserController extends Controller
             return view('system.users.change_password', $data);
         } else {
             $user = Models\USRUsers::find(\Auth::user()->id);
-            
+
             if (!\Hash::check(request()->get('old_password'), $user->password)) {
                 return redirect()->to('password')->with('error', 'Invalid old password');
             } else {
@@ -237,7 +236,7 @@ class UserController extends Controller
     public function index()
     {
         $data = array(
-            'menu'       => ['menu' => 'Users', 'subMenu' => ''],
+            'menu'       => ['menu' => 'User', 'subMenu' => ''],
             'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
                              <li class="breadcrumb-item active">Users</li>',
         );
@@ -250,7 +249,7 @@ class UserController extends Controller
         $data = array(
             'menu'       => ['menu' => 'Users', 'subMenu' => ''],
             'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
-                             <li class="breadcrumb-item"><a href="' . \URL::to('users') . '">Users</a></li>
+                             <li class="breadcrumb-item"><a href="' . \URL::to('user') . '">Users</a></li>
                              <li class="breadcrumb-item active">Add New</li>',
         );
 
@@ -259,57 +258,48 @@ class UserController extends Controller
 
     public function store()
     {
-        $userId = Uuid::uuid4()->getHex();
-
         if (Models\USRUsers::where('username', \Request::input('username'))->get()->count() < 1) {
+            $user = new Models\USRUsers();
+            $user = $this->populateSaveValue($user, \Request::all(), array(
+                'exclude' => array('_token', 'profile_image', 'files', 'avatar'),
+            ));
+            $user->password = 'Not Active Yet!';
+            $user->enable   = 0;
+            $user->save();
+
             $data = \Request::input('profile_image');
             if ($data != null && $data != 'data:,') {
-                $assetId = Uuid::uuid4()->getHex();
+                $asset             = new Models\SYSAsset();
+                $asset->for        = 'User Avatar';
+                $asset->for_id     = $user->id;
+                $asset->upload_by  = \Auth::user()->user_id;
+                $asset->asset_name = 'avatar.png';
+                $asset->save();
 
                 list($type, $data) = explode(';', $data);
                 list(, $data)      = explode(',', $data);
                 $data              = base64_decode($data);
                 $asset             = new Models\SYSAsset();
-                $imageName         = $assetId . '.png';
+                $imageName         = $asset->id . '.png';
                 file_put_contents(env('ASSETS_STORAGE') . 'avatar' . DIRECTORY_SEPARATOR . $imageName, $data);
-
-                $asset             = new Models\SYSAsset();
-                $asset->id         = $assetId;
-                $asset->for        = 'User Avatar';
-                $asset->for_id     = $userId;
-                $asset->upload_by  = \Auth::user()->user_id;
-                $asset->asset_name = 'avatar.png';
-                $asset->file_size  = \Storage::disk('asset')->size('avatar' . DIRECTORY_SEPARATOR . $imageName);
-                $asset->md5        = md5_file(env('ASSETS_STORAGE') . 'avatar' . DIRECTORY_SEPARATOR . $imageName);
+                $asset->file_size = \Storage::disk('asset')->size('avatar' . DIRECTORY_SEPARATOR . $imageName);
+                $asset->md5       = md5_file(env('ASSETS_STORAGE') . 'avatar' . DIRECTORY_SEPARATOR . $imageName);
                 $asset->save();
             }
 
-            $user     = new Models\USRUsers();
-            $user->id = $userId;
-            $user     = $this->populateSaveValue($user, \Request::all(), array(
-                'exclude' => array('_token', 'profile_image', 'files', 'avatar'),
-            ));
-            $user->password = 'Not Active Yet!';
-            $user->enable   = 0;
-            $save_status    = $user->save();
-
-            $client = array('status' => $save_status, 'userId' => $userId, 'fullname' => $user->fullname, 'email' => $user->username);
-
-            if ($client['status']) {
-                \Mail::to($user->username)
-                    ->queue(new Mail\Activation([
-                        'name'    => strtoupper($user->fullname),
-                        'url'     => \URL::to('activate/' . $client['userId']),
-                        'expired' => Carbon::now()->addDays(2)->format('d M Y H:i'),
-                    ]));
-            }
+            \Mail::to($user->username)
+                ->queue(new Mail\Activation([
+                    'name'    => strtoupper($user->fullname),
+                    'url'     => \URL::to('activate/' . $user->id),
+                    'expired' => Carbon::now()->addDays(2)->format('d M Y H:i'),
+                ]));
         } else {
             return redirect()->to('create/user')
                 ->withInput()
                 ->withErrors(array('message' => 'User with that email already exists.'));
         }
 
-        return redirect()->to('users');
+        return redirect()->to('user');
     }
 
     public function edit($id)
@@ -317,7 +307,7 @@ class UserController extends Controller
         $data = array(
             'menu'       => ['menu' => 'Users', 'subMenu' => ''],
             'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
-                             <li class="breadcrumb-item"><a href="' . \URL::to('users') . '">Users</a></li>
+                             <li class="breadcrumb-item"><a href="' . \URL::to('user') . '">Users</a></li>
                              <li class="breadcrumb-item active">Update</li>',
             'user'       => Models\USRUsers::find($id),
         );
@@ -329,47 +319,44 @@ class UserController extends Controller
     {
         $user = Models\USRUsers::find($id);
         $user = $this->populateSaveValue($user, \Request::all(), array(
-            'exclude' => array('_token', 'profile_image', 'files', 'avatar'),
+            'exclude' => array('_token', '_method', 'profile_image', 'files', 'avatar'),
         ));
         $user->save();
 
         $data = \Request::input('profile_image');
         if ($data != null && $data != 'data:,') {
-            $assetId = Uuid::uuid4()->getHex();
-
-            list($type, $data) = explode(';', $data);
-            list(, $data)      = explode(',', $data);
-            $data              = base64_decode($data);
-            $asset             = new Models\SYSAsset();
-            $imageName         = $assetId . '.png';
-
-            if ($user->avatar != null &&
-                \Storage::disk('asset')->exists('avatar' . DIRECTORY_SEPARATOR . $this->getFilename('images', $user->avatar))) {
-                \Storage::disk('asset')->delete('avatar' . DIRECTORY_SEPARATOR . $this->getFilename('images', $user->avatar));
-            }
-
-            file_put_contents(env('ASSETS_STORAGE') . 'avatar' . DIRECTORY_SEPARATOR . $imageName, $data);
 
             $asset = Models\SYSAsset::where('for_id', $user->id)->where('for', 'User Avatar');
             if ($asset->count() > 0) {
+                if (\Storage::disk('asset')->exists('avatar' . DIRECTORY_SEPARATOR . $this->getFilename('images', $user->avatar))) {
+                    \Storage::disk('asset')->delete('avatar' . DIRECTORY_SEPARATOR . $this->getFilename('images', $user->avatar));
+                }
                 $asset->forceDelete();
             }
 
             $asset             = new Models\SYSAsset();
-            $asset->id         = $assetId;
             $asset->for        = 'User Avatar';
             $asset->for_id     = $user->id;
-            $asset->upload_by  = \Auth::user()->user_id;
+            $asset->upload_by  = \Auth::user()->id;
             $asset->asset_name = 'avatar.png';
-            $asset->file_size  = \Storage::disk('asset')->size('avatar' . DIRECTORY_SEPARATOR . $imageName);
-            $asset->md5        = md5_file(env('ASSETS_STORAGE') . 'avatar' . DIRECTORY_SEPARATOR . $imageName);
+            $asset->save();
+
+            list($type, $data) = explode(';', $data);
+            list(, $data)      = explode(',', $data);
+            $data              = base64_decode($data);
+            $imageName         = $asset->id . '.png';
+
+            file_put_contents(env('ASSETS_STORAGE') . 'avatar' . DIRECTORY_SEPARATOR . $imageName, $data);
+
+            $asset->file_size = \Storage::disk('asset')->size('avatar' . DIRECTORY_SEPARATOR . $imageName);
+            $asset->md5       = md5_file(env('ASSETS_STORAGE') . 'avatar' . DIRECTORY_SEPARATOR . $imageName);
             $asset->save();
         }
 
         if (Auth::user()->id == $user->id) {
             return redirect()->to('profile');
         } else {
-            return redirect()->to('users');
+            return redirect()->to('user');
         }
     }
 
@@ -378,7 +365,7 @@ class UserController extends Controller
         $data = array(
             'menu'       => ['menu' => 'Users', 'subMenu' => ''],
             'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
-                             <li class="breadcrumb-item"><a href="' . \URL::to('users') . '">Users</a></li>
+                             <li class="breadcrumb-item"><a href="' . \URL::to('user') . '">Users</a></li>
                              <li class="breadcrumb-item active">Show</li>',
             'user'       => Models\USRUsers::find($id),
         );
@@ -414,7 +401,7 @@ class UserController extends Controller
         }
     }
 
-    public function delete($id)
+    public function destroy($id)
     {
         try {
             $user = Models\USRUsers::find($id);
@@ -431,9 +418,9 @@ class UserController extends Controller
 
             $user->forceDelete();
 
-            return response()->json(['status' => true, 'message' => 'Rekod berjaya dihapuskan']);
+            return response()->json(['status' => true, 'message' => 'User has been deleted']);
         } catch (\Exception $ex) {
-            return response()->json(['status' => false, 'message' => 'Ralat dalam menghapuskan rekod ini']);
+            return response()->json(['status' => false, 'message' => 'Error on deleted that record']);
         }
     }
 

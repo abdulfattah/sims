@@ -4,7 +4,7 @@
 <div class="card">
     <div class="card-header">
         <div class="mt-1 float-left">
-            <strong>User's Information</strong>
+            <strong>List of Users</strong>
         </div>
         <div class="float-right" style="display: flex;flex-direction: row;">
             <button class="btn btn-primary btn-sm grid-btn-plus" type="button" style="margin-right: 4px;" data-for="users">
