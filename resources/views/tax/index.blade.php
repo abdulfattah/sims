@@ -7,11 +7,11 @@
             <strong>List of Tax Record</strong>
         </div>
         <div class="float-right" style="display: flex;flex-direction: row;">
-            <button class="btn btn-primary btn-sm grid-btn-plus" type="button" style="margin-right: 4px;" data-for="tax">
+            {{-- <button class="btn btn-primary btn-sm grid-btn-plus" type="button" style="margin-right: 4px;" data-for="tax">
                 <svg class="c-icon">
                     <use xlink:href="{!! asset('icons/free.svg#cil-plus') !!}"></use>
                 </svg>
-            </button>
+            </button> --}}
             <div data-dx="tooltip" class="d-none">Add New Tax Record</div>
             <button class="btn btn-primary btn-sm grid-btn-sync" type="button" style="margin-right: 4px;">
                 <svg class="c-icon">

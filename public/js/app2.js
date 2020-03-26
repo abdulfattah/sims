@@ -72,7 +72,7 @@ jQuery(function ($) {
                 readOnly: $this.attr('data-readonly')
             });
 
-            if ($this.attr('data-name') === 'username' || $this.attr('data-name') === 'email' || $this.attr('data-name') === 'emel_daripada') {
+            if ($this.attr('data-name') === 'username' || $this.attr('data-name') === 'email_address') {
                 $this.dxTextBox('instance').option('inputAttr', {
                     style: 'text-transform:none'
                 });
@@ -189,6 +189,7 @@ jQuery(function ($) {
                 displayFormat: $this.attr('data-display-format'),
                 maxZoomLevel: $this.attr('data-max-level'),
                 minZoomLevel: $this.attr('data-min-level'),
+                readOnly: $this.attr('data-readonly')
             });
         }
 
@@ -525,10 +526,6 @@ jQuery(function ($) {
                 visible: true,
                 applyFilter: "auto"
             },
-            selection: {
-                mode: 'single',
-                allowSelectAll: false
-            },
             columnFixing: {
                 enabled: true
             },
@@ -662,10 +659,10 @@ jQuery(function ($) {
                             cssClass: "grid-cog-menu",
                             onItemClick: function (data) {
                                 if (data.itemData.id == 'edit') {
-                                    editOwnerForm(options.data.id);
+                                    location.href = baseURL + '/tax/' + options.data.id + '/edit';
                                 } else if (data.itemData.id == 'delete') {
                                     var msg = "This tax record will be deleted from system";
-                                    deleteGridRecord(baseURL + '/user/' + options.data.id, grid, msg);
+                                    deleteGridRecord(baseURL + '/tax/' + options.data.id, grid, msg);
                                 }
                             }
                         }).appendTo(container);
@@ -676,12 +673,13 @@ jQuery(function ($) {
                     dataType: 'string',
                     dataField: "business_name",
                     width: '280',
+                    sortOrder: 'asc',
                     allowHeaderFiltering: false,
                     cellTemplate: function (container, options) {
                         $('<a/>').addClass('dx-link')
                             .text(options.text)
                             .on('dxclick', function () {
-                                location.href = baseURL + '/show/owner/' + options.data.id;
+                                location.href = baseURL + '/tax/' + options.data.id;
                             })
                             .appendTo(container);
                     }
@@ -696,40 +694,44 @@ jQuery(function ($) {
                 {
                     caption: 'Status Name',
                     dataField: "registration_status",
-                    width: '90',
+                    width: '110',
                     dataType: 'string'
                 },
                 {
                     caption: 'Register Date',
-                    dataType: 'registration_date',
-                    dataField: "type",
-                    allowHeaderFiltering: false
+                    dataField: "registration_date",
+                    dataType: "date",
+                    width: '110',
+                    format: 'dd MMM yyyy'
                 },
                 {
                     caption: 'Cancellation Approval',
-                    dataType: 'string',
                     dataField: "cancellation_approval",
                     visible: false,
+                    dataType: "date",
+                    format: 'dd MMM yyyy',
                     allowHeaderFiltering: false
                 },
                 {
                     caption: 'Cancellation Effective',
-                    dataType: 'string',
                     dataField: "cancellation_effective",
                     visible: false,
+                    dataType: "date",
+                    format: 'dd MMM yyyy',
                     allowHeaderFiltering: false
                 },
                 {
                     caption: 'SST No',
                     dataType: 'string',
                     dataField: "sst_no",
-                    width: '120',
+                    width: '130',
                     allowHeaderFiltering: false
                 },
                 {
                     caption: 'Station Code',
                     dataType: 'string',
                     dataField: "station_code",
+                    width: '100',
                     visible: false
                 },
                 {
@@ -749,6 +751,7 @@ jQuery(function ($) {
                     caption: 'Brn No',
                     dataType: 'string',
                     dataField: "brn_no",
+                    width: '100',
                     allowHeaderFiltering: false
                 },
                 {
@@ -765,8 +768,9 @@ jQuery(function ($) {
                 },
                 {
                     caption: 'Telephone No',
-                    dataType: '',
+                    dataType: 'string',
                     dataField: "telephone_no",
+                    width: '120',
                     allowHeaderFiltering: false
                 },
                 {
@@ -806,6 +810,7 @@ jQuery(function ($) {
                 {
                     caption: 'Company State',
                     dataType: 'string',
+                    width: '130',
                     dataField: "company_state",
                 },
                 {
@@ -849,34 +854,40 @@ jQuery(function ($) {
                     visible: false
                 },
                 {
-                    caption: 'Factory/Registered Name',
+                    caption: 'Factory Name',
                     dataType: 'string',
+                    width: '120',
                     dataField: "factory_name",
                     allowHeaderFiltering: false
                 },
                 {
                     caption: 'Entity Type',
                     dataType: 'string',
+                    width: '120',
                     dataField: "entity_type"
                 },
                 {
                     caption: 'Business Activity',
                     dataType: 'string',
+                    width: '140',
                     dataField: "business_activity"
                 },
                 {
-                    caption: 'Product/Goods',
+                    caption: 'Product',
                     dataType: 'string',
+                    width: '120',
                     dataField: "product_tax"
                 },
                 {
                     caption: 'Facility Applied',
                     dataType: 'string',
+                    width: '120',
                     dataField: "facility_applied"
                 },
                 {
                     caption: 'Local Marketing',
                     dataType: 'string',
+                    width: '120',
                     dataField: "local_marketing"
                 },
                 {
@@ -896,13 +907,6 @@ jQuery(function ($) {
                     dataType: 'string',
                     dataField: "uncomplience_type",
                     visible: false
-                },
-                {
-                    caption: 'Last Updated',
-                    dataField: "updated_at",
-                    allowHeaderFiltering: false,
-                    visible: false,
-                    showInColumnChooser: false,
                 }
             ]);
         }

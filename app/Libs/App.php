@@ -212,39 +212,4 @@ trait App
 
         return $extension[count($extension) - 1];
     }
-
-    public static function getAddress($model)
-    {
-        $address = '';
-        if ($model->address != null or $model->address != '') {
-            $address .= $model->address . ', ';
-        }
-        if ($model->postcode != null or $model->postcode != '') {
-            $address .= $model->postcode . ', ';
-        }
-        if ($model->town != null or $model->town != '') {
-            $address .= $model->town . ', ';
-        }
-        if ($model->state != null or $model->state != '') {
-            $address .= $model->state . ', ';
-        }
-
-        return substr($address, 0, -2);
-    }
-
-    public static function getAddressEPBT($model)
-    {
-        $address = '';
-        if ($model->address_epbt1 != null or $model->address_epbt1 != '') {
-            $address .= $model->address_1 . ', ';
-        }
-        if ($model->address_epbt2 != null or $model->address_epbt2 != '') {
-            $address .= $model->address_2 . ', ';
-        }
-        if ($model->address_epbt3 != null or $model->address_epbt3 != '') {
-            $address .= $model->address_2 . ', ';
-        }
-
-        return substr($address, 0, -2);
-    }
 }

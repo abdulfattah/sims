@@ -7,6 +7,8 @@ use App\Libs\App;
 use App\Libs\DxGridOfficial;
 use App\Models;
 use App\Models\SYSSetting;
+use App\Models\TAXRecords;
+use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
 
 class TaxController extends Controller
@@ -50,7 +52,7 @@ class TaxController extends Controller
             } else {
                 $newName = 'excel.' . $file->getClientOriginalExtension();
                 $file->move(env('ASSETS_STORAGE') . 'syncronize', $newName);
-                $setting = new SYSSetting();
+                $setting        = new SYSSetting();
                 $setting->param = 'syncronize';
                 $setting->value = '1';
                 $setting->save();
@@ -70,88 +72,52 @@ class TaxController extends Controller
         return view('tax.sync', $data);
     }
 
-    public function store($type, $tab, $ref = null)
+    public function store()
     {
-        $input = \Request::all();
-        $owner = new Models\PROOwner();
-        $owner = $this->populateSaveValue($owner, $input, array(
-            'exclude' => array(
-                '_token',
-                'owner_id',
-                'attach_to_property', //tak digunakan pada store, hanya unt update
-                'picture',
-                'officer_company',
-                'officer_gov',
-                'billing_to',
-                'note',
-            ),
-        )
-        );
-        $owner->officer    = $input['officer_company'] != null ? strtoupper($input['officer_company']) : strtoupper($input['officer_gov']);
-        $owner->billing_to = $input['billing_to'] == 'true' ? 1 : 0;
-        $owner->note       = $input['note'];
-        $owner->save();
-
-        $file = \Request::file('picture');
-        if ($file != null) {
-            $this->upload($file, $ref, 'owner_avatar', $owner->id);
-        }
-
-        $property = Models\PROProperty::where('reference_no', $ref)->first();
-        $property->owners()->attach($owner);
-
-        return redirect()->back();
     }
 
-    public function update($type, $tab, $ref = null)
-    {
-        $input = \Request::all();
-        $owner = Models\PROOwner::find($input['owner_id']);
-        $owner = $this->populateSaveValue($owner, $input, array(
-            'exclude' => array(
-                '_token',
-                'owner_id',
-                'attach_to_property',
-                'picture',
-                'officer_company',
-                'officer_gov',
-                'billing_to',
-                'note',
-            ),
-        )
-        );
-        $owner->officer    = $input['officer_company'] != null ? strtoupper($input['officer_company']) : strtoupper($input['officer_gov']);
-        $owner->billing_to = $input['billing_to'] == 'true' ? 1 : 0;
-        $owner->note       = $input['note'];
-        $owner->save();
-
-        $file = \Request::file('picture');
-        if ($file != null) {
-            $this->upload($file, $ref, 'owner_avatar', $owner->id);
-        }
-
-        $owner->save();
-
-        if ($input['attach_to_property'] == 'true') {
-            $property = Models\PROProperty::where('reference_no', $ref)->first();
-            //TODO check jika dah attach
-            $property->owners()->attach($owner);
-        }
-
-        return redirect()->to('edit/property/' . $type . '/' . $tab . '/' . $ref)
-            ->with('success', 'Maklumat harta telah dikemaskini.');
-    }
-
-    public function show()
+    public function edit($id)
     {
         $data = array(
             'menu'       => ['menu' => 'Tax', 'subMenu' => ''],
             'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
-                             <li class="breadcrumb-item"><a href="' . \URL::to('owner') . '">Tax Record</a></li>
-                             <li class="breadcrumb-item active">Show</li>',
+                             <li class="breadcrumb-item"><a href="' . \URL::to('tax') . '">Tax Records</a></li>
+                             <li class="breadcrumb-item active">Edit</li>',
+            'tax'       => Models\TAXRecords::find($id),
         );
 
-        return view('property.owner.show', $data);
+        return view('tax.form', $data);
+    }
+
+    public function update($id)
+    {
+        $input = \Request::all();
+        $tax = Models\TAXRecords::find($id);
+        $tax = $this->populateSaveValue($tax, $input, array(
+            'exclude' => array(
+                '_token',
+                '_method',
+            ),
+        )
+        );
+        $tax->save();
+
+        return redirect()->to('tax/' . $id)
+            ->with('success', 'Tax information has been update.');
+    }
+
+    public function show($id)
+    {
+        $tax  = TAXRecords::find($id);
+        $data = array(
+            'menu'       => ['menu' => 'Tax', 'subMenu' => ''],
+            'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
+                             <li class="breadcrumb-item"><a href="' . \URL::to('tax') . '">Tax Record</a></li>
+                             <li class="breadcrumb-item active">Show</li>',
+            'tax'        => $tax,
+        );
+
+        return view('tax.show', $data);
     }
 
     public function exportExcel()
@@ -172,28 +138,26 @@ class TaxController extends Controller
         }
     }
 
-    public function delete($type, $tab, $ref = null)
+    public function destroy($id)
     {
-        $owner             = Models\PROOwner::find(\Request::input('id'));
-        $relatedWithOthers = false;
-        foreach ($owner->properties as $property) {
-            if ($property->reference_no != $ref) {
-                $relatedWithOthers = true;
-            }
-        };
+        try {
+            $taxRecords = Models\TAXRecords::find($id);
 
-        if (!$relatedWithOthers) {
-            if ($owner->avatar != null) {
-                $this->deleteUpload($owner->avatar, $ref);
-            }
-            $property = Models\PROProperty::where('reference_no', $ref)->first();
-            $property->owners()->detach($owner);
-            $owner->forceDelete();
-        } else {
-            $property = Models\PROProperty::where('reference_no', $ref)->first();
-            $property->owners()->detach($owner);
+            // if ($taxRecords->avatar != null &&
+            //     \Storage::disk('asset')->exists('avatar' . DIRECTORY_SEPARATOR . $this->getFilename('images', $user->avatar))) {
+            //     \Storage::disk('asset')->delete('avatar' . DIRECTORY_SEPARATOR . $this->getFilename('images', $user->avatar));
+            // }
+
+            // $asset = Models\SYSAsset::where('for_id', $user->id)->where('for', 'User Avatar');
+            // if ($asset->count() > 0) {
+            //     $asset->forceDelete();
+            // }
+
+            $taxRecords->delete();
+
+            return response()->json(['status' => true, 'message' => 'Tax record has been deleted']);
+        } catch (\Exception $ex) {
+            return response()->json(['status' => false, 'message' => 'Error on deleted that record']);
         }
-
-        return redirect()->to('edit/property/single/4/' . $ref)->with('success', 'Maklumat pemilik telah dihapuskan.');
     }
 }

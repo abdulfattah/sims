@@ -5,6 +5,7 @@ namespace App\Jobs;
 use App\Excel\Imports\TaxImport;
 use App\Models\SYSSetting;
 use App\Models\TAXRecords;
+use Carbon\Carbon;
 use Excel;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -47,9 +48,9 @@ class ProcessExcel implements ShouldQueue
                 }
                 
                 $tax->registration_status      = $v[0];
-                $tax->registration_date        = $v[1] != null ? date('Y-m-d', strtotime($v[1])) : null;
-                $tax->cancellation_approval    = $v[2] != null ? date('Y-m-d', strtotime($v[2])) : null;
-                $tax->cancellation_approval    = $v[3] != null ? date('Y-m-d', strtotime($v[3])) : null;
+                $tax->registration_date        = !empty($v[1]) ? Carbon::createFromFormat('d/m/Y', $v[1])->format('Y-m-d') : null;
+                $tax->cancellation_approval    = !empty($v[2]) ? Carbon::createFromFormat('d/m/Y', $v[2])->format('Y-m-d') : null;
+                $tax->cancellation_effective    = !empty($v[3]) ? Carbon::createFromFormat('d/m/Y', $v[3])->format('Y-m-d') : null;
                 $tax->sst_no                   = $v[4];
                 $tax->station_code             = $v[5];
                 $tax->station_name             = $v[6];
@@ -75,7 +76,7 @@ class ProcessExcel implements ShouldQueue
                 $tax->save();
 
                 $processedRow         = $k++;
-                $this->setting->value = round(($processedRow / count($value)) * 100);
+                $this->setting->value = round(($processedRow / count($records)) * 100);
                 $this->setting->save();
             }
         }

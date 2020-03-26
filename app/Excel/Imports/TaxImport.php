@@ -4,6 +4,7 @@ namespace App\Excel\Imports;
 
 use App\Models\SYSSetting;
 use App\Models\TAXRecords;
+use Carbon\Carbon;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithStartRow;
@@ -21,9 +22,9 @@ class TaxImport implements ToModel, WithStartRow, WithBatchInserts
     {
         return new TAXRecords([
             'registration_status'      => $row[0],
-            'registration_date'        => $row[1] != null ? date('Y-m-d', strtotime($row[1])) : null,
-            'cancellation_approval'    => $row[2] != null ? date('Y-m-d', strtotime($row[2])) : null,
-            'cancellation_effective'   => $row[3] != null ? date('Y-m-d', strtotime($row[2])) : null,
+            'registration_date'        => $row[1],
+            'cancellation_approval'    => $row[2],
+            'cancellation_effective'   => $row[3],
             'sst_no'                   => $row[4],
             'station_code'             => $row[5],
             'station_name'             => $row[6],

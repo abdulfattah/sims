@@ -82,7 +82,7 @@ class JsonController extends Controller
             'correspondence_address_3, correspondence_postcode, correspondence_city, correspondence_state, factory_name, entity_type, ' .
             'business_activity, product_tax, facility_applied, local_marketing, statement, statement_status, uncomplience_type, ' .
             'syncronizing_at, updated_at',
-            '');
+            'deleted_at IS NULL AND ');
         $params   = $controller->GetParseParams($_GET);
         $response = $controller->Get($params);
         unset($controller);
