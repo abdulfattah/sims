@@ -8,15 +8,15 @@ class TAXRecords extends \Eloquent
     use SoftDeletes;
     protected $table = 'tax_records';
 
-    // public function properties()
-    // {
-    //     return $this->belongsToMany('App\Models\PROProperty', 'pro_property_owner', 'owner_id', 'property_id');
-    // }
+    public function notes()
+    {
+        return $this->hasMany('App\Models\TAXNote', 'tax_record_id', 'id');
+    }
 
-    // public function avatar()
-    // {
-    //     return $this->hasOne('App\Models\SYSAsset', 'for_id', 'id')->where('for', 'Owner Avatar');
-    // }
+    public function attachments()
+    {
+        return $this->hasMany('App\Models\SYSAsset', 'for_id', 'id')->where('for', 'Tax Attachment');
+    }
 
     public function getCompanyAddress()
     {

@@ -29,6 +29,7 @@
     <meta name="msapplication-TileImage" content="{!! asset('favicon/ms-icon-144x144.png') !!}">
     <meta name="theme-color" content="#ffffff">
     <link href="{!! asset('css/style.css') !!}" rel="stylesheet">
+    <link href="{!! asset('css/free-icons.min.css') !!}" rel="stylesheet">
     <link media="all" type="text/css" rel="stylesheet" href="{!! asset('css/app1.min.css') !!}">
     <link media="all" type="text/css" rel="stylesheet" href="{!! asset('css/app2.css') !!}">
     <link media="all" type="text/css" rel="stylesheet" href="{!! asset('css/magnific-popup.css') !!}">
@@ -57,7 +58,8 @@
                 <svg class="c-icon c-icon-lg">
                     <use xlink:href="{!! asset('icons/free.svg#cil-menu') !!}"></use>
                 </svg>
-            </button><a class="c-header-brand d-lg-none" href="#">
+            </button>
+            <a class="c-header-brand d-lg-none" href="#">
                 <svg width="118" height="46" alt="CoreUI Logo">
                     <use xlink:href="{!! asset('icons/coreui.svg#full') !!}"></use>
                 </svg></a>

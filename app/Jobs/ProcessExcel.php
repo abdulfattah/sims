@@ -40,17 +40,17 @@ class ProcessExcel implements ShouldQueue
             storage_path('assets') . DIRECTORY_SEPARATOR . 'syncronize' . DIRECTORY_SEPARATOR . $this->filename);
         foreach ($taxRecords as $records) {
             foreach ($records as $k => $v) {
-                $check = TAXRecords::where('sst_no', $v[4])->get()->first();
+                $check = TAXRecords::where('sst_no', $v[4])->withTrashed()->get()->first();
                 if ($check != null) {
                     $tax = $check;
                 } else {
                     $tax = new TAXRecords();
                 }
-                
+
                 $tax->registration_status      = $v[0];
                 $tax->registration_date        = !empty($v[1]) ? Carbon::createFromFormat('d/m/Y', $v[1])->format('Y-m-d') : null;
                 $tax->cancellation_approval    = !empty($v[2]) ? Carbon::createFromFormat('d/m/Y', $v[2])->format('Y-m-d') : null;
-                $tax->cancellation_effective    = !empty($v[3]) ? Carbon::createFromFormat('d/m/Y', $v[3])->format('Y-m-d') : null;
+                $tax->cancellation_effective   = !empty($v[3]) ? Carbon::createFromFormat('d/m/Y', $v[3])->format('Y-m-d') : null;
                 $tax->sst_no                   = $v[4];
                 $tax->station_code             = $v[5];
                 $tax->station_name             = $v[6];
@@ -73,6 +73,7 @@ class ProcessExcel implements ShouldQueue
                 $tax->correspondence_postcode  = $v[23];
                 $tax->correspondence_city      = $v[24];
                 $tax->correspondence_state     = $v[25];
+                $tax->syncronizing_at          = date('Y-m-d H:i:s');
                 $tax->save();
 
                 $processedRow         = $k++;

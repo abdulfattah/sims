@@ -27,6 +27,8 @@ Route::group(array('middleware' => 'auth'), function () {
     Route::get("tax/sync", 'TaxController@sync');
     Route::post("tax/sync", 'TaxController@doSync');
     Route::resource('tax', 'TaxController');
+    Route::resource('attachment', 'AttachmentController');
+    Route::resource('note', 'NoteController');
 
     Route::group(array("prefix" => "store"), function () {
         Route::post("config/{tab}", 'ConfigController@store');

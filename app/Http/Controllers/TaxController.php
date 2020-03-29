@@ -7,6 +7,7 @@ use App\Libs\App;
 use App\Libs\DxGridOfficial;
 use App\Models;
 use App\Models\SYSSetting;
+use App\Models\TAXNote;
 use App\Models\TAXRecords;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
@@ -72,10 +73,6 @@ class TaxController extends Controller
         return view('tax.sync', $data);
     }
 
-    public function store()
-    {
-    }
-
     public function edit($id)
     {
         $data = array(
@@ -102,7 +99,7 @@ class TaxController extends Controller
         );
         $tax->save();
 
-        return redirect()->to('tax/' . $id)
+        return redirect()->to('tax/' . $id . '?tab=2')
             ->with('success', 'Tax information has been update.');
     }
 

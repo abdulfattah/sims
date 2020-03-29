@@ -3,10 +3,12 @@ namespace App\Http\Controllers;
 
 use App\Libs\App;
 use App\Libs\DxGridOfficial;
+use App\Models\SYSAsset;
 use App\Models\SYSSetting;
+use App\Models\TAXNote;
 
 /*
- *55a0c604380fe<br />55a0c60438163<br />55a0c604381b5<br />
+ *55a0c604380fe
  */
 
 class JsonController extends Controller
@@ -32,6 +34,16 @@ class JsonController extends Controller
                 }
             case '55a0c60438203':{ //Dapatkan % processed excel//
                     return response()->json($this->getProcessedExcel(), 200, []);
+                    break;
+                }
+            case '55a0c60438163':{ //Dapatkan form attach,ent//
+                    $id = \Request::get('c');
+                    return response()->json($this->getAttachment($id), 200, []);
+                    break;
+                }
+            case '55a0c604381b5':{ //Dapatkan form note//
+                    $id = \Request::get('c');
+                    return response()->json($this->getNote($id), 200, []);
                     break;
                 }
         }
@@ -102,6 +114,26 @@ class JsonController extends Controller
             return $setting->value;
         } else {
             return '100';
+        }
+    }
+
+    private function getNote($id)
+    {
+        $note = TAXNote::find($id, ['id', 'note']);
+        if ($note != null) {
+            return $note->toArray();
+        } else {
+            return null;
+        }
+    }
+
+    private function getAttachment($id)
+    {
+        $asset = SYSAsset::find($id, ['id', 'title', 'description']);
+        if ($asset != null) {
+            return $asset->toArray();
+        } else {
+            return null;
         }
     }
 }

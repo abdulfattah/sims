@@ -6,7 +6,7 @@
     </a>
 </li>
 <li class="c-sidebar-nav-item">
-    <a class="c-sidebar-nav-link @if ($menu['menu'] == 'Tax') c-active @endif" href="{!! URL::to('tax') !!}">
+    <a class="c-sidebar-nav-link @if ($menu['menu'] == 'Tax') c-active @endif" href="{!! URL::to('tax') !!}?tab=1">
         <svg class="c-sidebar-nav-icon">
             <use xlink:href="{!! asset('icons/free.svg#cil-tags') !!}"></use>
         </svg> Tax Records

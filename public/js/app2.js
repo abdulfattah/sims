@@ -639,33 +639,41 @@ jQuery(function ($) {
                     allowFiltering: false,
                     allowHeaderFiltering: false,
                     cellTemplate: function (container, options) {
-                        $("<div/>").dxMenu({
-                            dataSource: [{
-                                text: "",
-                                icon: "preferences",
-                                items: [{
-                                        id: "edit",
-                                        text: "Edit"
-                                    },
-                                    {
-                                        id: "delete",
-                                        text: "Delete",
-                                        template: function (itemData, itemIndex, itemElement) {
-                                            itemElement.append('<span class="dx-menu-item-text" style="color: red;">' + itemData.text + '</span>');
-                                        }
-                                    }
-                                ]
-                            }],
-                            cssClass: "grid-cog-menu",
-                            onItemClick: function (data) {
-                                if (data.itemData.id == 'edit') {
-                                    location.href = baseURL + '/tax/' + options.data.id + '/edit';
-                                } else if (data.itemData.id == 'delete') {
-                                    var msg = "This tax record will be deleted from system";
-                                    deleteGridRecord(baseURL + '/tax/' + options.data.id, grid, msg);
-                                }
-                            }
-                        }).appendTo(container);
+                        $("<a/>")
+                            .attr('href', 'javascript:void')
+                            .html('<i class="c-icon cil-trash text-danger"></i>')
+                            .bind("click", function () {
+                                var msg = "This tax record will be deleted from system";
+                                deleteGridRecord(baseURL + '/tax/' + options.data.id, grid, msg);
+                            })
+                            .appendTo(container);
+                        // $("<div/>").dxMenu({
+                        //     dataSource: [{
+                        //         text: "",
+                        //         icon: "preferences",
+                        //         items: [{
+                        //                 id: "edit",
+                        //                 text: "Edit"
+                        //             },
+                        //             {
+                        //                 id: "delete",
+                        //                 text: "Delete",
+                        //                 template: function (itemData, itemIndex, itemElement) {
+                        //                     itemElement.append('<span class="dx-menu-item-text" style="color: red;">' + itemData.text + '</span>');
+                        //                 }
+                        //             }
+                        //         ]
+                        //     }],
+                        //     cssClass: "grid-cog-menu",
+                        //     onItemClick: function (data) {
+                        //         if (data.itemData.id == 'edit') {
+                        //             location.href = baseURL + '/tax/' + options.data.id + '/edit';
+                        //         } else if (data.itemData.id == 'delete') {
+                        //             var msg = "This tax record will be deleted from system";
+                        //             deleteGridRecord(baseURL + '/tax/' + options.data.id, grid, msg);
+                        //         }
+                        //     }
+                        // }).appendTo(container);
                     }
                 },
                 {
@@ -679,7 +687,7 @@ jQuery(function ($) {
                         $('<a/>').addClass('dx-link')
                             .text(options.text)
                             .on('dxclick', function () {
-                                location.href = baseURL + '/tax/' + options.data.id;
+                                location.href = baseURL + '/tax/' + options.data.id + '?tab=1';
                             })
                             .appendTo(container);
                     }
@@ -930,6 +938,66 @@ jQuery(function ($) {
         closeOnOutsideClick: false
     }).dxLoadPanel("instance");
 
+    $('#update-addtional-info').click(function () {
+        $('#modal-additional-info').modal('show');
+    });
+
+    $('#upload-attachment').click(function () {
+        $('#form-attachment').attr('action', baseURL + '/attachment');
+        $('#method-attachment').val('');
+        $('#title-attachment').html('Upload New Attachment');
+        $('[data-name="title"]').dxTextBox('instance').option('value', '');
+        $('[data-name="description"]').dxTextArea('instance').option('value', '');
+        $('[data-name="filename"]').dxFileUploader('instance').reset();
+        $('[data-name="filename"]').dxValidator('instance').reset();
+        $('[data-name="filename"]').dxValidator('instance').option('validationRules', [{
+            type: 'required'
+        }]);
+        $('#modal-attachment').modal('show');
+    });
+
+    $('.edit-attachment').click(function () {
+        $.getJSON(baseURL + '/data?b=55a0c60438163&c=' + $(this).attr('data-id'), function (data) {
+            $('#form-attachment').attr('action', baseURL + '/attachment/' + data.id);
+            $('#method-attachment').val('PUT');
+            $('#title-attachment').html('Update Note');
+            $('[data-name="title"]').dxTextBox('instance').option('value', data.title);
+            $('[data-name="description"]').dxTextArea('instance').option('value', data.description);
+            $('[data-name="filename"]').dxValidator('instance').reset();
+            $('[data-name="filename"]').dxValidator('instance').option('validationRules', []);
+            $('#modal-attachment').modal('show');
+        });
+    });
+
+    $('.delete-attachment').click(function () {
+        var msg = "This attachment will be deleted from this tax record";
+        deleteRecord(baseURL + '/attachment/' + $(this).attr('data-id'), null, 'Are you sure?', msg);
+    });
+
+    $('#add-note').click(function () {
+        $('#form-note').attr('action', baseURL + '/note');
+        $('#method-note').val('');
+        $('#title-note').html('Create New Note');
+        $('[data-name="note"]').dxTextArea('instance').option('value', '');
+        $('[data-name="note"]').dxValidator('instance').reset();
+        $('#modal-note').modal('show');
+    });
+
+    $('.edit-note').click(function () {
+        $.getJSON(baseURL + '/data?b=55a0c604381b5&c=' + $(this).attr('data-id'), function (data) {
+            $('#form-note').attr('action', baseURL + '/note/' + data.id);
+            $('#method-note').val('PUT');
+            $('#title-note').html('Update Note');
+            $('[data-name="note"]').dxTextArea('instance').option('value', data.note);
+            $('#modal-note').modal('show');
+        });
+    });
+
+    $('.delete-note').click(function () {
+        var msg = "This note will be deleted from this tax record";
+        deleteRecord(baseURL + '/note/' + $(this).attr('data-id'), null, 'Are you sure?', msg);
+    });
+
     function toast(type, msg) {
         $("#toastContainer").dxToast({
             message: msg,
@@ -1133,7 +1201,6 @@ jQuery(function ($) {
         });
     }
 
-    //ref untuk delete owner
     function deleteRecord(url, id, title, msg) {
         DevExpress.ui.dialog.custom({
             title: title,
