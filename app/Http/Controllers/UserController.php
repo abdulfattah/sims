@@ -6,6 +6,8 @@ use App\Libs\App;
 use App\Libs\DxGridOfficial;
 use App\Mail;
 use App\Models;
+use App\Models\SYSAsset;
+use App\Models\TAXNote;
 use Auth;
 use Carbon\Carbon;
 use Jenssegers\Agent\Agent;
@@ -403,24 +405,40 @@ class UserController extends Controller
 
     public function destroy($id)
     {
-        try {
+        $relatedWithOthers = false;
+        $check1            = TAXNote::where('note_by', $id)->get();
+        if ($check1->count() > 0) {
+            $relatedWithOthers = true;
+        }
+        $check2 = SYSAsset::where('for_id', $id)->get();
+        if ($check2->count() > 0) {
+            $relatedWithOthers = true;
+        }
+
+        if (!$relatedWithOthers) {
+            try {
+                $user = Models\USRUsers::find($id);
+
+                if ($user->avatar != null &&
+                    \Storage::disk('asset')->exists('avatar' . DIRECTORY_SEPARATOR . $this->getFilename('images', $user->avatar))) {
+                    \Storage::disk('asset')->delete('avatar' . DIRECTORY_SEPARATOR . $this->getFilename('images', $user->avatar));
+                }
+
+                $asset = Models\SYSAsset::where('for_id', $user->id)->where('for', 'User Avatar');
+                if ($asset->count() > 0) {
+                    $asset->forceDelete();
+                }
+
+                $user->forceDelete();
+
+                return response()->json(['status' => true, 'message' => 'User has been deleted']);
+            } catch (\Exception $ex) {
+                return response()->json(['status' => false, 'message' => 'Error on deleted that record']);
+            }
+        } else {
             $user = Models\USRUsers::find($id);
-
-            if ($user->avatar != null &&
-                \Storage::disk('asset')->exists('avatar' . DIRECTORY_SEPARATOR . $this->getFilename('images', $user->avatar))) {
-                \Storage::disk('asset')->delete('avatar' . DIRECTORY_SEPARATOR . $this->getFilename('images', $user->avatar));
-            }
-
-            $asset = Models\SYSAsset::where('for_id', $user->id)->where('for', 'User Avatar');
-            if ($asset->count() > 0) {
-                $asset->forceDelete();
-            }
-
-            $user->forceDelete();
-
-            return response()->json(['status' => true, 'message' => 'User has been deleted']);
-        } catch (\Exception $ex) {
-            return response()->json(['status' => false, 'message' => 'Error on deleted that record']);
+            $user->delete();
+            return response()->json(['status' => false, 'message' => 'This user cannot delete from this system because its related with other record. Disabled this.']);
         }
     }
 

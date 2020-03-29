@@ -188,7 +188,7 @@
                                                                   \App\Libs\App::getFilename('attachment', $attachment) . '&actualname=' .
                                                                   $attachment->asset_name) !!}" target="_blank">{!! $attachment->title !!}</a></td>
                         <td>{!! $attachment->description !!}</td>
-                        <td>{!! $attachment->uploader->fullname !!}</td>
+                        <td>{!! $attachment->uploader != null ? $attachment->uploader->fullname : null !!}</td>
                         <td>{!! $attachment->created_at != null ? date('d-M-Y h:i:s A', strtotime($attachment->created_at)) : null !!}</td>
                         <th style="text-align: right">
                             <a href="javascript:void(0)" data-id="{!! $attachment->id !!}" class="edit-attachment"><i class="c-icon cil-pencil"></i></a>
@@ -262,7 +262,7 @@
                     @foreach($tax->notes as $note)
                     <tr>
                         <td>{!! $note->note !!}</td>
-                        <td>{!! $note->writer->fullname !!}</td>
+                        <td>{!! $attachment->writer != null ? $attachment->writer->fullname : null !!}</td>
                         <td>{!! $note->created_at != null ? date('d-M-Y h:i:s A', strtotime($note->created_at)) : null !!}</td>
                         <th style="text-align: right">
                             <a href="javascript:void(0)" data-id="{!! $note->id !!}" class="edit-note"><i class="c-icon cil-pencil"></i></a>
