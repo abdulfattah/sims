@@ -262,7 +262,7 @@
                     @foreach($tax->notes as $note)
                     <tr>
                         <td>{!! $note->note !!}</td>
-                        <td>{!! $attachment->writer != null ? $attachment->writer->fullname : null !!}</td>
+                        <td>{!! $note->writer != null ? $note->writer->fullname : null !!}</td>
                         <td>{!! $note->created_at != null ? date('d-M-Y h:i:s A', strtotime($note->created_at)) : null !!}</td>
                         <th style="text-align: right">
                             <a href="javascript:void(0)" data-id="{!! $note->id !!}" class="edit-note"><i class="c-icon cil-pencil"></i></a>
