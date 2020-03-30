@@ -73,7 +73,7 @@ class JsonController extends Controller
             'id, fullname, username, role',
             'deleted_at IS NULL AND ');
         $params   = $controller->GetParseParams($_GET);
-        $response = mb_convert_encoding($controller->Get($params), "UTF-8", "UTF-8");
+        $response = $controller->Get($params);
         unset($controller);
         if (isset($response) && !is_string($response)) {
             return response()->json($response)->getData();
@@ -96,7 +96,7 @@ class JsonController extends Controller
             'syncronizing_at, updated_at',
             'deleted_at IS NULL AND ');
         $params   = $controller->GetParseParams($_GET);
-        $response = mb_convert_encoding($controller->Get($params), "UTF-8", "UTF-8");
+        $response = $controller->Get($params);
         unset($controller);
         if (isset($response) && !is_string($response)) {
             return response()->json($response)->getData();
