@@ -681,7 +681,7 @@ jQuery(function ($) {
                     dataType: 'string',
                     dataField: "business_name",
                     width: '280',
-                    // sortOrder: 'asc',
+                    sortOrder: 'asc',
                     allowHeaderFiltering: false,
                     cellTemplate: function (container, options) {
                         $('<a/>').addClass('dx-link')

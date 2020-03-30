@@ -13,6 +13,7 @@
 
         public function __construct($view, $select, $where = '') {
             $this->mySQL = new mysqli(env('DB_HOST'), env('DB_USERNAME'), env('DB_PASSWORD'), env('DB_DATABASE'));
+            $this->mySQL->set_charset(env('DB_HOST'));
             $this->dbSet = new DbSet($this->mySQL, $view, $select, $where);
         }
 
