@@ -48,6 +48,7 @@ Route::group(array('middleware' => 'auth'), function () {
 
     Route::group(array("prefix" => "export"), function () {
         Route::get("excel/user", 'UserController@exportExcel');
+        Route::get("excel/tax", 'TaxController@exportExcel');
     });
 
     Route::group(array("prefix" => "print"), function () {

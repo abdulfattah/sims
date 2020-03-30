@@ -1,15 +1,13 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Exports;
+use App\Exports\TaxRecordsExport;
 use App\Jobs\ProcessExcel;
 use App\Libs\App;
 use App\Libs\DxGridOfficial;
 use App\Models;
 use App\Models\SYSSetting;
-use App\Models\TAXNote;
 use App\Models\TAXRecords;
-use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
 
 class TaxController extends Controller
@@ -80,7 +78,7 @@ class TaxController extends Controller
             'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
                              <li class="breadcrumb-item"><a href="' . \URL::to('tax') . '">Tax Records</a></li>
                              <li class="breadcrumb-item active">Edit</li>',
-            'tax'       => Models\TAXRecords::find($id),
+            'tax'        => Models\TAXRecords::find($id),
         );
 
         return view('tax.form', $data);
@@ -89,8 +87,8 @@ class TaxController extends Controller
     public function update($id)
     {
         $input = \Request::all();
-        $tax = Models\TAXRecords::find($id);
-        $tax = $this->populateSaveValue($tax, $input, array(
+        $tax   = Models\TAXRecords::find($id);
+        $tax   = $this->populateSaveValue($tax, $input, array(
             'exclude' => array(
                 '_token',
                 '_method',
@@ -120,14 +118,17 @@ class TaxController extends Controller
     public function exportExcel()
     {
         $response   = null;
-        $controller = new DxGridOfficial('vw_owner',
-            'owner_name, type, identification_no, company_no, address, email, phone_no',
-            '');
+        $arrayCols = json_decode(request()->get('column'));
+        unset($arrayCols[0]);
+        $cols = implode(',', $arrayCols);
+        $controller = new DxGridOfficial('tax_records',
+            $cols,
+            'deleted_at IS NULL AND ');
         $params   = $controller->GetParseParams($_GET);
         $response = $controller->Get($params);
         unset($controller);
         if (isset($response) && !is_string($response)) {
-            return Excel::download(new Exports\OwnerExport($response['data']), '[Kastam] Senarai Pemilik (' . date('dmY HiA') . ').xlsx');
+            return Excel::download(new TaxRecordsExport($response['data'], $arrayCols), '[CDN Information Integration System] Tax Records (' . date('d-m-Y') . ').xlsx');
         } else {
             header("HTTP/1.1 500 Internal Server Error");
             header("Content-Type: application/json");
