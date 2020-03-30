@@ -99,7 +99,7 @@ class JsonController extends Controller
         $response = $controller->Get($params);
         unset($controller);
         if (isset($response) && !is_string($response)) {
-            return response()->json($response)->getData();
+            return $response;
         } else {
             header("HTTP/1.1 500 Internal Server Error");
             header("Content-Type: application/json");
