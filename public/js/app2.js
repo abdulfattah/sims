@@ -621,7 +621,7 @@ jQuery(function ($) {
         } else if ($this.attr('data-for') == 'tax') {
             grid.option('dataSource', {
                 store: DevExpress.data.AspNet.createStore({
-                    key: 'reference_no',
+                    key: 'id',
                     loadUrl: baseURL + '/data?b=' + '55a0c60437d14'
                 })
             });
