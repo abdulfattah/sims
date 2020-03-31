@@ -40,15 +40,51 @@
 <body class="c-app">
     <div class="c-sidebar c-sidebar-dark c-sidebar-fixed c-sidebar-lg-show" id="sidebar">
         <div class="c-sidebar-brand d-lg-down-none">
-            <img class="c-sidebar-brand-full" width="118" height="46" src="{!! asset('images/full_logo.png') !!}">            
+            <img class="c-sidebar-brand-full" width="118" height="46" src="{!! asset('images/full_logo.png') !!}">
             <img class="c-sidebar-brand-minimized" width="46" height="46" src="{!! asset('images/logo.png') !!}">
         </div>
         <ul class="c-sidebar-nav">
-            @if (\Auth::user()->role == 'ADMINISTRATOR')
-            @include("menu.administrator")
-            @elseif (\Auth::user()->role == 'STAFF')
-            @include("menu.staff")
+            <li class="c-sidebar-nav-item">
+                <a class="c-sidebar-nav-link @if ($menu['menu'] == 'Home') c-active @endif" href="{!! URL::to('/') !!}">
+                    <svg class="c-sidebar-nav-icon">
+                        <use xlink:href="{!! asset('icons/free.svg#cil-speedometer') !!}"></use>
+                    </svg> Dashboard
+                </a>
+            </li>
+            @if (strpos(Auth::user()->role, 'ADMINISTRATOR') !== false)
+            <li class="c-sidebar-nav-item">
+                <a class="c-sidebar-nav-link @if ($menu['menu'] == 'User') c-active @endif" href="{!! URL::to('user') !!}">
+                    <svg class="c-sidebar-nav-icon">
+                        <use xlink:href="{!! asset('icons/free.svg#cil-people') !!}"></use>
+                    </svg> Users
+                </a>
+            </li>
             @endif
+            @if (strpos(Auth::user()->role, 'STAFF') !== false)
+            <li class="c-sidebar-nav-item">
+                <a class="c-sidebar-nav-link @if ($menu['menu'] == 'Tax') c-active @endif" href="{!! URL::to('tax') !!}?tab=1">
+                    <svg class="c-sidebar-nav-icon">
+                        <use xlink:href="{!! asset('icons/free.svg#cil-tags') !!}"></use>
+                    </svg> Tax Records
+                </a>
+            </li>
+            @endif
+            @if (strpos(Auth::user()->role, 'ADMINISTRATOR') !== false)
+            <li class="c-sidebar-nav-item">
+                <a class="c-sidebar-nav-link @if ($menu['menu'] == 'Config') c-active @endif" href="{!! URL::to('config') !!}">
+                    <svg class="c-sidebar-nav-icon">
+                        <use xlink:href="{!! asset('icons/free.svg#cil-settings') !!}"></use>
+                    </svg> Settings
+                </a>
+            </li>
+            @endif
+            <li class="c-sidebar-nav-item">
+                <a class="c-sidebar-nav-link" href="#" target="_blank">
+                    <svg class="c-sidebar-nav-icon">
+                        <use xlink:href="{!! asset('icons/free.svg#cil-book') !!}"></use>
+                    </svg> User Manual
+                </a>
+            </li>
         </ul>
         <button class="c-sidebar-minimizer c-class-toggler" type="button" data-target="_parent" data-class="c-sidebar-minimized"></button>
     </div>

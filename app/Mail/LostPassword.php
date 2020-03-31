@@ -31,8 +31,8 @@ class LostPassword extends Mailable
      */
     public function build()
     {
-        $mailFromEmail = $this->getDbConfig('emel_daripada') == null ? 'a.fattah@ymail.com' : $this->getDbConfig('emel_daripada');
-        $mailFromName  = $this->getDbConfig('emel_nama') == null ? 'CDN Information Integration System' : $this->getDbConfig('emel_nama');
+        $mailFromEmail = $this->getDbConfig('email_from') == null ? 'a.fattah@ymail.com' : $this->getDbConfig('email_from');
+        $mailFromName  = $this->getDbConfig('email_name') == null ? 'CDN Information Integration System' : $this->getDbConfig('email_name');
 
         return $this->from($mailFromEmail, $mailFromName)
             ->subject('[CDN Information Integration System] Reset Password')

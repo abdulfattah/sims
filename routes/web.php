@@ -29,22 +29,7 @@ Route::group(array('middleware' => 'auth'), function () {
     Route::resource('tax', 'TaxController');
     Route::resource('attachment', 'AttachmentController');
     Route::resource('note', 'NoteController');
-
-    Route::group(array("prefix" => "store"), function () {
-        Route::post("config/{tab}", 'ConfigController@store');
-    });
-
-    Route::group(array("prefix" => "edit"), function () {
-        Route::get("config/{tab}", 'ConfigController@edit');
-    });
-
-    Route::group(array("prefix" => "update"), function () {
-        Route::post("config/{tab}", 'ConfigController@update');
-    });
-
-    Route::group(array("prefix" => "delete"), function () {
-        Route::delete("config/{tab}", 'ConfigController@delete');
-    });
+    Route::resource("config", 'ConfigController');
 
     Route::group(array("prefix" => "export"), function () {
         Route::get("excel/user", 'UserController@exportExcel');
@@ -52,7 +37,7 @@ Route::group(array('middleware' => 'auth'), function () {
     });
 
     Route::group(array("prefix" => "print"), function () {
-        
+
     });
 
     Route::get('asset/image', 'SystemController@image');
@@ -64,7 +49,7 @@ Route::group(array('middleware' => 'auth'), function () {
 });
 
 Route::group(array("prefix" => "print/preview"), function () {
-    
+
 });
 
 Route::get('logout', 'UserController@logout');

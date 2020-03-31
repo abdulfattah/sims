@@ -19,7 +19,7 @@
                     <dt class="col-sm-3 col-xl-3">Fullname</dt>
                     <dd class="col-sm-9 col-xl-7">: {!! $user->fullname !!}</dd>
                     <dt class="col-sm-3 col-xl-3">Role</dt>
-                    <dd class="col-sm-9 col-xl-7">: {!! $user->role !!}</dd>
+                    <dd class="col-sm-9 col-xl-7">: {!! implode(' / ', json_decode($user->role)) !!}</dd>
                     <dt class="col-sm-3 col-xl-3">Email</dt>
                     <dd class="col-sm-9 col-xl-7">: <a href="mailto:{!! $user->username !!}" target="_blank" class="text-navy">{!! $user->username !!}</a></dd>
                     <dt class="col-sm-3 col-xl-3">Status</dt>

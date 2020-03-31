@@ -72,7 +72,9 @@ jQuery(function ($) {
                 readOnly: $this.attr('data-readonly')
             });
 
-            if ($this.attr('data-name') === 'username' || $this.attr('data-name') === 'email_address') {
+            if ($this.attr('data-name') === 'username' || $this.attr('data-name') === 'email_address' || 
+                $this.attr('data-name') === 'email_from' || $this.attr('data-name') === 'email_password' ||
+                $this.attr('data-name') === 'email_host' || $this.attr('data-name') === 'email_ssl') {
                 $this.dxTextBox('instance').option('inputAttr', {
                     style: 'text-transform:none'
                 });
@@ -140,34 +142,6 @@ jQuery(function ($) {
                     showClearButton: true,
                     value: $this.attr('data-value')
                 });
-
-                if (window.location.href.indexOf('/edit/property/single/2') > 0) {
-                    if ($this.attr('data-name') === 'ownership_type') {
-                        $this.dxSelectBox('instance').option('onValueChanged', function (e) {
-                            if (e.value == 'PAJAKAN') {
-                                $('#modal-land-lease').modal('show');
-                            } else {
-                                $('#spanLease').hide();
-                                $('input[name="ownership_duration"]').val('');
-                                $('input[name="ownership_end_at"]').val('');
-                            }
-                        });
-                    }
-
-                    if ($this.attr('data-name') === 'bahagian_pagar') {
-                        $this.dxSelectBox('instance').option('onValueChanged', function (e) {
-                            $.getJSON(baseURL + '/data?b=55a0c60438017&c=' + e.value).done(function (data) {
-                                $('div[data-name="jenis_binaan"]').dxSelectBox('instance').option('dataSource', new DevExpress.data.DataSource({
-                                    store: data
-                                }));
-                            });
-                        });
-                    }
-
-                    if ($this.attr('data-name') === 'level') {
-                        hideLoadPanel();
-                    }
-                }
             });
         }
 
@@ -562,7 +536,7 @@ jQuery(function ($) {
                                 icon: "preferences",
                                 items: [{
                                         id: "edit",
-                                        text: "Update"
+                                        text: "Edit"
                                     }, {
                                         id: "resendActivation",
                                         text: "Resend Activation"
@@ -599,7 +573,8 @@ jQuery(function ($) {
                 },
                 {
                     caption: 'Fullname',
-                    dataField: "fullname",
+                    dataField: "fullname",                    
+                    allowHeaderFiltering: false,
                     cellTemplate: function (container, options) {
                         $('<a/>').addClass('dx-link')
                             .text(options.text)
@@ -611,11 +586,17 @@ jQuery(function ($) {
                 },
                 {
                     caption: 'Email',
-                    dataField: "username"
+                    dataField: "username",
+                    allowHeaderFiltering: false,
                 },
                 {
                     caption: 'Role',
-                    dataField: "role"
+                    dataField: "role",
+                    allowHeaderFiltering: false,
+                    cellTemplate: function (container, options) {
+                        var roles = JSON.parse(options.text);
+                        $('<span />').html(roles.join(' / ')).appendTo(container);
+                    }
                 }
             ]);
         } else if ($this.attr('data-for') == 'tax') {

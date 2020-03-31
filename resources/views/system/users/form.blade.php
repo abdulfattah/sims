@@ -30,11 +30,11 @@
                                 data-validate="true" data-validation-type="required" data-validation-group="form"></div>
                         </div>
                     </div>
-                    @if (Auth::user()->role == 'ADMINISTRATOR')
+                    @if (strpos(Auth::user()->role, 'ADMINISTRATOR') !== false)
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label" for="hf-email">Role</label>
                         <div class="col-md-9">
-                            <div data-dx="selectbox" data-name="role" data-source="roles" data-value-exp="id" data-value="{!! \Request::old('role', isset($user) ? $user->role : NULL) !!}"
+                            <div data-dx="tagbox" data-name="roles[]" data-source="roles" data-value-exp="id" data-value='{!! \Request::old('role', isset($user) ? $user->role : NULL) !!}'
                                 data-validate="true" data-validation-type="required" data-validation-group="form">
                             </div>
                         </div>
@@ -53,7 +53,11 @@
         </form>
     </div>
     <div class="card-footer text-right">
+        @if (strpos(Auth::user()->role, 'ADMINISTRATOR') !== false)
         <a href="{!! URL::to('user') !!}" class="btn btn-ghost-danger">Cancel</a>
+        @else
+        <a href="{!! URL::to('/') !!}" class="btn btn-ghost-danger">Cancel</a>
+        @endif
         <div data-dx="btn-submit" data-type="default" data-text="Submit" data-disabled="false" data-validation-group="form" data-form="form-user"></div>
     </div>
 </div>

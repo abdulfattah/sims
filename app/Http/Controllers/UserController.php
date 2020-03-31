@@ -88,9 +88,9 @@ class UserController extends Controller
             'breadcrumb' => '<li class="breadcrumb-item">Home</li>',
         );
 
-        if (\Auth::user()->role == 'ADMINISTRATOR') {
+        if (strpos(Auth::user()->role, 'ADMINISTRATOR') !== false) {
             $view = 'dashboard.administrator';
-        } elseif (\Auth::user()->role == 'STAFF') {
+        } elseif (strpos(Auth::user()->role, 'STAFF') !== false) {
             $view = 'dashboard.staff';
         }
 
@@ -263,8 +263,9 @@ class UserController extends Controller
         if (Models\USRUsers::where('username', \Request::input('username'))->get()->count() < 1) {
             $user = new Models\USRUsers();
             $user = $this->populateSaveValue($user, \Request::all(), array(
-                'exclude' => array('_token', 'profile_image', 'files', 'avatar'),
+                'exclude' => array('_token', 'profile_image', 'roles', 'avatar'),
             ));
+            $user->role     = json_encode(request()->get('roles'));
             $user->password = 'Not Active Yet!';
             $user->enable   = 0;
             $user->save();
@@ -306,6 +307,7 @@ class UserController extends Controller
 
     public function edit($id)
     {
+        // dd(json_encode(['ADMINISTRATOR']));
         $data = array(
             'menu'       => ['menu' => 'Users', 'subMenu' => ''],
             'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
@@ -321,8 +323,11 @@ class UserController extends Controller
     {
         $user = Models\USRUsers::find($id);
         $user = $this->populateSaveValue($user, \Request::all(), array(
-            'exclude' => array('_token', '_method', 'profile_image', 'files', 'avatar'),
+            'exclude' => array('_token', '_method', 'roles', 'profile_image', 'avatar'),
         ));
+        if (request()->get('roles') != null) {
+            $user->role = json_encode(request()->get('roles'));
+        }
         $user->save();
 
         $data = \Request::input('profile_image');
