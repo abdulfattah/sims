@@ -26,6 +26,7 @@ Route::group(array('middleware' => 'auth'), function () {
     Route::resource('user', 'UserController');
     Route::get("tax/sync", 'TaxController@sync');
     Route::post("tax/sync", 'TaxController@doSync');
+    Route::post("tax/restore/{id}", 'TaxController@restore');
     Route::resource('tax', 'TaxController');
     Route::resource('attachment', 'AttachmentController');
     Route::resource('note', 'NoteController');

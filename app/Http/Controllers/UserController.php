@@ -241,6 +241,7 @@ class UserController extends Controller
             'menu'       => ['menu' => 'User', 'subMenu' => ''],
             'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
                              <li class="breadcrumb-item active">Users</li>',
+            'trashed'    => request()->get('show') == 'trashed',
         );
 
         return view('system.users.index', $data);
@@ -436,14 +437,14 @@ class UserController extends Controller
 
                 $user->forceDelete();
 
-                return response()->json(['status' => true, 'message' => 'User has been deleted']);
+                return response()->json(['status' => true, 'message' => 'User has been permenantly deleted']);
             } catch (\Exception $ex) {
                 return response()->json(['status' => false, 'message' => 'Error on deleted that record']);
             }
         } else {
             $user = Models\USRUsers::find($id);
             $user->delete();
-            return response()->json(['status' => false, 'message' => 'This user cannot delete from this system because its related with other record. Disabled this.']);
+            return response()->json(['status' => false, 'message' => 'This user is being moved to trash.']);
         }
     }
 

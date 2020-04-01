@@ -31,6 +31,12 @@
                 </svg>
             </button>
             <div data-dx="tooltip" class="d-none">Column Chooser</div>
+            <button class="btn btn-primary btn-sm grid-btn-trash" type="button" style="margin-right: 4px;" data-for="tax">
+                <svg class="c-icon">
+                    <use xlink:href="{!! asset('icons/free.svg#cil-trash') !!}"></use>
+                </svg>
+            </button>
+            <div data-dx="tooltip" class="d-none">Trashed Item</div>
             <button class="btn btn-primary btn-sm grid-btn-excel" type="button" style="margin-right: 4px;" data-for="tax">
                 <svg class="c-icon">
                     <use xlink:href="{!! asset('icons/free.svg#cil-cloud-download') !!}"></use>
@@ -40,8 +46,9 @@
         </div>
     </div>
     <div class="card-body">
+        @if ($trashed) <div class="text-danger text-center">DISPLAY ALL TRASHED ITEM</div> @endif
         <div class="table-responsive" style="background-color: #ffffff">
-            <div id="grid" data-for="tax"></div>
+            <div id="grid" data-for="tax" data-trashed="{!! $trashed !!}"></div>
         </div>
         @csrf
     </div>

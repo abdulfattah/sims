@@ -25,18 +25,20 @@ class JsonController extends Controller
                     break;
                 }
             case '55a0c60437bd8':{ //Grid untuk senarai pengguna//
-                    return response()->json($this->userGrid(), 200, []);
+                    $trashed = \Request::get('c') == 1;
+                    return response()->json($this->userGrid($trashed), 200, []);
                     break;
                 }
             case '55a0c60437d14':{ //Grid untuk senarai tax//
-                    return response()->json($this->taxGrid(), 200, []);
+                    $trashed = \Request::get('c') == 1;
+                    return response()->json($this->taxGrid($trashed), 200, []);
                     break;
                 }
             case '55a0c60438203':{ //Dapatkan % processed excel//
                     return response()->json($this->getProcessedExcel(), 200, []);
                     break;
                 }
-            case '55a0c60438163':{ //Dapatkan form attach,ent//
+            case '55a0c60438163':{ //Dapatkan form attachment//
                     $id = \Request::get('c');
                     return response()->json($this->getAttachment($id), 200, []);
                     break;
@@ -66,12 +68,13 @@ class JsonController extends Controller
         return $items;
     }
 
-    private function userGrid()
+    private function userGrid($trashed)
     {
         $response   = null;
+        $deleted = $trashed ? 'deleted_at IS NOT NULL AND ' : 'deleted_at IS NULL AND ';
         $controller = new DxGridOfficial('usr_users',
             'id, fullname, username, role',
-            'deleted_at IS NULL AND ');
+            $deleted);
         $params   = $controller->GetParseParams($_GET);
         $response = $controller->Get($params);
         unset($controller);
@@ -84,17 +87,18 @@ class JsonController extends Controller
         }
     }
 
-    private function taxGrid()
+    private function taxGrid($trashed)
     {
         $response   = null;
+        $deleted = $trashed ? 'deleted_at IS NOT NULL AND ' : 'deleted_at IS NULL AND ';
         $controller = new DxGridOfficial('tax_records',
             'id, registration_status, registration_date, cancellation_approval, cancellation_effective, sst_no, station_code, station_name, ' .
             'gst_no, brn_no, business_name, trade_name, sst_type, email_address, telephone_no, company_address_1, company_address_2, ' .
             'company_address_3, company_postcode, company_city, company_state, correspondence_address_1, correspondence_address_2, ' .
             'correspondence_address_3, correspondence_postcode, correspondence_city, correspondence_state, factory_name, entity_type, ' .
             'business_activity, product_tax, facility_applied, local_marketing, statement, statement_status, uncomplience_type, ' .
-            'syncronizing_at, updated_at',
-            'deleted_at IS NULL AND ');
+            'syncronizing_at, updated_at, deleted_at',
+            $deleted);
         $params   = $controller->GetParseParams($_GET);
         $response = $controller->Get($params);
         unset($controller);

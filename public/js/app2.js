@@ -72,7 +72,7 @@ jQuery(function ($) {
                 readOnly: $this.attr('data-readonly')
             });
 
-            if ($this.attr('data-name') === 'username' || $this.attr('data-name') === 'email_address' || 
+            if ($this.attr('data-name') === 'username' || $this.attr('data-name') === 'email_address' ||
                 $this.attr('data-name') === 'email_from' || $this.attr('data-name') === 'email_password' ||
                 $this.attr('data-name') === 'email_host' || $this.attr('data-name') === 'email_ssl') {
                 $this.dxTextBox('instance').option('inputAttr', {
@@ -193,23 +193,6 @@ jQuery(function ($) {
                 width: '100%',
                 name: $this.attr('data-name')
             });
-
-            if (window.location.href.indexOf('/edit/property/single/3') > 0 || window.location.href.indexOf('/edit/property/single/6') > 0) {
-                $this.next().children(":first").click(function () {
-                    $this.dxFileUploader('instance').reset();
-                });
-            }
-
-            if (window.location.href.indexOf('/edit/property/single/6') > 0) {
-                $this.next().children(":nth-child(2)").click(function () {
-                    var formAttachment = $(this).closest('form');
-                    if ($('.dx-fileuploader-file-container').length > 0) {
-                        formAttachment.submit();
-                    } else {
-                        toast('error', 'Please select file');
-                    }
-                });
-            }
         }
 
         if ($this.attr('data-dx') === 'btn-back') {
@@ -269,34 +252,6 @@ jQuery(function ($) {
                         } else {
                             $('#' + $this.attr('data-form')).submit();
                         }
-                    }
-                }
-            });
-        }
-
-        if ($this.attr('data-dx') === 'btn-without-submit') {
-            $this.dxButton({
-                text: $this.attr('data-text'),
-                disabled: $this.attr('data-disabled') === 'true',
-                validationGroup: $this.attr('data-validation-group'),
-                type: $this.attr('data-type'),
-                height: '33px',
-                onClick: function (params) {
-                    if (params.validationGroup !== undefined) {
-                        var result = params.validationGroup.validate();
-                        if (result.isValid) {
-                            if ($this.attr('data-name') == 'property_add_agency') {
-                                propertyAddAgency();
-                            }
-                        }
-                    } else {
-                        if ($this.attr('data-name') == 'property_add_agency') {
-                            propertyAddAgency();
-                        }
-                    }
-
-                    if (window.location.href.indexOf('/rate/building') > 0 || window.location.href.indexOf('/rate/tax') > 0) {
-                        $('div[data-name="area_text"]').css('min-height', '31px');
                     }
                 }
             });
@@ -394,7 +349,7 @@ jQuery(function ($) {
         if ($(this).attr('data-for') == 'users') {
             location.href = baseURL + '/user/create';
         } else if ($(this).attr('data-for') == 'tax') {
-            location.href = baseURL + '/create/property/single/1';
+            location.href = baseURL + '/tax/create';
         }
     });
     $(".grid-btn-sync").click(function () {
@@ -428,29 +383,12 @@ jQuery(function ($) {
             location.href = baseURL + '/export/excel/tax?column=' + JSON.stringify(column) + '&filter=' + JSON.stringify(grid.getCombinedFilter()) + '&sort=' + JSON.stringify(sort);
         }
     });
-    $(".grid-btn-error1").click(function () {
-        grid.filter(['Error', 'notcontains', '[]']);
-        $('#filter-text').html('<em>Kesemua rekod bermasalah</em>');
-    });
-    $(".grid-btn-error2").click(function () {
-        grid.filter(['Error', 'contains', 'Tiada maklumat kawasan']);
-        $('#filter-text').html('<em>Tiada maklumat kawasan</em>');
-    });
-    $(".grid-btn-error3").click(function () {
-        grid.filter(['tax_rate', '=', '0']);
-        $('#filter-text').html('<em>Tiada kadar cukai</em>');
-    });
-    $(".grid-btn-error4").click(function () {
-        grid.filter(['Error', 'contains', 'Tiada kadar bagi keluasan']);
-        $('#filter-text').html('<em>Tiada kadar nilaian</em>');
-    });
-    $(".grid-btn-error5").click(function () {
-        grid.filter(['Error', 'contains', 'Harta tiada maklumat bangunan']);
-        $('#filter-text').html('<em>Harta tiada maklumat bangunan</em>');
-    });
-    $(".grid-btn-error6").click(function () {
-        grid.filter(['Error', 'contains', 'Bangunan tiada maklumat keluasan']);
-        $('#filter-text').html('<em>Bangunan tiada maklumat keluasan</em>');
+    $(".grid-btn-trash").click(function () {
+        if ($(this).attr('data-for') == 'users') {
+            location.href = baseURL + '/user?show=trashed';
+        } else if ($(this).attr('data-for') == 'tax') {
+            location.href = baseURL + '/tax?show=trashed';
+        }
     });
 
     $("#grid").each(function () {
@@ -513,10 +451,44 @@ jQuery(function ($) {
             grid.option('dataSource', {
                 store: DevExpress.data.AspNet.createStore({
                     key: 'id',
-                    loadUrl: baseURL + '/data?b=' + '55a0c60437bd8'
+                    loadUrl: baseURL + '/data?b=' + '55a0c60437bd8' + '&c=' + $this.attr('data-trashed')
                 })
             })
-            grid.option('columns', [{
+            var columns = [];
+            if ($this.attr('data-trashed') == '1') {
+                columns.push({
+                    caption: '',
+                    alignment: 'center',
+                    dataField: 'id',
+                    width: '50px',
+                    fixed: true,
+                    showInColumnChooser: false,
+                    allowSearch: false,
+                    allowSorting: false,
+                    allowGrouping: false,
+                    allowHiding: false,
+                    allowFiltering: false,
+                    allowHeaderFiltering: false,
+                    cellTemplate: function (container, options) {
+                        $("<a/>")
+                            .attr('href', 'javascript:void')
+                            .html('<i class="c-icon cil-action-undo"></i>')
+                            .bind("click", function () {
+                                var msg = "This tax record will be restored";
+                                restoreRecord(baseURL + '/tax/restore/' + options.data.id, grid, msg);
+                            })
+                            .appendTo(container);
+                    }
+                }, {
+                    caption: 'Deleted Date',
+                    dataField: "deleted_at",
+                    width: '140',
+                    dataType: "date",
+                    format: 'dd MMM yyyy hh:mm a',
+                    allowHeaderFiltering: false
+                });
+            } else {
+                columns.push({
                     caption: '',
                     alignment: 'center',
                     dataField: 'id',
@@ -570,43 +542,76 @@ jQuery(function ($) {
                             }
                         }).appendTo(container);
                     }
-                },
-                {
-                    caption: 'Fullname',
-                    dataField: "fullname",                    
-                    allowHeaderFiltering: false,
-                    cellTemplate: function (container, options) {
-                        $('<a/>').addClass('dx-link')
-                            .text(options.text)
-                            .on('dxclick', function () {
-                                location.href = baseURL + '/user/' + options.key;
-                            })
-                            .appendTo(container);
-                    }
-                },
-                {
-                    caption: 'Email',
-                    dataField: "username",
-                    allowHeaderFiltering: false,
-                },
-                {
-                    caption: 'Role',
-                    dataField: "role",
-                    allowHeaderFiltering: false,
-                    cellTemplate: function (container, options) {
-                        var roles = JSON.parse(options.text);
-                        $('<span />').html(roles.join(' / ')).appendTo(container);
-                    }
+                });
+            }
+            columns.push({
+                caption: 'Fullname',
+                dataField: "fullname",
+                allowHeaderFiltering: false,
+                cellTemplate: function (container, options) {
+                    $('<a/>').addClass('dx-link')
+                        .text(options.text)
+                        .on('dxclick', function () {
+                            location.href = baseURL + '/user/' + options.key;
+                        })
+                        .appendTo(container);
                 }
-            ]);
+            }, {
+                caption: 'Email',
+                dataField: "username",
+                allowHeaderFiltering: false,
+            }, {
+                caption: 'Role',
+                dataField: "role",
+                allowHeaderFiltering: false,
+                cellTemplate: function (container, options) {
+                    var roles = JSON.parse(options.text);
+                    $('<span />').html(roles.join(' / ')).appendTo(container);
+                }
+            });
+            grid.option('columns', columns);
         } else if ($this.attr('data-for') == 'tax') {
             grid.option('dataSource', {
                 store: DevExpress.data.AspNet.createStore({
                     key: 'id',
-                    loadUrl: baseURL + '/data?b=' + '55a0c60437d14'
+                    loadUrl: baseURL + '/data?b=' + '55a0c60437d14' + '&c=' + $this.attr('data-trashed')
                 })
             });
-            grid.option('columns', [{
+            var columns = [];
+            if ($this.attr('data-trashed') == '1') {
+                columns.push({
+                    caption: '',
+                    alignment: 'center',
+                    dataField: 'id',
+                    width: '50px',
+                    fixed: true,
+                    showInColumnChooser: false,
+                    allowSearch: false,
+                    allowSorting: false,
+                    allowGrouping: false,
+                    allowHiding: false,
+                    allowFiltering: false,
+                    allowHeaderFiltering: false,
+                    cellTemplate: function (container, options) {
+                        $("<a/>")
+                            .attr('href', 'javascript:void')
+                            .html('<i class="c-icon cil-action-undo"></i>')
+                            .bind("click", function () {
+                                var msg = "This tax record will be restored";
+                                restoreRecord(baseURL + '/tax/restore/' + options.data.id, grid, msg);
+                            })
+                            .appendTo(container);
+                    }
+                }, {
+                    caption: 'Deleted Date',
+                    dataField: "deleted_at",
+                    width: '140',
+                    dataType: "date",
+                    format: 'dd MMM yyyy hh:mm a',
+                    allowHeaderFiltering: false
+                });
+            } else {
+                columns.push({
                     caption: '',
                     alignment: 'center',
                     dataField: 'id',
@@ -628,276 +633,216 @@ jQuery(function ($) {
                                 deleteGridRecord(baseURL + '/tax/' + options.data.id, grid, msg);
                             })
                             .appendTo(container);
-                        // $("<div/>").dxMenu({
-                        //     dataSource: [{
-                        //         text: "",
-                        //         icon: "preferences",
-                        //         items: [{
-                        //                 id: "edit",
-                        //                 text: "Edit"
-                        //             },
-                        //             {
-                        //                 id: "delete",
-                        //                 text: "Delete",
-                        //                 template: function (itemData, itemIndex, itemElement) {
-                        //                     itemElement.append('<span class="dx-menu-item-text" style="color: red;">' + itemData.text + '</span>');
-                        //                 }
-                        //             }
-                        //         ]
-                        //     }],
-                        //     cssClass: "grid-cog-menu",
-                        //     onItemClick: function (data) {
-                        //         if (data.itemData.id == 'edit') {
-                        //             location.href = baseURL + '/tax/' + options.data.id + '/edit';
-                        //         } else if (data.itemData.id == 'delete') {
-                        //             var msg = "This tax record will be deleted from system";
-                        //             deleteGridRecord(baseURL + '/tax/' + options.data.id, grid, msg);
-                        //         }
-                        //     }
-                        // }).appendTo(container);
                     }
-                },
-                {
-                    caption: 'Business/Branch Name',
-                    dataType: 'string',
-                    dataField: "business_name",
-                    width: '280',
-                    sortOrder: 'asc',
-                    allowHeaderFiltering: false,
-                    cellTemplate: function (container, options) {
-                        $('<a/>').addClass('dx-link')
-                            .text(options.text)
-                            .on('dxclick', function () {
-                                location.href = baseURL + '/tax/' + options.data.id + '?tab=1';
-                            })
-                            .appendTo(container);
-                    }
-                },
-                {
-                    caption: 'Trade Name',
-                    dataType: 'string',
-                    dataField: "trade_name",
-                    visible: false,
-                    allowHeaderFiltering: false
-                },
-                {
-                    caption: 'Status Name',
-                    dataField: "registration_status",
-                    width: '110',
-                    dataType: 'string'
-                },
-                {
-                    caption: 'Register Date',
-                    dataField: "registration_date",
-                    dataType: "date",
-                    width: '110',
-                    format: 'dd MMM yyyy'
-                },
-                {
-                    caption: 'Cancellation Approval',
-                    dataField: "cancellation_approval",
-                    visible: false,
-                    dataType: "date",
-                    format: 'dd MMM yyyy',
-                    allowHeaderFiltering: false
-                },
-                {
-                    caption: 'Cancellation Effective',
-                    dataField: "cancellation_effective",
-                    visible: false,
-                    dataType: "date",
-                    format: 'dd MMM yyyy',
-                    allowHeaderFiltering: false
-                },
-                {
-                    caption: 'SST No',
-                    dataType: 'string',
-                    dataField: "sst_no",
-                    width: '130',
-                    allowHeaderFiltering: false
-                },
-                {
-                    caption: 'Station Code',
-                    dataType: 'string',
-                    dataField: "station_code",
-                    width: '100',
-                    visible: false
-                },
-                {
-                    caption: 'Station Name',
-                    dataType: 'string',
-                    width: '140',
-                    dataField: "station_name"
-                },
-                {
-                    caption: 'GST No',
-                    dataType: 'string',
-                    dataField: "gst_no",
-                    width: '100',
-                    allowHeaderFiltering: false
-                },
-                {
-                    caption: 'Brn No',
-                    dataType: 'string',
-                    dataField: "brn_no",
-                    width: '100',
-                    allowHeaderFiltering: false
-                },
-                {
-                    caption: 'SST Type',
-                    dataType: 'string',
-                    width: '120',
-                    dataField: "sst_type"
-                },
-                {
-                    caption: 'Email Address',
-                    dataType: 'string',
-                    dataField: "email_address",
-                    allowHeaderFiltering: false
-                },
-                {
-                    caption: 'Telephone No',
-                    dataType: 'string',
-                    dataField: "telephone_no",
-                    width: '120',
-                    allowHeaderFiltering: false
-                },
-                {
-                    caption: 'Company Address 1',
-                    dataType: 'string',
-                    dataField: "company_address_1",
-                    visible: false,
-                    allowHeaderFiltering: false
-                },
-                {
-                    caption: 'Company Address 2',
-                    dataType: 'string',
-                    dataField: "company_address_2",
-                    visible: false,
-                    allowHeaderFiltering: false
-                },
-                {
-                    caption: 'Company Address 3',
-                    dataType: 'string',
-                    dataField: "company_address_3",
-                    visible: false,
-                    allowHeaderFiltering: false
-                },
-                {
-                    caption: 'Company Postcode',
-                    dataType: 'string',
-                    dataField: "company_postcode",
-                    visible: false,
-                    allowHeaderFiltering: false
-                },
-                {
-                    caption: 'Company City',
-                    dataType: 'string',
-                    dataField: "company_city",
-                    visible: false
-                },
-                {
-                    caption: 'Company State',
-                    dataType: 'string',
-                    width: '130',
-                    dataField: "company_state",
-                },
-                {
-                    caption: 'Correspondence Address 1',
-                    dataType: 'string',
-                    dataField: "correspondence_address_1",
-                    visible: false,
-                    allowHeaderFiltering: false
-                },
-                {
-                    caption: 'Correspondence Address 2',
-                    dataType: 'string',
-                    dataField: "correspondence_address_2",
-                    visible: false,
-                    allowHeaderFiltering: false
-                },
-                {
-                    caption: 'Correspondence Address 3',
-                    dataType: 'string',
-                    dataField: "correspondence_address_3",
-                    visible: false,
-                    allowHeaderFiltering: false
-                },
-                {
-                    caption: 'Correspondence Postcode',
-                    dataType: 'string',
-                    dataField: "correspondence_postcode",
-                    visible: false,
-                    allowHeaderFiltering: false
-                },
-                {
-                    caption: 'Correspondence city',
-                    dataType: 'string',
-                    dataField: "correspondence_city",
-                    visible: false
-                },
-                {
-                    caption: 'Correspondence State',
-                    dataType: 'string',
-                    dataField: "correspondence_state",
-                    visible: false
-                },
-                {
-                    caption: 'Factory Name',
-                    dataType: 'string',
-                    width: '120',
-                    dataField: "factory_name",
-                    allowHeaderFiltering: false
-                },
-                {
-                    caption: 'Entity Type',
-                    dataType: 'string',
-                    width: '120',
-                    dataField: "entity_type"
-                },
-                {
-                    caption: 'Business Activity',
-                    dataType: 'string',
-                    width: '140',
-                    dataField: "business_activity"
-                },
-                {
-                    caption: 'Product',
-                    dataType: 'string',
-                    width: '120',
-                    dataField: "product_tax"
-                },
-                {
-                    caption: 'Facility Applied',
-                    dataType: 'string',
-                    width: '120',
-                    dataField: "facility_applied"
-                },
-                {
-                    caption: 'Local Marketing',
-                    dataType: 'string',
-                    width: '120',
-                    dataField: "local_marketing"
-                },
-                {
-                    caption: 'Statement',
-                    dataType: 'string',
-                    dataField: "statement",
-                    visible: false
-                },
-                {
-                    caption: 'Statement Status',
-                    dataType: 'string',
-                    dataField: "statement_status",
-                    visible: false
-                },
-                {
-                    caption: 'Uncomplience Type',
-                    dataType: 'string',
-                    dataField: "uncomplience_type",
-                    visible: false
+                });
+            }
+            columns.push({
+                caption: 'Business/Branch Name',
+                dataType: 'string',
+                dataField: "business_name",
+                width: '280',
+                sortOrder: 'asc',
+                allowHeaderFiltering: false,
+                cellTemplate: function (container, options) {
+                    $('<a/>').addClass('dx-link')
+                        .text(options.text)
+                        .on('dxclick', function () {
+                            location.href = baseURL + '/tax/' + options.data.id + '?tab=1';
+                        })
+                        .appendTo(container);
                 }
-            ]);
+            }, {
+                caption: 'Trade Name',
+                dataType: 'string',
+                dataField: "trade_name",
+                visible: false,
+                allowHeaderFiltering: false
+            }, {
+                caption: 'Status Name',
+                dataField: "registration_status",
+                width: '110',
+                dataType: 'string'
+            }, {
+                caption: 'Register Date',
+                dataField: "registration_date",
+                dataType: "date",
+                width: '110',
+                format: 'dd MMM yyyy'
+            }, {
+                caption: 'Cancellation Approval',
+                dataField: "cancellation_approval",
+                visible: false,
+                dataType: "date",
+                format: 'dd MMM yyyy',
+                allowHeaderFiltering: false
+            }, {
+                caption: 'Cancellation Effective',
+                dataField: "cancellation_effective",
+                visible: false,
+                dataType: "date",
+                format: 'dd MMM yyyy',
+                allowHeaderFiltering: false
+            }, {
+                caption: 'SST No',
+                dataType: 'string',
+                dataField: "sst_no",
+                width: '130',
+                allowHeaderFiltering: false
+            }, {
+                caption: 'Station Code',
+                dataType: 'string',
+                dataField: "station_code",
+                width: '100',
+                visible: false
+            }, {
+                caption: 'Station Name',
+                dataType: 'string',
+                width: '140',
+                dataField: "station_name"
+            }, {
+                caption: 'GST No',
+                dataType: 'string',
+                dataField: "gst_no",
+                width: '100',
+                allowHeaderFiltering: false
+            }, {
+                caption: 'Brn No',
+                dataType: 'string',
+                dataField: "brn_no",
+                width: '100',
+                allowHeaderFiltering: false
+            }, {
+                caption: 'SST Type',
+                dataType: 'string',
+                width: '120',
+                dataField: "sst_type"
+            }, {
+                caption: 'Email Address',
+                dataType: 'string',
+                dataField: "email_address",
+                allowHeaderFiltering: false
+            }, {
+                caption: 'Telephone No',
+                dataType: 'string',
+                dataField: "telephone_no",
+                width: '120',
+                allowHeaderFiltering: false
+            }, {
+                caption: 'Company Address 1',
+                dataType: 'string',
+                dataField: "company_address_1",
+                visible: false,
+                allowHeaderFiltering: false
+            }, {
+                caption: 'Company Address 2',
+                dataType: 'string',
+                dataField: "company_address_2",
+                visible: false,
+                allowHeaderFiltering: false
+            }, {
+                caption: 'Company Address 3',
+                dataType: 'string',
+                dataField: "company_address_3",
+                visible: false,
+                allowHeaderFiltering: false
+            }, {
+                caption: 'Company Postcode',
+                dataType: 'string',
+                dataField: "company_postcode",
+                visible: false,
+                allowHeaderFiltering: false
+            }, {
+                caption: 'Company City',
+                dataType: 'string',
+                dataField: "company_city",
+                visible: false
+            }, {
+                caption: 'Company State',
+                dataType: 'string',
+                width: '130',
+                dataField: "company_state",
+            }, {
+                caption: 'Correspondence Address 1',
+                dataType: 'string',
+                dataField: "correspondence_address_1",
+                visible: false,
+                allowHeaderFiltering: false
+            }, {
+                caption: 'Correspondence Address 2',
+                dataType: 'string',
+                dataField: "correspondence_address_2",
+                visible: false,
+                allowHeaderFiltering: false
+            }, {
+                caption: 'Correspondence Address 3',
+                dataType: 'string',
+                dataField: "correspondence_address_3",
+                visible: false,
+                allowHeaderFiltering: false
+            }, {
+                caption: 'Correspondence Postcode',
+                dataType: 'string',
+                dataField: "correspondence_postcode",
+                visible: false,
+                allowHeaderFiltering: false
+            }, {
+                caption: 'Correspondence city',
+                dataType: 'string',
+                dataField: "correspondence_city",
+                visible: false
+            }, {
+                caption: 'Correspondence State',
+                dataType: 'string',
+                dataField: "correspondence_state",
+                visible: false
+            }, {
+                caption: 'Factory Name',
+                dataType: 'string',
+                width: '120',
+                dataField: "factory_name",
+                allowHeaderFiltering: false
+            }, {
+                caption: 'Entity Type',
+                dataType: 'string',
+                width: '120',
+                dataField: "entity_type"
+            }, {
+                caption: 'Business Activity',
+                dataType: 'string',
+                width: '140',
+                dataField: "business_activity"
+            }, {
+                caption: 'Product',
+                dataType: 'string',
+                width: '120',
+                dataField: "product_tax"
+            }, {
+                caption: 'Facility Applied',
+                dataType: 'string',
+                width: '120',
+                dataField: "facility_applied"
+            }, {
+                caption: 'Local Marketing',
+                dataType: 'string',
+                width: '120',
+                dataField: "local_marketing"
+            }, {
+                caption: 'Statement',
+                dataType: 'string',
+                dataField: "statement",
+                visible: false
+            }, {
+                caption: 'Statement Status',
+                dataType: 'string',
+                dataField: "statement_status",
+                visible: false
+            }, {
+                caption: 'Uncomplience Type',
+                dataType: 'string',
+                dataField: "uncomplience_type",
+                visible: false
+            });
+            grid.option('columns', columns);
         }
     });
     //end grid
@@ -997,97 +942,6 @@ jQuery(function ($) {
 
     $('[data-toggle="tooltip"]').tooltip();
 
-    //config
-    $('#add-config-zone').click(function (e) {
-        $('#form-config-zone').attr('action', baseURL + '/store/config/2');
-        $('#modal-config-zone').modal('show');
-    });
-    $('#edit-config-zone').click(function (e) {
-        if (currentNode != undefined && currentNode.itemData.item != 'KAWASAN-KAWASAN') {
-            $('#form-config-zone').attr('action', baseURL + '/update/config/2');
-            $('#form-config-zone').find('.modal-title').html('Kemaskini Kawasan');
-            $('#form-config-zone').find('div[data-name="zone"]').dxTextBox('instance').option('value', currentNode.itemData.item);
-            $('#form-config-zone').find('input[name="id"]').val(currentNode.itemData.id);
-            $('#modal-config-zone').modal('show');
-        }
-    });
-    $('#delete-config-zone').click(function (e) {
-        if (currentNode.itemData.item != 'KAWASAN-KAWASAN') {
-            var title = 'Hapuskan Kawasan';
-            var msg = 'Dengan menghapuskan kawasan <b>' + currentNode.itemData.item + ' dan semua sub-sub kawasan</b> ini <br />' +
-                'akan menyebabkan kawasan dan sub-sub kawasan ini juga akan di buang daripada :<br />' +
-                '- Rekod pegangan/harta<br />' +
-                '- Rekod kadar nilaian dan kadar cukai<br />' +
-                'Walaubagaimanapun, tindakan ini tidak melibatkan rekod senarai nilaian<br /><br />' +
-                'Are you sure?';
-            deleteRecord(baseURL + '/delete/config/2', currentNode.itemData.id, title, msg);
-        }
-    });
-
-    $('#add-config-other').click(function (e) {
-        $('#form-config-other').attr('action', baseURL + '/store/config/6');
-        $('#modal-config-other').modal('show');
-    });
-    $('.edit-config-other').click(function (e) {
-        $('#form-config-other').attr('action', baseURL + '/update/config/6');
-        $('#form-config-other').find('.modal-title').html('Kemaskini Item');
-        $('#form-config-other').find('div[data-name="other_type"]').dxTextBox('instance').option('value', $(this).parent().prev().html());
-        $('#form-config-other').find('input[name="id"]').val($(this).attr('data-id'));
-        $('#modal-config-other').modal('show');
-    });
-    $('.delete-config-other').click(function (e) {
-        var title = 'Hapuskan Item';
-        var msg = 'Adakah anda pasti untuk menghapuskan item ini?';
-        deleteRecord(baseURL + '/delete/config/6', $(this).attr('data-id'), title, msg);
-    });
-
-    $('.config-other').click(function () {
-        $('.config-other').each(function () {
-            $(this).removeClass('active');
-        });
-        $(this).addClass('active');
-        $('#form-config-other').find('input[name="other_category"]').val($(this).attr('data-key'));
-        $.getJSON(baseURL + '/data?b=55a0c60438017&c=' + $(this).attr('data-key'), function (data) {
-            $('#table-config-other > tbody').empty();
-            $.each(data, function (i, item) {
-                $('#table-config-other > tbody').append('<tr><td>' + item.item + '</td><td style="width: 60px; text-align: center">' +
-                    '<a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" data-title="Edit" class="edit-config-other" data-id="' + item.id + '"> <i class="fa fa-pencil"></i></a>' +
-                    '<a href="javascript:void(0)" class="pl-1 delete-config-other" data-toggle="tooltip" data-placement="top" data-title="Hapus" data-id="' + item.id + '"> <i class="fa fa-trash text-danger"></i></a>' +
-                    '</td></tr>');
-            });
-            $('[data-toggle="tooltip"]').tooltip();
-            $('.edit-config-other').click(function (e) {
-                $('#form-config-other').attr('action', baseURL + '/update/config/6');
-                $('#form-config-other').find('.modal-title').html('Kemaskini Jenis Bangunan');
-                $('#form-config-other').find('div[data-name="other_type"]').dxTextBox('instance').option('value', $(this).parent().prev().html());
-                $('#form-config-other').find('input[name="id"]').val($(this).attr('data-id'));
-                $('#modal-config-other').modal('show');
-            });
-            $('.delete-config-other').click(function (e) {
-                var title = 'Hapuskan Jenis Struktur Pagar';
-                var msg = 'Adakah anda pasti untuk menghapuskan jenis struktur pagar ini?';
-                deleteRecord(baseURL + '/delete/config/6', $(this).attr('data-id'), title, msg);
-            });
-        });
-    });
-    //end config
-
-    //property
-    function propertyAddAgency() {
-        $('input[name="cbk_used_by"]').val($('div[data-name="agency"]').dxSelectBox('instance').option('value'));
-        $('#span-agency').html('<code>' + $('div[data-name="agency"]').dxSelectBox('instance').option('value').toLowerCase() + '</code>');
-        $('#modal-property-agency').modal('hide');
-    }
-    //end property
-
-    //property attachment
-    $('.delete-property-attachment').click(function (e) {
-        var title = 'Hapuskan Lampiran';
-        var msg = 'Adakah anda pasti ingin menghapuskan lampiran ini?';
-        deleteRecord(window.location.href.replace('edit', 'delete'), $(this).attr('data-id'), title, msg);
-    });
-    //
-
     $('a[data-action=delete]').on('click', function (e) {
         e.preventDefault();
         $(this).closest('tr').hide(300, function () {
@@ -1182,9 +1036,9 @@ jQuery(function ($) {
         });
     }
 
-    function deleteRecord(url, id, title, msg) {
+    function deleteGridRecord(url, grid, msg) {
         DevExpress.ui.dialog.custom({
-            title: title,
+            title: "Are you sure?",
             message: msg,
             buttons: [{
                     text: "Confirm",
@@ -1203,28 +1057,64 @@ jQuery(function ($) {
             ]
         }).show().done(function (dialogResult) {
             if (dialogResult) {
-                var deleteForm = document.createElement('form');
-                deleteForm.setAttribute('action', url);
-                deleteForm.setAttribute('method', 'POST');
-                deleteForm.appendChild(document.getElementsByName("_token")[0]);
-                var inputMethod = document.createElement('input');
-                inputMethod.setAttribute('type', 'hidden');
-                inputMethod.setAttribute('name', '_method');
-                inputMethod.setAttribute('value', 'DELETE');
-                deleteForm.appendChild(inputMethod);
-                var inputId = document.createElement('input');
-                inputId.setAttribute('type', 'hidden');
-                inputId.setAttribute('name', 'id');
-                inputId.setAttribute('value', id);
-                deleteForm.appendChild(inputId);
-                document.body.appendChild(deleteForm);
-                deleteForm.submit();
+                $.ajax({
+                    url: url,
+                    type: 'DELETE',
+                    dataType: "JSON",
+                    data: {
+                        "_token": $('input[name="_token"]').val()
+                    },
+                    success: function (response) {
+                        if (response.status == true) {
+                            toast('success', response.message);
+                            grid.refresh();
+                        } else {
+                            toast('error', response.message)
+                        }
+                    }
+                });
             }
         });
     }
 
-    function hideLoadPanel() {
-        $('.panel-body').removeClass('d-none');
-        loadPanel.hide();
+    function restoreRecord(url, id, msg) {
+        DevExpress.ui.dialog.custom({
+            title: "Are You Sure?",
+            message: msg,
+            buttons: [{
+                    text: "Confirm",
+                    type: "danger",
+                    onClick: function () {
+                        return true;
+                    }
+                },
+                {
+                    text: "Cancel",
+                    type: "normal",
+                    onClick: function () {
+                        return false;
+                    }
+                }
+            ]
+        }).show().done(function (dialogResult) {
+            if (dialogResult) {
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    dataType: "JSON",
+                    data: {
+                        "_token": $('input[name="_token"]').val()
+                    },
+                    success: function (response) {
+                        if (response.status == true) {
+                            toast('success', response.message);
+                            grid.refresh();
+                        } else {
+                            toast('error', response.message)
+                        }
+                    }
+                });
+            }
+        });
     }
 });

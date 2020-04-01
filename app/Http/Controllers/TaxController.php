@@ -21,6 +21,7 @@ class TaxController extends Controller
             'menu'       => ['menu' => 'Tax', 'subMenu' => ''],
             'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
                              <li class="breadcrumb-item active">Tax Records</li>',
+            'trashed'    => request()->get('show') == 'trashed',
         );
 
         return view('tax.index', $data);
@@ -117,10 +118,10 @@ class TaxController extends Controller
 
     public function exportExcel()
     {
-        $response   = null;
+        $response  = null;
         $arrayCols = json_decode(request()->get('column'));
         unset($arrayCols[0]);
-        $cols = implode(',', $arrayCols);
+        $cols       = implode(',', $arrayCols);
         $controller = new DxGridOfficial('tax_records',
             $cols,
             'deleted_at IS NULL AND ');
@@ -140,22 +141,22 @@ class TaxController extends Controller
     {
         try {
             $taxRecords = Models\TAXRecords::find($id);
-
-            // if ($taxRecords->avatar != null &&
-            //     \Storage::disk('asset')->exists('avatar' . DIRECTORY_SEPARATOR . $this->getFilename('images', $user->avatar))) {
-            //     \Storage::disk('asset')->delete('avatar' . DIRECTORY_SEPARATOR . $this->getFilename('images', $user->avatar));
-            // }
-
-            // $asset = Models\SYSAsset::where('for_id', $user->id)->where('for', 'User Avatar');
-            // if ($asset->count() > 0) {
-            //     $asset->forceDelete();
-            // }
-
             $taxRecords->delete();
 
             return response()->json(['status' => true, 'message' => 'Tax record has been deleted']);
         } catch (\Exception $ex) {
             return response()->json(['status' => false, 'message' => 'Error on deleted that record']);
+        }
+    }
+
+    public function restore($id)
+    {
+        try {
+            Models\TAXRecords::withTrashed()->find($id)->restore();
+
+            return response()->json(['status' => true, 'message' => 'Tax record has been restores']);
+        } catch (\Exception $ex) {
+            return response()->json(['status' => false, 'message' => 'Error on restored that record']);
         }
     }
 }
