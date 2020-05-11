@@ -18,49 +18,61 @@
             @csrf
             <input type="hidden" name="_method" value="PUT" />
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-8">
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">Host</label>
-                        <div class="col-md-9">
-                            <div data-dx="textbox" data-name="email_host" data-mode="text" data-value="{!! \Request::old('email_host', isset($emailHost) ? $emailHost['value'] : null) !!}"
-                                data-validate="true" data-validation-type="required" data-validation-group="form"></div>
+                        <div class="col-md-5">
+                            <div data-dx="textbox" data-name="mail_mailers_smtp_host" data-mode="text" data-case="lowercase"
+                                data-value="{!! request()->old('mail_mailers_smtp_host', isset($emailHost) ? $emailHost['value'] : null) !!}" data-validate="true"
+                                data-validation-type="required" data-validation-group="form"></div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">Port</label>
-                        <div class="col-md-9">
-                            <div data-dx="textbox" data-name="email_port" data-mode="text" data-value="{!! \Request::old('email_port', isset($emailPort) ? $emailPort['value'] : null) !!}"
-                                data-validate="true" data-validation-type="required" data-validation-group="form"></div>
+                        <div class="col-md-5">
+                            <div data-dx="textbox" data-name="mail_mailers_smtp_port" data-mode="text"
+                                data-value="{!! request()->old('mail_mailers_smtp_port', isset($emailPort) ? $emailPort['value'] : null) !!}" data-validate="true"
+                                data-validation-type="required" data-validation-group="form"></div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">SSL</label>
-                        <div class="col-md-9">
-                            <div data-dx="textbox" data-name="email_ssl" data-mode="text" data-value="{!! \Request::old('email_ssl', isset($emailSSL) ? $emailSSL['value'] : null) !!}"
-                                data-validate="true" data-validation-type="required" data-validation-group="form"></div>
+                        <div class="col-md-5">
+                            <div data-dx="textbox" data-name="mail_mailers_smtp_encryption" data-mode="text" data-case="lowercase"
+                                data-value="{!! request()->old('mail_mailers_smtp_encryption', isset($emailSSL) ? $emailSSL['value'] : null) !!}"></div>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label">Email Address</label>
-                        <div class="col-md-9">
-                            <div data-dx="textbox" data-name="email_from" data-mode="text" data-value="{!! \Request::old('email_from', isset($emailFrom) ? $emailFrom['value'] : null) !!}"
-                                data-validate="true" data-validation-type="required,email" data-validation-group="form"></div>
+                        <label class="col-md-3 col-form-label">Username</label>
+                        <div class="col-md-5">
+                            <div data-dx="textbox" data-name="mail_mailers_smtp_username" data-mode="text" data-case="lowercase"
+                                data-value="{!! request()->old('mail_mailers_smtp_username', isset($emailFrom) ? $emailFrom['value'] : null) !!}" data-validate="true"
+                                data-validation-type="required" data-validation-group="form"></div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">Password</label>
+                        <div class="col-md-5">
+                            <div data-dx="textbox" data-name="mail_mailers_smtp_password" data-mode="password" data-case="lowercase"
+                                data-value="{!! request()->old('mail_mailers_smtp_password', isset($emailPassword) ? $emailPassword['value'] : null) !!}" data-validate="true"
+                                data-validation-type="required" data-validation-group="form">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">From Email Address</label>
+                        <div class="col-md-5">
+                            <div data-dx="textbox" data-name="mail_from_address" data-mode="text" data-case="lowercase"
+                                data-value="{!! request()->old('mail_from_address', isset($emailFrom) ? $emailFrom['value'] : null) !!}" data-validate="true"
+                                data-validation-type="required,email" data-validation-group="form"></div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label">From Name</label>
-                        <div class="col-md-9">
-                            <div data-dx="textbox" data-name="email_name" data-mode="text" data-value="{!! \Request::old('email_name', isset($emailName) ? $emailName['value'] : null) !!}"
-                                data-validate="true" data-validation-type="required" data-validation-group="form"></div>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-md-3 col-form-label">Email Password</label>
-                        <div class="col-md-9">
-                            <div data-dx="textbox" data-name="email_password" data-mode="password"
-                                data-value="{!! \Request::old('email_password', isset($emailPassword) ? $emailPassword['value'] : null) !!}" data-validate="true"
-                                data-validation-type="required" data-validation-group="form">
-                            </div>
+                        <div class="col-md-5">
+                            <div data-dx="textbox" data-name="mail_from_name" data-mode="text" data-case="lowercase"
+                                data-value="{!! request()->old('mail_from_name', isset($emailName) ? $emailName['value'] : null) !!}" data-validate="true" data-validation-type="required"
+                                data-validation-group="form"></div>
                         </div>
                     </div>
                 </div>

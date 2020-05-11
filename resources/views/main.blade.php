@@ -166,7 +166,6 @@
     <!--[if IE]><!-->
     <script src="{!! asset('js/svgxuse.min.js') !!}"></script>
     <!--<![endif]-->
-    <script src="{!! asset('js/svgxuse.min.js') !!}"></script>
     @yield("page-script")
     @if ($errors->any())
     <script type="text/javascript">

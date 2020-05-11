@@ -43,7 +43,7 @@
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label" for="hf-email">Email</label>
                         <div class="col-md-9">
-                            <div data-dx="textbox" data-name="username" data-mode="text" data-value="{!! \Request::old('username', isset($user) ? $user->username : NULL) !!}"
+                            <div data-dx="textbox"  data-case="lowercase" data-name="username" data-mode="text" data-value="{!! \Request::old('username', isset($user) ? $user->username : NULL) !!}"
                                 data-validate="true" data-validation-type="required,email" data-validation-group="form">
                             </div>
                         </div>

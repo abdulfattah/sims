@@ -34,7 +34,7 @@
                                     </svg>
                                 </span>
                             </div>
-                            <div class="dx-texteditor-with-icon" data-dx="textbox" data-name="username" data-mode="email" data-placeholder="Username" data-readonly="true"
+                            <div class="dx-texteditor-with-icon" data-dx="textbox"  data-case="lowercase" data-name="username" data-mode="email" data-placeholder="Username" data-readonly="true"
                                 data-value="{!! strtolower($user->username) !!}"></div>
                         </div>
                     </div>

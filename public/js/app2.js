@@ -72,9 +72,7 @@ jQuery(function ($) {
                 readOnly: $this.attr('data-readonly')
             });
 
-            if ($this.attr('data-name') === 'username' || $this.attr('data-name') === 'email_address' ||
-                $this.attr('data-name') === 'email_from' || $this.attr('data-name') === 'email_password' ||
-                $this.attr('data-name') === 'email_host' || $this.attr('data-name') === 'email_ssl') {
+            if ($this.attr('data-case') === 'lowercase') {
                 $this.dxTextBox('instance').option('inputAttr', {
                     style: 'text-transform:none'
                 });
@@ -356,12 +354,24 @@ jQuery(function ($) {
         location.href = baseURL + '/tax/sync';
     });
     $(".grid-btn-refresh").click(function () {
+        if ($(this).attr('data-for') == 'users') {
+            localStorage.removeItem("indexUsers");
+        } else if ($(this).attr('data-for') == 'tax') {
+            localStorage.removeItem("indexTax");
+        }
         grid.state({});
         grid.option("searchPanel.visible", false);
         grid.refresh();
     });
     $(".grid-btn-column").click(function () {
         grid.showColumnChooser();
+    });
+    $(".grid-btn-trash").click(function () {
+        if ($(this).attr('data-for') == 'users') {
+            location.href = baseURL + '/user?show=trashed';
+        } else if ($(this).attr('data-for') == 'tax') {
+            location.href = baseURL + '/tax?show=trashed';
+        }
     });
     $(".grid-btn-excel").click(function () {
         var sort = [];
@@ -381,13 +391,6 @@ jQuery(function ($) {
             location.href = baseURL + '/export/excel/user?filter=' + JSON.stringify(grid.getCombinedFilter()) + '&sort=' + JSON.stringify(sort);
         } else if ($(this).attr('data-for') == 'tax') {
             location.href = baseURL + '/export/excel/tax?column=' + JSON.stringify(column) + '&filter=' + JSON.stringify(grid.getCombinedFilter()) + '&sort=' + JSON.stringify(sort);
-        }
-    });
-    $(".grid-btn-trash").click(function () {
-        if ($(this).attr('data-for') == 'users') {
-            location.href = baseURL + '/user?show=trashed';
-        } else if ($(this).attr('data-for') == 'tax') {
-            location.href = baseURL + '/tax?show=trashed';
         }
     });
 
@@ -453,7 +456,23 @@ jQuery(function ($) {
                     key: 'id',
                     loadUrl: baseURL + '/data?b=' + '55a0c60437bd8' + '&c=' + $this.attr('data-trashed')
                 })
-            })
+            });
+            grid.option('stateStoring', {
+                enabled: true,
+                type: 'custom',
+                storageKey: 'indexUsers',
+                customLoad: function () {
+                    var d = new $.Deferred();
+                    setTimeout(function () {
+                        var state = localStorage.getItem("indexUsers");
+                        d.resolve($.parseJSON(state));
+                    }, 1000);
+                    return d.promise();
+                },
+                customSave: function (gridState) {
+                    localStorage.setItem("indexUsers", JSON.stringify(gridState));
+                }
+            });
             var columns = [];
             if ($this.attr('data-trashed') == '1') {
                 columns.push({
@@ -474,7 +493,7 @@ jQuery(function ($) {
                             .attr('href', 'javascript:void')
                             .html('<i class="c-icon cil-action-undo"></i>')
                             .bind("click", function () {
-                                var msg = "This tax record will be restored";
+                                var msg = "This user will be restored";
                                 restoreRecord(baseURL + '/tax/restore/' + options.data.id, grid, msg);
                             })
                             .appendTo(container);
@@ -576,6 +595,22 @@ jQuery(function ($) {
                     key: 'id',
                     loadUrl: baseURL + '/data?b=' + '55a0c60437d14' + '&c=' + $this.attr('data-trashed')
                 })
+            });
+            grid.option('stateStoring', {
+                enabled: true,
+                type: 'custom',
+                storageKey: 'indexTax',
+                customLoad: function () {
+                    var d = new $.Deferred();
+                    setTimeout(function () {
+                        var state = localStorage.getItem("indexTax");
+                        d.resolve($.parseJSON(state));
+                    }, 1000);
+                    return d.promise();
+                },
+                customSave: function (gridState) {
+                    localStorage.setItem("indexTax", JSON.stringify(gridState));
+                }
             });
             var columns = [];
             if ($this.attr('data-trashed') == '1') {

@@ -19,41 +19,26 @@ class ConfigController extends Controller
                              <li class="breadcrumb-item active">Tetapan</li>',
         );
 
-        $data['emailHost']     = Models\SYSSetting::where('param', 'email_host')->get(['param', 'value'])->first()->toArray();
-        $data['emailPort']     = Models\SYSSetting::where('param', 'email_port')->get(['param', 'value'])->first()->toArray();
-        $data['emailSSL']      = Models\SYSSetting::where('param', 'email_ssl')->get(['param', 'value'])->first()->toArray();
-        $data['emailFrom']     = Models\SYSSetting::where('param', 'email_from')->get(['param', 'value'])->first()->toArray();
-        $data['emailName']     = Models\SYSSetting::where('param', 'email_name')->get(['param', 'value'])->first()->toArray();
-        $data['emailPassword'] = Models\SYSSetting::where('param', 'email_password')->get(['param', 'value'])->first()->toArray();
+        $data['emailUsername'] = Models\SYSSetting::where('param', 'mail.mailers.smtp.username')->get(['param', 'value'])->first()->toArray();
+        $data['emailPassword'] = Models\SYSSetting::where('param', 'mail.mailers.smtp.password')->get(['param', 'value'])->first()->toArray();
+        $data['emailHost']     = Models\SYSSetting::where('param', 'mail.mailers.smtp.host')->get(['param', 'value'])->first()->toArray();
+        $data['emailPort']     = Models\SYSSetting::where('param', 'mail.mailers.smtp.port')->get(['param', 'value'])->first()->toArray();
+        $data['emailSSL']      = Models\SYSSetting::where('param', 'mail.mailers.smtp.encryption')->get(['param', 'value'])->first()->toArray();
+        $data['emailFrom']     = Models\SYSSetting::where('param', 'mail.from.address')->get(['param', 'value'])->first()->toArray();
+        $data['emailName']     = Models\SYSSetting::where('param', 'mail.from.name')->get(['param', 'value'])->first()->toArray();
 
         return view('system.config', $data);
     }
 
     public function update($id)
     {
-        $emailHost        = Models\SYSSetting::where('param', 'email_host')->get()->first();
-        $emailHost->value = request()->get('email_host');
-        $emailHost->save();
-
-        $emailPort        = Models\SYSSetting::where('param', 'email_port')->get()->first();
-        $emailPort->value = request()->get('email_port');
-        $emailPort->save();
-
-        $emailSSL        = Models\SYSSetting::where('param', 'email_ssl')->get()->first();
-        $emailSSL->value = request()->get('email_ssl');
-        $emailSSL->save();
-
-        $emailFrom        = Models\SYSSetting::where('param', 'email_from')->get()->first();
-        $emailFrom->value = request()->get('email_from');
-        $emailFrom->save();
-
-        $emailName        = Models\SYSSetting::where('param', 'email_name')->get()->first();
-        $emailName->value = strtoupper(request()->get('email_name'));
-        $emailName->save();
-
-        $emailPassword        = Models\SYSSetting::where('param', 'email_password')->get()->first();
-        $emailPassword->value = request()->get('email_password');
-        $emailPassword->save();
+        \DB::update('UPDATE sys_setting set value = ? where param = ?', [request()->get('mail_mailers_smtp_host'), 'mail.mailers.smtp.host']);
+        \DB::update('UPDATE sys_setting set value = ? where param = ?', [request()->get('mail_mailers_smtp_port'), 'mail.mailers.smtp.port']);
+        \DB::update('UPDATE sys_setting set value = ? where param = ?', [request()->get('mail_mailers_smtp_encryption'), 'mail.mailers.smtp.encryption']);
+        \DB::update('UPDATE sys_setting set value = ? where param = ?', [request()->get('mail_mailers_smtp_username'), 'mail.mailers.smtp.username']);
+        \DB::update('UPDATE sys_setting set value = ? where param = ?', [request()->get('mail_mailers_smtp_password'), 'mail.mailers.smtp.password']);
+        \DB::update('UPDATE sys_setting set value = ? where param = ?', [request()->get('mail_from_address'), 'mail.from.address']);
+        \DB::update('UPDATE sys_setting set value = ? where param = ?', [request()->get('mail_from_name'), 'mail.from.name']);
 
         Artisan::call('config:clear');
         Artisan::call('queue:restart');

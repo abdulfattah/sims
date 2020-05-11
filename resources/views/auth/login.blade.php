@@ -48,7 +48,7 @@
                                     </svg>
                                 </span>
                             </div>
-                            <div class="dx-texteditor-with-icon" data-dx="textbox" data-name="username" data-mode="email" data-placeholder="Email" data-value="" data-validate="true"
+                            <div class="dx-texteditor-with-icon" data-dx="textbox"  data-case="lowercase" data-name="username" data-mode="email" data-placeholder="Email" data-value="" data-validate="true"
                                 data-validation-type="required,email" data-validation-group="form"></div>
                         </div>
                     </div>
