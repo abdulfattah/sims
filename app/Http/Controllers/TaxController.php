@@ -98,7 +98,7 @@ class TaxController extends Controller
         );
         $tax->save();
 
-        return redirect()->to('tax/' . $id . '?tab=2')
+        return redirect()->to('tax/' . $id . '?section=2')
             ->with('success', 'Tax information has been update.');
     }
 

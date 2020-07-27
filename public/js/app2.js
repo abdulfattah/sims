@@ -682,7 +682,7 @@ jQuery(function ($) {
                     $('<a/>').addClass('dx-link')
                         .text(options.text)
                         .on('dxclick', function () {
-                            location.href = baseURL + '/tax/' + options.data.id + '?tab=1';
+                            location.href = baseURL + '/tax/' + options.data.id + '?section=basic';
                         })
                         .appendTo(container);
                 }
