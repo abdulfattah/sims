@@ -6,6 +6,7 @@ use App\Jobs\ProcessExcel;
 use App\Libs\App;
 use App\Libs\DxGridOfficial;
 use App\Models;
+use App\Models\SYSAsset;
 use App\Models\SYSSetting;
 use App\Models\TAXRecords;
 use Maatwebsite\Excel\Facades\Excel;
@@ -72,6 +73,35 @@ class TaxController extends Controller
         return view('tax.sync', $data);
     }
 
+    public function store()
+    {
+        if (request()->get('section') == 'attachment') {
+            $file       = \Request::file('filename');
+            $attachment = new SYSAsset();
+            if ($file != null) {
+                $attachment->for         = 'Tax Attachment';
+                $attachment->for_id      = request()->get('tax_record_id');
+                $attachment->upload_by   = \Auth::user()->id;
+                $attachment->asset_name  = $file->getClientOriginalName();
+                $attachment->title       = strtoupper(request()->get('title'));
+                $attachment->description = request()->get('description');
+                $attachment->save();
+
+                $uploadPath = env('ASSETS_STORAGE') . 'attachment' . DIRECTORY_SEPARATOR . request()->get('tax_record_id') . DIRECTORY_SEPARATOR;
+                if (!file_exists($uploadPath)) {
+                    mkdir($uploadPath);
+                }
+                $filename = $attachment->id . '.' . $file->getClientOriginalExtension();
+                $file->move($uploadPath, $filename);
+                $attachment->file_size = \Storage::disk('asset')->size('attachment' . DIRECTORY_SEPARATOR . request()->get('tax_record_id') . DIRECTORY_SEPARATOR . $filename);
+                $attachment->md5       = md5_file($uploadPath . $filename);
+                $attachment->save();
+            }
+
+            return redirect()->to('tax/' . request()->get('tax_record_id') . '?section=' . \Request::get('section'))->with('success', 'Attachment has been uploaded.');
+        }
+    }
+
     public function edit($id)
     {
         $data = array(
@@ -87,19 +117,39 @@ class TaxController extends Controller
 
     public function update($id)
     {
-        $input = \Request::all();
-        $tax   = Models\TAXRecords::find($id);
-        $tax   = $this->populateSaveValue($tax, $input, array(
-            'exclude' => array(
-                '_token',
-                '_method',
-            ),
-        )
-        );
-        $tax->save();
+        if (request()->get('section') == 'additional') {
+            $input = \Request::all();
+            $tax   = Models\TAXRecords::find($id);
+            $tax   = $this->populateSaveValue($tax, $input, array(
+                'exclude' => array('_token', '_method', 'section'),
+            ));
+            $tax->save();
 
-        return redirect()->to('tax/' . $id . '?section=2')
-            ->with('success', 'Tax information has been update.');
+            return redirect()->to('tax/' . $id . '?section=' . \Request::get('section'))->with('success', 'Tax information has been update.');
+        } elseif (request()->get('section') == 'attachment') {
+            $attachment              = SYSAsset::find(request()->get('id'));
+            $attachment->title       = strtoupper(request()->get('title'));
+            $attachment->description = request()->get('description');
+            $file                    = \Request::file('filename');
+            if ($file != null) {
+                $uploadPath = env('ASSETS_STORAGE') . 'attachment' . DIRECTORY_SEPARATOR . $id . DIRECTORY_SEPARATOR;
+                if (!file_exists($uploadPath)) {
+                    mkdir($uploadPath);
+                }
+                if (file_exists($uploadPath . $attachment->id . '.' . $this->getExtension($attachment))) {
+                    unlink($uploadPath . $attachment->id . '.' . $this->getExtension($attachment));
+                }
+                $filename               = request()->get('id') . '.' . $file->getClientOriginalExtension();
+                $attachment->asset_name = $file->getClientOriginalName();
+                $file->move($uploadPath, $filename);
+                $attachment->file_size = \Storage::disk('asset')->size('attachment' . DIRECTORY_SEPARATOR . $id . DIRECTORY_SEPARATOR . $filename);
+                $attachment->md5       = md5_file($uploadPath . $filename);
+                $attachment->save();
+            }
+            $attachment->save();
+
+            return redirect()->to('tax/' . $id . '?section=' . \Request::get('section'))->with('success', 'Attachment has been update.');
+        }
     }
 
     public function show($id)
@@ -139,13 +189,29 @@ class TaxController extends Controller
 
     public function destroy($id)
     {
-        try {
-            $taxRecords = Models\TAXRecords::find($id);
-            $taxRecords->delete();
+        if (request()->get('section') == 'basic') {
+            try {
+                $taxRecords = Models\TAXRecords::find($id);
+                $taxRecords->delete();
 
-            return response()->json(['status' => true, 'message' => 'Tax record has been deleted']);
-        } catch (\Exception $ex) {
-            return response()->json(['status' => false, 'message' => 'Error on deleted that record']);
+                return response()->json(['status' => true, 'message' => 'Tax record has been deleted']);
+            } catch (\Exception $ex) {
+                return response()->json(['status' => false, 'message' => 'Error on deleted that record']);
+            }
+        } elseif (request()->get('section') == 'attachment') {
+            try {
+                $attachment = Models\SYSAsset::find(request()->get('id'));
+                $taxId      = $attachment->for_id;
+                $uploadPath = env('ASSETS_STORAGE') . 'attachment' . DIRECTORY_SEPARATOR . $taxId . DIRECTORY_SEPARATOR;
+                if (file_exists($uploadPath . $attachment->id . '.' . $this->getExtension($attachment))) {
+                    unlink($uploadPath . $attachment->id . '.' . $this->getExtension($attachment));
+                }
+                $attachment->delete();
+
+                return redirect()->to('tax/' . $taxId . '?section=' . \Request::get('section'))->with('success', 'Attachment has been deleted.');
+            } catch (\Exception $ex) {
+                return redirect()->to('tax/' . $taxId . '?section=' . \Request::get('section'))->with('error', 'Error on deleted that record.');
+            }
         }
     }
 

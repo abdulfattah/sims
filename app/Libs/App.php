@@ -12,7 +12,7 @@ trait App
      * @param      $input
      * @param null $option With 'exclude' item to exclude post data, and 'date' to format post data if date exist
      *
-     * @return array
+     * @return object
      */
     public function populateSaveValue($model, $input, $option = null)
     {

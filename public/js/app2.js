@@ -904,7 +904,6 @@ jQuery(function ($) {
     });
 
     $('#upload-attachment').click(function () {
-        $('#form-attachment').attr('action', baseURL + '/attachment');
         $('#method-attachment').val('');
         $('#title-attachment').html('Upload New Attachment');
         $('[data-name="title"]').dxTextBox('instance').option('value', '');
@@ -919,7 +918,7 @@ jQuery(function ($) {
 
     $('.edit-attachment').click(function () {
         $.getJSON(baseURL + '/data?b=55a0c60438163&c=' + $(this).attr('data-id'), function (data) {
-            $('#form-attachment').attr('action', baseURL + '/attachment/' + data.id);
+            $('#form-attachment').attr('action', baseURL + '/tax/' + data.for_id + '?section=attachment&id=' + data.id);
             $('#method-attachment').val('PUT');
             $('#title-attachment').html('Update Note');
             $('[data-name="title"]').dxTextBox('instance').option('value', data.title);
@@ -932,7 +931,7 @@ jQuery(function ($) {
 
     $('.delete-attachment').click(function () {
         var msg = "This attachment will be deleted from this tax record";
-        deleteRecord(baseURL + '/attachment/' + $(this).attr('data-id'), null, 'Are you sure?', msg);
+        deleteRecord(baseURL + '/tax/' + $(this).attr('data-tax-id') + '?section=attachment&id=' + $(this).attr('data-id'), null, 'Are you sure?', msg);
     });
 
     $('#add-note').click(function () {
@@ -1030,19 +1029,19 @@ jQuery(function ($) {
         }, 1000);
     }
 
-    function deleteGridRecord(url, grid, msg) {
+    function deleteRecord(url, id, title, msg) {
         DevExpress.ui.dialog.custom({
-            title: "Are you sure?",
+            title: title,
             message: msg,
             buttons: [{
-                    text: "Confirm",
+                    text: "Yes",
                     type: "danger",
                     onClick: function () {
                         return true;
                     }
                 },
                 {
-                    text: "Cancel",
+                    text: "No",
                     type: "normal",
                     onClick: function () {
                         return false;
@@ -1051,22 +1050,22 @@ jQuery(function ($) {
             ]
         }).show().done(function (dialogResult) {
             if (dialogResult) {
-                $.ajax({
-                    url: url,
-                    type: 'DELETE',
-                    dataType: "JSON",
-                    data: {
-                        "_token": $('input[name="_token"]').val()
-                    },
-                    success: function (response) {
-                        if (response.status == true) {
-                            toast('success', response.message);
-                            grid.refresh();
-                        } else {
-                            toast('error', response.message)
-                        }
-                    }
-                });
+                var deleteForm = document.createElement('form');
+                deleteForm.setAttribute('action', url);
+                deleteForm.setAttribute('method', 'POST');
+                deleteForm.appendChild(document.getElementsByName("_token")[0]);
+                var inputMethod = document.createElement('input');
+                inputMethod.setAttribute('type', 'hidden');
+                inputMethod.setAttribute('name', '_method');
+                inputMethod.setAttribute('value', 'DELETE');
+                deleteForm.appendChild(inputMethod);
+                var inputId = document.createElement('input');
+                inputId.setAttribute('type', 'hidden');
+                inputId.setAttribute('name', 'id');
+                inputId.setAttribute('value', id);
+                deleteForm.appendChild(inputId);
+                document.body.appendChild(deleteForm);
+                deleteForm.submit();
             }
         });
     }

@@ -2,9 +2,31 @@
 
 @section("content")
 <div class="row">
-    <div class="col-md-12">
-        <div style="width: 100%;text-align: center;margin: 100px 0;">
-            <h2>CDN INTEGRATION INFORMATION SYSTEM</h2>
+    <div class="col-sm-12 col-lg-4">
+        <div class="card text-white bg-gradient-success">
+            <div class="card-body">
+                <div class="text-value-lg">{{ $totalRegistered }}</div>
+                <div>Total Registered</div>
+                <small class="text-muted">Total registration company</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-lg-4">
+        <div class="card text-white bg-gradient-danger">
+            <div class="card-body">
+                <div class="text-value-lg">{{ $totalCancelled }}</div>
+                <div>Total Cancellation</div>
+                <small class="text-muted">Total cancellation</small>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-lg-4">
+        <div class="card text-white bg-gradient-warning">
+            <div class="card-body">
+                <div class="text-value-lg">{{ $totalApplyForCancelled }}</div>
+                <div>Request For Cancellation</div>
+                <small class="text-muted">Total request for cancellation</small>
+            </div>
         </div>
     </div>
 </div>

@@ -133,7 +133,7 @@ class JsonController extends Controller
 
     private function getAttachment($id)
     {
-        $asset = SYSAsset::find($id, ['id', 'title', 'description']);
+        $asset = SYSAsset::find($id, ['id', 'for_id', 'title', 'description']);
         if ($asset != null) {
             return $asset->toArray();
         } else {
