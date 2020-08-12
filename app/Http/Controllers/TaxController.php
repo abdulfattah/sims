@@ -8,8 +8,12 @@ use App\Libs\DxGridOfficial;
 use App\Models;
 use App\Models\SYSAsset;
 use App\Models\SYSSetting;
+use App\Models\TAXNote;
+use App\Models\TAXProfiling;
 use App\Models\TAXRecords;
+use App\Models\USRHistoryLog;
 use Maatwebsite\Excel\Facades\Excel;
+use Spatie\Activitylog\Models\Activity;
 
 class TaxController extends Controller
 {
@@ -98,7 +102,40 @@ class TaxController extends Controller
                 $attachment->save();
             }
 
+            $tax = TAXRecords::find(request()->get('tax_record_id'));
+            activity('tax')
+                ->causedBy(\Auth::user())
+                ->performedOn($tax)
+                ->log('Upload attachment');
+
             return redirect()->to('tax/' . request()->get('tax_record_id') . '?section=' . \Request::get('section'))->with('success', 'Attachment has been uploaded.');
+        } elseif (request()->get('section') == 'profiling') {
+            $input     = \Request::all();
+            $profiling = new TAXProfiling();
+            $profiling = $this->populateSaveValue($profiling, $input, array(
+                'exclude' => array('_token', '_method', 'section'),
+            ));
+            $profiling->save();
+
+            activity('tax')
+                ->causedBy(\Auth::user())
+                ->performedOn($profiling)
+                ->log('Create profiling');
+
+            return redirect()->to('tax/' . request()->get('tax_id') . '?section=' . \Request::get('section'))->with('success', 'Profiling has been added.');
+        } elseif (request()->get('section') == 'note') {
+            $note                = new TAXNote();
+            $note->tax_record_id = request()->get('tax_record_id');
+            $note->note_by       = \Auth::user()->id;
+            $note->note          = request()->get('note');
+            $note->save();
+
+            activity('tax')
+                ->causedBy(\Auth::user())
+                ->performedOn($note)
+                ->log('Create new note');
+
+            return redirect()->to('tax/' . request()->get('tax_record_id') . '?section=' . \Request::get('section'))->with('success', 'Note has been added.');
         }
     }
 
@@ -117,13 +154,33 @@ class TaxController extends Controller
 
     public function update($id)
     {
-        if (request()->get('section') == 'additional') {
+        if (request()->get('section') == 'basic') {
+            $input = \Request::all();
+            $tax   = Models\TAXRecords::find($id);
+            $tax   = $this->populateSaveValue($tax, $input, array(
+                'exclude' => array('_token', '_method', 'section'),
+            ));
+            $tax->cdn_status_desc = request()->get('cdn_status_desc');
+            $tax->save();
+
+            activity('tax')
+                ->causedBy(\Auth::user())
+                ->performedOn($tax)
+                ->log('Update CDN Status');
+
+            return redirect()->to('tax/' . $id . '?section=' . \Request::get('section'))->with('success', 'Tax information has been update.');
+        } elseif (request()->get('section') == 'additional') {
             $input = \Request::all();
             $tax   = Models\TAXRecords::find($id);
             $tax   = $this->populateSaveValue($tax, $input, array(
                 'exclude' => array('_token', '_method', 'section'),
             ));
             $tax->save();
+
+            activity('tax')
+                ->causedBy(\Auth::user())
+                ->performedOn($tax)
+                ->log('Update additional information');
 
             return redirect()->to('tax/' . $id . '?section=' . \Request::get('section'))->with('success', 'Tax information has been update.');
         } elseif (request()->get('section') == 'attachment') {
@@ -148,19 +205,55 @@ class TaxController extends Controller
             }
             $attachment->save();
 
+            activity('tax')
+                ->causedBy(\Auth::user())
+                ->performedOn($attachment)
+                ->log('Update attachment');
+
             return redirect()->to('tax/' . $id . '?section=' . \Request::get('section'))->with('success', 'Attachment has been update.');
+        } elseif (request()->get('section') == 'profiling') {
+            $input     = \Request::all();
+            $profiling = TAXProfiling::find(request()->get('id'));
+            $profiling = $this->populateSaveValue($profiling, $input, array(
+                'exclude' => array('_token', '_method', 'section'),
+            ));
+            $profiling->save();
+
+            activity('tax')
+                ->causedBy(\Auth::user())
+                ->performedOn($profiling)
+                ->log('Update profiling');
+
+            return redirect()->to('tax/' . $id . '?section=' . \Request::get('section'))->with('success', 'Profiling has been update.');
+        } elseif (request()->get('section') == 'note') {
+            $note       = TAXNote::find(request()->get('id'));
+            $note->note = request()->get('note');
+            $note->save();
+
+            activity('tax')
+                ->causedBy(\Auth::user())
+                ->performedOn($note)
+                ->log('Update note');
+
+            return redirect()->to('tax/' . $id . '?section=' . \Request::get('section'))->with('success', 'Note has been update.');
         }
     }
 
     public function show($id)
     {
         $tax  = TAXRecords::find($id);
+        $logs = USRHistoryLog::where('log_name', 'tax')
+            ->where('subject_id', $tax->id)
+            ->orderBy('created_at', 'DESC')
+            ->get();
         $data = array(
             'menu'       => ['menu' => 'Tax', 'subMenu' => ''],
             'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
                              <li class="breadcrumb-item"><a href="' . \URL::to('tax') . '">Tax Record</a></li>
                              <li class="breadcrumb-item active">Show</li>',
             'tax'        => $tax,
+            'histories'  => $logs,
+
         );
 
         return view('tax.show', $data);
@@ -208,7 +301,27 @@ class TaxController extends Controller
                 }
                 $attachment->delete();
 
+                activity('tax')
+                    ->causedBy(\Auth::user())
+                    ->performedOn($attachment)
+                    ->log('Delete attachment');
+
                 return redirect()->to('tax/' . $taxId . '?section=' . \Request::get('section'))->with('success', 'Attachment has been deleted.');
+            } catch (\Exception $ex) {
+                return redirect()->to('tax/' . $taxId . '?section=' . \Request::get('section'))->with('error', 'Error on deleted that record.');
+            }
+        } elseif (request()->get('section') == 'note') {
+            try {
+                $note  = Models\TAXNote::find(request()->get('id'));
+                $taxId = $note->tax_record_id;
+                $note->delete();
+
+                activity('tax')
+                    ->causedBy(\Auth::user())
+                    ->performedOn($note)
+                    ->log('Delete note');
+
+                return redirect()->to('tax/' . $taxId . '?section=' . \Request::get('section'))->with('success', 'Note has been deleted.');
             } catch (\Exception $ex) {
                 return redirect()->to('tax/' . $taxId . '?section=' . \Request::get('section'))->with('error', 'Error on deleted that record.');
             }

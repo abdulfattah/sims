@@ -6,6 +6,10 @@ return [
         'ADMINISTRATOR',
         'STAFF',
     ],
+    //CDN Status
+    'cdnStatus'             => [
+        'PERMOHONAN PEMBATALAN'
+    ],
     //State
     'states'            => [
         'JOHOR',

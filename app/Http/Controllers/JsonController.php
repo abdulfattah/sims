@@ -6,6 +6,7 @@ use App\Libs\DxGridOfficial;
 use App\Models\SYSAsset;
 use App\Models\SYSSetting;
 use App\Models\TAXNote;
+use App\Models\TAXRecords;
 
 /*
  *55a0c604380fe
@@ -36,6 +37,11 @@ class JsonController extends Controller
                 }
             case '55a0c60438203':{ //Dapatkan % processed excel//
                     return response()->json($this->getProcessedExcel(), 200, []);
+                    break;
+                }
+            case '55a0c604381b6':{ //Dapatkan form CDN status//
+                    $id = \Request::get('c');
+                    return response()->json($this->getCDNStatus($id), 200, []);
                     break;
                 }
             case '55a0c60438163':{ //Dapatkan form attachment//
@@ -71,7 +77,7 @@ class JsonController extends Controller
     private function userGrid($trashed)
     {
         $response   = null;
-        $deleted = $trashed ? 'deleted_at IS NOT NULL AND ' : 'deleted_at IS NULL AND ';
+        $deleted    = $trashed ? 'deleted_at IS NOT NULL AND ' : 'deleted_at IS NULL AND ';
         $controller = new DxGridOfficial('usr_users',
             'id, fullname, username, role',
             $deleted);
@@ -90,7 +96,7 @@ class JsonController extends Controller
     private function taxGrid($trashed)
     {
         $response   = null;
-        $deleted = $trashed ? 'deleted_at IS NOT NULL AND ' : 'deleted_at IS NULL AND ';
+        $deleted    = $trashed ? 'deleted_at IS NOT NULL AND ' : 'deleted_at IS NULL AND ';
         $controller = new DxGridOfficial('tax_records',
             'id, registration_status, registration_date, cancellation_approval, cancellation_effective, sst_no, station_code, station_name, ' .
             'gst_no, brn_no, business_name, trade_name, sst_type, email_address, telephone_no, company_address_1, company_address_2, ' .
@@ -121,9 +127,19 @@ class JsonController extends Controller
         }
     }
 
+    private function getCDNStatus($id)
+    {
+        $cdnStatus = TAXRecords::find($id, ['cdn_status', 'cdn_status_desc']);
+        if ($cdnStatus != null) {
+            return $cdnStatus->toArray();
+        } else {
+            return null;
+        }
+    }
+
     private function getNote($id)
     {
-        $note = TAXNote::find($id, ['id', 'note']);
+        $note = TAXNote::find($id, ['id', 'tax_record_id', 'note']);
         if ($note != null) {
             return $note->toArray();
         } else {

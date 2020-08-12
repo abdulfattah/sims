@@ -38,6 +38,13 @@
             <a class="nav-link" href="{{ URL::to('tax/'.$tax->id.'?section=note') }}">Note</a>
             @endif
         </li>
+        <li class="nav-item">
+            @if(\Request::get('section') == 'history')
+            <a class="nav-link @if(\Request::get('section') == 'history') active @endif" data-toggle="tab" href="#history" role="tab" aria-controls="history">History</a>
+            @else
+            <a class="nav-link" href="{{ URL::to('tax/'.$tax->id.'?section=history') }}">History</a>
+            @endif
+        </li>
     </ul>
     <div class="tab-content mt-2">
         <div class="tab-pane @if(\Request::get('section') == 'basic') active @endif" id="basic" role="tabpanel">
@@ -46,15 +53,12 @@
         <div class="tab-pane @if(\Request::get('section') == 'additional') active @endif" id="additional" role="tabpanel">
             @include('tax.form.additional')
         </div>
-        <div class="tab-pane @if(\Request::get('section') == 'attachment') active @endif" id="attachment" role="tabpanel">
-            @include('tax.form.attachment')
-        </div>
+        <div class="tab-pane @if(\Request::get('section') == 'attachment') active @endif" id="attachment" role="tabpanel"></div>
         <div class="tab-pane @if(\Request::get('section') == 'profiling') active @endif" id="profiling" role="tabpanel">
             @include('tax.form.profiling')
         </div>
-        <div class="tab-pane @if(\Request::get('section') == 'note') active @endif" id="note" role="tabpanel">
-            @include('tax.form.note')
-        </div>
+        <div class="tab-pane @if(\Request::get('section') == 'note') active @endif" id="note" role="tabpanel"></div>
+        <div class="tab-pane @if(\Request::get('section') == 'history') active @endif" id="history" role="tabpanel"></div>
     </div>
 </div>
 @stop

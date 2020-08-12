@@ -39,7 +39,7 @@
             </div>
             <div class="modal-body">
                 <form method="POST" action="{!! \URL::to('tax?section=attachment') !!}" id="form-attachment" class="form-horizontal" enctype="multipart/form-data" novalidate>
-                    @csrf                    
+                    @csrf
                     <input type="hidden" name="tax_record_id" value="{!! $tax->id !!}" />
                     <input id="method-attachment" type="hidden" name="_method" value="" />
                     <div class="row">

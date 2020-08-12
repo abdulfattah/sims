@@ -20,7 +20,7 @@
             <td>{!! $note->created_at != null ? date('d-M-Y h:i:s A', strtotime($note->created_at)) : null !!}</td>
             <th style="text-align: right">
                 <a href="javascript:void(0)" data-id="{!! $note->id !!}" class="edit-note"><i class="c-icon cil-pencil"></i></a>
-                <a href="javascript:void(0)" data-id="{!! $note->id !!}" class="delete-note"><i class="c-icon cil-trash text-danger"></i></a>
+                <a href="javascript:void(0)" data-id="{!! $note->id !!}" data-tax-id="{!! $note->tax_record_id !!}" class="delete-note"><i class="c-icon cil-trash text-danger"></i></a>
             </th>
         </tr>
         @endforeach
@@ -34,7 +34,7 @@
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="{!! \URL::to('note') !!}" id="form-note" class="form-horizontal" novalidate>
+                <form method="POST" action="{!! \URL::to('tax?section=note') !!}" id="form-note" class="form-horizontal" enctype="multipart/form-data" novalidate>
                     @csrf
                     <input type="hidden" name="tax_record_id" value="{!! $tax->id !!}" />
                     <input id="method-note" type="hidden" name="_method" value="" />

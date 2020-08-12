@@ -899,6 +899,13 @@ jQuery(function ($) {
         closeOnOutsideClick: false
     }).dxLoadPanel("instance");
 
+    $('.edit-cdn-status').click(function () {
+        $.getJSON(baseURL + '/data?b=55a0c604381b6&c=' + $(this).attr('data-id'), function (data) {
+            $('[data-name="cdn_status_desc"]').dxTextArea('instance').option('value', data.cdn_status_desc);
+            $('#modal-cdn-status').modal('show');
+        });
+    });
+
     $('#update-addtional-info').click(function () {
         $('#modal-additional-info').modal('show');
     });
@@ -935,7 +942,6 @@ jQuery(function ($) {
     });
 
     $('#add-note').click(function () {
-        $('#form-note').attr('action', baseURL + '/note');
         $('#method-note').val('');
         $('#title-note').html('Create New Note');
         $('[data-name="note"]').dxTextArea('instance').option('value', '');
@@ -945,7 +951,7 @@ jQuery(function ($) {
 
     $('.edit-note').click(function () {
         $.getJSON(baseURL + '/data?b=55a0c604381b5&c=' + $(this).attr('data-id'), function (data) {
-            $('#form-note').attr('action', baseURL + '/note/' + data.id);
+            $('#form-note').attr('action', baseURL + '/tax/' + data.tax_record_id + '?section=note&id=' + data.id);
             $('#method-note').val('PUT');
             $('#title-note').html('Update Note');
             $('[data-name="note"]').dxTextArea('instance').option('value', data.note);
@@ -955,7 +961,7 @@ jQuery(function ($) {
 
     $('.delete-note').click(function () {
         var msg = "This note will be deleted from this tax record";
-        deleteRecord(baseURL + '/note/' + $(this).attr('data-id'), null, 'Are you sure?', msg);
+        deleteRecord(baseURL + '/tax/' + $(this).attr('data-tax-id') + '?section=note&id=' + $(this).attr('data-id'), null, 'Are you sure?', msg);
     });
 
     function toast(type, msg) {
