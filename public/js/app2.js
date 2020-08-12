@@ -944,6 +944,8 @@ jQuery(function ($) {
     $('#add-note').click(function () {
         $('#method-note').val('');
         $('#title-note').html('Create New Note');
+        $('[data-name="note_title"]').dxTextBox('instance').option('value', '');
+        $('[data-name="note_title"]').dxValidator('instance').reset();
         $('[data-name="note"]').dxTextArea('instance').option('value', '');
         $('[data-name="note"]').dxValidator('instance').reset();
         $('#modal-note').modal('show');
@@ -954,6 +956,7 @@ jQuery(function ($) {
             $('#form-note').attr('action', baseURL + '/tax/' + data.tax_record_id + '?section=note&id=' + data.id);
             $('#method-note').val('PUT');
             $('#title-note').html('Update Note');
+            $('[data-name="note_title"]').dxTextArea('instance').option('value', data.note_title);
             $('[data-name="note"]').dxTextArea('instance').option('value', data.note);
             $('#modal-note').modal('show');
         });

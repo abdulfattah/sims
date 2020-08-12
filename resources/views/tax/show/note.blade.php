@@ -6,15 +6,17 @@
 <table class="table table-responsive-sm table-sm mt-3">
     <thead>
         <tr>
-            <th>Note</th>
-            <th style="width: 300px;">Note By</th>
-            <th style="width: 180px;">Date</th>
+            <th style="width: 25%;">Title</th>
+            <th style="width: 40%;">Note</th>
+            <th style="width: 20%;">Note By</th>
+            <th style="width: 12%;">Date</th>
             <th style="width: 70px">&nbsp;</th>
         </tr>
     </thead>
     <tbody>
         @foreach($tax->notes as $note)
         <tr>
+            <td>{!! $note->note_title !!}</td>
             <td>{!! $note->note !!}</td>
             <td>{!! $note->writer != null ? $note->writer->fullname : null !!}</td>
             <td>{!! $note->created_at != null ? date('d-M-Y h:i:s A', strtotime($note->created_at)) : null !!}</td>
@@ -27,7 +29,7 @@
     </tbody>
 </table>
 <div class="modal fade" id="modal-note" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog" style="margin: 10px auto;">
+    <div class="modal-dialog modal-lg" style="margin: 10px auto;">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 id="title-note" class="modal-title">Add Note</h5>
@@ -40,11 +42,17 @@
                     <input id="method-note" type="hidden" name="_method" value="" />
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="form-group row">
-                                <div class="col-md-12">
-                                    <div data-dx="textarea" data-name="note" data-height="200" data-validate="true" data-validation-type="required" data-validation-group="note"
-                                        data-value="{!! \Request::old('description', isset($tax) ? $tax->description : NULL) !!}"></div>
-                                </div>
+                            <div class="form-group">
+                                <label for="name">Title</label>
+                                <div data-dx="textbox" data-name="note_title" data-mode="text" data-validate="true" data-validation-type="required" data-validation-group="note"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="name">Description</label>
+                                <div data-dx="textarea" data-name="note" data-height="200" data-validate="true" data-validation-type="required" data-validation-group="note"></div>
                             </div>
                         </div>
                     </div>

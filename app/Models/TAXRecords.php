@@ -72,4 +72,26 @@ class TAXRecords extends \Eloquent
 
         return substr($address, 0, -2);
     }
+
+    public function getCDNAddress()
+    {
+        $address = '';
+        if ($this->cdn_address_1 != null or $this->cdn_address_1 != '') {
+            $address .= substr($this->cdn_address_1, -1) != ',' ? $this->cdn_address_1 . ', ' : $this->cdn_address_1 . ' ';
+        }
+        if ($this->cdn_address_2 != null or $this->cdn_address_2 != '') {
+            $address .= substr($this->cdn_address_2, -1) != ',' ? $this->cdn_address_2 . ', ' : $this->cdn_address_2 . ' ';
+        }
+        if ($this->cdn_postcode != null or $this->cdn_postcode != '') {
+            $address .= $this->cdn_postcode . ', ';
+        }
+        if ($this->cdn_city != null or $this->cdn_city != '') {
+            $address .= $this->cdn_city . ', ';
+        }
+        if ($this->cdn_state != null or $this->cdn_state != '') {
+            $address .= $this->cdn_state . ', ';
+        }
+
+        return substr($address, 0, -2);
+    }
 }

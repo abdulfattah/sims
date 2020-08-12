@@ -95,6 +95,9 @@ class UserController extends Controller
             $data['totalApplyForCancelled'] = TAXRecords::where('cdn_status', 'REQUEST FOR CANCELLATION')->get()->count();
             $view = 'dashboard.administrator';
         } elseif (strpos(Auth::user()->role, 'STAFF') !== false) {
+            $data['totalRegistered'] = TAXRecords::where('registration_status', 'CANCEL')->get()->count();
+            $data['totalCancelled'] = TAXRecords::where('registration_status', 'REGISTERED')->get()->count();
+            $data['totalApplyForCancelled'] = TAXRecords::where('cdn_status', 'REQUEST FOR CANCELLATION')->get()->count();
             $view = 'dashboard.staff';
         }
 

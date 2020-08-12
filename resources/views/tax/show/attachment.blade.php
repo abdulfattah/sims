@@ -24,7 +24,8 @@
             <td>{!! $attachment->created_at != null ? date('d-M-Y h:i:s A', strtotime($attachment->created_at)) : null !!}</td>
             <th style="text-align: right">
                 <a href="javascript:void(0)" data-id="{!! $attachment->id !!}" class="edit-attachment"><i class="c-icon cil-pencil"></i></a>
-                <a href="javascript:void(0)" data-id="{!! $attachment->id !!}" data-tax-id="{!! $attachment->for_id !!}" class="delete-attachment"><i class="c-icon cil-trash text-danger"></i></a>
+                <a href="javascript:void(0)" data-id="{!! $attachment->id !!}" data-tax-id="{!! $attachment->for_id !!}" class="delete-attachment"><i
+                        class="c-icon cil-trash text-danger"></i></a>
             </th>
         </tr>
         @endforeach
@@ -44,24 +45,26 @@
                     <input id="method-attachment" type="hidden" name="_method" value="" />
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="form-group row">
-                                <label class="col-md-4 col-form-label">Title</label>
-                                <div class="col-md-8">
-                                    <div data-dx="textbox" data-name="title" data-mode="text" data-value=""></div>
-                                </div>
+                            <div class="form-group">
+                                <label for="name">Title</label>
+                                <div data-dx="textbox" data-name="title" data-mode="text" data-value=""></div>
                             </div>
-                            <div class="form-group row">
-                                <label class="col-md-4 col-form-label">Description</label>
-                                <div class="col-md-8">
-                                    <div data-dx="textarea" data-name="description" data-height="150" data-value=""></div>
-                                </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="name">Description</label>
+                                <div data-dx="textarea" data-name="description" data-height="150" data-value=""></div>
                             </div>
-                            <div class="form-group row">
-                                <label class="col-md-4 col-form-label">File</label>
-                                <div class="col-md-8">
-                                    <div data-dx="fileuploader" data-name="filename" data-multiple="false" data-mode="useForm" data-validate="true" data-validation-type="required"
-                                        data-validation-group="attachment"></div>
-                                </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="name">File</label>
+                                <div data-dx="fileuploader" data-name="filename" data-multiple="false" data-mode="useForm" data-validate="true" data-validation-type="required"
+                                    data-validation-group="attachment"></div>
                             </div>
                         </div>
                     </div>
