@@ -139,7 +139,7 @@ class JsonController extends Controller
 
     private function getNote($id)
     {
-        $note = TAXNote::find($id, ['id', 'tax_record_id', 'note']);
+        $note = TAXNote::find($id, ['id', 'tax_record_id', 'note_title', 'note']);
         if ($note != null) {
             return $note->toArray();
         } else {

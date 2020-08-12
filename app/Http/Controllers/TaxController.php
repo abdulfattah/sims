@@ -117,9 +117,10 @@ class TaxController extends Controller
             ));
             $profiling->save();
 
+            $tax = TAXRecords::find(request()->get('tax_id'));
             activity('tax')
                 ->causedBy(\Auth::user())
-                ->performedOn($profiling)
+                ->performedOn($tax)
                 ->log('Create profiling');
 
             return redirect()->to('tax/' . request()->get('tax_id') . '?section=' . \Request::get('section'))->with('success', 'Profiling has been added.');
@@ -127,13 +128,14 @@ class TaxController extends Controller
             $note                = new TAXNote();
             $note->tax_record_id = request()->get('tax_record_id');
             $note->note_by       = \Auth::user()->id;
-            $note->note_title    = request()->get('note_title');
+            $note->note_title    = strtoupper(request()->get('note_title'));
             $note->note          = request()->get('note');
             $note->save();
 
+            $tax = TAXRecords::find(request()->get('tax_record_id'));
             activity('tax')
                 ->causedBy(\Auth::user())
-                ->performedOn($note)
+                ->performedOn($tax)
                 ->log('Create new note');
 
             return redirect()->to('tax/' . request()->get('tax_record_id') . '?section=' . \Request::get('section'))->with('success', 'Note has been added.');
@@ -206,9 +208,10 @@ class TaxController extends Controller
             }
             $attachment->save();
 
+            $tax = TAXRecords::find($attachment->for_id);
             activity('tax')
                 ->causedBy(\Auth::user())
-                ->performedOn($attachment)
+                ->performedOn($tax)
                 ->log('Update attachment');
 
             return redirect()->to('tax/' . $id . '?section=' . \Request::get('section'))->with('success', 'Attachment has been update.');
@@ -220,21 +223,23 @@ class TaxController extends Controller
             ));
             $profiling->save();
 
+            $tax = TAXRecords::find($profiling->tax_id);
             activity('tax')
                 ->causedBy(\Auth::user())
-                ->performedOn($profiling)
+                ->performedOn($tax)
                 ->log('Update profiling');
 
             return redirect()->to('tax/' . $id . '?section=' . \Request::get('section'))->with('success', 'Profiling has been update.');
         } elseif (request()->get('section') == 'note') {
-            $note       = TAXNote::find(request()->get('id'));
-            $note->note_title    = request()->get('note_title');
-            $note->note = request()->get('note');
+            $note             = TAXNote::find(request()->get('id'));
+            $note->note_title = strtoupper(request()->get('note_title'));
+            $note->note       = request()->get('note');
             $note->save();
 
+            $tax = TAXRecords::find($note->tax_record_id);
             activity('tax')
                 ->causedBy(\Auth::user())
-                ->performedOn($note)
+                ->performedOn($tax)
                 ->log('Update note');
 
             return redirect()->to('tax/' . $id . '?section=' . \Request::get('section'))->with('success', 'Note has been update.');
@@ -303,9 +308,10 @@ class TaxController extends Controller
                 }
                 $attachment->delete();
 
+                $tax = TAXRecords::find($attachment->for_id);
                 activity('tax')
                     ->causedBy(\Auth::user())
-                    ->performedOn($attachment)
+                    ->performedOn($tax)
                     ->log('Delete attachment');
 
                 return redirect()->to('tax/' . $taxId . '?section=' . \Request::get('section'))->with('success', 'Attachment has been deleted.');
@@ -318,9 +324,10 @@ class TaxController extends Controller
                 $taxId = $note->tax_record_id;
                 $note->delete();
 
+                $tax = TAXRecords::find($note->tax_record_id);
                 activity('tax')
                     ->causedBy(\Auth::user())
-                    ->performedOn($note)
+                    ->performedOn($tax)
                     ->log('Delete note');
 
                 return redirect()->to('tax/' . $taxId . '?section=' . \Request::get('section'))->with('success', 'Note has been deleted.');
