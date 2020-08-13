@@ -17,16 +17,17 @@ class ProcessExcel implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    protected $setting, $filename;
+    protected $setting, $filename, $user;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(SYSSetting $setting, $filename)
+    public function __construct(SYSSetting $setting, $filename, $user)
     {
         $this->setting  = $setting;
         $this->filename = $filename;
+        $this->user = $user;
     }
 
     /**
@@ -77,7 +78,7 @@ class ProcessExcel implements ShouldQueue
                 $tax->save();
 
                 activity('tax')
-                    ->causedBy(\Auth::user())
+                    ->causedBy($this->user)
                     ->performedOn($tax)
                     ->log('Syncronization from SST System');
 

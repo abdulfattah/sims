@@ -61,7 +61,7 @@ class TaxController extends Controller
                 $setting->param = 'syncronize';
                 $setting->value = '1';
                 $setting->save();
-                ProcessExcel::dispatch($setting, $newName);
+                ProcessExcel::dispatch($setting, $newName, \Auth::user());
             }
         }
 
