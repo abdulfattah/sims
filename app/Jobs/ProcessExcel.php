@@ -76,6 +76,11 @@ class ProcessExcel implements ShouldQueue
                 $tax->syncronizing_at          = date('Y-m-d H:i:s');
                 $tax->save();
 
+                activity('tax')
+                    ->causedBy(\Auth::user())
+                    ->performedOn($tax)
+                    ->log('Syncronization from SST System');
+
                 $processedRow         = $k++;
                 $this->setting->value = round(($processedRow / count($records)) * 100);
                 $this->setting->save();
