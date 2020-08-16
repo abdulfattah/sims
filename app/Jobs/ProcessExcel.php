@@ -17,6 +17,20 @@ class ProcessExcel implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    /**
+     * The number of seconds the job can run before timing out.
+     *
+     * @var int
+     */
+    public $timeout = 1800;
+
+    /**
+     * The number of times the job may be attempted.
+     *
+     * @var int
+     */
+    public $tries = 10;
+
     protected $setting, $filename, $user;
     /**
      * Create a new job instance.
@@ -27,7 +41,7 @@ class ProcessExcel implements ShouldQueue
     {
         $this->setting  = $setting;
         $this->filename = $filename;
-        $this->user = $user;
+        $this->user     = $user;
     }
 
     /**
