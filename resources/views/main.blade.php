@@ -28,6 +28,7 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="{!! asset('favicon/ms-icon-144x144.png') !!}">
     <meta name="theme-color" content="#ffffff">
+    <link media="all" type="text/css" rel="stylesheet" href="{!! asset('css/quill.snow.css') !!}">
     <link href="{!! asset('css/style.css') !!}" rel="stylesheet">
     <link href="{!! asset('css/free-icons.min.css') !!}" rel="stylesheet">
     <link media="all" type="text/css" rel="stylesheet" href="{!! asset('css/app1.min.css') !!}">
@@ -157,7 +158,8 @@
         </div>
     </div>
     <script src="{!! asset('js/jquery.min.js') !!}"></script>
-    <script src="{!! asset('js/moment-with-locales.min.js') !!}"></script>
+    <script src="{!! asset('js/moment-with-locales.min.js') !!}"></script>    
+    <script src="{!! asset('js/quill.min.js') !!}"></script>
     <script src="{!! asset('js/app1.min.js') !!}"></script>
     <script src="{!! asset('js/app2.js') !!}"></script>
     <script src="{!! asset('js/coreui.bundle.min.js') !!}"></script>

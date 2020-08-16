@@ -50,9 +50,9 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="form-group">
+                            <div class="form-group" style="height:350px">
                                 <label for="name">Description</label>
-                                <div data-dx="textarea" data-name="note" data-height="200" data-validate="true" data-validation-type="required" data-validation-group="note"></div>
+                                <div id="quill-note"></div>
                             </div>
                         </div>
                     </div>
@@ -65,3 +65,26 @@
         </div>
     </div>
 </div>
+
+@section('page-css')
+<style>
+    #quill-note {
+        height: 84%;
+    }
+</style>
+@stop
+
+@section('page-script')
+<script type="text/javascript">
+    $(document).ready(function () {  
+        var quill = new Quill('#quill-note', {
+            placeholder: 'Type your note here...',
+            theme: 'snow'
+        });
+
+        $("#form-note").on("submit", function () {
+            $(this).append("<textarea name='note' style='display:none'>" + $('.ql-editor')[0].innerHTML + "</textarea>");
+        });
+});
+</script>
+@stop

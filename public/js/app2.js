@@ -946,8 +946,8 @@ jQuery(function ($) {
         $('#title-note').html('Create New Note');
         $('[data-name="note_title"]').dxTextBox('instance').option('value', '');
         $('[data-name="note_title"]').dxValidator('instance').reset();
-        $('[data-name="note"]').dxTextArea('instance').option('value', '');
-        $('[data-name="note"]').dxValidator('instance').reset();
+        // $('[data-name="note"]').dxTextArea('instance').option('value', '');
+        // $('[data-name="note"]').dxValidator('instance').reset();
         $('#modal-note').modal('show');
     });
 
@@ -957,7 +957,7 @@ jQuery(function ($) {
             $('#method-note').val('PUT');
             $('#title-note').html('Update Note');
             $('[data-name="note_title"]').dxTextBox('instance').option('value', data.note_title);
-            $('[data-name="note"]').dxTextArea('instance').option('value', data.note);
+            // $('[data-name="note"]').dxTextArea('instance').option('value', data.note);
             $('#modal-note').modal('show');
         });
     });
