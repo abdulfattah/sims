@@ -1013,26 +1013,51 @@ jQuery(function ($) {
         });
     }
 
-    if ($('#progress-bar-syncronization').length > 0) {
+    if ($('#progress-bar-base').length > 0) {
         var intervalProgressBar = setInterval(() => {
             $.getJSON(baseURL + '/data?b=55a0c60438203', function (data) {
                 if (data == '100') {
                     clearInterval(intervalProgressBar);
-                    $('#progress-bar-syncronization').attr('aria-valuenow', data);
-                    $('#progress-bar-syncronization').css('width', '100%');
-                    $('#progress-bar-syncronization').html('100%');
+                    $('#progress-bar-base').attr('aria-valuenow', data);
+                    $('#progress-bar-base').css('width', '100%');
+                    $('#progress-bar-base').html('100%');
                     var counter = 6;
                     setInterval(function () {
                         counter--;
-                        $('#progress-label').html('Syncronization has been success. Redirect in ' + counter + ' seconds');
+                        $('#progress-label-base').html('Syncronization has been success. Redirect in ' + counter + ' seconds');
                     }, 1000);
                     setTimeout(() => {
                         location.href = baseURL + '/tax';
                     }, 6000);
                 } else {
-                    $('#progress-bar-syncronization').attr('aria-valuenow', data);
-                    $('#progress-bar-syncronization').css('width', data + '%');
-                    $('#progress-bar-syncronization').html(data + '%');
+                    $('#progress-bar-base').attr('aria-valuenow', data);
+                    $('#progress-bar-base').css('width', data + '%');
+                    $('#progress-bar-base').html(data + '%');
+                }
+            });
+        }, 1000);
+    }
+
+    if ($('#progress-bar-statement').length > 0) {
+        var intervalProgressBar = setInterval(() => {
+            $.getJSON(baseURL + '/data?b=55a0c60438303', function (data) {
+                if (data == '100') {
+                    clearInterval(intervalProgressBar);
+                    $('#progress-bar-statement').attr('aria-valuenow', data);
+                    $('#progress-bar-statement').css('width', '100%');
+                    $('#progress-bar-statement').html('100%');
+                    var counter = 6;
+                    setInterval(function () {
+                        counter--;
+                        $('#progress-label-statement').html('Syncronization has been success. Redirect in ' + counter + ' seconds');
+                    }, 1000);
+                    setTimeout(() => {
+                        location.href = baseURL + '/tax';
+                    }, 6000);
+                } else {
+                    $('#progress-bar-statement').attr('aria-valuenow', data);
+                    $('#progress-bar-statement').css('width', data + '%');
+                    $('#progress-bar-statement').html(data + '%');
                 }
             });
         }, 1000);

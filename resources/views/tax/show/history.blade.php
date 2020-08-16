@@ -11,7 +11,7 @@
         <tr>
             <td>{!! $history->created_at->format('d-m-Y h:iA') !!}</td>
             <td>{!! ucwords(strtolower($history->actionBy->fullname)) !!}</td>
-            <td>{!! ucwords(strtolower($history->description)) !!}</td>
+            <td>{!! $history->description !!}</td>
         </tr>
         @endforeach
     </tbody>

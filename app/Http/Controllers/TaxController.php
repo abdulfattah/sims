@@ -2,7 +2,8 @@
 namespace App\Http\Controllers;
 
 use App\Exports\TaxRecordsExport;
-use App\Jobs\ProcessExcel;
+use App\Jobs\ProcessExcelBase;
+use App\Jobs\ProcessExcelStatement;
 use App\Libs\App;
 use App\Libs\DxGridOfficial;
 use App\Models;
@@ -13,7 +14,6 @@ use App\Models\TAXProfiling;
 use App\Models\TAXRecords;
 use App\Models\USRHistoryLog;
 use Maatwebsite\Excel\Facades\Excel;
-use Spatie\Activitylog\Models\Activity;
 
 class TaxController extends Controller
 {
@@ -34,14 +34,17 @@ class TaxController extends Controller
 
     public function sync()
     {
-        $check = SYSSetting::where('param', 'syncronize')->get();
-        $data  = array(
-            'menu'       => ['menu' => 'Tax', 'subMenu' => ''],
-            'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
+        $checkBase      = SYSSetting::where('param', 'syncronize.base')->get();
+        $checkStatement = SYSSetting::where('param', 'syncronize.statement')->get();
+        $data           = array(
+            'menu'            => ['menu' => 'Tax', 'subMenu' => ''],
+            'breadcrumb'      => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
                              <li class="breadcrumb-item"><a href="' . \URL::to('tax') . '">Tax Records</a></li>
                              <li class="breadcrumb-item active">Syncronization</li>',
-            'upload'     => true,
-            'sync'       => $check->count() > 0,
+            'uploadBase'      => $checkBase->count() < 1,
+            'uploadStatement' => $checkStatement->count() < 1,
+            'syncBase'        => $checkBase->count() > 0,
+            'syncStatement'   => $checkStatement->count() > 0,
         );
 
         return view('tax.sync', $data);
@@ -49,29 +52,47 @@ class TaxController extends Controller
 
     public function doSync()
     {
-        $file  = \Request::file('excel');
-        $check = SYSSetting::where('param', 'syncronize')->get();
-        if ($file != null) {
-            if ($check->count() > 0) {
+        $fileBase  = \Request::file('excelBase');
+        $checkBase = SYSSetting::where('param', 'syncronize.base')->get();
+        if ($fileBase != null) {
+            if ($checkBase->count() > 0) {
                 return redirect()->to('tax/sync');
             } else {
-                $newName = 'excel.' . $file->getClientOriginalExtension();
-                $file->move(env('ASSETS_STORAGE') . 'syncronize', $newName);
+                $newName = 'excel-base.' . $fileBase->getClientOriginalExtension();
+                $fileBase->move(env('ASSETS_STORAGE') . 'syncronize', $newName);
                 $setting        = new SYSSetting();
-                $setting->param = 'syncronize';
+                $setting->param = 'syncronize.base';
                 $setting->value = '1';
                 $setting->save();
-                ProcessExcel::dispatch($setting, $newName, \Auth::user());
+                ProcessExcelBase::dispatch($setting, $newName, \Auth::user());
+            }
+        }
+
+        $fileStatement  = \Request::file('excelStatement');
+        $checkStatement = SYSSetting::where('param', 'syncronize.statement')->get();
+        if ($fileStatement != null) {
+            if ($checkStatement->count() > 0) {
+                return redirect()->to('tax/sync');
+            } else {
+                $newName = 'excel-statement.' . $fileStatement->getClientOriginalExtension();
+                $fileStatement->move(env('ASSETS_STORAGE') . 'syncronize', $newName);
+                $setting        = new SYSSetting();
+                $setting->param = 'syncronize.statement';
+                $setting->value = '1';
+                $setting->save();
+                ProcessExcelStatement::dispatch($setting, $newName, \Auth::user());
             }
         }
 
         $data = array(
-            'menu'       => ['menu' => 'Tax', 'subMenu' => ''],
-            'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
+            'menu'            => ['menu' => 'Tax', 'subMenu' => ''],
+            'breadcrumb'      => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
                              <li class="breadcrumb-item"><a href="' . \URL::to('tax') . '">Tax Records</a></li>
                              <li class="breadcrumb-item active">Syncronization</li>',
-            'upload'     => false,
-            'sync'       => $check->count() > 0,
+            'uploadBase'      => $fileBase != null ? false : true,
+            'uploadStatement' => $fileStatement != null ? false : true,
+            'syncBase'        => $checkBase->count() > 0,
+            'syncStatement'   => $checkStatement->count() > 0,
         );
 
         return view('tax.sync', $data);

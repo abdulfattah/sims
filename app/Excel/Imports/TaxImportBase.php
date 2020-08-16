@@ -9,7 +9,7 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithStartRow;
 
-class TaxImport implements ToModel, WithStartRow, WithBatchInserts
+class TaxImportBase implements ToModel, WithStartRow, WithBatchInserts
 {
     protected $setting;
 

@@ -36,7 +36,11 @@ class JsonController extends Controller
                     break;
                 }
             case '55a0c60438203':{ //Dapatkan % processed excel//
-                    return response()->json($this->getProcessedExcel(), 200, []);
+                    return response()->json($this->getProcessedExcelBase(), 200, []);
+                    break;
+                }
+            case '55a0c60438303':{ //Dapatkan % processed excel//
+                    return response()->json($this->getProcessedExcelStatement(), 200, []);
                     break;
                 }
             case '55a0c604381b6':{ //Dapatkan form CDN status//
@@ -117,9 +121,19 @@ class JsonController extends Controller
         }
     }
 
-    private function getProcessedExcel()
+    private function getProcessedExcelBase()
     {
-        $setting = SYSSetting::where('param', 'syncronize')->get()->first();
+        $setting = SYSSetting::where('param', 'syncronize.base')->get()->first();
+        if ($setting != null) {
+            return $setting->value;
+        } else {
+            return '100';
+        }
+    }
+
+    private function getProcessedExcelStatement()
+    {
+        $setting = SYSSetting::where('param', 'syncronize.statement')->get()->first();
         if ($setting != null) {
             return $setting->value;
         } else {
