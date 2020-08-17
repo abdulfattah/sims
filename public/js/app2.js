@@ -946,8 +946,6 @@ jQuery(function ($) {
         $('#title-note').html('Create New Note');
         $('[data-name="note_title"]').dxTextBox('instance').option('value', '');
         $('[data-name="note_title"]').dxValidator('instance').reset();
-        // $('[data-name="note"]').dxTextArea('instance').option('value', '');
-        // $('[data-name="note"]').dxValidator('instance').reset();
         $('#modal-note').modal('show');
     });
 
@@ -957,8 +955,16 @@ jQuery(function ($) {
             $('#method-note').val('PUT');
             $('#title-note').html('Update Note');
             $('[data-name="note_title"]').dxTextBox('instance').option('value', data.note_title);
-            // $('[data-name="note"]').dxTextArea('instance').option('value', data.note);
+            $('.ql-editor')[0].innerHTML = data.note;
             $('#modal-note').modal('show');
+        });
+    });
+
+    $('.show-note').click(function () {
+        $.getJSON(baseURL + '/data?b=55a0c604381b5&c=' + $(this).attr('data-id'), function (data) {
+            $('#show-title').html(data.note_title);
+            $('#show-note').html(data.note);
+            $('#modal-show-note').modal('show');
         });
     });
 

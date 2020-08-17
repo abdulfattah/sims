@@ -86,6 +86,13 @@
                     </svg> User Manual
                 </a>
             </li>
+            <li class="c-sidebar-nav-item">
+                <a class="c-sidebar-nav-link" href="{!! env('SUPPORT_URL') . env('VERSION') . '/' . substr(SHA1(date('d-m-y H:i:s')), 0, 10) !!}" target="_blank">
+                    <svg class="c-sidebar-nav-icon">
+                        <use xlink:href="{!! asset('icons/free.svg#cil-headphones') !!}"></use>
+                    </svg> Report
+                </a>
+            </li>
         </ul>
         <button class="c-sidebar-minimizer c-class-toggler" type="button" data-target="_parent" data-class="c-sidebar-minimized"></button>
     </div>

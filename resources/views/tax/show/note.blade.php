@@ -6,8 +6,7 @@
 <table class="table table-responsive-sm table-sm mt-3">
     <thead>
         <tr>
-            <th style="width: 25%;">Title</th>
-            <th style="width: 40%;">Note</th>
+            <th style="width: 65%;">Title</th>
             <th style="width: 20%;">Note By</th>
             <th style="width: 12%;">Date</th>
             <th style="width: 70px">&nbsp;</th>
@@ -16,8 +15,7 @@
     <tbody>
         @foreach($tax->notes as $note)
         <tr>
-            <td>{!! $note->note_title !!}</td>
-            <td>{!! $note->note !!}</td>
+            <td><a href="javascript:void(0)" data-id="{!! $note->id !!}" class="show-note">{!! $note->note_title !!}</a></td>
             <td>{!! $note->writer != null ? $note->writer->fullname : null !!}</td>
             <td>{!! $note->created_at != null ? date('d-M-Y h:i:s A', strtotime($note->created_at)) : null !!}</td>
             <th style="text-align: right">
@@ -44,14 +42,14 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="name">Title</label>
-                                <div data-dx="textbox" data-name="note_title" data-mode="text" data-validate="true" data-validation-type="required" data-validation-group="note"></div>
+                                <div data-dx="textbox" data-case="lowercase" data-name="note_title" data-mode="text" data-validate="true" data-validation-type="required" data-validation-group="note"></div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group" style="height:350px">
-                                <label for="name">Description</label>
+                                <label for="name">Note</label>
                                 <div id="quill-note"></div>
                             </div>
                         </div>
@@ -61,6 +59,37 @@
             <div class="modal-footer">
                 <button id="close" type="button" class="btn btn-ghost-danger" data-dismiss="modal">Cancel</button>
                 <div data-dx="btn-submit" data-type="default" data-text="Submit" data-disabled="false" data-validation-group="note" data-form="form-note"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal-show-note" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg" style="margin: 10px auto;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="title-note" class="modal-title">Show Note</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="name" style="font-weight: bold">Title</label>
+                            <div id="show-title"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group" style="height:350px">
+                            <label for="name" style="font-weight: bold">Note</label>
+                            <div id="show-note"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="close" type="button" class="btn btn-ghost-danger" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

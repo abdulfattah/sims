@@ -52,6 +52,24 @@
 </div>
 <div class="row">
     <div class="col-md-12">
+        <h5>Statement</h5>
+        <hr class="mt-1 mb-1">
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <dl class="row">
+            <dt class="col-sm-3 col-xl-3">SMK No</dt>
+            <dd class="col-sm-9 col-xl-8">: {!! $tax->smk_no !!}</dd>
+            <dt class="col-sm-3 col-xl-3">Undeclaration Duration</dt>
+            <dd class="col-sm-9 col-xl-8">: {!! $tax->undeclaration_duration !!}</dd>
+            <dt class="col-sm-3 col-xl-3">Reminder Notice</dt>
+            <dd class="col-sm-9 col-xl-8">: {!! $tax->reminder_date != null ? date('d M Y', strtotime($tax->reminder_date)) : null !!}</dd>
+        </dl>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
         <h5>CDN Status</h5>
         <hr class="mt-1 mb-1">
         <div class="text-right">

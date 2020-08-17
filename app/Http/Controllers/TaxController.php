@@ -149,7 +149,7 @@ class TaxController extends Controller
             $note                = new TAXNote();
             $note->tax_record_id = request()->get('tax_record_id');
             $note->note_by       = \Auth::user()->id;
-            $note->note_title    = strtoupper(request()->get('note_title'));
+            $note->note_title    = request()->get('note_title');
             $note->note          = request()->get('note');
             $note->save();
 
@@ -253,7 +253,7 @@ class TaxController extends Controller
             return redirect()->to('tax/' . $id . '?section=' . \Request::get('section'))->with('success', 'Profiling has been update.');
         } elseif (request()->get('section') == 'note') {
             $note             = TAXNote::find(request()->get('id'));
-            $note->note_title = strtoupper(request()->get('note_title'));
+            $note->note_title = request()->get('note_title');
             $note->note       = request()->get('note');
             $note->save();
 
