@@ -11,44 +11,50 @@
 |
  */
 
-Route::any('login', 'UserController@login');
-Route::any("password/reset/{token}", 'UserController@newPassword');
-Route::any("password/lost/{token?}", 'UserController@lostPassword');
-Route::any("activate/{id}", 'UserController@activation');
+use App\Http\Controllers\ConfigController;
+use App\Http\Controllers\JsonController;
+use App\Http\Controllers\SystemController;
+use App\Http\Controllers\TaxController;
+use App\Http\Controllers\UserController;
+
+Route::any('login', [UserController::class, 'login'])->name('login');
+Route::any("password/reset/{token}", [UserController::class, 'newPassword']);
+Route::any("password/lost/{token?}", [UserController::class, 'lostPassword']);
+Route::any("activate/{id}", [UserController::class, 'activation']);
 
 Route::group(array('middleware' => 'auth'), function () {
-    Route::get("/", "UserController@dashboard");
-    Route::get("resend/activation/{id}", "UserController@resendActivation");
-    Route::get("reset/password/{id}", "UserController@resetPassword");
-    Route::get('data', 'JsonController@json');
-    Route::get("profile", 'UserController@profile');
-    Route::any("password", 'UserController@changePassword');
-    Route::resource('user', 'UserController');
-    Route::get("tax/sync", 'TaxController@sync');
-    Route::post("tax/sync", 'TaxController@doSync');
-    Route::post("tax/restore/{id}", 'TaxController@restore');
-    Route::resource('tax', 'TaxController');
-    Route::resource("config", 'ConfigController');
+    Route::get("/", [UserController::class, 'dashboard']);
+    Route::get("resend/activation/{id}", [UserController::class, 'resendActivation']);
+    Route::get("reset/password/{id}", [UserController::class, 'resetPassword']);
+    Route::get('data', [JsonController::class, 'json']);
+    Route::get("profile", [UserController::class, 'profile']);
+    Route::any("password", [UserController::class, 'changePassword']);
+    Route::resource('user', UserController::class);
+    Route::get("tax/sync", [TaxController::class, 'sync']);
+    Route::post("tax/sync", [TaxController::class, 'doSync']);
+    Route::post("tax/restore/{id}", [TaxController::class, 'restore']);
+    Route::resource('tax', TaxController::class);
+    Route::resource("config", ConfigController::class);
 
     Route::group(array("prefix" => "export"), function () {
-        Route::get("excel/user", 'UserController@exportExcel');
-        Route::get("excel/tax", 'TaxController@exportExcel');
+        Route::get("excel/user", [UserController::class, 'exportExcel']);
+        Route::get("excel/tax", [TaxController::class, 'exportExcel']);
     });
 
     Route::group(array("prefix" => "print"), function () {
 
     });
 
-    Route::get('asset/image', 'SystemController@image');
-    Route::get('asset/file/{file?}', 'SystemController@file');
-    Route::get('asset/thumbnail/{image?}', 'SystemController@thumbnail');
+    Route::get('asset/image', [SystemController::class, 'image']);
+    Route::get('asset/file/{file?}', [SystemController::class, 'file']);
+    Route::get('asset/thumbnail/{image?}', [SystemController::class, 'thumbnail']);
 
-    Route::get('about_us', 'SystemController@aboutUs');
-    Route::get('user_manual', 'SystemController@userManual');
+    Route::get('about_us', [SystemController::class, 'aboutUs']);
+    Route::get('user_manual', [SystemController::class, 'userManual']);
 });
 
 Route::group(array("prefix" => "print/preview"), function () {
 
 });
 
-Route::get('logout', 'UserController@logout');
+Route::get('logout', [UserController::class, 'logout']);
