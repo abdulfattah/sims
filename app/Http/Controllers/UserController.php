@@ -68,12 +68,12 @@ class UserController extends Controller
 
                     return redirect()->intended('/');
                 } else {
-                    return redirect()->action('UserController@login')
+                    return redirect()->to('login')
                         ->withInput(\Request::except('password'))
                         ->with('error', 'Invalid username or password');
                 }
             } else {
-                return redirect()->action('UserController@login')
+                return redirect()->to('login')
                     ->withInput(\Request::except('password'))
                     ->with('error', 'Invalid username or password');
             }
@@ -90,15 +90,15 @@ class UserController extends Controller
         );
 
         if (strpos(Auth::user()->role, 'ADMINISTRATOR') !== false) {
-            $data['totalRegistered'] = TAXRecords::where('registration_status', 'CANCEL')->get()->count();
-            $data['totalCancelled'] = TAXRecords::where('registration_status', 'REGISTERED')->get()->count();
+            $data['totalRegistered']        = TAXRecords::where('registration_status', 'CANCEL')->get()->count();
+            $data['totalCancelled']         = TAXRecords::where('registration_status', 'REGISTERED')->get()->count();
             $data['totalApplyForCancelled'] = TAXRecords::where('cdn_status', 'REQUEST FOR CANCELLATION')->get()->count();
-            $view = 'dashboard.administrator';
+            $view                           = 'dashboard.administrator';
         } elseif (strpos(Auth::user()->role, 'STAFF') !== false) {
-            $data['totalRegistered'] = TAXRecords::where('registration_status', 'CANCEL')->get()->count();
-            $data['totalCancelled'] = TAXRecords::where('registration_status', 'REGISTERED')->get()->count();
+            $data['totalRegistered']        = TAXRecords::where('registration_status', 'CANCEL')->get()->count();
+            $data['totalCancelled']         = TAXRecords::where('registration_status', 'REGISTERED')->get()->count();
             $data['totalApplyForCancelled'] = TAXRecords::where('cdn_status', 'REQUEST FOR CANCELLATION')->get()->count();
-            $view = 'dashboard.staff';
+            $view                           = 'dashboard.staff';
         }
 
         return view($view, $data);
@@ -235,6 +235,7 @@ class UserController extends Controller
                 return redirect()->to('password')->with('error', 'Invalid old password');
             } else {
                 $user->password = \Hash::make(request()->get('password'));
+                $user->token    = null;
                 $user->save();
 
                 return redirect()->to('password')->with('success', 'Password has been change.');

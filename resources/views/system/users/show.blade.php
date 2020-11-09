@@ -24,6 +24,28 @@
                     <dd class="col-sm-9 col-xl-7">: <a href="mailto:{!! $user->username !!}" target="_blank" class="text-navy">{!! $user->username !!}</a></dd>
                     <dt class="col-sm-3 col-xl-3">Status</dt>
                     <dd class="col-sm-9 col-xl-7">: {!! $user->enable ? 'ACTIVE' : 'NOT ACTIVE' !!}</dd>
+                    @if($user->token != null)
+                    <dt class="col-sm-3 col-xl-3">Reset Password Link</dt>
+                    <dd class="col-sm-9 col-xl-7">
+                        <div class="input-group">
+                            <input id="url" class="form-control form-control-sm" value="{!! \URL::to('password/reset/' . $user->token) !!}" readonly style="text-transform: lowercase">
+                            <span class="input-group-append">
+                                <button class="btn btn-sm btn-primary" type="button" data-clipboard-action="copy" data-clipboard-target="#url">Copy</button>
+                            </span>
+                        </div>
+                    </dd>
+                    @endif
+                    @if(!$user->enable)
+                    <dt class="col-sm-3 col-xl-3">Activation Link</dt>
+                    <dd class="col-sm-9 col-xl-7">
+                        <div class="input-group">
+                            <input id="url" class="form-control form-control-sm" value="{!! \URL::to('activate/' . $user->id) !!}" readonly style="text-transform: lowercase">
+                            <span class="input-group-append">
+                                <button class="btn btn-sm btn-primary" type="button" data-clipboard-action="copy" data-clipboard-target="#url">Copy</button>
+                            </span>
+                        </div>
+                    </dd>
+                    @endif
                 </dl>
             </div>
         </div>
@@ -41,3 +63,13 @@
     </div>
 </div>
 @stop
+
+@section('page-script')
+<script>
+    var clipboard = new ClipboardJS('.btn');
+    clipboard.on('success', function(e) {
+        $("#toastContainer").dxToast({message: 'Pautan telah disalin',type: "success",width: 280,position: {my: "right",at: "top right",offset: '-20 0',of: ".c-subheader"},displayTime: 5000,});
+        $("#toastContainer").dxToast('instance').show();
+    });
+</script>
+@endsection

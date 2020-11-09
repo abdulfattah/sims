@@ -165,13 +165,14 @@
         </div>
     </div>
     <script src="{!! asset('js/jquery.min.js') !!}"></script>
-    <script src="{!! asset('js/moment-with-locales.min.js') !!}"></script>    
+    <script src="{!! asset('js/moment-with-locales.min.js') !!}"></script>
     <script src="{!! asset('js/quill.min.js') !!}"></script>
     <script src="{!! asset('js/app1.min.js') !!}"></script>
     <script src="{!! asset('js/app2.js') !!}"></script>
     <script src="{!! asset('js/coreui.bundle.min.js') !!}"></script>
     <script src="{!! asset('js/jquery.magnific-popup.min.js') !!}"></script>
     <script src="{!! asset('js/cropper.min.js') !!}"></script>
+    <script src="{!! asset('js/clipboard.min.js') !!}"></script>
     <!--[if IE]><!-->
     <script src="{!! asset('js/svgxuse.min.js') !!}"></script>
     <!--<![endif]-->
