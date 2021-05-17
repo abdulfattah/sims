@@ -116,14 +116,14 @@ trait App
 
         if ($file != null) {
 
-            $asset     = new Models\SYSAsset();
+            $asset = new Models\SYSAsset();
             if ($assetType == 'building_plan') {
                 $asset->for    = 'Building Plan';
                 $asset->for_id = $forId;
-            }            
-            $asset->upload_by  = \Auth::user()->id;
+            }
+            $asset->upload_by = \Auth::user()->id;
             $asset->save();
-            
+
             $originalName = $file->getClientOriginalName();
             $newName      = $asset->id . '.' . $file->getClientOriginalExtension();
             if ($assetType == 'owner_avatar') {

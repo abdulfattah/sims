@@ -14,7 +14,8 @@
     <dt class="col-sm-3 col-xl-3 pl-5">GST No</dt>
     <dd class="col-sm-9 col-xl-8">: {!! $tax->gst_no !!}</dd>
     <dt class="col-sm-3 col-xl-3 pl-5">Registration Status</dt>
-    <dd class="col-sm-9 col-xl-8">: @if($tax->registration_status == 'CANCEL')<span class="badge badge-danger">{!! $tax->registration_status !!}</span>@else<span class="badge badge-info">{!!
+    <dd class="col-sm-9 col-xl-8">: @if($tax->registration_status == 'CANCEL')<span class="badge badge-danger">{!! $tax->registration_status !!}</span>@else<span
+                class="badge badge-info">{!!
             $tax->registration_status !!}</span>@endif</dd>
     <dt class="col-sm-3 col-xl-3 pl-5">Registration Date</dt>
     <dd class="col-sm-9 col-xl-8">: {!! $tax->registration_date != null ? date('d M Y', strtotime($tax->registration_date)) : null !!}</dd>

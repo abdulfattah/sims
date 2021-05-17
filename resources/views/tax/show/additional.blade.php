@@ -27,7 +27,8 @@
             <dd class="col-sm-9 col-xl-8">: {!! $tax->uncomplience_type !!}</dd>
         </dl>
     </div>
-</div><div class="row">
+</div>
+<div class="row">
     <div class="col-md-12">
         <h5>Current Address & Contact Person</h5>
         <hr class="mt-1 mb-1">

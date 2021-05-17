@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Exports\TaxRecordsExport;
@@ -179,9 +180,9 @@ class TaxController extends Controller
     public function update($id)
     {
         if (request()->get('section') == 'basic') {
-            $input = \Request::all();
-            $tax   = Models\TAXRecords::find($id);
-            $tax   = $this->populateSaveValue($tax, $input, array(
+            $input                = \Request::all();
+            $tax                  = Models\TAXRecords::find($id);
+            $tax                  = $this->populateSaveValue($tax, $input, array(
                 'exclude' => array('_token', '_method', 'section'),
             ));
             $tax->cdn_status_desc = request()->get('cdn_status_desc');
@@ -271,9 +272,9 @@ class TaxController extends Controller
     {
         $tax  = TAXRecords::find($id);
         $logs = USRHistoryLog::where('log_name', 'tax')
-            ->where('subject_id', $tax->id)
-            ->orderBy('created_at', 'DESC')
-            ->get();
+                             ->where('subject_id', $tax->id)
+                             ->orderBy('created_at', 'DESC')
+                             ->get();
         $data = array(
             'menu'       => ['menu' => 'Tax', 'subMenu' => ''],
             'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
@@ -294,10 +295,10 @@ class TaxController extends Controller
         unset($arrayCols[0]);
         $cols       = implode(',', $arrayCols);
         $controller = new DxGridOfficial('tax_records',
-            $cols,
-            'deleted_at IS NULL AND ');
-        $params   = $controller->GetParseParams($_GET);
-        $response = $controller->Get($params);
+                                         $cols,
+                                         'deleted_at IS NULL AND ');
+        $params     = $controller->GetParseParams($_GET);
+        $response   = $controller->Get($params);
         unset($controller);
         if (isset($response) && !is_string($response)) {
             return Excel::download(new TaxRecordsExport($response['data'], $arrayCols), '[CDN Information Integration System] Tax Records (' . date('d-m-Y') . ').xlsx');

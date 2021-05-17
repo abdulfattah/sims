@@ -5,16 +5,16 @@
 </div>
 <table class="table table-responsive-sm table-sm mt-3">
     <thead>
-        <tr>
-            <th style="width: 250px;">Title</th>
-            <th>Description</th>
-            <th style="width: 200px;">Upload By</th>
-            <th style="width: 180px;">Datetime</th>
-            <th style="width: 70px;">&nbsp;</th>
-        </tr>
+    <tr>
+        <th style="width: 250px;">Title</th>
+        <th>Description</th>
+        <th style="width: 200px;">Upload By</th>
+        <th style="width: 180px;">Datetime</th>
+        <th style="width: 70px;">&nbsp;</th>
+    </tr>
     </thead>
     <tbody>
-        @foreach($tax->attachments as $attachment)
+    @foreach($tax->attachments as $attachment)
         <tr>
             <td><a href="{!! URL::to('asset/file?in=attachment' . DIRECTORY_SEPARATOR . $attachment->for_id .'&filename=' .
                                                       \App\Libs\App::getFilename('attachment', $attachment) . '&actualname=' .
@@ -25,10 +25,10 @@
             <th style="text-align: right">
                 <a href="javascript:void(0)" data-id="{!! $attachment->id !!}" class="edit-attachment"><i class="c-icon cil-pencil"></i></a>
                 <a href="javascript:void(0)" data-id="{!! $attachment->id !!}" data-tax-id="{!! $attachment->for_id !!}" class="delete-attachment"><i
-                        class="c-icon cil-trash text-danger"></i></a>
+                            class="c-icon cil-trash text-danger"></i></a>
             </th>
         </tr>
-        @endforeach
+    @endforeach
     </tbody>
 </table>
 <div class="modal fade" id="modal-attachment" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
@@ -41,8 +41,8 @@
             <div class="modal-body">
                 <form method="POST" action="{!! \URL::to('tax?section=attachment') !!}" id="form-attachment" class="form-horizontal" enctype="multipart/form-data" novalidate>
                     @csrf
-                    <input type="hidden" name="tax_record_id" value="{!! $tax->id !!}" />
-                    <input id="method-attachment" type="hidden" name="_method" value="" />
+                    <input type="hidden" name="tax_record_id" value="{!! $tax->id !!}"/>
+                    <input id="method-attachment" type="hidden" name="_method" value=""/>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
@@ -64,7 +64,7 @@
                             <div class="form-group">
                                 <label for="name">File</label>
                                 <div data-dx="fileuploader" data-name="filename" data-multiple="false" data-mode="useForm" data-validate="true" data-validation-type="required"
-                                    data-validation-group="attachment"></div>
+                                     data-validation-group="attachment"></div>
                             </div>
                         </div>
                     </div>

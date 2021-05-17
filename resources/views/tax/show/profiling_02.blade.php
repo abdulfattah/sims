@@ -1,13 +1,13 @@
 @if ($tax->profiling == null)
-<div class="col-6 col-sm-4 col-md text-center" style="height: 500px;padding-top:200px">
-    <a href="{{ URL::to('tax/' . $tax->id . '/edit?section=profiling') }}" class="btn btn-lg btn-pill btn-danger pl-5 pr-5" type="button">Create</a>
-</div>
+    <div class="col-6 col-sm-4 col-md text-center" style="height: 500px;padding-top:200px">
+        <a href="{{ URL::to('tax/' . $tax->id . '/edit?section=profiling') }}" class="btn btn-lg btn-pill btn-danger pl-5 pr-5" type="button">Create 02</a>
+    </div>
 @else
-<div class="text-right">
-    <a href="{{ URL::to('tax/' . $tax->id . '/edit?section=profiling') }}" class="btn btn-sm btn-primary" type="button">Update</a>
-</div>
-<table class="table table-responsive-sm table-sm mt-3" style="border-style: hidden">
-    <tbody>
+    <div class="text-right">
+        <a href="{{ URL::to('tax/' . $tax->id . '/edit?section=profiling') }}" class="btn btn-sm btn-primary" type="button">Update</a>
+    </div>
+    <table class="table table-responsive-sm table-sm mt-3" style="border-style: hidden">
+        <tbody>
         <tr>
             <td colspan="3" style="font-style: italic;text-align: right">
                 Borang Profailing Penentuan Tahap Risiko Pengilang Berdaftar<br>
@@ -29,14 +29,14 @@
             <td colspan="3" style="font-weight: 700;text-align: center">
                 <table class="table table-responsive-sm table-sm mt-3" style="border-style: hidden">
                     <tbody>
-                        <tr>
-                            <td style="border: 1px solid #eee;width: 250px">NAMA SYARIKAT</td>
-                            <td colspan="2" style="border: 1px solid #eee;text-align: left">{{ $tax->business_name }}</td>
-                        </tr>
-                        <tr>
-                            <td style="border: 1px solid #eee">NO DAFTAR CJ</td>
-                            <td colspan="2" style="border: 1px solid #eee;text-align: left">{{ $tax->sst_no }}</td>
-                        </tr>
+                    <tr>
+                        <td style="border: 1px solid #eee;width: 250px">NAMA SYARIKAT</td>
+                        <td colspan="2" style="border: 1px solid #eee;text-align: left">{{ $tax->business_name }}</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #eee">NO DAFTAR CJ</td>
+                        <td colspan="2" style="border: 1px solid #eee;text-align: left">{{ $tax->sst_no }}</td>
+                    </tr>
                     </tbody>
                 </table>
             </td>
@@ -62,7 +62,7 @@
             <td colspan="2">
                 <strong>3. Sekiranya ya, apakah jenis pembekalan barang yang diterima?</strong>
             </td>
-        </tr>        
+        </tr>
         <tr>
             <td style="padding-left: 50px;">{{ $tax->profiling->answer_03 }}</td>
             <td style="text-align: center;">{{ $tax->profiling->mark_03 }}</td>
@@ -156,14 +156,14 @@
                 <strong>ANALISA TAHAP RISIKO</strong>
                 <table class="table-sm mt-3" style="border-style: hidden">
                     <tbody>
-                        <tr>
-                            <td style="width: 550px;border-bottom-style: none"><strong>1. Jumlah markah yang diperolehi</strong></td>
-                            <td style="width: 150px;border-bottom-style: none">{{ $tax->profiling->total_mark }}</td>
-                        </tr>
-                        <tr>
-                            <td style="width: 550px;border-top-style: none"><strong>2. % tahap risiko (Jumlah markah/100) x 100%</strong></td>
-                            <td style="width: 150px;border-top-style: none">{{ $tax->profiling->risk_level }}</td>
-                        </tr>
+                    <tr>
+                        <td style="width: 550px;border-bottom-style: none"><strong>1. Jumlah markah yang diperolehi</strong></td>
+                        <td style="width: 150px;border-bottom-style: none">{{ $tax->profiling->total_mark }}</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 550px;border-top-style: none"><strong>2. % tahap risiko (Jumlah markah/100) x 100%</strong></td>
+                        <td style="width: 150px;border-top-style: none">{{ $tax->profiling->risk_level }}</td>
+                    </tr>
                     </tbody>
                 </table>
             </td>
@@ -174,14 +174,14 @@
         <tr>
             <td colspan="2" style="border-top-style: none;font-size: 30px;text-align:center;font-weight: bold">
                 @if ($tax->profiling->risk_level_text == 'TINGGI')
-                <span class="text-danger">RISIKO {{ $tax->profiling->risk_level_text }}</span>
+                    <span class="text-danger">RISIKO {{ $tax->profiling->risk_level_text }}</span>
                 @elseif ($tax->profiling->risk_level_text == 'SEDERHANA')
-                <span class="text-warning">RISIKO {{ $tax->profiling->risk_level_text }}</span>
+                    <span class="text-warning">RISIKO {{ $tax->profiling->risk_level_text }}</span>
                 @elseif ($tax->profiling->risk_level_text == 'RENDAH')
-                <span class="text-success">RISIKO {{ $tax->profiling->risk_level_text }}</span>
+                    <span class="text-success">RISIKO {{ $tax->profiling->risk_level_text }}</span>
                 @endif
             </td>
         </tr>
-    </tbody>
-</table>
+        </tbody>
+    </table>
 @endif

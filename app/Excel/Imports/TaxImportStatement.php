@@ -20,10 +20,10 @@ class TaxImportStatement implements ToModel, WithStartRow, WithBatchInserts
     public function model(array $row)
     {
         return new TAXRecords([
-            'smk_no'                 => $row[5],
-            'undeclaration_duration' => $row[11],
-            'reminder_date'          => $row[12],
-        ]);
+                                  'smk_no'                 => $row[5],
+                                  'undeclaration_duration' => $row[11],
+                                  'reminder_date'          => $row[12],
+                              ]);
     }
 
     public function startRow(): int

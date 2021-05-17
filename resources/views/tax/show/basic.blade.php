@@ -22,11 +22,11 @@
             <dt class="col-sm-3 col-xl-3">GST No</dt>
             <dd class="col-sm-9 col-xl-8">: {!! $tax->gst_no !!}</dd>
             <dt class="col-sm-3 col-xl-3">Registration Status</dt>
-            <dd class="col-sm-9 col-xl-8">: 
+            <dd class="col-sm-9 col-xl-8">:
                 @if($tax->registration_status == 'CANCEL')
-                <span class="badge badge-danger">{!! $tax->registration_status !!}</span>
+                    <span class="badge badge-danger">{!! $tax->registration_status !!}</span>
                 @else
-                <span class="badge badge-info">{!! $tax->registration_status !!}</span>
+                    <span class="badge badge-info">{!! $tax->registration_status !!}</span>
                 @endif
             </dd>
             <dt class="col-sm-3 col-xl-3">Registration Date</dt>
@@ -83,11 +83,11 @@
     <div class="col-md-12">
         <dl class="row">
             <dt class="col-sm-3 col-xl-3">Current Status</dt>
-            <dd class="col-sm-9 col-xl-8">: 
+            <dd class="col-sm-9 col-xl-8">:
                 @if($tax->cdn_status == 'PERMOHONAN PEMBATALAN')
-                <span class="badge badge-warning">{!! $tax->cdn_status !!}</span>
+                    <span class="badge badge-warning">{!! $tax->cdn_status !!}</span>
                 @else
-                <span class="badge badge-info">{!! $tax->cdn_status !!}</span>
+                    <span class="badge badge-info">{!! $tax->cdn_status !!}</span>
                 @endif
             </dd>
             <dt class="col-sm-3 col-xl-3">Status Description</dt>
@@ -106,14 +106,14 @@
             <div class="modal-body">
                 <form method="POST" action="{!! \URL::to('tax/' . $tax->id . '?section=basic') !!}" id="form-cdn-status" class="form-horizontal" novalidate>
                     @csrf
-                    <input id="method-cdn-status" type="hidden" name="_method" value="PUT" />
+                    <input id="method-cdn-status" type="hidden" name="_method" value="PUT"/>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group row">
                                 <label class="col-md-4 col-form-label">New Status</label>
                                 <div class="col-md-8">
                                     <div data-dx="selectbox" data-name="cdn_status" data-source="cdnStatus" data-value-exp="id"
-                                        data-value="{{ $tax->cdn_status }}"></div>
+                                         data-value="{{ $tax->cdn_status }}"></div>
                                 </div>
                             </div>
                             <div class="form-group row">

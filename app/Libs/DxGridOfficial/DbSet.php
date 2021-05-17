@@ -5,18 +5,18 @@ namespace App\Libs\DxGridOfficial;
 class DbSet
 {
 
-    private static $SELECT_OP     = "SELECT";
-    private static $FROM_OP       = "FROM";
-    private static $WHERE_OP      = "WHERE ";
-    private static $ORDER_OP      = "ORDER BY";
-    private static $GROUP_OP      = "GROUP BY";
-    private static $ALL_FIELDS    = "*";
-    private static $LIMIT_OP      = "LIMIT";
-    private static $INSERT_OP     = "INSERT INTO";
-    private static $VALUES_OP     = "VALUES";
-    private static $UPDATE_OP     = "UPDATE";
-    private static $SET_OP        = "SET";
-    private static $DELETE_OP     = "DELETE";
+    private static $SELECT_OP = "SELECT";
+    private static $FROM_OP = "FROM";
+    private static $WHERE_OP = "WHERE ";
+    private static $ORDER_OP = "ORDER BY";
+    private static $GROUP_OP = "GROUP BY";
+    private static $ALL_FIELDS = "*";
+    private static $LIMIT_OP = "LIMIT";
+    private static $INSERT_OP = "INSERT INTO";
+    private static $VALUES_OP = "VALUES";
+    private static $UPDATE_OP = "UPDATE";
+    private static $SET_OP = "SET";
+    private static $DELETE_OP = "DELETE";
     private static $MAX_ROW_INDEX = 2147483647;
     private $dbTableName;
     private $tableNameIndex = 0;
@@ -32,13 +32,13 @@ class DbSet
         }
         $this->mySQL       = $mySQL;
         $this->dbTableName = $table;
-        self::$WHERE_OP .= $where;
+        self::$WHERE_OP    .= $where;
         self::$ALL_FIELDS  = $select;
         $this->resultQuery = sprintf("%s %s %s %s",
-            self::$SELECT_OP,
-            self::$ALL_FIELDS,
-            self::$FROM_OP,
-            $this->dbTableName);
+                                     self::$SELECT_OP,
+                                     self::$ALL_FIELDS,
+                                     self::$FROM_OP,
+                                     $this->dbTableName);
     }
 
     public function GetLastError()
@@ -50,13 +50,13 @@ class DbSet
     {
         $this->tableNameIndex++;
         $this->resultQuery = sprintf("%s %s %s (%s) %s %s_%d",
-            self::$SELECT_OP,
-            self::$ALL_FIELDS,
-            self::$FROM_OP,
-            $this->resultQuery,
-            AggregateHelper::AS_OP,
-            $this->dbTableName,
-            $this->tableNameIndex);
+                                     self::$SELECT_OP,
+                                     self::$ALL_FIELDS,
+                                     self::$FROM_OP,
+                                     $this->resultQuery,
+                                     AggregateHelper::AS_OP,
+                                     $this->dbTableName,
+                                     $this->tableNameIndex);
     }
 
     private function _PrepareQueryForLastOperator($operator)
@@ -111,13 +111,13 @@ class DbSet
             if (strlen($result)) {
                 $this->_PrepareQueryForLastOperator(self::$WHERE_OP);
                 $this->resultQuery .= sprintf(" %s %s",
-                    self::$WHERE_OP,
-                    $result);
+                                              self::$WHERE_OP,
+                                              $result);
             }
         } else {
             if (self::$WHERE_OP != "WHERE ") {
                 $this->resultQuery .= sprintf(" %s",
-                    substr(self::$WHERE_OP, 0, -4));
+                                              substr(self::$WHERE_OP, 0, -4));
             }
         }
 
@@ -139,8 +139,8 @@ class DbSet
             if (strlen($result)) {
                 $this->_PrepareQueryForLastOperator(self::$ORDER_OP);
                 $this->resultQuery .= sprintf(" %s %s",
-                    self::$ORDER_OP,
-                    $result);
+                                              self::$ORDER_OP,
+                                              $result);
             }
         }
 
@@ -154,9 +154,9 @@ class DbSet
         if ($skip != 0 || $take != 0) {
             $this->_PrepareQueryForLastOperator(self::$LIMIT_OP);
             $this->resultQuery .= sprintf(" %s %0.0f, %0.0f",
-                self::$LIMIT_OP,
-                $skip,
-                $take);
+                                          self::$LIMIT_OP,
+                                          $skip,
+                                          $take);
         }
 
         return $this;
@@ -186,25 +186,25 @@ class DbSet
             if ($groupCount > 0) {
                 $groupSummaryData = isset($groupSummary) && is_array($groupSummary) ? AggregateHelper::GetSummaryInfo($groupSummary) : null;
                 $selectExpression = sprintf("%s, %s(1)%s",
-                    strlen($selectFields) ? $selectFields : $groupFields,
-                    AggregateHelper::COUNT_OP,
+                                            strlen($selectFields) ? $selectFields : $groupFields,
+                                            AggregateHelper::COUNT_OP,
                     (isset($groupSummaryData) && isset($groupSummaryData["fields"]) && strlen($groupSummaryData["fields"]) ?
                         ", " . $groupSummaryData["fields"] : ""));
                 $groupCount++;
                 $this->_WrapQuery();
                 $this->_SelectImpl($selectExpression, false);
                 $this->resultQuery .= sprintf(" %s %s",
-                    self::$GROUP_OP,
-                    $groupFields);
+                                              self::$GROUP_OP,
+                                              $groupFields);
                 $this->Sort($sortFields);
                 $this->groupSettings                 = [];
                 $this->groupSettings["groupCount"]   = $groupCount;
                 $this->groupSettings["summaryTypes"] = $groupSummaryData != null ? $groupSummaryData["summaryTypes"] : null;
                 if ($groupCount === 2) {
                     $this->groupSettings["groupItemCountQuery"] = sprintf("SELECT COUNT(1) FROM (%s) AS %s_%d",
-                        $this->resultQuery,
-                        $this->dbTableName,
-                        $this->tableNameIndex + 1);
+                                                                          $this->resultQuery,
+                                                                          $this->dbTableName,
+                                                                          $this->tableNameIndex + 1);
                     if (isset($skip) || isset($take)) {
                         $this->SkipTake($skip, $take);
                     }
@@ -234,13 +234,13 @@ class DbSet
                     }
                 }
                 $totalSummaryQuery = sprintf("%s %s %s %s %s",
-                    self::$SELECT_OP,
-                    $fields,
-                    self::$FROM_OP,
-                    $this->dbTableName,
-                    strlen($filter) > 0 ? self::$WHERE_OP . " " . $filter : $filter);
-                $this->lastError = null;
-                $queryResult     = $this->mySQL->query($totalSummaryQuery);
+                                             self::$SELECT_OP,
+                                             $fields,
+                                             self::$FROM_OP,
+                                             $this->dbTableName,
+                                             strlen($filter) > 0 ? self::$WHERE_OP . " " . $filter : $filter);
+                $this->lastError   = null;
+                $queryResult       = $this->mySQL->query($totalSummaryQuery);
                 if (!$queryResult) {
                     $this->lastError = $this->mySQL->error;
                 } else {
@@ -280,14 +280,14 @@ class DbSet
     {
         $result = 0;
         if ($this->mySQL) {
-            $countQuery = sprintf("%s %s(1) %s (%s) %s %s_%d",
-                self::$SELECT_OP,
-                AggregateHelper::COUNT_OP,
-                self::$FROM_OP,
-                $this->resultQuery,
-                AggregateHelper::AS_OP,
-                $this->dbTableName,
-                $this->tableNameIndex + 1);
+            $countQuery      = sprintf("%s %s(1) %s (%s) %s %s_%d",
+                                       self::$SELECT_OP,
+                                       AggregateHelper::COUNT_OP,
+                                       self::$FROM_OP,
+                                       $this->resultQuery,
+                                       AggregateHelper::AS_OP,
+                                       $this->dbTableName,
+                                       $this->tableNameIndex + 1);
             $this->lastError = null;
             $queryResult     = $this->mySQL->query($countQuery);
             if (!$queryResult) {
@@ -331,16 +331,16 @@ class DbSet
             $fields      = "";
             $fieldValues = "";
             foreach ($values as $prop => $value) {
-                $fields .= (strlen($fields) ? ", " : "") . Utils::QuoteStringValue($prop);
+                $fields      .= (strlen($fields) ? ", " : "") . Utils::QuoteStringValue($prop);
                 $fieldValues .= (strlen($fieldValues) ? ", " : "") . Utils::QuoteStringValue($value, false);
             }
             if (strlen($fields) > 0) {
-                $queryString = sprintf("%s %s (%s) %s(%s)",
-                    self::$INSERT_OP,
-                    $this->dbTableName,
-                    $fields,
-                    self::$VALUES_OP,
-                    $fieldValues);
+                $queryString     = sprintf("%s %s (%s) %s(%s)",
+                                           self::$INSERT_OP,
+                                           $this->dbTableName,
+                                           $fields,
+                                           self::$VALUES_OP,
+                                           $fieldValues);
                 $this->lastError = null;
                 if ($this->mySQL->query($queryString) == true) {
                     $result = $this->mySQL->affected_rows;
@@ -361,19 +361,19 @@ class DbSet
         if (isset($key) && is_array($key) && isset($values) && is_array($values)) {
             $fields = "";
             foreach ($values as $prop => $value) {
-                $templ = strlen($fields) == 0 ? "%s = %s" : ", %s = %s";
+                $templ  = strlen($fields) == 0 ? "%s = %s" : ", %s = %s";
                 $fields .= sprintf($templ,
-                    Utils::QuoteStringValue($prop),
-                    Utils::QuoteStringValue($value, false));
+                                   Utils::QuoteStringValue($prop),
+                                   Utils::QuoteStringValue($value, false));
             }
             if (strlen($fields) > 0) {
-                $queryString = sprintf("%s %s %s %s %s %s",
-                    self::$UPDATE_OP,
-                    $this->dbTableName,
-                    self::$SET_OP,
-                    $fields,
-                    self::$WHERE_OP,
-                    FilterHelper::GetSqlExprByKey($key));
+                $queryString     = sprintf("%s %s %s %s %s %s",
+                                           self::$UPDATE_OP,
+                                           $this->dbTableName,
+                                           self::$SET_OP,
+                                           $fields,
+                                           self::$WHERE_OP,
+                                           FilterHelper::GetSqlExprByKey($key));
                 $this->lastError = null;
                 if ($this->mySQL->query($queryString) == true) {
                     $result = $this->mySQL->affected_rows;
@@ -391,12 +391,12 @@ class DbSet
         Utils::EscapeExpressionValues($this->mySQL, $key);
         $result = null;
         if (isset($key) && is_array($key)) {
-            $queryString = sprintf("%s %s %s %s %s",
-                self::$DELETE_OP,
-                self::$FROM_OP,
-                $this->dbTableName,
-                self::$WHERE_OP,
-                FilterHelper::GetSqlExprByKey($key));
+            $queryString     = sprintf("%s %s %s %s %s",
+                                       self::$DELETE_OP,
+                                       self::$FROM_OP,
+                                       $this->dbTableName,
+                                       self::$WHERE_OP,
+                                       FilterHelper::GetSqlExprByKey($key));
             $this->lastError = null;
             if ($this->mySQL->query($queryString) == true) {
                 $result = $this->mySQL->affected_rows;

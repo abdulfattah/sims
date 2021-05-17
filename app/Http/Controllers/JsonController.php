@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Libs\App;
@@ -20,44 +21,52 @@ class JsonController extends Controller
     {
         $section = \Request::get('b');
         switch ($section) {
-            case '55a0c60438017':{ //item pilihan untuk selectbox, checkbox, dan radiogroup//
-                    $for = \Request::get('c');
-                    return response()->json($this->itemsOfOption($for), 200, [], JSON_NUMERIC_CHECK);
-                    break;
-                }
-            case '55a0c60437bd8':{ //Grid untuk senarai pengguna//
-                    $trashed = \Request::get('c') == 1;
-                    return response()->json($this->userGrid($trashed), 200, []);
-                    break;
-                }
-            case '55a0c60437d14':{ //Grid untuk senarai tax//
-                    $trashed = \Request::get('c') == 1;
-                    return response()->json($this->taxGrid($trashed), 200, []);
-                    break;
-                }
-            case '55a0c60438203':{ //Dapatkan % processed excel//
-                    return response()->json($this->getProcessedExcelBase(), 200, []);
-                    break;
-                }
-            case '55a0c60438303':{ //Dapatkan % processed excel//
-                    return response()->json($this->getProcessedExcelStatement(), 200, []);
-                    break;
-                }
-            case '55a0c604381b6':{ //Dapatkan form CDN status//
-                    $id = \Request::get('c');
-                    return response()->json($this->getCDNStatus($id), 200, []);
-                    break;
-                }
-            case '55a0c60438163':{ //Dapatkan form attachment//
-                    $id = \Request::get('c');
-                    return response()->json($this->getAttachment($id), 200, []);
-                    break;
-                }
-            case '55a0c604381b5':{ //Dapatkan form note//
-                    $id = \Request::get('c');
-                    return response()->json($this->getNote($id), 200, []);
-                    break;
-                }
+            case '55a0c60438017':
+            { //item pilihan untuk selectbox, checkbox, dan radiogroup//
+                $for = \Request::get('c');
+                return response()->json($this->itemsOfOption($for), 200, [], JSON_NUMERIC_CHECK);
+                break;
+            }
+            case '55a0c60437bd8':
+            { //Grid untuk senarai pengguna//
+                $trashed = \Request::get('c') == 1;
+                return response()->json($this->userGrid($trashed), 200, []);
+                break;
+            }
+            case '55a0c60437d14':
+            { //Grid untuk senarai tax//
+                $trashed = \Request::get('c') == 1;
+                return response()->json($this->taxGrid($trashed), 200, []);
+                break;
+            }
+            case '55a0c60438203':
+            { //Dapatkan % processed excel//
+                return response()->json($this->getProcessedExcelBase(), 200, []);
+                break;
+            }
+            case '55a0c60438303':
+            { //Dapatkan % processed excel//
+                return response()->json($this->getProcessedExcelStatement(), 200, []);
+                break;
+            }
+            case '55a0c604381b6':
+            { //Dapatkan form CDN status//
+                $id = \Request::get('c');
+                return response()->json($this->getCDNStatus($id), 200, []);
+                break;
+            }
+            case '55a0c60438163':
+            { //Dapatkan form attachment//
+                $id = \Request::get('c');
+                return response()->json($this->getAttachment($id), 200, []);
+                break;
+            }
+            case '55a0c604381b5':
+            { //Dapatkan form note//
+                $id = \Request::get('c');
+                return response()->json($this->getNote($id), 200, []);
+                break;
+            }
         }
     }
 
@@ -83,10 +92,10 @@ class JsonController extends Controller
         $response   = null;
         $deleted    = $trashed ? 'deleted_at IS NOT NULL AND ' : 'deleted_at IS NULL AND ';
         $controller = new DxGridOfficial('usr_users',
-            'id, fullname, username, role',
-            $deleted);
-        $params   = $controller->GetParseParams($_GET);
-        $response = $controller->Get($params);
+                                         'id, fullname, username, role',
+                                         $deleted);
+        $params     = $controller->GetParseParams($_GET);
+        $response   = $controller->Get($params);
         unset($controller);
         if (isset($response) && !is_string($response)) {
             return $response;
@@ -102,15 +111,15 @@ class JsonController extends Controller
         $response   = null;
         $deleted    = $trashed ? 'deleted_at IS NOT NULL AND ' : 'deleted_at IS NULL AND ';
         $controller = new DxGridOfficial('tax_records',
-            'id, registration_status, registration_date, cancellation_approval, cancellation_effective, sst_no, station_code, station_name, ' .
-            'gst_no, brn_no, business_name, trade_name, sst_type, email_address, telephone_no, company_address_1, company_address_2, ' .
-            'company_address_3, company_postcode, company_city, company_state, correspondence_address_1, correspondence_address_2, ' .
-            'correspondence_address_3, correspondence_postcode, correspondence_city, correspondence_state, factory_name, entity_type, ' .
-            'business_activity, product_tax, facility_applied, local_marketing, statement, statement_status, uncomplience_type, ' .
-            'syncronizing_at, updated_at, deleted_at',
-            $deleted);
-        $params   = $controller->GetParseParams($_GET);
-        $response = $controller->Get($params);
+                                         'id, registration_status, registration_date, cancellation_approval, cancellation_effective, sst_no, station_code, station_name, ' .
+                                         'gst_no, brn_no, business_name, trade_name, sst_type, email_address, telephone_no, company_address_1, company_address_2, ' .
+                                         'company_address_3, company_postcode, company_city, company_state, correspondence_address_1, correspondence_address_2, ' .
+                                         'correspondence_address_3, correspondence_postcode, correspondence_city, correspondence_state, factory_name, entity_type, ' .
+                                         'business_activity, product_tax, facility_applied, local_marketing, statement, statement_status, uncomplience_type, ' .
+                                         'syncronizing_at, updated_at, deleted_at',
+                                         $deleted);
+        $params     = $controller->GetParseParams($_GET);
+        $response   = $controller->Get($params);
         unset($controller);
         if (isset($response) && !is_string($response)) {
             return $response;

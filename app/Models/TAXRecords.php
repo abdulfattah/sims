@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -6,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class TAXRecords extends \Eloquent
 {
     use SoftDeletes;
+
     protected $table = 'tax_records';
 
     public function notes()

@@ -1,10 +1,10 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Libs\App;
 use App\Models;
 use Artisan;
-use Illuminate\Http\Request;
 
 class ConfigController extends Controller
 {

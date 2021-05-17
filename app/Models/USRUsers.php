@@ -12,7 +12,7 @@ class USRUsers extends \Eloquent implements AuthenticatableContract, CanResetPas
 {
     use Authenticatable, CanResetPassword, SoftDeletes;
 
-    public $table        = 'usr_users';
+    public $table = 'usr_users';
 
     public function avatar()
     {
@@ -52,7 +52,7 @@ class USRUsers extends \Eloquent implements AuthenticatableContract, CanResetPas
     /**
      * Set the token value for the "remember me" session.
      *
-     * @param  string $value
+     * @param string $value
      *
      * @return void
      */

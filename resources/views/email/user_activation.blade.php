@@ -47,9 +47,9 @@
         }
 
         *[x-apple-data-detectors],
-        /* iOS */
+            /* iOS */
         .x-gmail-data-detectors,
-        /* Gmail */
+            /* Gmail */
         .x-gmail-data-detectors *,
         .aBn {
             border-bottom: 0 !important;
@@ -67,7 +67,7 @@
             opacity: 0.01 !important;
         }
 
-        img.g-img+div {
+        img.g-img + div {
             display: none !important;
         }
 
@@ -151,68 +151,68 @@
 </head>
 
 <body width="100%" style="margin: 0; mso-line-height-rule: exactly;">
-    <div style="width: 100%; background: #eeeeee; text-align: center;position: absolute;">
-        <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" width="600" style="margin-top: 10px !important;margin-bottom: 10px !important;"
-            class="email-container">
-            <tr>
-                <td style="background-color:#ffffff;padding: 30px 20px 40px; font-family: sans-serif; font-size: 13px; line-height: 140%; color: #555555; text-align: left;">
-                    <p style="margin: 0;">
-                        <br />
-                        Mr./Mrs. {!! strtoupper($name) !!},
-                        <br /><br />
-                        Welcome to CDN Information Integration System.
-                        Please click on link below to activate your account.
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td style="background-color:#ffffff;padding: 0 40px 7px; font-family: sans-serif; font-size: 15px; line-height: 140%; color: #555555;">
-                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
-                        <tbody>
-                            <tr>
-                                <td style="border-radius: 3px; background: #222222; text-align: center;" class="button-td">
-                                    <a href="{!! $url !!}"
-                                        style="background: #222222; border: 15px solid #222222; font-family: sans-serif; font-size: 13px; line-height: 110%; text-align: center; text-decoration: none; display: block; border-radius: 3px; font-weight: bold;"
-                                        class="button-a">
-                                        &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ffffff;">Activate Account</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                                    </a>
-                                </td>
-                            </tr>
-                        </tbody>
+<div style="width: 100%; background: #eeeeee; text-align: center;position: absolute;">
+    <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" width="600" style="margin-top: 10px !important;margin-bottom: 10px !important;"
+           class="email-container">
+        <tr>
+            <td style="background-color:#ffffff;padding: 30px 20px 40px; font-family: sans-serif; font-size: 13px; line-height: 140%; color: #555555; text-align: left;">
+                <p style="margin: 0;">
+                    <br/>
+                    Mr./Mrs. {!! strtoupper($name) !!},
+                    <br/><br/>
+                    Welcome to CDN Information Integration System.
+                    Please click on link below to activate your account.
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td style="background-color:#ffffff;padding: 0 40px 7px; font-family: sans-serif; font-size: 15px; line-height: 140%; color: #555555;">
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto">
+                    <tbody>
+                    <tr>
+                        <td style="border-radius: 3px; background: #222222; text-align: center;" class="button-td">
+                            <a href="{!! $url !!}"
+                               style="background: #222222; border: 15px solid #222222; font-family: sans-serif; font-size: 13px; line-height: 110%; text-align: center; text-decoration: none; display: block; border-radius: 3px; font-weight: bold;"
+                               class="button-a">
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ffffff;">Activate Account</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="background-color:#ffffff;padding: 30px 20px 40px; font-family: sans-serif; font-size: 13px; line-height: 140%; color: #555555; text-align: left;">
+                <p style="margin: 0;">
+                    This link will expired at {!! $expired !!}.
+                    Please contact system administrator if link already dead.
+                    <br/><br/>
+                    Thank you<br/>
+                    CDN Information Integration System
+                </p>
+            </td>
+        </tr>
+    </table>
+    <table role="presentation" style="background-color:#709f2b;" cellspacing="0" cellpadding="0" border="0" align="center" width="100%">
+        <tr>
+            <td valign="top" align="center">
+                <div style="max-width: 600px; margin: auto;" class="email-container">
+                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                        <tr>
+                            <td style="padding: 10px; text-align: center; font-family: sans-serif; font-size: 15px; line-height: 140%; color: #ffffff;">
+                                <p style="margin: 0;">
+                                    <strong>CDN Information Integration System</strong>
+                                    <br/>
+                                    Royal Malaysian Customs Department<br/>
+                                </p>
+                            </td>
+                        </tr>
                     </table>
-                </td>
-            </tr>
-            <tr>
-                <td style="background-color:#ffffff;padding: 30px 20px 40px; font-family: sans-serif; font-size: 13px; line-height: 140%; color: #555555; text-align: left;">
-                    <p style="margin: 0;">
-                        This link will expired at {!! $expired !!}.
-                        Please contact system administrator if link already dead.
-                        <br /><br />
-                        Thank you<br />
-                        CDN Information Integration System
-                    </p>
-                </td>
-            </tr>
-        </table>
-        <table role="presentation" style="background-color:#709f2b;" cellspacing="0" cellpadding="0" border="0" align="center" width="100%">
-            <tr>
-                <td valign="top" align="center">
-                    <div style="max-width: 600px; margin: auto;" class="email-container">
-                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
-                            <tr>
-                                <td style="padding: 10px; text-align: center; font-family: sans-serif; font-size: 15px; line-height: 140%; color: #ffffff;">
-                                    <p style="margin: 0;">
-                                        <strong>CDN Information Integration System</strong>
-                                        <br />
-                                        Royal Malaysian Customs Department<br />
-                                    </p>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </td>
-            </tr>
-        </table>
-    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
 </body>
 </html>

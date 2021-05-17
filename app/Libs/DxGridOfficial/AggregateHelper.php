@@ -5,11 +5,11 @@ namespace App\Libs\DxGridOfficial;
 class AggregateHelper
 {
 
-    const MIN_OP   = "MIN";
-    const MAX_OP   = "MAX";
-    const AVG_OP   = "AVG";
+    const MIN_OP = "MIN";
+    const MAX_OP = "MAX";
+    const AVG_OP = "AVG";
     const COUNT_OP = "COUNT";
-    const AS_OP    = "AS";
+    const AS_OP = "AS";
 
     private static function _RecalculateGroupCountAndSummary(&$dataItem, $groupCount, $groupIndex, $summaryTypes = null)
     {
@@ -140,18 +140,18 @@ class AggregateHelper
                         if (is_int($item->groupInterval)) {
                             $groupField  = Utils::QuoteStringValue(sprintf("%s_%d", $item->selector, $item->groupInterval));
                             $selectField = sprintf("(%s - (%s %% %d)) %s %s",
-                                $quoteSelector,
-                                $quoteSelector,
-                                $item->groupInterval,
-                                self::AS_OP,
-                                $groupField);
+                                                   $quoteSelector,
+                                                   $quoteSelector,
+                                                   $item->groupInterval,
+                                                   self::AS_OP,
+                                                   $groupField);
                         } else {
                             $groupField  = Utils::QuoteStringValue(sprintf("%s_%s", $item->selector, $item->groupInterval));
                             $selectField = sprintf("%s(%s) %s %s",
-                                strtoupper($item->groupInterval),
-                                $quoteSelector,
-                                self::AS_OP,
-                                $groupField);
+                                                   strtoupper($item->groupInterval),
+                                                   $quoteSelector,
+                                                   self::AS_OP,
+                                                   $groupField);
                         }
                     } else {
                         $groupField = $sortField = $quoteSelector;
@@ -166,7 +166,7 @@ class AggregateHelper
             }
             if (isset($sortField)) {
                 $sort .= (strlen($sort) > 0 ? ", " . $sortField : $sortField) .
-                    ($desc ? " DESC" : "");
+                         ($desc ? " DESC" : "");
             }
         }
 
@@ -185,11 +185,11 @@ class AggregateHelper
         foreach ($expression as $index => $item) {
             if (gettype($item) === "object" && isset($item->summaryType)) {
                 $summaryTypes[] = strtoupper($item->summaryType);
-                $fields .= sprintf("%s(%s) %s f%d",
-                    strlen($fields) > 0 ? ", " . $summaryTypes[$index] : $summaryTypes[$index],
-                    (isset($item->selector) && is_string($item->selector)) ? Utils::QuoteStringValue($item->selector) : "1",
-                    self::AS_OP,
-                    $index);
+                $fields         .= sprintf("%s(%s) %s f%d",
+                                           strlen($fields) > 0 ? ", " . $summaryTypes[$index] : $summaryTypes[$index],
+                                           (isset($item->selector) && is_string($item->selector)) ? Utils::QuoteStringValue($item->selector) : "1",
+                                           self::AS_OP,
+                                           $index);
             }
         }
         $result["fields"]       = $fields;

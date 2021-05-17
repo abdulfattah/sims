@@ -5,10 +5,10 @@ namespace App\Libs\DxGridOfficial;
 class FilterHelper
 {
 
-    private static $AND_OP  = "AND";
-    private static $OR_OP   = "OR";
+    private static $AND_OP = "AND";
+    private static $OR_OP = "OR";
     private static $LIKE_OP = "LIKE";
-    private static $NOT_OP  = "NOT";
+    private static $NOT_OP = "NOT";
 
     private static function _GetSqlFieldName($field)
     {
@@ -22,19 +22,22 @@ class FilterHelper
             switch ($dateProperty) {
                 case "year":
                 case "month":
-                case "day":{
-                        $sqlDateFunction = strtoupper($dateProperty);
-                        $fieldPattern    = "%s(%s)";
-                        break;
-                    }
-                case "dayOfWeek":{
-                        $sqlDateFunction = strtoupper($dateProperty);
-                        $fieldPattern    = "%s(%s) - 1";
-                        break;
-                    }
-                default:{
-                        throw new \Exception("The \"" . $dateProperty . "\" command is not supported");
-                    }
+                case "day":
+                {
+                    $sqlDateFunction = strtoupper($dateProperty);
+                    $fieldPattern    = "%s(%s)";
+                    break;
+                }
+                case "dayOfWeek":
+                {
+                    $sqlDateFunction = strtoupper($dateProperty);
+                    $fieldPattern    = "%s(%s) - 1";
+                    break;
+                }
+                default:
+                {
+                    throw new \Exception("The \"" . $dateProperty . "\" command is not supported");
+                }
             }
             $result = sprintf($fieldPattern, $sqlDateFunction, $fieldName);
         } else {
@@ -58,49 +61,56 @@ class FilterHelper
                 $val     = $expression[2];
                 $pattern = "";
                 switch ($clause) {
-                    case "=":{
-                            if ($val === null) {
-                                $clause = "IS NULL";
-                            } else {
-                                $clause = "=";
-                            }
+                    case "=":
+                    {
+                        if ($val === null) {
+                            $clause = "IS NULL";
+                        } else {
+                            $clause = "=";
                         }
+                    }
                     case "<>":
                     case ">":
                     case ">=":
                     case "<":
-                    case "<=":{
-                            $pattern = "%s %s %s";
-                            $val     = Utils::QuoteStringValue($val, false);
-                            break;
-                        }
-                    case "startswith":{
-                            $pattern = "%s %s '%s%%'";
-                            $clause  = self::$LIKE_OP;
-                            $val     = addcslashes($val, "%_");
-                            break;
-                        }
-                    case "endswith":{
-                            $pattern = "%s %s '%%%s'";
-                            $val     = addcslashes($val, "%_");
-                            $clause  = self::$LIKE_OP;
-                            break;
-                        }
-                    case "contains":{
-                            $pattern = "%s %s '%%%s%%'";
-                            $val     = addcslashes($val, "%_");
-                            $clause  = self::$LIKE_OP;
-                            break;
-                        }
-                    case "notcontains":{
-                            $pattern = "%s %s '%%%s%%'";
-                            $val     = addcslashes($val, "%_");
-                            $clause  = sprintf("%s %s", self::$NOT_OP, self::$LIKE_OP);
-                            break;
-                        }
-                    default:{
-                            $clause = "";
-                        }
+                    case "<=":
+                    {
+                        $pattern = "%s %s %s";
+                        $val     = Utils::QuoteStringValue($val, false);
+                        break;
+                    }
+                    case "startswith":
+                    {
+                        $pattern = "%s %s '%s%%'";
+                        $clause  = self::$LIKE_OP;
+                        $val     = addcslashes($val, "%_");
+                        break;
+                    }
+                    case "endswith":
+                    {
+                        $pattern = "%s %s '%%%s'";
+                        $val     = addcslashes($val, "%_");
+                        $clause  = self::$LIKE_OP;
+                        break;
+                    }
+                    case "contains":
+                    {
+                        $pattern = "%s %s '%%%s%%'";
+                        $val     = addcslashes($val, "%_");
+                        $clause  = self::$LIKE_OP;
+                        break;
+                    }
+                    case "notcontains":
+                    {
+                        $pattern = "%s %s '%%%s%%'";
+                        $val     = addcslashes($val, "%_");
+                        $clause  = sprintf("%s %s", self::$NOT_OP, self::$LIKE_OP);
+                        break;
+                    }
+                    default:
+                    {
+                        $clause = "";
+                    }
                 }
 
                 if ($clause == 'IS NULL') {
@@ -139,7 +149,7 @@ class FilterHelper
                 if ($prevItemWasArray) {
                     $result .= sprintf(" %s ", self::$AND_OP);
                 }
-                $result .= self::GetSqlExprByArray($item);
+                $result           .= self::GetSqlExprByArray($item);
                 $prevItemWasArray = true;
             }
         }
@@ -152,12 +162,12 @@ class FilterHelper
     {
         $result = "";
         foreach ($key as $prop => $value) {
-            $templ = strlen($result) == 0 ?
-            "%s = %s" :
-            " " . self::$AND_OP . " %s = %s";
+            $templ  = strlen($result) == 0 ?
+                "%s = %s" :
+                " " . self::$AND_OP . " %s = %s";
             $result .= sprintf($templ,
-                Utils::QuoteStringValue($prop),
-                Utils::QuoteStringValue($value, false));
+                               Utils::QuoteStringValue($prop),
+                               Utils::QuoteStringValue($value, false));
         }
 
         return $result;

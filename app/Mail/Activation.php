@@ -36,12 +36,12 @@ class Activation extends Mailable
         $mailFromName  = $this->getDbConfig('email_name') == null ? 'CDN Information Integration System' : $this->getDbConfig('email_name');
 
         return $this->from($mailFromEmail, $mailFromName)
-            ->subject('[CDN Information Integration System] Activate Your Account')
-            ->view('email.user_activation')
-            ->with([
-                'name'    => $this->data['name'],
-                'url'     => $this->data['url'],
-                'expired' => $this->data['expired'],
-            ]);
+                    ->subject('[CDN Information Integration System] Activate Your Account')
+                    ->view('email.user_activation')
+                    ->with([
+                               'name'    => $this->data['name'],
+                               'url'     => $this->data['url'],
+                               'expired' => $this->data['expired'],
+                           ]);
     }
 }

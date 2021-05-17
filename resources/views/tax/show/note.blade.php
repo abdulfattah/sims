@@ -5,15 +5,15 @@
 </div>
 <table class="table table-responsive-sm table-sm mt-3">
     <thead>
-        <tr>
-            <th style="width: 65%;">Title</th>
-            <th style="width: 20%;">Note By</th>
-            <th style="width: 12%;">Date</th>
-            <th style="width: 70px">&nbsp;</th>
-        </tr>
+    <tr>
+        <th style="width: 65%;">Title</th>
+        <th style="width: 20%;">Note By</th>
+        <th style="width: 12%;">Date</th>
+        <th style="width: 70px">&nbsp;</th>
+    </tr>
     </thead>
     <tbody>
-        @foreach($tax->notes as $note)
+    @foreach($tax->notes as $note)
         <tr>
             <td><a href="javascript:void(0)" data-id="{!! $note->id !!}" class="show-note">{!! $note->note_title !!}</a></td>
             <td>{!! $note->writer != null ? $note->writer->fullname : null !!}</td>
@@ -23,7 +23,7 @@
                 <a href="javascript:void(0)" data-id="{!! $note->id !!}" data-tax-id="{!! $note->tax_record_id !!}" class="delete-note"><i class="c-icon cil-trash text-danger"></i></a>
             </th>
         </tr>
-        @endforeach
+    @endforeach
     </tbody>
 </table>
 <div class="modal fade" id="modal-note" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
@@ -36,13 +36,14 @@
             <div class="modal-body">
                 <form method="POST" action="{!! \URL::to('tax?section=note') !!}" id="form-note" class="form-horizontal" enctype="multipart/form-data" novalidate>
                     @csrf
-                    <input type="hidden" name="tax_record_id" value="{!! $tax->id !!}" />
-                    <input id="method-note" type="hidden" name="_method" value="" />
+                    <input type="hidden" name="tax_record_id" value="{!! $tax->id !!}"/>
+                    <input id="method-note" type="hidden" name="_method" value=""/>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="name">Title</label>
-                                <div data-dx="textbox" data-case="lowercase" data-name="note_title" data-mode="text" data-validate="true" data-validation-type="required" data-validation-group="note"></div>
+                                <div data-dx="textbox" data-case="lowercase" data-name="note_title" data-mode="text" data-validate="true" data-validation-type="required"
+                                     data-validation-group="note"></div>
                             </div>
                         </div>
                     </div>
@@ -96,24 +97,24 @@
 </div>
 
 @section('page-css')
-<style>
-    #quill-note {
-        height: 84%;
-    }
-</style>
+    <style>
+        #quill-note {
+            height: 84%;
+        }
+    </style>
 @stop
 
 @section('page-script')
-<script type="text/javascript">
-    $(document).ready(function () {  
-        var quill = new Quill('#quill-note', {
-            placeholder: 'Type your note here...',
-            theme: 'snow'
-        });
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var quill = new Quill('#quill-note', {
+                placeholder: 'Type your note here...',
+                theme: 'snow'
+            });
 
-        $("#form-note").on("submit", function () {
-            $(this).append("<textarea name='note' style='display:none'>" + $('.ql-editor')[0].innerHTML + "</textarea>");
+            $("#form-note").on("submit", function () {
+                $(this).append("<textarea name='note' style='display:none'>" + $('.ql-editor')[0].innerHTML + "</textarea>");
+            });
         });
-});
-</script>
+    </script>
 @stop

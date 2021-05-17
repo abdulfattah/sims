@@ -35,11 +35,11 @@ class LostPassword extends Mailable
         $mailFromName  = $this->getDbConfig('email_name') == null ? 'CDN Information Integration System' : $this->getDbConfig('email_name');
 
         return $this->from($mailFromEmail, $mailFromName)
-            ->subject('[CDN Information Integration System] Reset Password')
-            ->view('email.lost_password')
-            ->with([
-                'name' => $this->data['name'],
-                'url'  => $this->data['url'],
-            ]);
+                    ->subject('[CDN Information Integration System] Reset Password')
+                    ->view('email.lost_password')
+                    ->with([
+                               'name' => $this->data['name'],
+                               'url'  => $this->data['url'],
+                           ]);
     }
 }

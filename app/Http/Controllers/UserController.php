@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Exports\UsersExport;
@@ -46,8 +47,8 @@ class UserController extends Controller
             if ($user) {
                 if (!$user->enable) {
                     return redirect()->action('UserController@login')
-                        ->withInput(\Request::except('password'))
-                        ->with('error', 'Disabled user, cannot login. Please contact your administrator');
+                                     ->withInput(\Request::except('password'))
+                                     ->with('error', 'Disabled user, cannot login. Please contact your administrator');
 
                 }
 
@@ -69,13 +70,13 @@ class UserController extends Controller
                     return redirect()->intended('/');
                 } else {
                     return redirect()->to('login')
-                        ->withInput(\Request::except('password'))
-                        ->with('error', 'Invalid username or password');
+                                     ->withInput(\Request::except('password'))
+                                     ->with('error', 'Invalid username or password');
                 }
             } else {
                 return redirect()->to('login')
-                    ->withInput(\Request::except('password'))
-                    ->with('error', 'Invalid username or password');
+                                 ->withInput(\Request::except('password'))
+                                 ->with('error', 'Invalid username or password');
             }
         }
     }
@@ -109,11 +110,11 @@ class UserController extends Controller
         $user = Models\USRUsers::find($id);
         if (!$user->enable && $user->password == 'Not Active Yet!') {
             \Mail::to($user->username)
-                ->queue(new Mail\Activation([
-                    'name'    => strtoupper($user->fullname),
-                    'url'     => \URL::to('activate/' . $user->id),
-                    'expired' => Carbon::now()->addDays(2)->format('d M Y H:i'),
-                ]));
+                 ->queue(new Mail\Activation([
+                                                 'name'    => strtoupper($user->fullname),
+                                                 'url'     => \URL::to('activate/' . $user->id),
+                                                 'expired' => Carbon::now()->addDays(2)->format('d M Y H:i'),
+                                             ]));
 
             return redirect()->to('user')->with('success', 'Activation email has been sent.');
         } else {
@@ -155,10 +156,10 @@ class UserController extends Controller
         if ($user->enable && $user->password != 'Not Active Yet!') {
             $user->token = Uuid::uuid4()->getHex();
             \Mail::to($user->username)
-                ->queue(new Mail\LostPassword([
-                    'name' => strtoupper($user->fullname),
-                    'url'  => \URL::to('password/reset/' . $user->token),
-                ]));
+                 ->queue(new Mail\LostPassword([
+                                                   'name' => strtoupper($user->fullname),
+                                                   'url'  => \URL::to('password/reset/' . $user->token),
+                                               ]));
 
             $user->save();
 
@@ -205,10 +206,10 @@ class UserController extends Controller
             if ($user->enable && $user->password != 'Not Active Yet!') {
                 $user->token = Uuid::uuid4()->getHex();
                 \Mail::to($user->username)
-                    ->queue(new Mail\LostPassword([
-                        'name' => strtoupper($user->fullname),
-                        'url'  => \URL::to('password/reset/' . $user->token),
-                    ]));
+                     ->queue(new Mail\LostPassword([
+                                                       'name' => strtoupper($user->fullname),
+                                                       'url'  => \URL::to('password/reset/' . $user->token),
+                                                   ]));
 
                 $user->save();
 
@@ -270,8 +271,8 @@ class UserController extends Controller
     public function store()
     {
         if (Models\USRUsers::where('username', \Request::input('username'))->get()->count() < 1) {
-            $user = new Models\USRUsers();
-            $user = $this->populateSaveValue($user, \Request::all(), array(
+            $user           = new Models\USRUsers();
+            $user           = $this->populateSaveValue($user, \Request::all(), array(
                 'exclude' => array('_token', 'profile_image', 'roles', 'avatar'),
             ));
             $user->role     = json_encode(request()->get('roles'));
@@ -289,10 +290,10 @@ class UserController extends Controller
                 $asset->save();
 
                 list($type, $data) = explode(';', $data);
-                list(, $data)      = explode(',', $data);
-                $data              = base64_decode($data);
-                $asset             = new Models\SYSAsset();
-                $imageName         = $asset->id . '.png';
+                list(, $data) = explode(',', $data);
+                $data      = base64_decode($data);
+                $asset     = new Models\SYSAsset();
+                $imageName = $asset->id . '.png';
                 file_put_contents(env('ASSETS_STORAGE') . 'avatar' . DIRECTORY_SEPARATOR . $imageName, $data);
                 $asset->file_size = \Storage::disk('asset')->size('avatar' . DIRECTORY_SEPARATOR . $imageName);
                 $asset->md5       = md5_file(env('ASSETS_STORAGE') . 'avatar' . DIRECTORY_SEPARATOR . $imageName);
@@ -300,15 +301,15 @@ class UserController extends Controller
             }
 
             \Mail::to($user->username)
-                ->queue(new Mail\Activation([
-                    'name'    => strtoupper($user->fullname),
-                    'url'     => \URL::to('activate/' . $user->id),
-                    'expired' => Carbon::now()->addDays(2)->format('d M Y H:i'),
-                ]));
+                 ->queue(new Mail\Activation([
+                                                 'name'    => strtoupper($user->fullname),
+                                                 'url'     => \URL::to('activate/' . $user->id),
+                                                 'expired' => Carbon::now()->addDays(2)->format('d M Y H:i'),
+                                             ]));
         } else {
             return redirect()->to('create/user')
-                ->withInput()
-                ->withErrors(array('message' => 'User with that email already exists.'));
+                             ->withInput()
+                             ->withErrors(array('message' => 'User with that email already exists.'));
         }
 
         return redirect()->to('user');
@@ -358,9 +359,9 @@ class UserController extends Controller
             $asset->save();
 
             list($type, $data) = explode(';', $data);
-            list(, $data)      = explode(',', $data);
-            $data              = base64_decode($data);
-            $imageName         = $asset->id . '.png';
+            list(, $data) = explode(',', $data);
+            $data      = base64_decode($data);
+            $imageName = $asset->id . '.png';
 
             file_put_contents(env('ASSETS_STORAGE') . 'avatar' . DIRECTORY_SEPARATOR . $imageName, $data);
 
@@ -403,10 +404,10 @@ class UserController extends Controller
     {
         $response   = null;
         $controller = new DxGridOfficial('usr_users',
-            'fullname, role, username',
-            '');
-        $params   = $controller->GetParseParams($_GET);
-        $response = $controller->Get($params);
+                                         'fullname, role, username',
+                                         '');
+        $params     = $controller->GetParseParams($_GET);
+        $response   = $controller->Get($params);
         unset($controller);
         if (isset($response) && !is_string($response)) {
             return Excel::download(new UsersExport($response['data']), '[CDN Information Integration System] Users (' . date('d-m-Y') . ').xlsx');

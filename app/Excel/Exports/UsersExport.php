@@ -10,12 +10,12 @@ use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Cell\Hyperlink;
-use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use Str;
 
 class UsersExport implements FromCollection, ShouldAutoSize, WithHeadings, WithColumnFormatting, WithEvents
 {
     use Exportable;
+
     private $data;
 
     public function __construct($data)
@@ -57,24 +57,24 @@ class UsersExport implements FromCollection, ShouldAutoSize, WithHeadings, WithC
                 $event->sheet->getDelegate()->getRowDimension(1)->setRowHeight(20);
                 //set by array
                 $event->sheet->getDelegate()->getStyle('A1:C1')->applyFromArray([
-                    'font'      => [
-                        'name'   => 'Calibri',
-                        'bold'   => false,
-                        'italic' => false,
-                        'size'   => 12,
-                    ],
-                    'fill'      => [
-                        'fillType'   => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
-                        'startColor' => [
-                            'rgb' => '23AAF2',
-                        ],
+                                                                                    'font'      => [
+                                                                                        'name'   => 'Calibri',
+                                                                                        'bold'   => false,
+                                                                                        'italic' => false,
+                                                                                        'size'   => 12,
+                                                                                    ],
+                                                                                    'fill'      => [
+                                                                                        'fillType'   => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                                                                                        'startColor' => [
+                                                                                            'rgb' => '23AAF2',
+                                                                                        ],
 
-                    ],
-                    'alignment' => [
-                        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
-                        'vertical'   => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
-                    ],
-                ]
+                                                                                    ],
+                                                                                    'alignment' => [
+                                                                                        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                                                                                        'vertical'   => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                                                                                    ],
+                                                                                ]
                 );
                 //set hyperlink mailto
                 foreach ($event->sheet->getColumnIterator('B') as $row) {

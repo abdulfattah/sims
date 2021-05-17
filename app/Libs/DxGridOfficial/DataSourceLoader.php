@@ -10,14 +10,14 @@ class DataSourceLoader
         $result = null;
         if (isset($dbSet) && get_class($dbSet) == "App\Libs\DxGridOfficial\DbSet" && isset($params) && is_array($params)) {
             $dbSet->Select(Utils::GetItemValueOrDefault($params, "select"))
-                ->Filter(Utils::GetItemValueOrDefault($params, "filter"));
+                  ->Filter(Utils::GetItemValueOrDefault($params, "filter"));
             $totalSummary = $dbSet->GetTotalSummary(Utils::GetItemValueOrDefault($params, "totalSummary"),
-                Utils::GetItemValueOrDefault($params, "filter"));
+                                                    Utils::GetItemValueOrDefault($params, "filter"));
             if ($dbSet->GetLastError() !== null) {
                 return $result;
             }
             $totalCount = (isset($params["requireTotalCount"]) && $params["requireTotalCount"] === true)
-            ? $dbSet->GetCount() : null;
+                ? $dbSet->GetCount() : null;
             if ($dbSet->GetLastError() !== null) {
                 return $result;
             }

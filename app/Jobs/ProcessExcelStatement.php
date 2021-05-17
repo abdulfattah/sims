@@ -32,6 +32,7 @@ class ProcessExcelStatement implements ShouldQueue
     public $tries = 10;
 
     protected $setting, $filename, $user;
+
     /**
      * Create a new job instance.
      *
@@ -52,7 +53,7 @@ class ProcessExcelStatement implements ShouldQueue
     public function handle()
     {
         $taxRecords = Excel::toCollection(new TaxImportStatement($this->setting),
-            storage_path('assets') . DIRECTORY_SEPARATOR . 'syncronize' . DIRECTORY_SEPARATOR . $this->filename);
+                                          storage_path('assets') . DIRECTORY_SEPARATOR . 'syncronize' . DIRECTORY_SEPARATOR . $this->filename);
         foreach ($taxRecords as $records) {
             foreach ($records as $k => $v) {
                 $tax = TAXRecords::where('sst_no', $v[4])->withTrashed()->get()->first();
