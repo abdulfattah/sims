@@ -55,7 +55,7 @@
             </div>
             <div class="tab-pane @if(\Request::get('section') == 'attachment') active @endif" id="attachment" role="tabpanel"></div>
             <div class="tab-pane @if(\Request::get('section') == 'profiling') active @endif" id="profiling" role="tabpanel">
-                @include('tax.form.profiling_01')
+                @include('tax.form.profiling_' . \Request::get('page'))
             </div>
             <div class="tab-pane @if(\Request::get('section') == 'note') active @endif" id="note" role="tabpanel"></div>
             <div class="tab-pane @if(\Request::get('section') == 'history') active @endif" id="history" role="tabpanel"></div>

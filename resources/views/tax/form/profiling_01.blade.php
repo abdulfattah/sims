@@ -1,6 +1,8 @@
-<form action="@if($tax->profiling == null) {!! \URL::to('tax?section=profiling') !!} @else {!! \URL::to('tax/' . $tax->id . '?section=profiling&id=' . $tax->profiling->id) !!} @endif"
+<form action="@if($tax->profiling01 == null) {!! \URL::to('tax?section=profiling') !!} @else {!! \URL::to('tax/' . $tax->id . '?section=profiling&id=' . $tax->profiling01->id) !!} @endif"
       method="POST" id="form-profiling" class="form-horizontal" novalidate>
-    <input id="method-attachment" type="hidden" name="_method" value="PUT"/>
+    @if($tax->profiling != null)
+        <input type="hidden" name="_method" value="PUT"/>
+    @endif
     @csrf
     <input type="hidden" name="tax_id" value="{!! $tax->id !!}"/>
     <table class="table table-responsive-sm table-sm mt-3" style="border-style: hidden">
@@ -41,7 +43,7 @@
         <tr>
             <td colspan="2">
                 <strong>1. Jenis aktiviti perniagaan</strong>
-                <input type="hidden" name="answer_01" value="{{ $tax->profiling != null ? $tax->profiling->answer_01 : null }}">
+                <input type="hidden" name="answer_01" value="{{ $tax->profiling01 != null ? $tax->profiling01->answer_01 : null }}">
             </td>
             <td class="text-center"><strong>Markah</strong></td>
         </tr>
@@ -51,7 +53,7 @@
             <td>
                 <div class="form-check">
                     <input class="form-check-input" id="q1i" type="radio" value="10"
-                           name="mark_01" @if($tax->profiling != null) {{ $tax->profiling->mark_01 == 10 ? 'checked' : null }} @endif>
+                           name="mark_01" @if($tax->profiling01 != null) {{ $tax->profiling01->mark_01 == 10 ? 'checked' : null }} @endif>
                     <label class="form-check-label" style="width: 100%;cursor:pointer" for="q1i">10</label>
                 </div>
             </td>
@@ -62,7 +64,7 @@
             <td>
                 <div class="form-check">
                     <input class="form-check-input" id="q1ii" type="radio" value="7"
-                           name="mark_01" @if($tax->profiling != null) {{ $tax->profiling->mark_01 == 7 ? 'checked' : null }} @endif>
+                           name="mark_01" @if($tax->profiling01 != null) {{ $tax->profiling01->mark_01 == 7 ? 'checked' : null }} @endif>
                     <label class="form-check-label" style="width: 100%;cursor:pointer" for="q1ii">7</label>
                 </div>
             </td>
@@ -73,7 +75,7 @@
             <td>
                 <div class="form-check">
                     <input class="form-check-input" id="q1iii" type="radio" value="4"
-                           name="mark_01" @if($tax->profiling != null) {{ $tax->profiling->mark_01 == 4 ? 'checked' : null }} @endif>
+                           name="mark_01" @if($tax->profiling01 != null) {{ $tax->profiling01->mark_01 == 4 ? 'checked' : null }} @endif>
                     <label class="form-check-label" style="width: 100%;cursor:pointer" for="q1iii">4</label>
                 </div>
             </td>
@@ -84,7 +86,7 @@
             <td>
                 <div class="form-check">
                     <input class="form-check-input" id="q1iv" type="radio" value="1"
-                           name="mark_01" @if($tax->profiling != null) {{ $tax->profiling->mark_01 == 1 ? 'checked' : null }} @endif>
+                           name="mark_01" @if($tax->profiling01 != null) {{ $tax->profiling01->mark_01 == 1 ? 'checked' : null }} @endif>
                     <label class="form-check-label" style="width: 100%;cursor:pointer" for="q1iv">1</label>
                 </div>
             </td>
@@ -92,7 +94,7 @@
         <tr>
             <td colspan="3">
                 <strong>2. Adakah pengilang menjalankan kerja sub-kontrak?</strong>
-                <input type="hidden" name="answer_02" value="{{ $tax->profiling != null ? $tax->profiling->answer_02 : null }}">
+                <input type="hidden" name="answer_02" value="{{ $tax->profiling01 != null ? $tax->profiling01->answer_02 : null }}">
             </td>
         </tr>
         <tr>
@@ -101,7 +103,7 @@
             <td>
                 <div class="form-check">
                     <input class="form-check-input" id="q2i" type="radio" value="5"
-                           name="mark_02" @if($tax->profiling != null) {{ $tax->profiling->mark_02 == 5 ? 'checked' : null }} @endif>
+                           name="mark_02" @if($tax->profiling01 != null) {{ $tax->profiling01->mark_02 == 5 ? 'checked' : null }} @endif>
                     <label class="form-check-label" style="width: 100%;cursor:pointer" for="q2i">5</label>
                 </div>
             </td>
@@ -112,7 +114,7 @@
             <td>
                 <div class="form-check">
                     <input class="form-check-input" id="q2ii" type="radio" value="2"
-                           name="mark_02" @if($tax->profiling != null) {{ $tax->profiling->mark_02 == 2 ? 'checked' : null }} @endif>
+                           name="mark_02" @if($tax->profiling01 != null) {{ $tax->profiling01->mark_02 == 2 ? 'checked' : null }} @endif>
                     <label class="form-check-label" style="width: 100%;cursor:pointer" for="q2ii">2</label>
                 </div>
             </td>
@@ -120,7 +122,7 @@
         <tr>
             <td colspan="3">
                 <strong>3. Sekiranya ya, apakah jenis pembekalan barang yang diterima?</strong>
-                <input type="hidden" name="answer_03" value="{{ $tax->profiling != null ? $tax->profiling->answer_03 : null }}">
+                <input type="hidden" name="answer_03" value="{{ $tax->profiling01 != null ? $tax->profiling01->answer_03 : null }}">
             </td>
         </tr>
         <tr>
@@ -129,7 +131,7 @@
             <td>
                 <div class="form-check">
                     <input class="form-check-input" id="q3i" type="radio" value="5"
-                           name="mark_03" @if($tax->profiling != null) {{ $tax->profiling->mark_03 == 5 ? 'checked' : null }} @endif>
+                           name="mark_03" @if($tax->profiling01 != null) {{ $tax->profiling01->mark_03 == 5 ? 'checked' : null }} @endif>
                     <label class="form-check-label" style="width: 100%;cursor:pointer" for="q3i">5</label>
                 </div>
             </td>
@@ -140,7 +142,7 @@
             <td>
                 <div class="form-check">
                     <input class="form-check-input" id="q3ii" type="radio" value="2"
-                           name="mark_03" @if($tax->profiling != null) {{ $tax->profiling->mark_03 == 2 ? 'checked' : null }} @endif>
+                           name="mark_03" @if($tax->profiling01 != null) {{ $tax->profiling01->mark_03 == 2 ? 'checked' : null }} @endif>
                     <label class="form-check-label" style="width: 100%;cursor:pointer" for="q3ii">2</label>
                 </div>
             </td>
@@ -148,7 +150,7 @@
         <tr>
             <td colspan="3">
                 <strong>4. Adakah caj nilai jualan barang yang dikilangkan mengikut Seksyen 9(3) Akta Cukai Jualan 2018?</strong>
-                <input type="hidden" name="answer_04" value="{{ $tax->profiling != null ? $tax->profiling->answer_04 : null }}">
+                <input type="hidden" name="answer_04" value="{{ $tax->profiling01 != null ? $tax->profiling01->answer_04 : null }}">
             </td>
         </tr>
         <tr>
@@ -157,7 +159,7 @@
             <td>
                 <div class="form-check">
                     <input class="form-check-input" id="q4i" type="radio" value="10"
-                           name="mark_04" @if($tax->profiling != null) {{ $tax->profiling->mark_04 == 10 ? 'checked' : null }} @endif>
+                           name="mark_04" @if($tax->profiling01 != null) {{ $tax->profiling01->mark_04 == 10 ? 'checked' : null }} @endif>
                     <label class="form-check-label" style="width: 100%;cursor:pointer" for="q4i">10</label>
                 </div>
             </td>
@@ -168,7 +170,7 @@
             <td>
                 <div class="form-check">
                     <input class="form-check-input" id="q4ii" type="radio" value="5"
-                           name="mark_04" @if($tax->profiling != null) {{ $tax->profiling->mark_04 == 5 ? 'checked' : null }} @endif>
+                           name="mark_04" @if($tax->profiling01 != null) {{ $tax->profiling01->mark_04 == 5 ? 'checked' : null }} @endif>
                     <label class="form-check-label" style="width: 100%;cursor:pointer" for="q4ii">5</label>
                 </div>
             </td>
@@ -176,7 +178,7 @@
         <tr>
             <td colspan="3">
                 <strong>5. Hubungan pembeli dengan pengilang berdaftar</strong>
-                <input type="hidden" name="answer_05" value="{{ $tax->profiling != null ? $tax->profiling->answer_05 : null }}">
+                <input type="hidden" name="answer_05" value="{{ $tax->profiling01 != null ? $tax->profiling01->answer_05 : null }}">
             </td>
         </tr>
         <tr>
@@ -185,7 +187,7 @@
             <td>
                 <div class="form-check">
                     <input class="form-check-input" id="q5i" type="radio" value="10"
-                           name="mark_05" @if($tax->profiling != null) {{ $tax->profiling->mark_05 == 10 ? 'checked' : null }} @endif>
+                           name="mark_05" @if($tax->profiling01 != null) {{ $tax->profiling01->mark_05 == 10 ? 'checked' : null }} @endif>
                     <label class="form-check-label" style="width: 100%;cursor:pointer" for="q5i">10</label>
                 </div>
             </td>
@@ -202,29 +204,29 @@
             <td>
                 <div class="form-check">
                     <input class="form-check-input" id="q5ii" type="radio" value="7"
-                           name="mark_05" @if($tax->profiling != null) {{ $tax->profiling->mark_05 == 7 ? 'checked' : null }} @endif>
+                           name="mark_05" @if($tax->profiling01 != null) {{ $tax->profiling01->mark_05 == 7 ? 'checked' : null }} @endif>
                     <label class="form-check-label" style="width: 100%;cursor:pointer" for="q5ii">7</label>
                 </div>
             </td>
         </tr>
         <tr>
-            <td class="text-center">ii</td>
+            <td class="text-center">iii</td>
             <td>Anak Syarikat Induk</td>
             <td>
                 <div class="form-check">
                     <input class="form-check-input" id="q5iii" type="radio" value="4"
-                           name="mark_05" @if($tax->profiling != null) {{ $tax->profiling->mark_05 == 4 ? 'checked' : null }} @endif>
+                           name="mark_05" @if($tax->profiling01 != null) {{ $tax->profiling01->mark_05 == 4 ? 'checked' : null }} @endif>
                     <label class="form-check-label" style="width: 100%;cursor:pointer" for="q5iii">4</label>
                 </div>
             </td>
         </tr>
         <tr>
-            <td class="text-center">ii</td>
+            <td class="text-center">iv</td>
             <td>Tiada Apa-Apa Kaitan</td>
             <td>
                 <div class="form-check">
                     <input class="form-check-input" id="q5iv" type="radio" value="1"
-                           name="mark_05" @if($tax->profiling != null) {{ $tax->profiling->mark_05 == 1 ? 'checked' : null }} @endif>
+                           name="mark_05" @if($tax->profiling01 != null) {{ $tax->profiling01->mark_05 == 1 ? 'checked' : null }} @endif>
                     <label class="form-check-label" style="width: 100%;cursor:pointer" for="q5iv">1</label>
                 </div>
             </td>
@@ -232,7 +234,7 @@
         <tr>
             <td colspan="3">
                 <strong>6. Status pembeli/pemasar kepada pengilang berdaftar</strong>
-                <input type="hidden" name="answer_06" value="{{ $tax->profiling != null ? $tax->profiling->answer_06 : null }}">
+                <input type="hidden" name="answer_06" value="{{ $tax->profiling01 != null ? $tax->profiling01->answer_06 : null }}">
             </td>
         </tr>
         <tr>
@@ -246,7 +248,7 @@
             <td>
                 <div class="form-check">
                     <input class="form-check-input" id="q6i" type="radio" value="10"
-                           name="mark_06" @if($tax->profiling != null) {{ $tax->profiling->mark_06 == 10 ? 'checked' : null }} @endif>
+                           name="mark_06" @if($tax->profiling01 != null) {{ $tax->profiling01->mark_06 == 10 ? 'checked' : null }} @endif>
                     <label class="form-check-label" style="width: 100%;cursor:pointer" for="q6i">10</label>
                 </div>
             </td>
@@ -257,29 +259,29 @@
             <td>
                 <div class="form-check">
                     <input class="form-check-input" id="q6ii" type="radio" value="7"
-                           name="mark_06" @if($tax->profiling != null) {{ $tax->profiling->mark_06 == 7 ? 'checked' : null }} @endif>
+                           name="mark_06" @if($tax->profiling01 != null) {{ $tax->profiling01->mark_06 == 7 ? 'checked' : null }} @endif>
                     <label class="form-check-label" style="width: 100%;cursor:pointer" for="q6ii">7</label>
                 </div>
             </td>
         </tr>
         <tr>
-            <td class="text-center">ii</td>
+            <td class="text-center">iii</td>
             <td>Pemegang Francais</td>
             <td>
                 <div class="form-check">
                     <input class="form-check-input" id="q6iii" type="radio" value="4"
-                           name="mark_06" @if($tax->profiling != null) {{ $tax->profiling->mark_06 == 4 ? 'checked' : null }} @endif>
+                           name="mark_06" @if($tax->profiling01 != null) {{ $tax->profiling01->mark_06 == 4 ? 'checked' : null }} @endif>
                     <label class="form-check-label" style="width: 100%;cursor:pointer" for="q6iii">4</label>
                 </div>
             </td>
         </tr>
         <tr>
-            <td class="text-center">ii</td>
+            <td class="text-center">iv</td>
             <td>Pembeli Bebas</td>
             <td>
                 <div class="form-check">
                     <input class="form-check-input" id="q6iv" type="radio" value="1"
-                           name="mark_06" @if($tax->profiling != null) {{ $tax->profiling->mark_06 == 1 ? 'checked' : null }} @endif>
+                           name="mark_06" @if($tax->profiling01 != null) {{ $tax->profiling01->mark_06 == 1 ? 'checked' : null }} @endif>
                     <label class="form-check-label" style="width: 100%;cursor:pointer" for="q6iv">1</label>
                 </div>
             </td>
@@ -287,7 +289,7 @@
         <tr>
             <td colspan="3">
                 <strong>7. Cara pemasaran keluaran barang siap</strong>
-                <input type="hidden" name="answer_07" value="{{ $tax->profiling != null ? $tax->profiling->answer_07 : null }}">
+                <input type="hidden" name="answer_07" value="{{ $tax->profiling01 != null ? $tax->profiling01->answer_07 : null }}">
             </td>
         </tr>
         <tr>
@@ -296,7 +298,7 @@
             <td>
                 <div class="form-check">
                     <input class="form-check-input" id="q7i" type="radio" value="10"
-                           name="mark_07" @if($tax->profiling != null) {{ $tax->profiling->mark_07 == 10 ? 'checked' : null }} @endif>
+                           name="mark_07" @if($tax->profiling01 != null) {{ $tax->profiling01->mark_07 == 10 ? 'checked' : null }} @endif>
                     <label class="form-check-label" style="width: 100%;cursor:pointer" for="q7i">10</label>
                 </div>
             </td>
@@ -307,29 +309,29 @@
             <td>
                 <div class="form-check">
                     <input class="form-check-input" id="q7ii" type="radio" value="7"
-                           name="mark_07" @if($tax->profiling != null) {{ $tax->profiling->mark_07 == 7 ? 'checked' : null }} @endif>
+                           name="mark_07" @if($tax->profiling01 != null) {{ $tax->profiling01->mark_07 == 7 ? 'checked' : null }} @endif>
                     <label class="form-check-label" style="width: 100%;cursor:pointer" for="q7ii">7</label>
                 </div>
             </td>
         </tr>
         <tr>
-            <td class="text-center">ii</td>
+            <td class="text-center">iii</td>
             <td>Jualan tempatan dan eksport</td>
             <td>
                 <div class="form-check">
                     <input class="form-check-input" id="q7iii" type="radio" value="4"
-                           name="mark_07" @if($tax->profiling != null) {{ $tax->profiling->mark_07 == 4 ? 'checked' : null }} @endif>
+                           name="mark_07" @if($tax->profiling01 != null) {{ $tax->profiling01->mark_07 == 4 ? 'checked' : null }} @endif>
                     <label class="form-check-label" style="width: 100%;cursor:pointer" for="q7iii">4</label>
                 </div>
             </td>
         </tr>
         <tr>
-            <td class="text-center">ii</td>
+            <td class="text-center">iv</td>
             <td>Jualann tempatan kepada pasaran bebas</td>
             <td>
                 <div class="form-check">
                     <input class="form-check-input" id="q7iv" type="radio" value="1"
-                           name="mark_07" @if($tax->profiling != null) {{ $tax->profiling->mark_07 == 1 ? 'checked' : null }} @endif>
+                           name="mark_07" @if($tax->profiling01 != null) {{ $tax->profiling01->mark_07 == 1 ? 'checked' : null }} @endif>
                     <label class="form-check-label" style="width: 100%;cursor:pointer" for="q7iv">1</label>
                 </div>
             </td>
@@ -337,7 +339,7 @@
         <tr>
             <td colspan="3">
                 <strong>8. Adakah terdapat perubahan harga jualan tempatan sebelum pelaksanaan SST dengan semasa pelaksanaan SST?</strong>
-                <input type="hidden" name="answer_08" value="{{ $tax->profiling != null ? $tax->profiling->answer_08 : null }}">
+                <input type="hidden" name="answer_08" value="{{ $tax->profiling01 != null ? $tax->profiling01->answer_08 : null }}">
             </td>
         </tr>
         <tr>
@@ -346,7 +348,7 @@
             <td>
                 <div class="form-check">
                     <input class="form-check-input" id="q8i" type="radio" value="5"
-                           name="mark_08" @if($tax->profiling != null) {{ $tax->profiling->mark_08 == 5 ? 'checked' : null }} @endif>
+                           name="mark_08" @if($tax->profiling01 != null) {{ $tax->profiling01->mark_08 == 5 ? 'checked' : null }} @endif>
                     <label class="form-check-label" style="width: 100%;cursor:pointer" for="q8i">5</label>
                 </div>
             </td>
@@ -357,7 +359,7 @@
             <td>
                 <div class="form-check">
                     <input class="form-check-input" id="q8ii" type="radio" value="2"
-                           name="mark_08" @if($tax->profiling != null) {{ $tax->profiling->mark_08 == 2 ? 'checked' : null }} @endif>
+                           name="mark_08" @if($tax->profiling01 != null) {{ $tax->profiling01->mark_08 == 2 ? 'checked' : null }} @endif>
                     <label class="form-check-label" style="width: 100%;cursor:pointer" for="q8ii">2</label>
                 </div>
             </td>
@@ -365,7 +367,7 @@
         <tr>
             <td colspan="3">
                 <strong>9. Adakah terdapat perbezaan harga jualan antara setiap pembeli?</strong>
-                <input type="hidden" name="answer_09" value="{{ $tax->profiling != null ? $tax->profiling->answer_09 : null }}">
+                <input type="hidden" name="answer_09" value="{{ $tax->profiling01 != null ? $tax->profiling01->answer_09 : null }}">
             </td>
         </tr>
         <tr>
@@ -374,7 +376,7 @@
             <td>
                 <div class="form-check">
                     <input class="form-check-input" id="q9i" type="radio" value="5"
-                           name="mark_09" @if($tax->profiling != null) {{ $tax->profiling->mark_09 == 5 ? 'checked' : null }} @endif>
+                           name="mark_09" @if($tax->profiling01 != null) {{ $tax->profiling01->mark_09 == 5 ? 'checked' : null }} @endif>
                     <label class="form-check-label" style="width: 100%;cursor:pointer" for="q9i">5</label>
                 </div>
             </td>
@@ -385,7 +387,7 @@
             <td>
                 <div class="form-check">
                     <input class="form-check-input" id="q9ii" type="radio" value="2"
-                           name="mark_09" @if($tax->profiling != null) {{ $tax->profiling->mark_09 == 2 ? 'checked' : null }} @endif>
+                           name="mark_09" @if($tax->profiling01 != null) {{ $tax->profiling01->mark_09 == 2 ? 'checked' : null }} @endif>
                     <label class="form-check-label" style="width: 100%;cursor:pointer" for="q9ii">2</label>
                 </div>
             </td>
@@ -393,7 +395,7 @@
         <tr>
             <td colspan="3">
                 <strong>10. Jenis kemudahan pengecualian yang digunakan oleh syarikat</strong>
-                <input type="hidden" name="answer_10" value="{{ $tax->profiling != null ? $tax->profiling->answer_10 : null }}">
+                <input type="hidden" name="answer_10" value="{{ $tax->profiling01 != null ? $tax->profiling01->answer_10 : null }}">
             </td>
         </tr>
         <tr>
@@ -402,7 +404,7 @@
             <td>
                 <div class="form-check">
                     <input class="form-check-input" id="q10i" type="radio" value="10"
-                           name="mark_10" @if($tax->profiling != null) {{ $tax->profiling->mark_10 == 10 ? 'checked' : null }} @endif>
+                           name="mark_10" @if($tax->profiling01 != null) {{ $tax->profiling01->mark_10 == 10 ? 'checked' : null }} @endif>
                     <label class="form-check-label" style="width: 100%;cursor:pointer" for="q10i">10</label>
                 </div>
             </td>
@@ -413,7 +415,7 @@
             <td>
                 <div class="form-check">
                     <input class="form-check-input" id="q10ii" type="radio" value="7"
-                           name="mark_10" @if($tax->profiling != null) {{ $tax->profiling->mark_10 == 7 ? 'checked' : null }} @endif>
+                           name="mark_10" @if($tax->profiling01 != null) {{ $tax->profiling01->mark_10 == 7 ? 'checked' : null }} @endif>
                     <label class="form-check-label" style="width: 100%;cursor:pointer" for="q10ii">7</label>
                 </div>
             </td>
@@ -424,7 +426,7 @@
             <td>
                 <div class="form-check">
                     <input class="form-check-input" id="q10iii" type="radio" value="4"
-                           name="mark_10" @if($tax->profiling != null) {{ $tax->profiling->mark_10 == 4 ? 'checked' : null }} @endif>
+                           name="mark_10" @if($tax->profiling01 != null) {{ $tax->profiling01->mark_10 == 4 ? 'checked' : null }} @endif>
                     <label class="form-check-label" style="width: 100%;cursor:pointer" for="q10iii">4</label>
                 </div>
             </td>
@@ -435,7 +437,7 @@
             <td>
                 <div class="form-check">
                     <input class="form-check-input" id="q10iv" type="radio" value="1"
-                           name="mark_10" @if($tax->profiling != null) {{ $tax->profiling->mark_10 == 1 ? 'checked' : null }} @endif>
+                           name="mark_10" @if($tax->profiling01 != null) {{ $tax->profiling01->mark_10 == 1 ? 'checked' : null }} @endif>
                     <label class="form-check-label" style="width: 100%;cursor:pointer" for="q10iv">1</label>
                 </div>
             </td>
@@ -443,7 +445,7 @@
         <tr>
             <td colspan="3">
                 <strong>11. Kegagalan mengemukakan penyata atau membuat pembayaran cukai</strong>
-                <input type="hidden" name="answer_11" value="{{ $tax->profiling != null ? $tax->profiling->answer_11 : null }}">
+                <input type="hidden" name="answer_11" value="{{ $tax->profiling01 != null ? $tax->profiling01->answer_11 : null }}">
             </td>
         </tr>
         <tr>
@@ -452,7 +454,7 @@
             <td>
                 <div class="form-check">
                     <input class="form-check-input" id="q11i" type="radio" value="10"
-                           name="mark_11" @if($tax->profiling != null) {{ $tax->profiling->mark_11 == 10 ? 'checked' : null }} @endif>
+                           name="mark_11" @if($tax->profiling01 != null) {{ $tax->profiling01->mark_11 == 10 ? 'checked' : null }} @endif>
                     <label class="form-check-label" style="width: 100%;cursor:pointer" for="q11i">10</label>
                 </div>
             </td>
@@ -463,7 +465,7 @@
             <td>
                 <div class="form-check">
                     <input class="form-check-input" id="q11ii" type="radio" value="7"
-                           name="mark_11" @if($tax->profiling != null) {{ $tax->profiling->mark_11 == 7 ? 'checked' : null }} @endif>
+                           name="mark_11" @if($tax->profiling01 != null) {{ $tax->profiling01->mark_11 == 7 ? 'checked' : null }} @endif>
                     <label class="form-check-label" style="width: 100%;cursor:pointer" for="q11ii">7</label>
                 </div>
             </td>
@@ -474,7 +476,7 @@
             <td>
                 <div class="form-check">
                     <input class="form-check-input" id="q11iii" type="radio" value="4"
-                           name="mark_11" @if($tax->profiling != null) {{ $tax->profiling->mark_11 == 4 ? 'checked' : null }} @endif>
+                           name="mark_11" @if($tax->profiling01 != null) {{ $tax->profiling01->mark_11 == 4 ? 'checked' : null }} @endif>
                     <label class="form-check-label" style="width: 100%;cursor:pointer" for="q11iii">4</label>
                 </div>
             </td>
@@ -485,7 +487,7 @@
             <td>
                 <div class="form-check">
                     <input class="form-check-input" id="q11iv" type="radio" value="1"
-                           name="mark_11" @if($tax->profiling != null) {{ $tax->profiling->mark_11 == 1 ? 'checked' : null }} @endif>
+                           name="mark_11" @if($tax->profiling01 != null) {{ $tax->profiling01->mark_11 == 1 ? 'checked' : null }} @endif>
                     <label class="form-check-label" style="width: 100%;cursor:pointer" for="q11iv">1</label>
                 </div>
             </td>
@@ -493,7 +495,7 @@
         <tr>
             <td colspan="3">
                 <strong>12. Profil dan rekod dengan jabatan</strong>
-                <input type="hidden" name="answer_12" value="{{ $tax->profiling != null ? $tax->profiling->answer_12 : null }}">
+                <input type="hidden" name="answer_12" value="{{ $tax->profiling01 != null ? $tax->profiling01->answer_12 : null }}">
             </td>
         </tr>
         <tr>
@@ -502,7 +504,7 @@
             <td>
                 <div class="form-check">
                     <input class="form-check-input" id="q12i" type="radio" value="10"
-                           name="mark_12" @if($tax->profiling != null) {{ $tax->profiling->mark_12 == 10 ? 'checked' : null }} @endif>
+                           name="mark_12" @if($tax->profiling01 != null) {{ $tax->profiling01->mark_12 == 10 ? 'checked' : null }} @endif>
                     <label class="form-check-label" style="width: 100%;cursor:pointer" for="q12i">10</label>
                 </div>
             </td>
@@ -513,7 +515,7 @@
             <td>
                 <div class="form-check">
                     <input class="form-check-input" id="q12ii" type="radio" value="7"
-                           name="mark_12" @if($tax->profiling != null) {{ $tax->profiling->mark_12 == 7 ? 'checked' : null }} @endif>
+                           name="mark_12" @if($tax->profiling01 != null) {{ $tax->profiling01->mark_12 == 7 ? 'checked' : null }} @endif>
                     <label class="form-check-label" style="width: 100%;cursor:pointer" for="q12ii">7</label>
                 </div>
             </td>
@@ -524,7 +526,7 @@
             <td>
                 <div class="form-check">
                     <input class="form-check-input" id="q12iii" type="radio" value="4"
-                           name="mark_12" @if($tax->profiling != null) {{ $tax->profiling->mark_12 == 4 ? 'checked' : null }} @endif>
+                           name="mark_12" @if($tax->profiling01 != null) {{ $tax->profiling01->mark_12 == 4 ? 'checked' : null }} @endif>
                     <label class="form-check-label" style="width: 100%;cursor:pointer" for="q12iii">4</label>
                 </div>
             </td>
@@ -535,7 +537,7 @@
             <td>
                 <div class="form-check">
                     <input class="form-check-input" id="q12iv" type="radio" value="1"
-                           name="mark_12" @if($tax->profiling != null) {{ $tax->profiling->mark_12 == 1 ? 'checked' : null }} @endif>
+                           name="mark_12" @if($tax->profiling01 != null) {{ $tax->profiling01->mark_12 == 1 ? 'checked' : null }} @endif>
                     <label class="form-check-label" style="width: 100%;cursor:pointer" for="q12iv">1</label>
                 </div>
             </td>
@@ -551,13 +553,13 @@
                     <tr>
                         <td style="width: 550px;border-bottom-style: none"><strong>1. Jumlah markah yang diperolehi</strong></td>
                         <td style="width: 150px;border-bottom-style: none"><input class="form-control" type="text" name="total_mark"
-                                                                                  value="{{ $tax->profiling != null ? $tax->profiling->total_mark : null }}"
+                                                                                  value="{{ $tax->profiling01 != null ? $tax->profiling01->total_mark : null }}"
                                                                                   readonly></td>
                     </tr>
                     <tr>
                         <td style="width: 550px;border-top-style: none"><strong>2. % tahap risiko (Jumlah markah/100) x 100%</strong></td>
                         <td style="width: 150px;border-top-style: none"></strong><input class="form-control" type="text" name="risk_level"
-                                                                                        value="{{ $tax->profiling != null ? $tax->profiling->risk_level : null }}"
+                                                                                        value="{{ $tax->profiling01 != null ? $tax->profiling01->risk_level : null }}"
                                                                                         readonly></td>
                     </tr>
                     </tbody>
@@ -578,7 +580,7 @@
                         <td style="width: 70px;text-align: center">
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" value="TINGGI" name="risk_level_text"
-                                       @if($tax->profiling != null) {{ $tax->profiling->risk_level_text == 'TINGGI' ? 'checked' : null }} @endif onclick="javascript: return false;">
+                                       @if($tax->profiling01 != null) {{ $tax->profiling01->risk_level_text == 'TINGGI' ? 'checked' : null }} @endif onclick="javascript: return false;">
                             </div>
                         </td>
                     </tr>
@@ -589,7 +591,7 @@
                         <td style="width: 70px;text-align: center">
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" value="SEDERHANA" name="risk_level_text"
-                                       @if($tax->profiling != null) {{ $tax->profiling->risk_level_text == 'SEDERHANA' ? 'checked' : null }} @endif onclick="javascript: return false;">
+                                       @if($tax->profiling01 != null) {{ $tax->profiling01->risk_level_text == 'SEDERHANA' ? 'checked' : null }} @endif onclick="javascript: return false;">
                             </div>
                         </td>
                     </tr>
@@ -600,7 +602,7 @@
                         <td style="width: 70px;text-align: center">
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" value="RENDAH" name="risk_level_text"
-                                       @if($tax->profiling != null) {{ $tax->profiling->risk_level_text == 'RENDAH' ? 'checked' : null }} @endif onclick="javascript: return false;">
+                                       @if($tax->profiling01 != null) {{ $tax->profiling01->risk_level_text == 'RENDAH' ? 'checked' : null }} @endif onclick="javascript: return false;">
                             </div>
                         </td>
                     </tr>

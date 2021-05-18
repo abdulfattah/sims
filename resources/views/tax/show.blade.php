@@ -34,9 +34,7 @@
                 @include('tax.show.attachment')
             </div>
             <div class="tab-pane @if(\Request::get('section') == 'profiling') active @endif" id="profiling" role="tabpanel">
-                @include('tax.show.profiling_01')
-                @include('tax.show.profiling_02')
-                @include('tax.show.profiling_03')
+                @include('tax.show.profiling')
             </div>
             <div class="tab-pane @if(\Request::get('section') == 'note') active @endif" id="note" role="tabpanel">
                 @include('tax.show.note')

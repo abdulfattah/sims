@@ -20,9 +20,19 @@ class TAXRecords extends \Eloquent
         return $this->hasMany('App\Models\SYSAsset', 'for_id', 'id')->where('for', 'Tax Attachment');
     }
 
-    public function profiling()
+    public function profiling01()
     {
-        return $this->hasOne('App\Models\TAXProfiling', 'tax_id', 'id');
+        return $this->hasOne('App\Models\TAXProfiling01', 'tax_id', 'id');
+    }
+
+    public function profiling02()
+    {
+        return $this->hasOne('App\Models\TAXProfiling02', 'tax_id', 'id');
+    }
+
+    public function profiling03()
+    {
+        return $this->hasOne('App\Models\TAXProfiling03', 'tax_id', 'id');
     }
 
     public function getCompanyAddress()

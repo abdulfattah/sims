@@ -11,7 +11,9 @@ use App\Models;
 use App\Models\SYSAsset;
 use App\Models\SYSSetting;
 use App\Models\TAXNote;
-use App\Models\TAXProfiling;
+use App\Models\TAXProfiling01;
+use App\Models\TAXProfiling02;
+use App\Models\TAXProfiling03;
 use App\Models\TAXRecords;
 use App\Models\USRHistoryLog;
 use Maatwebsite\Excel\Facades\Excel;
@@ -131,21 +133,54 @@ class TaxController extends Controller
                 ->log('Upload attachment');
 
             return redirect()->to('tax/' . request()->get('tax_record_id') . '?section=' . \Request::get('section'))->with('success', 'Attachment has been uploaded.');
-        } elseif (request()->get('section') == 'profiling') {
+        } elseif (request()->get('section') == 'profiling_01') {
             $input     = \Request::all();
-            $profiling = new TAXProfiling();
+            $profiling = new TAXProfiling01();
             $profiling = $this->populateSaveValue($profiling, $input, array(
                 'exclude' => array('_token', '_method', 'section'),
             ));
+            $profiling->created_by = \Auth::user()->id;
             $profiling->save();
 
             $tax = TAXRecords::find(request()->get('tax_id'));
             activity('tax')
                 ->causedBy(\Auth::user())
                 ->performedOn($tax)
-                ->log('Create profiling');
+                ->log('Create profiling 01');
 
-            return redirect()->to('tax/' . request()->get('tax_id') . '?section=' . \Request::get('section'))->with('success', 'Profiling has been added.');
+            return redirect()->to('tax/' . request()->get('tax_id') . '?section=profiling')->with('success', 'Profiling 01 has been added.');
+        }  elseif (request()->get('section') == 'profiling_02') {
+            $input     = \Request::all();
+            $profiling = new TAXProfiling02();
+            $profiling = $this->populateSaveValue($profiling, $input, array(
+                'exclude' => array('_token', '_method', 'section'),
+            ));
+            $profiling->created_by = \Auth::user()->id;
+            $profiling->save();
+
+            $tax = TAXRecords::find(request()->get('tax_id'));
+            activity('tax')
+                ->causedBy(\Auth::user())
+                ->performedOn($tax)
+                ->log('Create profiling 02');
+
+            return redirect()->to('tax/' . request()->get('tax_id') . '?section=profiling')->with('success', 'Profiling 02 has been added.');
+        }   elseif (request()->get('section') == 'profiling_03') {
+            $input     = \Request::all();
+            $profiling = new TAXProfiling03();
+            $profiling = $this->populateSaveValue($profiling, $input, array(
+                'exclude' => array('_token', '_method', 'section'),
+            ));
+            $profiling->created_by = \Auth::user()->id;
+            $profiling->save();
+
+            $tax = TAXRecords::find(request()->get('tax_id'));
+            activity('tax')
+                ->causedBy(\Auth::user())
+                ->performedOn($tax)
+                ->log('Create profiling 03');
+
+            return redirect()->to('tax/' . request()->get('tax_id') . '?section=profiling')->with('success', 'Profiling 03 has been added.');
         } elseif (request()->get('section') == 'note') {
             $note                = new TAXNote();
             $note->tax_record_id = request()->get('tax_record_id');
@@ -239,7 +274,7 @@ class TaxController extends Controller
             return redirect()->to('tax/' . $id . '?section=' . \Request::get('section'))->with('success', 'Attachment has been update.');
         } elseif (request()->get('section') == 'profiling') {
             $input     = \Request::all();
-            $profiling = TAXProfiling::find(request()->get('id'));
+            $profiling = TAXProfiling01::find(request()->get('id'));
             $profiling = $this->populateSaveValue($profiling, $input, array(
                 'exclude' => array('_token', '_method', 'section'),
             ));

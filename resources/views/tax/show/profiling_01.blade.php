@@ -1,10 +1,10 @@
 @if ($tax->profiling == null)
     <div class="col-6 col-sm-4 col-md text-center" style="height: 500px;padding-top:200px">
-        <a href="{{ URL::to('tax/' . $tax->id . '/edit?section=profiling') }}" class="btn btn-lg btn-pill btn-danger pl-5 pr-5" type="button">Create 01</a>
+        <a href="{{ URL::to('tax/' . $tax->id . '/edit?section=profiling_01') }}" class="btn btn-lg btn-pill btn-danger pl-5 pr-5" type="button">Create</a>
     </div>
 @else
     <div class="text-right">
-        <a href="{{ URL::to('tax/' . $tax->id . '/edit?section=profiling') }}" class="btn btn-sm btn-primary" type="button">Update</a>
+        <a href="{{ URL::to('tax/' . $tax->id . '/edit?section=profiling_01') }}" class="btn btn-sm btn-primary" type="button">Update</a>
     </div>
     <table class="table table-responsive-sm table-sm mt-3" style="border-style: hidden">
         <tbody>

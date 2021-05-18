@@ -1,6 +1,8 @@
 <form action="@if($tax->profiling == null) {!! \URL::to('tax?section=profiling') !!} @else {!! \URL::to('tax/' . $tax->id . '?section=profiling&id=' . $tax->profiling->id) !!} @endif"
       method="POST" id="form-profiling" class="form-horizontal" novalidate>
-    <input id="method-attachment" type="hidden" name="_method" value="PUT"/>
+    @if($tax->profiling != null)
+        <input type="hidden" name="_method" value="PUT"/>
+    @endif
     @csrf
     <input type="hidden" name="tax_id" value="{!! $tax->id !!}"/>
     <table class="table table-responsive-sm table-sm mt-3" style="border-style: hidden">
