@@ -34,7 +34,28 @@
                 @include('tax.show.attachment')
             </div>
             <div class="tab-pane @if(\Request::get('section') == 'profiling') active @endif" id="profiling" role="tabpanel">
-                @include('tax.show.profiling')
+                <div class="row">
+                    <div class="col-2">
+                        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                            <a class="nav-link active" data-toggle="pill" href="#profile_01" role="tab">Profile 01</a>
+                            <a class="nav-link" data-toggle="pill" href="#profile_02" role="tab">Profile 02</a>
+                            <a class="nav-link" data-toggle="pill" href="#profile_03" role="tab">Profile 03</a>
+                        </div>
+                    </div>
+                    <div class="col-10">
+                        <div class="tab-content" id="v-pills-tabContent">
+                            <div class="tab-pane fade show active" id="profile_01" role="tabpanel">
+                                @include('tax.show.profiling_01')
+                            </div>
+                            <div class="tab-pane fade" id="profile_02" role="tabpanel">
+                                @include('tax.show.profiling_02')
+                            </div>
+                            <div class="tab-pane fade" id="profile_03" role="tabpanel">
+                                @include('tax.show.profiling_03')
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="tab-pane @if(\Request::get('section') == 'note') active @endif" id="note" role="tabpanel">
                 @include('tax.show.note')

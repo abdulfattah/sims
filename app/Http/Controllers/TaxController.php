@@ -139,6 +139,19 @@ class TaxController extends Controller
             $profiling = $this->populateSaveValue($profiling, $input, array(
                 'exclude' => array('_token', '_method', 'section'),
             ));
+            //maintain original case
+            $profiling->answer_01 = request()->get('answer_01');
+            $profiling->answer_02 = request()->get('answer_02');
+            $profiling->answer_03 = request()->get('answer_03');
+            $profiling->answer_04 = request()->get('answer_04');
+            $profiling->answer_05 = request()->get('answer_05');
+            $profiling->answer_06 = request()->get('answer_06');
+            $profiling->answer_07 = request()->get('answer_07');
+            $profiling->answer_08 = request()->get('answer_08');
+            $profiling->answer_09 = request()->get('answer_09');
+            $profiling->answer_10 = request()->get('answer_10');
+            $profiling->answer_11 = request()->get('answer_11');
+            $profiling->answer_12 = request()->get('answer_12');
             $profiling->created_by = \Auth::user()->id;
             $profiling->save();
 
@@ -155,6 +168,19 @@ class TaxController extends Controller
             $profiling = $this->populateSaveValue($profiling, $input, array(
                 'exclude' => array('_token', '_method', 'section'),
             ));
+            //maintain original case
+            $profiling->answer_01 = request()->get('answer_01');
+            $profiling->answer_02 = request()->get('answer_02');
+            $profiling->answer_03 = request()->get('answer_03');
+            $profiling->answer_04 = request()->get('answer_04');
+            $profiling->answer_05 = request()->get('answer_05');
+            $profiling->answer_06 = request()->get('answer_06');
+            $profiling->answer_07 = request()->get('answer_07');
+            $profiling->answer_08 = request()->get('answer_08');
+            $profiling->answer_09 = request()->get('answer_09');
+            $profiling->answer_10 = request()->get('answer_10');
+            $profiling->answer_11 = request()->get('answer_11');
+            $profiling->answer_12 = request()->get('answer_12');
             $profiling->created_by = \Auth::user()->id;
             $profiling->save();
 
@@ -171,6 +197,16 @@ class TaxController extends Controller
             $profiling = $this->populateSaveValue($profiling, $input, array(
                 'exclude' => array('_token', '_method', 'section'),
             ));
+            //maintain original case
+            $profiling->answer_01 = request()->get('answer_01');
+            $profiling->answer_02 = request()->get('answer_02');
+            $profiling->answer_03 = request()->get('answer_03');
+            $profiling->answer_04 = request()->get('answer_04');
+            $profiling->answer_05 = request()->get('answer_05');
+            $profiling->answer_06 = request()->get('answer_06');
+            $profiling->answer_07 = request()->get('answer_07');
+            $profiling->answer_08 = request()->get('answer_08');
+            $profiling->answer_09 = request()->get('answer_09');
             $profiling->created_by = \Auth::user()->id;
             $profiling->save();
 
@@ -272,21 +308,90 @@ class TaxController extends Controller
                 ->log('Update attachment');
 
             return redirect()->to('tax/' . $id . '?section=' . \Request::get('section'))->with('success', 'Attachment has been update.');
-        } elseif (request()->get('section') == 'profiling') {
+        } elseif (request()->get('section') == 'profiling_01') {
             $input     = \Request::all();
             $profiling = TAXProfiling01::find(request()->get('id'));
             $profiling = $this->populateSaveValue($profiling, $input, array(
                 'exclude' => array('_token', '_method', 'section'),
             ));
+            //maintain original case
+            $profiling->answer_01 = request()->get('answer_01');
+            $profiling->answer_02 = request()->get('answer_02');
+            $profiling->answer_03 = request()->get('answer_03');
+            $profiling->answer_04 = request()->get('answer_04');
+            $profiling->answer_05 = request()->get('answer_05');
+            $profiling->answer_06 = request()->get('answer_06');
+            $profiling->answer_07 = request()->get('answer_07');
+            $profiling->answer_08 = request()->get('answer_08');
+            $profiling->answer_09 = request()->get('answer_09');
+            $profiling->answer_10 = request()->get('answer_10');
+            $profiling->answer_11 = request()->get('answer_11');
+            $profiling->answer_12 = request()->get('answer_12');
+            $profiling->created_by = \Auth::user()->id;
             $profiling->save();
 
             $tax = TAXRecords::find($profiling->tax_id);
             activity('tax')
                 ->causedBy(\Auth::user())
                 ->performedOn($tax)
-                ->log('Update profiling');
+                ->log('Update profiling 01');
 
-            return redirect()->to('tax/' . $id . '?section=' . \Request::get('section'))->with('success', 'Profiling has been update.');
+            return redirect()->to('tax/' . $id . '?section=profiling')->with('success', 'Profiling 01 has been update.');
+        }  elseif (request()->get('section') == 'profiling_02') {
+            $input     = \Request::all();
+            $profiling = TAXProfiling02::find(request()->get('id'));
+            $profiling = $this->populateSaveValue($profiling, $input, array(
+                'exclude' => array('_token', '_method', 'section'),
+            ));
+            //maintain original case
+            $profiling->answer_01 = request()->get('answer_01');
+            $profiling->answer_02 = request()->get('answer_02');
+            $profiling->answer_03 = request()->get('answer_03');
+            $profiling->answer_04 = request()->get('answer_04');
+            $profiling->answer_05 = request()->get('answer_05');
+            $profiling->answer_06 = request()->get('answer_06');
+            $profiling->answer_07 = request()->get('answer_07');
+            $profiling->answer_08 = request()->get('answer_08');
+            $profiling->answer_09 = request()->get('answer_09');
+            $profiling->answer_10 = request()->get('answer_10');
+            $profiling->answer_11 = request()->get('answer_11');
+            $profiling->answer_12 = request()->get('answer_12');
+            $profiling->created_by = \Auth::user()->id;
+            $profiling->save();
+
+            $tax = TAXRecords::find($profiling->tax_id);
+            activity('tax')
+                ->causedBy(\Auth::user())
+                ->performedOn($tax)
+                ->log('Update profiling 02');
+
+            return redirect()->to('tax/' . $id . '?section=profiling')->with('success', 'Profiling 02 has been update.');
+        }  elseif (request()->get('section') == 'profiling_03') {
+            $input     = \Request::all();
+            $profiling = TAXProfiling03::find(request()->get('id'));
+            $profiling = $this->populateSaveValue($profiling, $input, array(
+                'exclude' => array('_token', '_method', 'section'),
+            ));
+            //maintain original case
+            $profiling->answer_01 = request()->get('answer_01');
+            $profiling->answer_02 = request()->get('answer_02');
+            $profiling->answer_03 = request()->get('answer_03');
+            $profiling->answer_04 = request()->get('answer_04');
+            $profiling->answer_05 = request()->get('answer_05');
+            $profiling->answer_06 = request()->get('answer_06');
+            $profiling->answer_07 = request()->get('answer_07');
+            $profiling->answer_08 = request()->get('answer_08');
+            $profiling->answer_09 = request()->get('answer_09');
+            $profiling->created_by = \Auth::user()->id;
+            $profiling->save();
+
+            $tax = TAXRecords::find($profiling->tax_id);
+            activity('tax')
+                ->causedBy(\Auth::user())
+                ->performedOn($tax)
+                ->log('Update profiling 03');
+
+            return redirect()->to('tax/' . $id . '?section=profiling')->with('success', 'Profiling 03 has been update.');
         } elseif (request()->get('section') == 'note') {
             $note             = TAXNote::find(request()->get('id'));
             $note->note_title = request()->get('note_title');

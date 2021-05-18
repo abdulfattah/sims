@@ -613,7 +613,7 @@
         </tbody>
     </table>
     <div class="modal-footer">
-        <button id="close" type="button" class="btn btn-ghost-danger">Cancel</button>
+        <a href="{{ route('tax.show', [$tax->id, 'section' => 'profiling']) }}" class="btn btn-ghost-danger">Cancel</a>
         <button type="submit" class="btn btn-primary">Submit</button>
     </div>
 </form>
