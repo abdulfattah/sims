@@ -41,9 +41,7 @@ Route::group(array('middleware' => 'auth'), function () {
         Route::get("excel/tax", [TaxController::class, 'exportExcel']);
     });
 
-    Route::group(array("prefix" => "print"), function () {
-
-    });
+    Route::get("print/{printWhat}/{taxId}", [TaxController::class, 'print']);
 
     Route::get('asset/image', [SystemController::class, 'image']);
     Route::get('asset/file/{file?}', [SystemController::class, 'file']);

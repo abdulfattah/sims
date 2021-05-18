@@ -1,4 +1,4 @@
-<form action="@if($tax->profiling01 == null) {!! \URL::to('tax?section=profiling') !!} @else {!! \URL::to('tax/' . $tax->id . '?section=profiling&id=' . $tax->profiling01->id) !!} @endif"
+<form action="@if($tax->profiling01 == null) {!! \URL::to('tax?section=profiling_01') !!} @else {!! \URL::to('tax/' . $tax->id . '?section=profiling_01&id=' . $tax->profiling01->id) !!} @endif"
       method="POST" id="form-profiling" class="form-horizontal" novalidate>
     @if($tax->profiling != null)
         <input type="hidden" name="_method" value="PUT"/>

@@ -1,12 +1,14 @@
-@if ($tax->profiling03 == null)
-    <div class="col-6 col-sm-4 col-md text-center" style="height: 500px;padding-top:200px">
-        <a href="{{ URL::to('tax/' . $tax->id . '/edit?section=profiling&page=03') }}" class="btn btn-lg btn-pill btn-danger pl-5 pr-5" type="button">Create</a>
-    </div>
-@else
-    <div class="text-right">
-        <a href="{{ URL::to('tax/' . $tax->id . '/edit?section=profiling&page=03') }}" class="btn btn-sm btn-primary mr-1" type="button">Update</a>
-        <a href="{{ URL::to('print/profiling_03/' . $tax->id) }}" class="btn btn-sm btn-warning" type="button">Print</a>
-    </div>
+@extends("print.main")
+
+@section('content')
+    <header style="width: 100%; margin-top: 0;">
+        @php
+            if (count(glob(public_path('images/letterhead.*'))) > 0) {
+                $file = explode('.', glob(public_path('images/letterhead.*'))[0]);
+                echo '<img src="'. asset('images/letterhead.' . $file[1]) . '" style="height: 150px"/>';
+            }
+        @endphp
+    </header>
     <table class="table table-responsive-sm table-sm mt-3" style="border-style: hidden">
         <tbody>
         <tr>
@@ -27,23 +29,23 @@
         </tr>
         <tr>
             <td colspan="2" style="font-weight: 700;text-align: center">
-                <table class="table table-responsive-sm table-sm mt-3" style="border-style: hidden">
+                <table style="width: 690px;border-collapse: collapse;">
                     <tbody>
                     <tr>
-                        <td style="border: 1px solid #eee;width: 250px">NAMA SYARIKAT</td>
-                        <td colspan="2" style="border: 1px solid #eee;text-align: left">{{ $tax->business_name }}</td>
+                        <td style="border: 1px solid #eee;width: 130px">NAMA SYARIKAT</td>
+                        <td style="border: 1px solid #eee;width: 560px">{{ $tax->business_name }}</td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid #eee">NO. PENDAFTARAN SST</td>
-                        <td colspan="2" style="border: 1px solid #eee;text-align: left">{{ $tax->sst_no }}</td>
+                        <td style="border: 1px solid #eee">NO DAFTAR CJ</td>
+                        <td style="border: 1px solid #eee;">{{ $tax->sst_no }}</td>
                     </tr>
                     </tbody>
                 </table>
             </td>
         </tr>
         <tr>
-            <td><strong>1. Jenis aktiviti perniagaan</strong></td>
-            <td class="text-center"><strong>Markah</strong></td>
+            <td style="width: 80%"><strong>1. Jenis aktiviti perniagaan</strong></td>
+            <td style="width: 20%;text-align: center;"><strong>Markah</strong></td>
         </tr>
         <tr>
             <td style="padding-left: 20px;">{{ $tax->profiling03->answer_01 }}</td>
@@ -127,15 +129,15 @@
         <tr>
             <td colspan="2" style="border-top-style: none;border-bottom-style: none">
                 <strong>ANALISA TAHAP RISIKO</strong>
-                <table class="table-sm mt-3" style="border-style: hidden">
+                <table style="width: 400px;border-collapse: collapse;">
                     <tbody>
                     <tr>
-                        <td style="width: 550px;border-bottom-style: none"><strong>1. Jumlah markah yang diperolehi</strong></td>
-                        <td style="width: 150px;border-bottom-style: none">{{ $tax->profiling03->total_mark }}</td>
+                        <td style="width: 250px;"><strong>1. Jumlah markah yang diperolehi</strong></td>
+                        <td style="width: 150px;">{{ $tax->profiling03->total_mark }}</td>
                     </tr>
                     <tr>
-                        <td style="width: 550px;border-top-style: none"><strong>2. % tahap risiko (Jumlah markah/90) x 100%</strong></td>
-                        <td style="width: 150px;border-top-style: none">{{ $tax->profiling03->risk_level }}</td>
+                        <td><strong>2. % tahap risiko (Jumlah markah/90) x 100%</strong></td>
+                        <td>{{ $tax->profiling03->risk_level }}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -147,14 +149,14 @@
         <tr>
             <td colspan="2" style="border-top-style: none;font-size: 30px;text-align:center;font-weight: bold">
                 @if ($tax->profiling03->risk_level_text == 'TINGGI')
-                    <span class="text-danger">RISIKO {{ $tax->profiling03->risk_level_text }}</span>
+                    <span style="color: red">RISIKO {{ $tax->profiling03->risk_level_text }}</span>
                 @elseif ($tax->profiling03->risk_level_text == 'SEDERHANA')
-                    <span class="text-warning">RISIKO {{ $tax->profiling03->risk_level_text }}</span>
+                    <span style="color: yellow">RISIKO {{ $tax->profiling03->risk_level_text }}</span>
                 @elseif ($tax->profiling03->risk_level_text == 'RENDAH')
-                    <span class="text-success">RISIKO {{ $tax->profiling03->risk_level_text }}</span>
+                    <span style="color: green">RISIKO {{ $tax->profiling03->risk_level_text }}</span>
                 @endif
             </td>
         </tr>
         </tbody>
     </table>
-@endif
+@stop
