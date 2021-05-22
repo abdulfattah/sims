@@ -91,13 +91,24 @@
                 User Manual
             </a>
         </li>
-        <li class="c-sidebar-nav-item">
-            <a class="c-sidebar-nav-link" href="{!! env('SUPPORT_URL') . env('VERSION') . '/' . substr(SHA1(date('d-m-y H:i:s')), 0, 10) !!}" target="_blank">
+        <li class="c-sidebar-nav-dropdown @if ($menu['menu'] == 'Report') c-show @endif">
+            <a class="c-sidebar-nav-dropdown-toggle" href="#">
                 <svg class="c-sidebar-nav-icon">
                     <use xlink:href="{!! asset('icons/free.svg#cil-headphones') !!}"></use>
                 </svg>
                 Report
             </a>
+            <ul class="c-sidebar-nav-dropdown-items">
+                <li class="c-sidebar-nav-item @if ($menu['subMenu'] == 'Profile 01') c-active @endif">
+                    <a class="c-sidebar-nav-link" href="{{ URL::to('report/profiling_01') }}">Profile 01</a>
+                </li>
+                <li class="c-sidebar-nav-item @if ($menu['subMenu'] == 'Profile 02') c-active @endif">
+                    <a class="c-sidebar-nav-link" href="{{ URL::to('report/profiling_02') }}">Profile 02</a>
+                </li>
+                <li class="c-sidebar-nav-item @if ($menu['subMenu'] == 'Profile 03') c-active @endif">
+                    <a class="c-sidebar-nav-link" href="{{ URL::to('report/profiling_03') }}">Profile 03</a>
+                </li>
+            </ul>
         </li>
     </ul>
     <button class="c-sidebar-minimizer c-class-toggler" type="button" data-target="_parent" data-class="c-sidebar-minimized"></button>
@@ -169,7 +180,7 @@
         </main>
         <div id="toastContainer"></div>
         <footer class="c-footer">
-            <div>CDN Information Integration System v2020.1</div>
+            <div>CDN Information Integration System V2021.1</div>
             <div class="ml-auto">© 2020 Royal Malaysian Customs Department</div>
         </footer>
     </div>

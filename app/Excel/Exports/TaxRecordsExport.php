@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Exports;
+namespace App\Excel\Exports;
 
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromCollection;
@@ -69,7 +69,6 @@ class TaxRecordsExport implements FromCollection, ShouldAutoSize, WithHeadings, 
         ];
         $newCols = [];
         foreach ($this->column as $col) {
-
             array_push($newCols, $cols[$col]);
         }
 

@@ -9,10 +9,6 @@ use App\Models\SYSSetting;
 use App\Models\TAXNote;
 use App\Models\TAXRecords;
 
-/*
- *55a0c604380fe
- */
-
 class JsonController extends Controller
 {
     use App;
@@ -37,6 +33,12 @@ class JsonController extends Controller
             { //Grid untuk senarai tax//
                 $trashed = \Request::get('c') == 1;
                 return response()->json($this->taxGrid($trashed), 200, []);
+                break;
+            }
+            case '55a0c604380fe':
+            { //Grid untuk report profile//
+                $profile = \Request::get('c');
+                return response()->json($this->reportGrid($profile), 200, []);
                 break;
             }
             case '55a0c60438203':
@@ -118,6 +120,36 @@ class JsonController extends Controller
                                          'business_activity, product_tax, facility_applied, local_marketing, statement, statement_status, uncomplience_type, ' .
                                          'syncronizing_at, updated_at, deleted_at',
                                          $deleted);
+        $params     = $controller->GetParseParams($_GET);
+        $response   = $controller->Get($params);
+        unset($controller);
+        if (isset($response) && !is_string($response)) {
+            return $response;
+        } else {
+            header("HTTP/1.1 500 Internal Server Error");
+            header("Content-Type: application/json");
+            echo json_encode(["message" => $response, "code" => 500]);
+        }
+    }
+
+    private function reportGrid($profile)
+    {
+        $response   = null;
+        if ($profile == 'profiling_01') {
+            $controller = new DxGridOfficial('tax_profiling_01',
+                                             'id, business_name, brn_no, mark_01, mark_02, mark_03, mark_04, mark_05, mark_06, mark_07, mark_08, mark_09, mark_10, ' .
+                                             'mark_11, mark_12, risk_level_text',
+                                             '');
+        } elseif ($profile == 'profiling_02') {
+            $controller = new DxGridOfficial('tax_profiling_02',
+                                             'id, business_name, brn_no, mark_01, mark_02, mark_03, mark_04, mark_05, mark_06, mark_07, mark_08, mark_09, mark_10, ' .
+                                             'mark_11, mark_12, risk_level_text',
+                                             '');
+        } elseif ($profile == 'profiling_03') {
+            $controller = new DxGridOfficial('tax_profiling_03',
+                                             'id, business_name, brn_no, mark_01, mark_02, mark_03, mark_04, mark_05, mark_06, mark_07, mark_08, mark_09, risk_level_text',
+                                             '');
+        }
         $params     = $controller->GetParseParams($_GET);
         $response   = $controller->Get($params);
         unset($controller);

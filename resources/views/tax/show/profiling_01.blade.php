@@ -5,7 +5,7 @@
 @else
     <div class="text-right">
         <a href="{{ URL::to('tax/' . $tax->id . '/edit?section=profiling&page=01') }}" class="btn btn-sm btn-primary mr-1" type="button">Update</a>
-        <a href="{{ URL::to('print/profiling_01/' . $tax->id) }}" class="btn btn-sm btn-warning" type="button">Print</a>
+        <a href="{{ URL::to('print/profiling_01/' . $tax->id) }}" class="btn btn-sm btn-warning" type="button" target="_blank">Print</a>
     </div>
     <table class="table table-responsive-sm table-sm mt-3" style="border-style: hidden">
         <tbody>

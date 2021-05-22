@@ -37,20 +37,20 @@
                 <div class="row">
                     <div class="col-2">
                         <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                            <a class="nav-link active" data-toggle="pill" href="#profile_01" role="tab">Profile 01</a>
-                            <a class="nav-link" data-toggle="pill" href="#profile_02" role="tab">Profile 02</a>
-                            <a class="nav-link" data-toggle="pill" href="#profile_03" role="tab">Profile 03</a>
+                            <a class="nav-link active" data-toggle="pill" href="#profiling_01" role="tab">Profile 01</a>
+                            <a class="nav-link" data-toggle="pill" href="#profiling_02" role="tab">Profile 02</a>
+                            <a class="nav-link" data-toggle="pill" href="#profiling_03" role="tab">Profile 03</a>
                         </div>
                     </div>
                     <div class="col-10">
                         <div class="tab-content" id="v-pills-tabContent">
-                            <div class="tab-pane fade show active" id="profile_01" role="tabpanel">
+                            <div class="tab-pane fade show active" id="profiling_01" role="tabpanel">
                                 @include('tax.show.profiling_01')
                             </div>
-                            <div class="tab-pane fade" id="profile_02" role="tabpanel">
+                            <div class="tab-pane fade" id="profiling_02" role="tabpanel">
                                 @include('tax.show.profiling_02')
                             </div>
-                            <div class="tab-pane fade" id="profile_03" role="tabpanel">
+                            <div class="tab-pane fade" id="profiling_03" role="tabpanel">
                                 @include('tax.show.profiling_03')
                             </div>
                         </div>

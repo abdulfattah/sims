@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\TaxRecordsExport;
+use App\Excel\Exports\Profiling01Export;
+use App\Excel\Exports\Profiling02Export;
+use App\Excel\Exports\Profiling03Export;
+use App\Excel\Exports\TaxRecordsExport;
 use App\Jobs\ProcessExcelBase;
 use App\Jobs\ProcessExcelStatement;
 use App\Libs\App;
@@ -134,9 +137,14 @@ class TaxController extends Controller
 
             return redirect()->to('tax/' . request()->get('tax_record_id') . '?section=' . \Request::get('section'))->with('success', 'Attachment has been uploaded.');
         } elseif (request()->get('section') == 'profiling_01') {
-            $input     = \Request::all();
-            $profiling = new TAXProfiling01();
-            $profiling = $this->populateSaveValue($profiling, $input, array(
+            $input = \Request::all();
+            $tax   = TAXRecords::find(request()->get('tax_id'));
+
+            $profiling                = new TAXProfiling01();
+            $profiling->business_name = $tax->business_name;
+            $profiling->sst_no        = $tax->sst_no;
+            $profiling->brn_no        = $tax->brn_no;
+            $profiling                = $this->populateSaveValue($profiling, $input, array(
                 'exclude' => array('_token', '_method', 'section'),
             ));
             //maintain original case
@@ -155,7 +163,6 @@ class TaxController extends Controller
             $profiling->created_by = \Auth::user()->id;
             $profiling->save();
 
-            $tax = TAXRecords::find(request()->get('tax_id'));
             activity('tax')
                 ->causedBy(\Auth::user())
                 ->performedOn($tax)
@@ -163,9 +170,14 @@ class TaxController extends Controller
 
             return redirect()->to('tax/' . request()->get('tax_id') . '?section=profiling')->with('success', 'Profiling 01 has been added.');
         } elseif (request()->get('section') == 'profiling_02') {
-            $input     = \Request::all();
-            $profiling = new TAXProfiling02();
-            $profiling = $this->populateSaveValue($profiling, $input, array(
+            $input = \Request::all();
+            $tax   = TAXRecords::find(request()->get('tax_id'));
+
+            $profiling                = new TAXProfiling02();
+            $profiling->business_name = $tax->business_name;
+            $profiling->sst_no        = $tax->sst_no;
+            $profiling->brn_no        = $tax->brn_no;
+            $profiling                = $this->populateSaveValue($profiling, $input, array(
                 'exclude' => array('_token', '_method', 'section'),
             ));
             //maintain original case
@@ -184,7 +196,6 @@ class TaxController extends Controller
             $profiling->created_by = \Auth::user()->id;
             $profiling->save();
 
-            $tax = TAXRecords::find(request()->get('tax_id'));
             activity('tax')
                 ->causedBy(\Auth::user())
                 ->performedOn($tax)
@@ -192,9 +203,14 @@ class TaxController extends Controller
 
             return redirect()->to('tax/' . request()->get('tax_id') . '?section=profiling')->with('success', 'Profiling 02 has been added.');
         } elseif (request()->get('section') == 'profiling_03') {
-            $input     = \Request::all();
-            $profiling = new TAXProfiling03();
-            $profiling = $this->populateSaveValue($profiling, $input, array(
+            $input = \Request::all();
+            $tax   = TAXRecords::find(request()->get('tax_id'));
+
+            $profiling                = new TAXProfiling03();
+            $profiling->business_name = $tax->business_name;
+            $profiling->sst_no        = $tax->sst_no;
+            $profiling->brn_no        = $tax->brn_no;
+            $profiling                = $this->populateSaveValue($profiling, $input, array(
                 'exclude' => array('_token', '_method', 'section'),
             ));
             //maintain original case
@@ -210,7 +226,6 @@ class TaxController extends Controller
             $profiling->created_by = \Auth::user()->id;
             $profiling->save();
 
-            $tax = TAXRecords::find(request()->get('tax_id'));
             activity('tax')
                 ->causedBy(\Auth::user())
                 ->performedOn($tax)
@@ -309,9 +324,13 @@ class TaxController extends Controller
 
             return redirect()->to('tax/' . $id . '?section=' . \Request::get('section'))->with('success', 'Attachment has been update.');
         } elseif (request()->get('section') == 'profiling_01') {
-            $input     = \Request::all();
-            $profiling = TAXProfiling01::find(request()->get('id'));
-            $profiling = $this->populateSaveValue($profiling, $input, array(
+            $input                    = \Request::all();
+            $profiling                = TAXProfiling01::find(request()->get('id'));
+            $tax                      = TAXRecords::find($profiling->tax_id);
+            $profiling->business_name = $tax->business_name;
+            $profiling->sst_no        = $tax->sst_no;
+            $profiling->brn_no        = $tax->brn_no;
+            $profiling                = $this->populateSaveValue($profiling, $input, array(
                 'exclude' => array('_token', '_method', 'section'),
             ));
             //maintain original case
@@ -330,7 +349,6 @@ class TaxController extends Controller
             $profiling->created_by = \Auth::user()->id;
             $profiling->save();
 
-            $tax = TAXRecords::find($profiling->tax_id);
             activity('tax')
                 ->causedBy(\Auth::user())
                 ->performedOn($tax)
@@ -338,9 +356,13 @@ class TaxController extends Controller
 
             return redirect()->to('tax/' . $id . '?section=profiling')->with('success', 'Profiling 01 has been update.');
         } elseif (request()->get('section') == 'profiling_02') {
-            $input     = \Request::all();
-            $profiling = TAXProfiling02::find(request()->get('id'));
-            $profiling = $this->populateSaveValue($profiling, $input, array(
+            $input                    = \Request::all();
+            $profiling                = TAXProfiling02::find(request()->get('id'));
+            $tax                      = TAXRecords::find($profiling->tax_id);
+            $profiling->business_name = $tax->business_name;
+            $profiling->sst_no        = $tax->sst_no;
+            $profiling->brn_no        = $tax->brn_no;
+            $profiling                = $this->populateSaveValue($profiling, $input, array(
                 'exclude' => array('_token', '_method', 'section'),
             ));
             //maintain original case
@@ -359,7 +381,6 @@ class TaxController extends Controller
             $profiling->created_by = \Auth::user()->id;
             $profiling->save();
 
-            $tax = TAXRecords::find($profiling->tax_id);
             activity('tax')
                 ->causedBy(\Auth::user())
                 ->performedOn($tax)
@@ -367,9 +388,14 @@ class TaxController extends Controller
 
             return redirect()->to('tax/' . $id . '?section=profiling')->with('success', 'Profiling 02 has been update.');
         } elseif (request()->get('section') == 'profiling_03') {
-            $input     = \Request::all();
-            $profiling = TAXProfiling03::find(request()->get('id'));
-            $profiling = $this->populateSaveValue($profiling, $input, array(
+            $input = \Request::all();
+
+            $profiling                = TAXProfiling03::find(request()->get('id'));
+            $tax                      = TAXRecords::find($profiling->tax_id);
+            $profiling->business_name = $tax->business_name;
+            $profiling->sst_no        = $tax->sst_no;
+            $profiling->brn_no        = $tax->brn_no;
+            $profiling                = $this->populateSaveValue($profiling, $input, array(
                 'exclude' => array('_token', '_method', 'section'),
             ));
             //maintain original case
@@ -385,7 +411,6 @@ class TaxController extends Controller
             $profiling->created_by = \Auth::user()->id;
             $profiling->save();
 
-            $tax = TAXRecords::find($profiling->tax_id);
             activity('tax')
                 ->causedBy(\Auth::user())
                 ->performedOn($tax)
@@ -428,20 +453,42 @@ class TaxController extends Controller
         return view('tax.show', $data);
     }
 
-    public function exportExcel()
+    public function exportExcel($exportWhat)
     {
         $response  = null;
         $arrayCols = json_decode(request()->get('column'));
         unset($arrayCols[0]);
-        $cols       = implode(',', $arrayCols);
-        $controller = new DxGridOfficial('tax_records',
-                                         $cols,
-                                         'deleted_at IS NULL AND ');
-        $params     = $controller->GetParseParams($_GET);
-        $response   = $controller->Get($params);
+        $cols = implode(',', $arrayCols);
+        if ($exportWhat == 'list') {
+            $controller = new DxGridOfficial('tax_records',
+                                             $cols,
+                                             'deleted_at IS NULL AND ');
+        } elseif ($exportWhat == 'profiling_01') {
+            $controller = new DxGridOfficial('tax_profiling_01',
+                                             $cols,
+                                             '');
+        } elseif ($exportWhat == 'profiling_02') {
+            $controller = new DxGridOfficial('tax_profiling_02',
+                                             $cols,
+                                             '');
+        } elseif ($exportWhat == 'profiling_03') {
+            $controller = new DxGridOfficial('tax_profiling_03',
+                                             $cols,
+                                             '');
+        }
+        $params   = $controller->GetParseParams($_GET);
+        $response = $controller->Get($params);
         unset($controller);
         if (isset($response) && !is_string($response)) {
-            return Excel::download(new TaxRecordsExport($response['data'], $arrayCols), '[CDN Information Integration System] Tax Records (' . date('d-m-Y') . ').xlsx');
+            if ($exportWhat == 'list') {
+                return Excel::download(new TaxRecordsExport($response['data'], $arrayCols), '[CDN Information Integration System] Tax Records (' . date('d-m-Y') . ').xlsx');
+            } elseif ($exportWhat == 'profiling_01') {
+                return Excel::download(new Profiling01Export($response['data'], $arrayCols), '[CDN Information Integration System] Profiling 01 (' . date('d-m-Y') . ').xlsx');
+            } elseif ($exportWhat == 'profiling_02') {
+                return Excel::download(new Profiling02Export($response['data'], $arrayCols), '[CDN Information Integration System] Profiling 02 (' . date('d-m-Y') . ').xlsx');
+            } elseif ($exportWhat == 'profiling_03') {
+                return Excel::download(new Profiling03Export($response['data'], $arrayCols), '[CDN Information Integration System] Profiling 03 (' . date('d-m-Y') . ').xlsx');
+            }
         } else {
             header("HTTP/1.1 500 Internal Server Error");
             header("Content-Type: application/json");
@@ -471,6 +518,23 @@ class TaxController extends Controller
             $pdf = \PDF::loadView('print.profiling_03', $data);
 
             return $pdf->stream('Profiling 03 (' . $tax->sst_no . ').pdf');
+        }
+    }
+
+    function report($reportWhat)
+    {
+        $data = array(
+            'menu'       => ['menu' => 'Report', 'subMenu' => 'Profile 01'],
+            'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
+                             <li class="breadcrumb-item active">Report Profile 01</li>'
+        );
+
+        if ($reportWhat == 'profiling_01') {
+            return view('report.profiling_01', $data);
+        } elseif ($reportWhat == 'profiling_02') {
+            return view('report.profiling_02', $data);
+        } elseif ($reportWhat == 'profiling_03') {
+            return view('report.profiling_03', $data);
         }
     }
 

@@ -29,11 +29,11 @@
                     <tbody>
                     <tr>
                         <td style="border: 1px solid #eee;width: 250px">NAMA SYARIKAT</td>
-                        <td colspan="2" style="border: 1px solid #eee;text-align: left">: {{ $tax->business_name }}</td>
+                        <td colspan="2" style="border: 1px solid #eee;text-align: left">{{ $tax->business_name }}</td>
                     </tr>
                     <tr>
                         <td style="border: 1px solid #eee">NO. PENDAFTARAN SST</td>
-                        <td colspan="2" style="border: 1px solid #eee;text-align: left">: {{ $tax->sst_no }}</td>
+                        <td colspan="2" style="border: 1px solid #eee;text-align: left">{{ $tax->sst_no }}</td>
                     </tr>
                     </tbody>
                 </table>

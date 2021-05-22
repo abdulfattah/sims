@@ -82,7 +82,7 @@
         <div class="col-12">
             <div class="row">
                 <div class="col-12 text-right pt-2">
-                    <span class="font-size: 10pt">V2020.1</span>
+                    <span class="font-size: 10pt">V2021.1</span>
                 </div>
             </div>
         </div>

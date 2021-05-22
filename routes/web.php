@@ -38,7 +38,7 @@ Route::group(array('middleware' => 'auth'), function () {
 
     Route::group(array("prefix" => "export"), function () {
         Route::get("excel/user", [UserController::class, 'exportExcel']);
-        Route::get("excel/tax", [TaxController::class, 'exportExcel']);
+        Route::get("excel/tax/{exportWhat}", [TaxController::class, 'exportExcel']);
     });
 
     Route::get("print/{printWhat}/{taxId}", [TaxController::class, 'print']);
@@ -49,6 +49,8 @@ Route::group(array('middleware' => 'auth'), function () {
 
     Route::get('about_us', [SystemController::class, 'aboutUs']);
     Route::get('user_manual', [SystemController::class, 'userManual']);
+
+    Route::get("report/{reportWhat}", [TaxController::class, 'report']);
 });
 
 Route::group(array("prefix" => "print/preview"), function () {
