@@ -541,9 +541,6 @@ jQuery(function ($) {
                                     id: "edit",
                                     text: "Edit"
                                 }, {
-                                    id: "resendActivation",
-                                    text: "Resend Activation"
-                                }, {
                                     id: "resetPassword",
                                     text: "Reset Password"
                                 },
@@ -560,8 +557,6 @@ jQuery(function ($) {
                             onItemClick: function (data) {
                                 if (data.itemData.id == 'edit') {
                                     location.href = baseURL + '/user/' + options.data.id + '/edit';
-                                } else if (data.itemData.id == 'resendActivation') {
-                                    location.href = baseURL + '/resend/activation/' + options.data.id;
                                 } else if (data.itemData.id == 'resetPassword') {
                                     location.href = baseURL + '/reset/password/' + options.data.id;
                                 } else if (data.itemData.id == 'delete') {

@@ -610,6 +610,33 @@
                 </table>
             </td>
         </tr>
+        <tr>
+            <td colspan="3" style="border-top-style: none;border-bottom-style: none;">&nbsp;</td>
+        </tr>
+        <tr>
+            <td colspan="3" style="border-top-style: none;">
+                <table class="table-borderless table-sm mt-3" style="width: 80%;margin: 0 auto">
+                    <tbody>
+                    <tr>
+                        <td style="width: 50%;text-align: center">Disediakan Oleh</td>
+                        <td style="width: 50%;text-align: center">Disemak Oleh</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center">
+                            <div data-dx="selectbox" data-name="prepared_by" data-source="staffs" data-value-exp="id"
+                                 data-value="{{ $tax->profiling01 != null ? $tax->profiling01->prepared_by : null }}">
+                            </div>
+                        </td>
+                        <td style="text-align: center">
+                            <div data-dx="selectbox" data-name="checked_by" data-source="staffs" data-value-exp="id"
+                                 data-value="{{ $tax->profiling01 != null ? $tax->profiling01->checked_by : null }}">
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
         </tbody>
     </table>
     <div class="modal-footer">

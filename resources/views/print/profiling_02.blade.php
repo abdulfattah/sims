@@ -184,6 +184,56 @@
                 @endif
             </td>
         </tr>
+        <tr>
+            <td colspan="2" style="border-top-style: none;border-bottom-style: none;height: 40px">&nbsp;</td>
+        </tr>
+        <tr>
+            <td colspan="2" style="border-top-style: none;">
+                <table class="table-borderless table-sm mt-3" style="width: 80%;margin: 0 auto">
+                    <tbody>
+                    <tr>
+                        <td style="width: 50%;text-align: center">Disediakan Oleh</td>
+                        <td style="width: 50%;text-align: center">Disemak Oleh</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="border-top-style: none;border-bottom-style: none;height: 60px">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;padding: 0px">
+                            _________________________________
+                        </td>
+                        <td style="text-align: center;padding: 0px">
+                            _________________________________
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;padding: 0px">
+                            {{ $tax->profiling02->preparedBy != null ? $tax->profiling02->preparedBy->fullname : null }}
+                        </td>
+                        <td style="text-align: center;padding: 0px">
+                            {{ $tax->profiling02->checkedBy != null ? $tax->profiling02->checkedBy->fullname : null }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;padding: 0px">
+                            {{ $tax->profiling02->preparedBy != null ? $tax->profiling02->preparedBy->position : null }}
+                        </td>
+                        <td style="text-align: center;padding: 0px">
+                            {{ $tax->profiling02->checkedBy != null ? $tax->profiling02->checkedBy->position : null }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;padding: 0px">
+                            {{ $tax->profiling02->preparedBy != null ? $tax->profiling02->preparedBy->department : null }}
+                        </td>
+                        <td style="text-align: center;padding: 0px">
+                            {{ $tax->profiling02->checkedBy != null ? $tax->profiling02->checkedBy->department : null }}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
         </tbody>
     </table>
 @stop

@@ -11,10 +11,8 @@ use App\Models\SYSAsset;
 use App\Models\TAXNote;
 use App\Models\TAXRecords;
 use Auth;
-use Carbon\Carbon;
 use Jenssegers\Agent\Agent;
 use Maatwebsite\Excel\Facades\Excel;
-use Ramsey\Uuid\Uuid;
 
 class UserController extends Controller
 {
@@ -105,118 +103,22 @@ class UserController extends Controller
         return view($view, $data);
     }
 
-    public function resendActivation($id)
-    {
-        $user = Models\USRUsers::find($id);
-        if (!$user->enable && $user->password == 'Not Active Yet!') {
-            \Mail::to($user->username)
-                 ->queue(new Mail\Activation([
-                                                 'name'    => strtoupper($user->fullname),
-                                                 'url'     => \URL::to('activate/' . $user->id),
-                                                 'expired' => Carbon::now()->addDays(2)->format('d M Y H:i'),
-                                             ]));
-
-            return redirect()->to('user')->with('success', 'Activation email has been sent.');
-        } else {
-
-            return redirect()->to('user')->with('error', 'This user already active.');
-        }
-    }
-
-    public function activation($id)
-    {
-        if (\Request::isMethod('get')) {
-            $user = Models\USRUsers::find($id);
-            $data = array(
-                'user' => $user,
-            );
-
-            if ($user == null) {
-                return redirect()->to('login')->with('error', 'User not found');
-            } elseif ($user->password != 'Not Active Yet!') {
-                return redirect()->to('login')->with('error', 'This user already active');
-            }
-
-            return view('auth.activate', $data);
-        } else {
-            $user           = Models\USRUsers::find($id);
-            $user->username = \Request::input('username');
-            $user->password = \Hash::make(\Request::input('password'));
-            $user->enable   = true;
-            $user->save();
-
-            return redirect()->to('login')->with('success', 'Activation succeed. Please login');
-        }
-    }
-
     public function resetPassword($id)
     {
-        $user = Models\USRUsers::find($id);
+        $user            = Models\USRUsers::find($id);
+        $defaultPassword = Models\SYSSetting::where('param', 'default_password')->get(['param', 'value'])->first();
+        $user->password  = \Hash::make($defaultPassword->value);
+        $user->enable    = 1;
 
-        if ($user->enable && $user->password != 'Not Active Yet!') {
-            $user->token = Uuid::uuid4()->getHex();
-            \Mail::to($user->username)
-                 ->queue(new Mail\LostPassword([
-                                                   'name' => strtoupper($user->fullname),
-                                                   'url'  => \URL::to('password/reset/' . $user->token),
-                                               ]));
+        $user->save();
 
-            $user->save();
-
-            return redirect()->to('user')->with('success', 'Email reset password has been sent to user.');
-        } else {
-            return redirect()->to('user')->with('error', 'User not active.');
-        }
-    }
-
-    public function newPassword($token)
-    {
-        if (\Request::isMethod('get')) {
-            $user = Models\USRUsers::where('token', $token)->first();
-            $data = array(
-                'title' => 'Reset Password',
-                'user'  => $user,
-            );
-            if ($user) {
-                return view('auth.reset_password', $data);
-            } else {
-                return redirect()->to('login')->with('error', 'Invalid reset password token. Please contact system administrator');
-            }
-        } else {
-            $user           = Models\USRUsers::where('token', $token)->first();
-            $user->token    = null;
-            $user->password = \Hash::make(\Request::input('password'));
-            $user->save();
-
-            return redirect()->to('login')->with('success', 'Reset password succeed. Please sign in with new password');
-        }
+        return redirect()->to('user')->with('success', 'Password user has been set to default password ' . $defaultPassword->value);
     }
 
     public function lostPassword($token = null)
     {
         if (\Request::isMethod('get')) {
             return view('auth.lost_password');
-        } else {
-            $user = Models\USRUsers::where('username', \Request::input('email'))->first();
-
-            if ($user == null) {
-                return redirect()->to('password/lost')->with('error', 'Email not found');
-            }
-
-            if ($user->enable && $user->password != 'Not Active Yet!') {
-                $user->token = Uuid::uuid4()->getHex();
-                \Mail::to($user->username)
-                     ->queue(new Mail\LostPassword([
-                                                       'name' => strtoupper($user->fullname),
-                                                       'url'  => \URL::to('password/reset/' . $user->token),
-                                                   ]));
-
-                $user->save();
-
-                return redirect()->to('login')->with('success', 'Please check your mailbox for further instruction.');
-            } else {
-                return redirect()->to('password/lost')->with('error', 'User not active. Please contact system administrator.');
-            }
         }
     }
 
@@ -224,7 +126,7 @@ class UserController extends Controller
     {
         if (\Request::isMethod('get')) {
             $data = array(
-                'menu'       => ['menu' => '', 'subMenu' => ''],
+                'menu'       => ['menu' => 'Home', 'subMenu' => ''],
                 'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
                              <li class="breadcrumb-item active">Change Password</li>',
             );
@@ -259,7 +161,7 @@ class UserController extends Controller
     public function create()
     {
         $data = array(
-            'menu'       => ['menu' => 'Users', 'subMenu' => ''],
+            'menu'       => ['menu' => 'User', 'subMenu' => ''],
             'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
                              <li class="breadcrumb-item"><a href="' . \URL::to('user') . '">Users</a></li>
                              <li class="breadcrumb-item active">Add New</li>',
@@ -271,13 +173,14 @@ class UserController extends Controller
     public function store()
     {
         if (Models\USRUsers::where('username', \Request::input('username'))->get()->count() < 1) {
-            $user           = new Models\USRUsers();
-            $user           = $this->populateSaveValue($user, \Request::all(), array(
+            $defaultPassword = Models\SYSSetting::where('param', 'default_password')->get(['param', 'value'])->first();
+            $user            = new Models\USRUsers();
+            $user            = $this->populateSaveValue($user, \Request::all(), array(
                 'exclude' => array('_token', 'profile_image', 'roles', 'avatar'),
             ));
-            $user->role     = json_encode(request()->get('roles'));
-            $user->password = 'Not Active Yet!';
-            $user->enable   = 0;
+            $user->role      = json_encode(request()->get('roles'));
+            $user->password  = \Hash::make($defaultPassword->value);
+            $user->enable    = 1;
             $user->save();
 
             $data = \Request::input('profile_image');
@@ -299,13 +202,6 @@ class UserController extends Controller
                 $asset->md5       = md5_file(env('ASSETS_STORAGE') . 'avatar' . DIRECTORY_SEPARATOR . $imageName);
                 $asset->save();
             }
-
-            \Mail::to($user->username)
-                 ->queue(new Mail\Activation([
-                                                 'name'    => strtoupper($user->fullname),
-                                                 'url'     => \URL::to('activate/' . $user->id),
-                                                 'expired' => Carbon::now()->addDays(2)->format('d M Y H:i'),
-                                             ]));
         } else {
             return redirect()->to('create/user')
                              ->withInput()
@@ -317,9 +213,8 @@ class UserController extends Controller
 
     public function edit($id)
     {
-        // dd(json_encode(['ADMINISTRATOR']));
         $data = array(
-            'menu'       => ['menu' => 'Users', 'subMenu' => ''],
+            'menu'       => ['menu' => 'User', 'subMenu' => ''],
             'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
                              <li class="breadcrumb-item"><a href="' . \URL::to('user') . '">Users</a></li>
                              <li class="breadcrumb-item active">Update</li>',
@@ -380,7 +275,7 @@ class UserController extends Controller
     public function show($id)
     {
         $data = array(
-            'menu'       => ['menu' => 'Users', 'subMenu' => ''],
+            'menu'       => ['menu' => 'User', 'subMenu' => ''],
             'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
                              <li class="breadcrumb-item"><a href="' . \URL::to('user') . '">Users</a></li>
                              <li class="breadcrumb-item active">Show</li>',
@@ -392,7 +287,7 @@ class UserController extends Controller
     public function profile()
     {
         $data = array(
-            'menu'       => ['menu' => '', 'subMenu' => ''],
+            'menu'       => ['menu' => 'Home', 'subMenu' => ''],
             'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
                              <li class="breadcrumb-item active">Profail Anda</li>',
             'user'       => Auth::user(),

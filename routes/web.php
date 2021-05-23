@@ -20,11 +20,9 @@ use App\Http\Controllers\UserController;
 Route::any('login', [UserController::class, 'login'])->name('login');
 Route::any("password/reset/{token}", [UserController::class, 'newPassword']);
 Route::any("password/lost/{token?}", [UserController::class, 'lostPassword']);
-Route::any("activate/{id}", [UserController::class, 'activation']);
 
 Route::group(array('middleware' => 'auth'), function () {
     Route::get("/", [UserController::class, 'dashboard']);
-    Route::get("resend/activation/{id}", [UserController::class, 'resendActivation']);
     Route::get("reset/password/{id}", [UserController::class, 'resetPassword']);
     Route::get('data', [JsonController::class, 'json']);
     Route::get("profile", [UserController::class, 'profile']);
