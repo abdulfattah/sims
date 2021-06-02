@@ -49,7 +49,7 @@
                     </div>
                     <div class="form-group text-left">
                         <div data-dx="checkbox" data-name="rememberme" data-value="false" data-text="Remember me"></div>
-                        <a href="{{ URL::to('password/lost') }}" class="btn btn-link px-0 float-right">Forgot password?</a>
+                        <a href="javascript:void(0)" id="forgot" class="btn btn-link px-0 float-right">Forgot password?</a>
                     </div>
                     <div class="row no-gutters">
                         <div class="col-lg-6 pr-lg-1 my-2"></div>
@@ -58,6 +58,7 @@
                         </div>
                     </div>
                 </form>
+                    <div id="popup"></div>
             </div>
         </div>
     </div>
@@ -70,6 +71,38 @@
                 if (DevExpress.validationEngine.validateGroup("form").isValid) {
                     $('#form-login').submit();
                 }
+            });
+
+            $("#forgot").click(function () {
+                const popup = $("#popup").dxPopup({
+                    contentTemplate: function() {
+                        return $("<div>").append(
+                            $(`<p>Please contact system admin to reset your password</p>`)
+                        );
+                    },
+                    width: 400,
+                    height: 190,
+                    container: ".page-wrapper",
+                    showTitle: true,
+                    title: "Lost Password",
+                    visible: false,
+                    dragEnabled: false,
+                    closeOnOutsideClick: true,
+                    showCloseButton: false,
+                    toolbarItems: [{
+                        widget: "dxButton",
+                        toolbar: "bottom",
+                        location: "after",
+                        options: {
+                            text: "Close",
+                            onClick: function (e) {
+                                popup.hide();
+                            }
+                        }
+                    }]
+                }).dxPopup("instance");
+
+                popup.show();
             });
         });
     </script>

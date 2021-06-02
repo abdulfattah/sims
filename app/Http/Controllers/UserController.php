@@ -115,13 +115,6 @@ class UserController extends Controller
         return redirect()->to('user')->with('success', 'Password user has been set to default password ' . $defaultPassword->value);
     }
 
-    public function lostPassword($token = null)
-    {
-        if (\Request::isMethod('get')) {
-            return view('auth.lost_password');
-        }
-    }
-
     public function changePassword()
     {
         if (\Request::isMethod('get')) {

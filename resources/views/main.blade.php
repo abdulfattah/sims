@@ -29,7 +29,7 @@
         <aside class="page-sidebar">
             <div class="page-logo">
                 <a href="#" class="page-logo-link press-scale-down d-flex align-items-center position-relative">
-                    <img src="{{ asset('images/logo.svg') }}" alt="SmartAdmin WebApp" class="profile-image rounded-circle" style="width: 52px;height: 52px" aria-roledescription="logo">
+                    <img src="{{ asset('images/logo.svg') }}" alt="CDN System" class="profile-image rounded-circle" style="width: 52px;height: 52px" aria-roledescription="logo">
                     <span class="page-logo-text mr-1">CDN System</span>
                 </a>
             </div>
@@ -143,7 +143,7 @@
                 <!-- we need this logo when user switches to nav-function-top -->
                 <div class="page-logo">
                     <a href="#" class="page-logo-link press-scale-down d-flex align-items-center position-relative">
-                        <img src="{{ asset('images/logo.svg') }}" alt="SmartAdmin WebApp" class="profile-image rounded-circle" style="width: 52px;height: 52px" aria-roledescription="logo">
+                        <img src="{{ asset('images/logo.svg') }}" alt="CDN System" class="profile-image rounded-circle" style="width: 52px;height: 52px" aria-roledescription="logo">
                         <span class="page-logo-text mr-1">CDN System</span>
                     </a>
                 </div>
@@ -259,7 +259,7 @@
             </header>
             <main id="js-page-content" role="main" class="page-content">
                 <ol class="breadcrumb page-breadcrumb">
-                    <li class="breadcrumb-item"><a href="javascript:void(0);">SmartAdmin</a></li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
                     <li class="breadcrumb-item">Theme Settings</li>
                     <li class="breadcrumb-item active">How it works</li>
                     <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>

@@ -18,8 +18,6 @@ use App\Http\Controllers\TaxController;
 use App\Http\Controllers\UserController;
 
 Route::any('login', [UserController::class, 'login'])->name('login');
-Route::any("password/reset/{token}", [UserController::class, 'newPassword']);
-Route::any("password/lost/{token?}", [UserController::class, 'lostPassword']);
 
 Route::group(array('middleware' => 'auth'), function () {
     Route::get("/", [UserController::class, 'dashboard']);
