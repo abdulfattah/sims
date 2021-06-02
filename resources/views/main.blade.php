@@ -23,70 +23,13 @@
 </head>
 
 <body class="mod-bg-1 mod-nav-link mod-main-boxed nav-function-top">
-<!-- DOC: script to save and load page settings -->
-<script>
-    /**
-     *    This script should be placed right after the body tag for fast execution
-     *    Note: the script is written in pure javascript and does not depend on thirdparty library
-     **/
-    'use strict';
-
-    var classHolder = document.getElementsByTagName("BODY")[0],
-        /**
-         * Load from localstorage
-         **/
-        themeSettings = (localStorage.getItem('themeSettings')) ? JSON.parse(localStorage.getItem('themeSettings')) :
-            {},
-        themeURL = themeSettings.themeURL || '',
-        themeOptions = themeSettings.themeOptions || '';
-    /**
-     * Load theme options
-     **/
-    if (themeSettings.themeOptions) {
-        classHolder.className = themeSettings.themeOptions;
-        console.log("%c✔ Theme settings loaded", "color: #148f32");
-    } else {
-        console.log("%c✔ Heads up! Theme settings is empty or does not exist, loading default settings...", "color: #ed1c24");
-    }
-    if (themeSettings.themeURL && !document.getElementById('mytheme')) {
-        var cssfile = document.createElement('link');
-        cssfile.id = 'mytheme';
-        cssfile.rel = 'stylesheet';
-        cssfile.href = themeURL;
-        document.getElementsByTagName('head')[0].appendChild(cssfile);
-
-    } else if (themeSettings.themeURL && document.getElementById('mytheme')) {
-        document.getElementById('mytheme').href = themeSettings.themeURL;
-    }
-    /**
-     * Save to localstorage
-     **/
-    var saveSettings = function () {
-        themeSettings.themeOptions = String(classHolder.className).split(/[^\w-]+/).filter(function (item) {
-            return /^(nav|header|footer|mod|display)-/i.test(item);
-        }).join(' ');
-        if (document.getElementById('mytheme')) {
-            themeSettings.themeURL = document.getElementById('mytheme').getAttribute("href");
-        }
-        ;
-        localStorage.setItem('themeSettings', JSON.stringify(themeSettings));
-    }
-    /**
-     * Reset settings
-     **/
-    var resetSettings = function () {
-        localStorage.setItem("themeSettings", "");
-    }
-
-</script>
-<!-- BEGIN Page Wrapper -->
 <div class="page-wrapper">
     <div class="page-inner">
         <!-- BEGIN Left Aside -->
         <aside class="page-sidebar">
             <div class="page-logo">
                 <a href="#" class="page-logo-link press-scale-down d-flex align-items-center position-relative">
-                    <img src="{{ asset('images/logo.png') }}" alt="SmartAdmin WebApp" aria-roledescription="logo">
+                    <img src="{{ asset('images/logo.svg') }}" alt="SmartAdmin WebApp" class="profile-image rounded-circle" style="width: 52px;height: 52px" aria-roledescription="logo">
                     <span class="page-logo-text mr-1">CDN System</span>
                 </a>
             </div>
@@ -118,20 +61,50 @@
                     </a>
                 </div>
                 <ul id="js-nav-menu" class="nav-menu">
-                    <li class="active open">
-                        <a href="#" title="Application Intel" data-filter-tags="application intel">
+                    <li class="@if ($menu['menu'] == 'Home') active @endif">
+                        <a href="{{ url()->to('/') }}" title="Dashboard" data-filter-tags="dashboard">
+                            <i class="fal fa-dashcube"></i>
+                            <span class="nav-link-text">Dashboard</span>
+                        </a>
+                    </li>
+                    @if (strpos(Auth::user()->role, 'ADMINISTRATOR') !== false)
+                    <li class="@if ($menu['menu'] == 'User') active @endif">
+                        <a href="{{ route('user.index') }}" title="Dashboard" data-filter-tags="users">
+                            <i class="fal fa-users"></i>
+                            <span class="nav-link-text">Users</span>
+                        </a>
+                    </li>
+                    @endif
+                    @if (strpos(Auth::user()->role, 'STAFF') !== false)
+                    <li class="@if ($menu['menu'] == 'Tax') active @endif">
+                        <a href="{{ route('tax.index') }}" title="Dashboard" data-filter-tags="tax records">
+                            <i class="fal fa-tags"></i>
+                            <span class="nav-link-text">Tax Records</span>
+                        </a>
+                    </li>
+                    @endif
+                    @if (strpos(Auth::user()->role, 'ADMINISTRATOR') !== false)
+                    <li class="@if ($menu['menu'] == 'Config') active @endif">
+                        <a href="{{ url()->to('config') }}" title="Dashboard" data-filter-tags="settings">
+                            <i class="fal fa-cog"></i>
+                            <span class="nav-link-text">Settings</span>
+                        </a>
+                    </li>
+                    @endif
+                    <li class="@if ($menu['menu'] == 'Report') active show @endif">
+                        <a href="#" title="Reports" data-filter-tags="report">
                             <i class="fal fa-info-circle"></i>
-                            <span class="nav-link-text" data-i18n="nav.application_intel">Application Intel</span>
+                            <span class="nav-link-text">Reports</span>
                         </a>
                         <ul>
-                            <li class="active">
-                                <a href="intel_introduction.html" title="Introduction" data-filter-tags="application intel introduction">
-                                    <span class="nav-link-text" data-i18n="nav.application_intel_introduction">Introduction</span>
+                            <li class="@if ($menu['subMenu'] == 'Profile 01') active @endif">
+                                <a href="{{ url()->to('report/profiling_01') }}" title="Introduction" data-filter-tags="application intel introduction">
+                                    <span class="nav-link-text">Profail 01</span>
                                 </a>
                             </li>
-                            <li>
-                                <a href="intel_privacy.html" title="Privacy" data-filter-tags="application intel privacy">
-                                    <span class="nav-link-text" data-i18n="nav.application_intel_privacy">Privacy</span>
+                            <li class="@if ($menu['subMenu'] == 'Profile 02') active @endif">
+                                <a href="{{ url()->to('report/profiling_01') }}" title="Privacy" data-filter-tags="application intel privacy">
+                                    <span class="nav-link-text">Privacy</span>
                                 </a>
                             </li>
                         </ul>
@@ -170,7 +143,7 @@
                 <!-- we need this logo when user switches to nav-function-top -->
                 <div class="page-logo">
                     <a href="#" class="page-logo-link press-scale-down d-flex align-items-center position-relative">
-                        <img src="{{ asset('images/logo.png') }}" alt="SmartAdmin WebApp" aria-roledescription="logo">
+                        <img src="{{ asset('images/logo.svg') }}" alt="SmartAdmin WebApp" class="profile-image rounded-circle" style="width: 52px;height: 52px" aria-roledescription="logo">
                         <span class="page-logo-text mr-1">CDN System</span>
                     </a>
                 </div>
@@ -200,7 +173,7 @@
                 </div>
                 <div class="search">
                     <form class="app-forms hidden-xs-down" role="search" action="page_search.html" autocomplete="off">
-                        <input type="text" id="search-field" placeholder="Search for anything" class="form-control" tabindex="1">
+                        <input type="text" id="search-field" placeholder="Search SST Number" class="form-control" tabindex="1" style="text-transform: none">
                         <a href="#" onclick="return false;" class="btn-danger btn-search-close js-waves-off d-none" data-action="toggle" data-class="mobile-search-on">
                             <i class="fal fa-times"></i>
                         </a>
@@ -214,40 +187,40 @@
                         </a>
                     </div>
                     <!-- app notification -->
-                    <div>
-                        <a href="#" class="header-icon" data-toggle="dropdown" title="You got 11 notifications">
-                            <i class="fal fa-bell"></i>
-                            <span class="badge badge-icon">11</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-animated dropdown-xl">
-                            <div class="dropdown-header bg-trans-gradient d-flex justify-content-center align-items-center rounded-top mb-2">
-                                <h4 class="m-0 text-center color-white">
-                                    11 New
-                                    <small class="mb-0 opacity-80">User Notifications</small>
-                                </h4>
-                            </div>
-                            <div class="custom-scroll h-100">
-                                <ul class="notification">
-                                    <li class="unread">
-                                        <a href="#" class="d-flex align-items-center">
-                                            <span class="status mr-2">
-                                                <span class="profile-image rounded-circle d-inline-block" style="background-image:url('{{ asset('images/demo/avatars/avatar-c.png') }}')"></span>
-                                            </span>
-                                            <span class="d-flex flex-column flex-1 ml-1">
-                                                <span class="name">Melissa Ayre <span class="badge badge-primary fw-n position-absolute pos-top pos-right mt-1">INBOX</span></span>
-                                                <span class="msg-a fs-sm">Re: New security codes</span>
-                                                <span class="msg-b fs-xs">Hello again and thanks for being part...</span>
-                                                <span class="fs-nano text-muted mt-1">56 seconds ago</span>
-                                            </span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="py-2 px-3 bg-faded d-block rounded-bottom text-right border-faded border-bottom-0 border-right-0 border-left-0">
-                                <a href="#" class="fs-xs fw-500 ml-auto">view all notifications</a>
-                            </div>
-                        </div>
-                    </div>
+{{--                    <div>--}}
+{{--                        <a href="#" class="header-icon" data-toggle="dropdown" title="You got 11 notifications">--}}
+{{--                            <i class="fal fa-bell"></i>--}}
+{{--                            <span class="badge badge-icon">11</span>--}}
+{{--                        </a>--}}
+{{--                        <div class="dropdown-menu dropdown-menu-animated dropdown-xl">--}}
+{{--                            <div class="dropdown-header bg-trans-gradient d-flex justify-content-center align-items-center rounded-top mb-2">--}}
+{{--                                <h4 class="m-0 text-center color-white">--}}
+{{--                                    11 New--}}
+{{--                                    <small class="mb-0 opacity-80">User Notifications</small>--}}
+{{--                                </h4>--}}
+{{--                            </div>--}}
+{{--                            <div class="custom-scroll h-100">--}}
+{{--                                <ul class="notification">--}}
+{{--                                    <li class="unread">--}}
+{{--                                        <a href="#" class="d-flex align-items-center">--}}
+{{--                                            <span class="status mr-2">--}}
+{{--                                                <span class="profile-image rounded-circle d-inline-block" style="background-image:url('{{ asset('images/demo/avatars/avatar-c.png') }}')"></span>--}}
+{{--                                            </span>--}}
+{{--                                            <span class="d-flex flex-column flex-1 ml-1">--}}
+{{--                                                <span class="name">Melissa Ayre <span class="badge badge-primary fw-n position-absolute pos-top pos-right mt-1">INBOX</span></span>--}}
+{{--                                                <span class="msg-a fs-sm">Re: New security codes</span>--}}
+{{--                                                <span class="msg-b fs-xs">Hello again and thanks for being part...</span>--}}
+{{--                                                <span class="fs-nano text-muted mt-1">56 seconds ago</span>--}}
+{{--                                            </span>--}}
+{{--                                        </a>--}}
+{{--                                    </li>--}}
+{{--                                </ul>--}}
+{{--                            </div>--}}
+{{--                            <div class="py-2 px-3 bg-faded d-block rounded-bottom text-right border-faded border-bottom-0 border-right-0 border-left-0">--}}
+{{--                                <a href="#" class="fs-xs fw-500 ml-auto">view all notifications</a>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
                     <!-- app user menu -->
                     <div>
                         <a href="#" data-toggle="dropdown" title="drlantern@gotbootstrap.com" class="header-icon d-flex align-items-center justify-content-center ml-2">
@@ -269,33 +242,21 @@
                                 </div>
                             </div>
                             <div class="dropdown-divider m-0"></div>
-                            <a href="#" class="dropdown-item" data-action="app-reset">
-                                <span data-i18n="drpdwn.reset_layout">Reset Layout</span>
+                            <a href="{{ url()->to('profile') }}" class="dropdown-item" data-action="app-reset">
+                                <span>Profile</span>
                             </a>
-                            <a href="#" class="dropdown-item" data-toggle="modal" data-target=".js-modal-settings">
-                                <span data-i18n="drpdwn.settings">Settings</span>
-                            </a>
-                            <div class="dropdown-divider m-0"></div>
-                            <a href="#" class="dropdown-item" data-action="app-fullscreen">
-                                <span data-i18n="drpdwn.fullscreen">Fullscreen</span>
-                                <i class="float-right text-muted fw-n">F11</i>
-                            </a>
-                            <a href="#" class="dropdown-item" data-action="app-print">
-                                <span data-i18n="drpdwn.print">Print</span>
-                                <i class="float-right text-muted fw-n">Ctrl + P</i>
+                            <a href="{{ url()->to('profile') }}" class="dropdown-item" data-toggle="modal" data-target=".js-modal-settings">
+                                <span>Change Password</span>
                             </a>
                             <div class="dropdown-divider m-0"></div>
-                            <a class="dropdown-item fw-500 pt-3 pb-3" href="page_login.html">
-                                <span data-i18n="drpdwn.page-logout">Logout</span>
+                            <a class="dropdown-item fw-500 pt-3 pb-3" href="{{ url()->to('logout') }}">
+                                <span>Logout</span>
                                 <span class="float-right fw-n">&commat;codexlantern</span>
                             </a>
                         </div>
                     </div>
                 </div>
             </header>
-            <!-- END Page Header -->
-            <!-- BEGIN Page Content -->
-            <!-- the #js-page-content id is needed for some plugins to initialize -->
             <main id="js-page-content" role="main" class="page-content">
                 <ol class="breadcrumb page-breadcrumb">
                     <li class="breadcrumb-item"><a href="javascript:void(0);">SmartAdmin</a></li>
@@ -325,10 +286,10 @@
                 <div>
                     <ul class="list-table m-0">
                         <li>
-                            <a href="intel_introduction.html" class="text-secondary fw-700">Mengenai CDN</a>
+                            <a href="intel_introduction.html" class="text-secondary fw-700">About CDN</a>
                         </li>
                         <li class="pl-3">
-                            <a href="info_app_docs.html" class="text-secondary fw-700">Manual Pengguna</a>
+                            <a href="info_app_docs.html" class="text-secondary fw-700">User Manual</a>
                         </li>
                         <li class="pl-3 fs-xl">
                             <a href="https://wrapbootstrap.com/user/MyOrange" class="text-secondary" target="_blank">
@@ -408,20 +369,6 @@
         </div>
     </div>
 </div>
-<!-- END Page Wrapper -->
-<!-- base vendor bundle:
-     DOC: if you remove pace.js from core please note on Internet Explorer some CSS animations may execute before a page is fully loaded, resulting 'jump' animations
-                + pace.js (recommended)
-                + jquery.js (core)
-                + jquery-ui-cust.js (core)
-                + popper.js (core)
-                + bootstrap.js (core)
-                + slimscroll.js (extension)
-                + app.navigation.js (core)
-                + ba-throttle-debounce.js (core)
-                + waves.js (extension)
-                + smartpanels.js (extension)
-                + src/../jquery-snippets.js (core) -->
 <script src="{{ asset('js/vendors.bundle.js') }}"></script>
 <script src="{{ asset('js/app.bundle.js') }}"></script>
 <script src="{{ asset('js/moment-with-locales.min.js') }}"></script>
@@ -430,6 +377,52 @@
 <script src="{{ asset('js/app2.js') }}"></script>
 <script src="{{ asset('js/jquery.magnific-popup.min.js') }}"></script>
 <script src="{{ asset('js/cropper.min.js') }}"></script>
+@yield("page-script")
+@if ($errors->any())
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var a = '';
+            @foreach ($errors->all() as $error)
+                a = a + '{{ $error }}\n';
+            @endforeach
+            $("#toastContainer").dxToast({
+                message: a,
+                type: "error",
+                width: 280,
+                position: {my: "right", at: "top right", offset: '-20 0', of: ".c-subheader"},
+                displayTime: 10000
+            });
+            $("#toastContainer").dxToast("show");
+        })
+    </script>
+@endif
+@if ($message = Session::get('error'))
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#toastContainer").dxToast({
+                message: '{!! e(Session::get('error')) !!}',
+                type: "error",
+                width: 280,
+                position: {my: "right", at: "top right", offset: '-20 0', of: ".c-subheader"},
+                displayTime: 5000
+            });
+            $("#toastContainer").dxToast("show");
+        })
+    </script>
+@endif
+@if ($message = Session::get('success'))
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#toastContainer").dxToast({
+                message: '{!! e(Session::get('success')) !!}',
+                type: "success",
+                width: 280,
+                position: {my: "right", at: "top right", offset: '-20 0', of: ".c-subheader"},
+                displayTime: 5000,
+            });
+            $("#toastContainer").dxToast('instance').show();
+        })
+    </script>
+@endif
 </body>
-
 </html>

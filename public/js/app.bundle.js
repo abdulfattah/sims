@@ -1227,9 +1227,9 @@ var initApp = (function(app) {
 			var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
 				day = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
 				now = new Date(),
-				formatted = day[now.getDay()] + ', ' +  
-							months[now.getMonth()] + ' ' +  
-							now.getDate() + ', ' +
+				formatted = day[now.getDay()] + ', ' +
+							now.getDate() +
+							months[now.getMonth()] + ' ' +
 							now.getFullYear();
 			myapp_config.appDateHook.text(formatted);				
 		}
@@ -1284,8 +1284,8 @@ var initApp = (function(app) {
 				disableFadeOut: false
 			});
 
-			if (myapp_config.debugState)
-				console.log("%c✔ SlimScroll plugin active", "color: #148f32");	
+			// if (myapp_config.debugState)
+			// 	console.log("%c✔ SlimScroll plugin active", "color: #148f32");
 
 		} else {
 			console.log("WARN! $.fn.slimScroll not loaded or user is on desktop");
@@ -1359,8 +1359,8 @@ var initApp = (function(app) {
 			Waves.attach('.nav-menu:not(.js-waves-off) a, .btn:not(.js-waves-off):not(.btn-switch), .js-waves-on', ['waves-themed']);
 			Waves.init();
 
-			if (myapp_config.debugState)
-				console.log("%c✔ Waves plugin active", "color: #148f32");	
+			// if (myapp_config.debugState)
+			// 	console.log("%c✔ Waves plugin active", "color: #148f32");
 			
 		} else {
 			if (myapp_config.debugState)
@@ -1750,8 +1750,8 @@ var initApp = (function(app) {
 		 * Display APP version
 		 * DOC: only show this if debug state tree
 		 **/
-		 if (myapp_config.debugState)
-			console.log("%c✔ Finished app.init() v" + myapp_config.VERSION + '\n' + "---------------------------", "color: #148f32");	
+		 // if (myapp_config.debugState)
+			// console.log("%c✔ Finished app.init() v" + myapp_config.VERSION + '\n' + "---------------------------", "color: #148f32");
 	};
 
 	return app;
