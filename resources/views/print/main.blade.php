@@ -38,7 +38,7 @@
         header {
             text-align: center;
             text-decoration: underline;
-            height: 150px;
+            height: 30px;
         }
 
         section {

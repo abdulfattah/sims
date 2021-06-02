@@ -51,6 +51,24 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label" for="hf-position">Jawatan</label>
+                            <div class="col-md-9">
+                                <div data-dx="textbox" data-name="position" data-mode="text"
+                                     data-value="{!! \Request::old('position', isset($user) ? $user->position : NULL) !!}"
+                                     data-validate="true" data-validation-type="required" data-validation-group="form">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label" for="hf-department">Jabatan</label>
+                            <div class="col-md-9">
+                                <div data-dx="textbox" data-name="department" data-mode="text"
+                                     data-value="{!! \Request::old('department', isset($user) ? $user->department : NULL) !!}"
+                                     data-validate="true" data-validation-type="required" data-validation-group="form">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </form>

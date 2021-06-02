@@ -18,6 +18,30 @@
                 @csrf
                 <input type="hidden" name="_method" value="PUT"/>
                 <div class="row">
+                    <div class="col-md-12">
+                        <h3>Umum</h3>
+                        <hr/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Katalaluan Lalai</label>
+                            <div class="col-md-5">
+                                <div data-dx="textbox" data-name="default_password" data-mode="text" data-case="lowercase"
+                                     data-value="{{ request()->old('default_password', isset($defaultPassword) ? $defaultPassword['value'] : null) }}"
+                                     data-validate="true" data-validation-type="required" data-validation-group="form"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>SMTP</h3>
+                        <hr/>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-md-8">
                         <div class="form-group row">
                             <label class="col-md-3 col-form-label">Host</label>

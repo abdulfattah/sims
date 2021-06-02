@@ -8,6 +8,7 @@ use App\Models\SYSAsset;
 use App\Models\SYSSetting;
 use App\Models\TAXNote;
 use App\Models\TAXRecords;
+use App\Models\USRUsers;
 
 class JsonController extends Controller
 {
@@ -77,15 +78,20 @@ class JsonController extends Controller
         $items = [];
         if ($for == '' || $for == 'empty' || $for == 'undefined' || $for == 'null') {
             return $items;
+        } elseif ($for == 'staffs') { //khas untuk manually tambah statement
+            $staffs = USRUsers::orderBy('fullname')->get();
+            foreach ($staffs as $staff) {
+                array_push($items, ['id' => $staff->id, 'item' => $staff->fullname]);
+            }
+        } else {
+            $lists = config('appitem.' . $for);
+            if ($for != 'roles') {
+                asort($lists);
+            }
+            foreach ($lists as $key => $value) {
+                array_push($items, ['id' => is_string($key) ? $key : $value, 'item' => $value]);
+            }
         }
-        $lists = config('appitem.' . $for);
-        if ($for != 'roles') {
-            asort($lists);
-        }
-        foreach ($lists as $key => $value) {
-            array_push($items, ['id' => is_string($key) ? $key : $value, 'item' => $value]);
-        }
-
         return $items;
     }
 

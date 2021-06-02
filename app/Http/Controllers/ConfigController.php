@@ -19,6 +19,7 @@ class ConfigController extends Controller
                              <li class="breadcrumb-item active">Tetapan</li>',
         );
 
+        $data['defaultPassword'] = Models\SYSSetting::where('param', 'default_password')->get(['param', 'value'])->first()->toArray();
         $data['emailUsername'] = Models\SYSSetting::where('param', 'mail.mailers.smtp.username')->get(['param', 'value'])->first()->toArray();
         $data['emailPassword'] = Models\SYSSetting::where('param', 'mail.mailers.smtp.password')->get(['param', 'value'])->first()->toArray();
         $data['emailHost']     = Models\SYSSetting::where('param', 'mail.mailers.smtp.host')->get(['param', 'value'])->first()->toArray();
@@ -32,6 +33,7 @@ class ConfigController extends Controller
 
     public function update($id)
     {
+        \DB::update('UPDATE sys_setting set value = ? where param = ?', [request()->get('default_password'), 'default_password']);
         \DB::update('UPDATE sys_setting set value = ? where param = ?', [request()->get('mail_mailers_smtp_host'), 'mail.mailers.smtp.host']);
         \DB::update('UPDATE sys_setting set value = ? where param = ?', [request()->get('mail_mailers_smtp_port'), 'mail.mailers.smtp.port']);
         \DB::update('UPDATE sys_setting set value = ? where param = ?', [request()->get('mail_mailers_smtp_encryption'), 'mail.mailers.smtp.encryption']);

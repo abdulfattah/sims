@@ -160,7 +160,6 @@ class TaxController extends Controller
             $profiling->answer_10  = request()->get('answer_10');
             $profiling->answer_11  = request()->get('answer_11');
             $profiling->answer_12  = request()->get('answer_12');
-            $profiling->created_by = \Auth::user()->id;
             $profiling->save();
 
             activity('tax')
@@ -193,7 +192,6 @@ class TaxController extends Controller
             $profiling->answer_10  = request()->get('answer_10');
             $profiling->answer_11  = request()->get('answer_11');
             $profiling->answer_12  = request()->get('answer_12');
-            $profiling->created_by = \Auth::user()->id;
             $profiling->save();
 
             activity('tax')
@@ -223,7 +221,6 @@ class TaxController extends Controller
             $profiling->answer_07  = request()->get('answer_07');
             $profiling->answer_08  = request()->get('answer_08');
             $profiling->answer_09  = request()->get('answer_09');
-            $profiling->created_by = \Auth::user()->id;
             $profiling->save();
 
             activity('tax')
@@ -346,7 +343,6 @@ class TaxController extends Controller
             $profiling->answer_10  = request()->get('answer_10');
             $profiling->answer_11  = request()->get('answer_11');
             $profiling->answer_12  = request()->get('answer_12');
-            $profiling->created_by = \Auth::user()->id;
             $profiling->save();
 
             activity('tax')
@@ -378,7 +374,6 @@ class TaxController extends Controller
             $profiling->answer_10  = request()->get('answer_10');
             $profiling->answer_11  = request()->get('answer_11');
             $profiling->answer_12  = request()->get('answer_12');
-            $profiling->created_by = \Auth::user()->id;
             $profiling->save();
 
             activity('tax')
@@ -408,7 +403,6 @@ class TaxController extends Controller
             $profiling->answer_07  = request()->get('answer_07');
             $profiling->answer_08  = request()->get('answer_08');
             $profiling->answer_09  = request()->get('answer_09');
-            $profiling->created_by = \Auth::user()->id;
             $profiling->save();
 
             activity('tax')
