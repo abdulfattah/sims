@@ -19,7 +19,7 @@
         </tr>
         <tr>
             <td colspan="2" style="font-weight: 700;text-align: center;border-style: hidden">
-                <img class="c-sidebar-brand-minimized" width="130" src="{!! asset('images/logo.svg') !!}">
+                <img class="c-sidebar-brand-minimized" width="130" src="{{ asset('images/logo.svg') }}">
             </td>
         </tr>
         <tr>
@@ -57,7 +57,7 @@
             </td>
         </tr>
         <tr>
-            <td style="padding-left: 20px;">{!! $tax->profiling03->answer_02 !!}</td>
+            <td style="padding-left: 20px;">{{ $tax->profiling03->answer_02 }}</td>
             <td style="text-align: center;">{{ $tax->profiling03->mark_02 }}</td>
         </tr>
         <tr>

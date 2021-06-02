@@ -16,15 +16,15 @@
     <tbody>
     @foreach($tax->attachments as $attachment)
         <tr>
-            <td><a href="{!! URL::to('asset/file?in=attachment' . DIRECTORY_SEPARATOR . $attachment->for_id .'&filename=' .
+            <td><a href="{{ URL::to('asset/file?in=attachment' . DIRECTORY_SEPARATOR . $attachment->for_id .'&filename=' .
                                                       \App\Libs\App::getFilename('attachment', $attachment) . '&actualname=' .
-                                                      $attachment->asset_name) !!}" target="_blank">{!! $attachment->title !!}</a></td>
-            <td>{!! $attachment->description !!}</td>
-            <td>{!! $attachment->uploader != null ? $attachment->uploader->fullname : null !!}</td>
-            <td>{!! $attachment->created_at != null ? date('d-M-Y h:i:s A', strtotime($attachment->created_at)) : null !!}</td>
+                                                      $attachment->asset_name) }}" target="_blank">{{ $attachment->title }}</a></td>
+            <td>{{ $attachment->description }}</td>
+            <td>{{ $attachment->uploader != null ? $attachment->uploader->fullname : null }}</td>
+            <td>{{ $attachment->created_at != null ? date('d-M-Y h:i:s A', strtotime($attachment->created_at)) : null }}</td>
             <th style="text-align: right">
-                <a href="javascript:void(0)" data-id="{!! $attachment->id !!}" class="edit-attachment"><i class="c-icon cil-pencil"></i></a>
-                <a href="javascript:void(0)" data-id="{!! $attachment->id !!}" data-tax-id="{!! $attachment->for_id !!}" class="delete-attachment"><i
+                <a href="javascript:void(0)" data-id="{{ $attachment->id }}" class="edit-attachment"><i class="c-icon cil-pencil"></i></a>
+                <a href="javascript:void(0)" data-id="{{ $attachment->id }}" data-tax-id="{{ $attachment->for_id }}" class="delete-attachment"><i
                             class="c-icon cil-trash text-danger"></i></a>
             </th>
         </tr>
@@ -39,9 +39,9 @@
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="{!! \URL::to('tax?section=attachment') !!}" id="form-attachment" class="form-horizontal" enctype="multipart/form-data" novalidate>
+                <form method="POST" action="{{ \URL::to('tax?section=attachment') }}" id="form-attachment" class="form-horizontal" enctype="multipart/form-data" novalidate>
                     @csrf
-                    <input type="hidden" name="tax_record_id" value="{!! $tax->id !!}"/>
+                    <input type="hidden" name="tax_record_id" value="{{ $tax->id }}"/>
                     <input id="method-attachment" type="hidden" name="_method" value=""/>
                     <div class="row">
                         <div class="col-md-12">

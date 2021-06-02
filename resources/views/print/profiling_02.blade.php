@@ -19,7 +19,7 @@
         </tr>
         <tr>
             <td colspan="2" style="font-weight: 700;text-align: center;border-style: hidden">
-                <img class="c-sidebar-brand-minimized" width="130" src="{!! asset('images/logo.svg') !!}">
+                <img class="c-sidebar-brand-minimized" width="130" src="{{ asset('images/logo.svg') }}">
             </td>
         </tr>
         <tr>

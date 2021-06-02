@@ -9,37 +9,37 @@
             <div class="float-right" style="display: flex;flex-direction: row;">
                 {{-- <button class="btn btn-primary btn-sm grid-btn-plus" type="button" style="margin-right: 4px;" data-for="tax">
                     <svg class="c-icon">
-                        <use xlink:href="{!! asset('icons/free.svg#cil-plus') !!}"></use>
+                        <use xlink:href="{{ asset('icons/free.svg#cil-plus') }}"></use>
                     </svg>
                 </button> --}}
                 <div data-dx="tooltip" class="d-none">Add New Tax Record</div>
                 <button class="btn btn-primary btn-sm grid-btn-sync" type="button" style="margin-right: 4px;">
                     <svg class="c-icon">
-                        <use xlink:href="{!! asset('icons/free.svg#cil-sync') !!}"></use>
+                        <use xlink:href="{{ asset('icons/free.svg#cil-sync') }}"></use>
                     </svg>
                 </button>
                 <div data-dx="tooltip" class="d-none">Syncronizing Tax</div>
                 <button class="btn btn-primary btn-sm grid-btn-refresh" type="button" style="margin-right: 4px;">
                     <svg class="c-icon">
-                        <use xlink:href="{!! asset('icons/free.svg#cil-reload') !!}"></use>
+                        <use xlink:href="{{ asset('icons/free.svg#cil-reload') }}"></use>
                     </svg>
                 </button>
                 <div data-dx="tooltip" class="d-none">Reset List</div>
                 <button class="btn btn-primary btn-sm grid-btn-column" type="button" style="margin-right: 4px;">
                     <svg class="c-icon">
-                        <use xlink:href="{!! asset('icons/free.svg#cil-columns') !!}"></use>
+                        <use xlink:href="{{ asset('icons/free.svg#cil-columns') }}"></use>
                     </svg>
                 </button>
                 <div data-dx="tooltip" class="d-none">Column Chooser</div>
                 <button class="btn btn-primary btn-sm grid-btn-trash" type="button" style="margin-right: 4px;" data-for="tax">
                     <svg class="c-icon">
-                        <use xlink:href="{!! asset('icons/free.svg#cil-trash') !!}"></use>
+                        <use xlink:href="{{ asset('icons/free.svg#cil-trash') }}"></use>
                     </svg>
                 </button>
                 <div data-dx="tooltip" class="d-none">Trashed Item</div>
                 <button class="btn btn-primary btn-sm grid-btn-excel" type="button" style="margin-right: 4px;" data-for="tax">
                     <svg class="c-icon">
-                        <use xlink:href="{!! asset('icons/free.svg#cil-cloud-download') !!}"></use>
+                        <use xlink:href="{{ asset('icons/free.svg#cil-cloud-download') }}"></use>
                     </svg>
                 </button>
                 <div data-dx="tooltip" class="d-none">Download Excel</div>
@@ -49,7 +49,7 @@
             @if ($trashed)
                 <div class="text-danger text-center">DISPLAY ALL TRASHED ITEM</div> @endif
             <div class="table-responsive" style="background-color: #ffffff">
-                <div id="grid" data-for="tax" data-trashed="{!! $trashed !!}"></div>
+                <div id="grid" data-for="tax" data-trashed="{{ $trashed }}"></div>
             </div>
             @csrf
         </div>

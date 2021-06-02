@@ -9,13 +9,13 @@
             <div class="float-right" style="display: flex;flex-direction: row;">
                 <button class="btn btn-primary btn-sm grid-btn-refresh" type="button" data-for="profiling_02" style="margin-right: 4px;">
                     <svg class="c-icon">
-                        <use xlink:href="{!! asset('icons/free.svg#cil-reload') !!}"></use>
+                        <use xlink:href="{{ asset('icons/free.svg#cil-reload') }}"></use>
                     </svg>
                 </button>
                 <div data-dx="tooltip" class="d-none">Reset List</div>
                 <button class="btn btn-primary btn-sm grid-btn-excel" type="button" style="margin-right: 4px;" data-for="profiling_02">
                     <svg class="c-icon">
-                        <use xlink:href="{!! asset('icons/free.svg#cil-cloud-download') !!}"></use>
+                        <use xlink:href="{{ asset('icons/free.svg#cil-cloud-download') }}"></use>
                     </svg>
                 </button>
                 <div data-dx="tooltip" class="d-none">Download Excel</div>

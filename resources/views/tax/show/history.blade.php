@@ -9,9 +9,9 @@
     <tbody>
     @foreach ($histories as $k => $history)
         <tr>
-            <td>{!! $history->created_at->format('d-m-Y h:iA') !!}</td>
-            <td>{!! ucwords(strtolower($history->actionBy->fullname)) !!}</td>
-            <td>{!! $history->description !!}</td>
+            <td>{{ $history->created_at->format('d-m-Y h:iA') }}</td>
+            <td>{{ ucwords(strtolower($history->actionBy->fullname)) }}</td>
+            <td>{{ $history->description }}</td>
         </tr>
     @endforeach
     </tbody>

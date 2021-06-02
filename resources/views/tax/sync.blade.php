@@ -10,7 +10,7 @@
         <div class="card-body">
             <h5>Import base record from SST system</h5>
             <hr class="mt-1 mb-4">
-            <form method="POST" action="{!! \URL::to('tax/sync') !!}" id="form-sync-base" class="form-horizontal" enctype="multipart/form-data" novalidate>
+            <form method="POST" action="{{ \URL::to('tax/sync') }}" id="form-sync-base" class="form-horizontal" enctype="multipart/form-data" novalidate>
                 @csrf
                 <div class="row">
                     <div class="col-md-12">
@@ -45,7 +45,7 @@
 
             <h5>Import statements record</h5>
             <hr class="mt-1 mb-4">
-            <form method="POST" action="{!! \URL::to('tax/sync') !!}" id="form-sync-base" class="form-horizontal" enctype="multipart/form-data" novalidate>
+            <form method="POST" action="{{ \URL::to('tax/sync') }}" id="form-sync-base" class="form-horizontal" enctype="multipart/form-data" novalidate>
                 @csrf
                 <div class="row">
                     <div class="col-md-12">

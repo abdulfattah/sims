@@ -5,7 +5,7 @@
             Change Password
         </div>
         <div class="card-body">
-            <form method="POST" action="{!! \URL::to('password') !!}" id="form-user" class="form-horizontal" enctype="multipart/form-data"
+            <form method="POST" action="{{ \URL::to('password') }}" id="form-user" class="form-horizontal" enctype="multipart/form-data"
                   novalidate>
                 @csrf
                 <div class="row">
@@ -38,7 +38,7 @@
             </form>
         </div>
         <div class="card-footer text-right">
-            <a href="{!! URL::to('/') !!}" class="btn btn-ghost-danger">Cancel</a>
+            <a href="{{ URL::to('/') }}" class="btn btn-ghost-danger">Cancel</a>
             <div data-dx="btn-submit" data-type="default" data-text="Submit" data-disabled="false" data-validation-group="form" data-form="form-user"></div>
         </div>
     </div>

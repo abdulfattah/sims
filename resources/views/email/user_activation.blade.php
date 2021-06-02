@@ -158,7 +158,7 @@
             <td style="background-color:#ffffff;padding: 30px 20px 40px; font-family: sans-serif; font-size: 13px; line-height: 140%; color: #555555; text-align: left;">
                 <p style="margin: 0;">
                     <br/>
-                    Mr./Mrs. {!! strtoupper($name) !!},
+                    Mr./Mrs. {{ strtoupper($name) }},
                     <br/><br/>
                     Welcome to CDN Information Integration System.
                     Please click on link below to activate your account.
@@ -171,7 +171,7 @@
                     <tbody>
                     <tr>
                         <td style="border-radius: 3px; background: #222222; text-align: center;" class="button-td">
-                            <a href="{!! $url !!}"
+                            <a href="{{ $url }}"
                                style="background: #222222; border: 15px solid #222222; font-family: sans-serif; font-size: 13px; line-height: 110%; text-align: center; text-decoration: none; display: block; border-radius: 3px; font-weight: bold;"
                                class="button-a">
                                 &nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#ffffff;">Activate Account</span>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -185,7 +185,7 @@
         <tr>
             <td style="background-color:#ffffff;padding: 30px 20px 40px; font-family: sans-serif; font-size: 13px; line-height: 140%; color: #555555; text-align: left;">
                 <p style="margin: 0;">
-                    This link will expired at {!! $expired !!}.
+                    This link will expired at {{ $expired }}.
                     Please contact system administrator if link already dead.
                     <br/><br/>
                     Thank you<br/>

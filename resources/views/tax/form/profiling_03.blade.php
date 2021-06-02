@@ -1,10 +1,10 @@
-<form action="@if($tax->profiling03 == null) {!! \URL::to('tax?section=profiling_03') !!} @else {!! \URL::to('tax/' . $tax->id . '?section=profiling_03&id=' . $tax->profiling03->id) !!} @endif"
+<form action="@if($tax->profiling03 == null) {{ \URL::to('tax?section=profiling_03') }} @else {{ \URL::to('tax/' . $tax->id . '?section=profiling_03&id=' . $tax->profiling03->id) }} @endif"
       method="POST" id="form-profiling" class="form-horizontal" novalidate>
     @if($tax->profiling03 != null)
         <input type="hidden" name="_method" value="PUT"/>
     @endif
     @csrf
-    <input type="hidden" name="tax_id" value="{!! $tax->id !!}"/>
+    <input type="hidden" name="tax_id" value="{{ $tax->id }}"/>
     <table class="table table-responsive-sm table-sm mt-3" style="border-style: hidden">
         <tbody>
         <tr>
@@ -15,7 +15,7 @@
         </tr>
         <tr>
             <td colspan="3" style="font-weight: 700;text-align: center;border-style: hidden">
-                <img class="c-sidebar-brand-minimized" width="130" src="{!! asset('images/logo.svg') !!}">
+                <img class="c-sidebar-brand-minimized" width="130" src="{{ asset('images/logo.svg') }}">
             </td>
         </tr>
         <tr>

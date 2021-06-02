@@ -4,14 +4,14 @@
         <div class="card-group">
             <div class="py-5 text-white d-md-down-none">
                 <div class="text-center">
-                    <img src="{!! asset('images/g14.png') !!}"/>
+                    <img src="{{ asset('images/g14.png') }}"/>
                 </div>
             </div>
             <div class="p-4">
                 <div class="text-center">
-                    <img src="{!! asset('images/login_header.png') !!}"/>
+                    <img src="{{ asset('images/login_header.png') }}"/>
                 </div>
-                <form method="POST" action="{!! \URL::to('login') !!}" id="form-login" novalidate>
+                <form method="POST" action="{{ \URL::to('login') }}" id="form-login" novalidate>
                     @csrf
                     <div class="row">
                         <div class="col-12">
@@ -28,12 +28,12 @@
                             @endif
                             @if ($message = Session::get('error'))
                                 <div class="alert alert-danger pl-2 pt-1 pb-1">
-                                    {!! e(Session::get('error')) !!}
+                                    {{ e(Session::get('error')) }}
                                 </div>
                             @endif
                             @if ($message = Session::get('success'))
                                 <div class="alert alert-success pl-2 pt-1 pb-1">
-                                    {!! e(Session::get('success')) !!}
+                                    {{ e(Session::get('success')) }}
                                 </div>
                             @endif
                         </div>
@@ -44,7 +44,7 @@
                                 <div class="input-group-prepend">
                                 <span class="input-group-text">
                                     <svg class="c-icon">
-                                        <use xlink:href="{!! asset('icons/free.svg#cil-user') !!}"></use>
+                                        <use xlink:href="{{ asset('icons/free.svg#cil-user') }}"></use>
                                     </svg>
                                 </span>
                                 </div>
@@ -60,7 +60,7 @@
                                 <div class="input-group-prepend">
                                 <span class="input-group-text">
                                     <svg class="c-icon">
-                                        <use xlink:href="{!! asset('icons/free.svg#cil-lock-locked') !!}"></use>
+                                        <use xlink:href="{{ asset('icons/free.svg#cil-lock-locked') }}"></use>
                                     </svg>
                                 </span>
                                 </div>
@@ -80,7 +80,7 @@
                     </div>
                     <div class="row">
                         <div class="col-6">
-                            <a href="{!! URL::to('password/lost') !!}" class="btn btn-link px-0">Forgot password?</a>
+                            <a href="{{ URL::to('password/lost') }}" class="btn btn-link px-0">Forgot password?</a>
                         </div>
                         <div class="col-6">
                         </div>
