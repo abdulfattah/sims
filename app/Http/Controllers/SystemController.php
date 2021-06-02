@@ -50,8 +50,9 @@ class SystemController extends Controller
     {
         $data = array(
             'menu'       => ['menu' => 'Mengenai Kami', 'subMenu' => ''],
-            'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Utama</a></li>
-                             <li class="breadcrumb-item active">Mengenai Kami</li>',
+            'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
+                             <li class="breadcrumb-item active">About Us</li>',
+            'title'      => 'About Us',
         );
 
         return view('about_us', $data);
@@ -61,8 +62,9 @@ class SystemController extends Controller
     {
         $data = array(
             'menu'       => ['menu' => 'Manual Pengguna', 'subMenu' => ''],
-            'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Utama</a></li>
+            'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
                              <li class="breadcrumb-item active">User Manual</li>',
+            'title'      => 'User Manual',
         );
 
         return view('help.pentadbir_sistem', $data);

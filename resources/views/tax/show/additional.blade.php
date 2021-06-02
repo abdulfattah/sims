@@ -8,23 +8,23 @@
     <div class="col-md-12">
         <dl class="row mt-4">
             <dt class="col-sm-3 col-xl-3">Factory Name</dt>
-            <dd class="col-sm-9 col-xl-8">{{ $tax->factory_name }}</dd>
+            <dd class="col-sm-9 col-xl-8">&nbsp;{{ $tax->factory_name }}</dd>
             <dt class="col-sm-3 col-xl-3">Entity Type</dt>
-            <dd class="col-sm-9 col-xl-8">{{ $tax->entity_type }}</dd>
+            <dd class="col-sm-9 col-xl-8">&nbsp;{{ $tax->entity_type }}</dd>
             <dt class="col-sm-3 col-xl-3">Business Activity</dt>
-            <dd class="col-sm-9 col-xl-8">{{ $tax->business_activity }}</dd>
+            <dd class="col-sm-9 col-xl-8">&nbsp;{{ $tax->business_activity }}</dd>
             <dt class="col-sm-3 col-xl-3">Product Tax</dt>
-            <dd class="col-sm-9 col-xl-8">{{ $tax->product_tax }}</dd>
+            <dd class="col-sm-9 col-xl-8">&nbsp;{{ $tax->product_tax }}</dd>
             <dt class="col-sm-3 col-xl-3">Facility Applied</dt>
-            <dd class="col-sm-9 col-xl-8">{{ $tax->facility_applied }}</dd>
+            <dd class="col-sm-9 col-xl-8">&nbsp;{{ $tax->facility_applied }}</dd>
             <dt class="col-sm-3 col-xl-3">Local Marketing</dt>
-            <dd class="col-sm-9 col-xl-8">{{ $tax->local_marketing }}</dd>
+            <dd class="col-sm-9 col-xl-8">&nbsp;{{ $tax->local_marketing }}</dd>
             <dt class="col-sm-3 col-xl-3">Statement</dt>
-            <dd class="col-sm-9 col-xl-8">{{ $tax->statement }}</dd>
+            <dd class="col-sm-9 col-xl-8">&nbsp;{{ $tax->statement }}</dd>
             <dt class="col-sm-3 col-xl-3">Statement Status</dt>
-            <dd class="col-sm-9 col-xl-8">{{ $tax->statement_status }}</dd>
+            <dd class="col-sm-9 col-xl-8">&nbsp;{{ $tax->statement_status }}</dd>
             <dt class="col-sm-3 col-xl-3">Uncomplience Type</dt>
-            <dd class="col-sm-9 col-xl-8">{{ $tax->uncomplience_type }}</dd>
+            <dd class="col-sm-9 col-xl-8">&nbsp;{{ $tax->uncomplience_type }}</dd>
         </dl>
     </div>
 </div>
@@ -38,13 +38,13 @@
     <div class="col-md-12">
         <dl class="row mt-4">
             <dt class="col-sm-3 col-xl-3">Address</dt>
-            <dd class="col-sm-9 col-xl-8">{{ $tax->getCDNAddress() }}</dd>
+            <dd class="col-sm-9 col-xl-8">&nbsp;{{ $tax->getCDNAddress() }}</dd>
             <dt class="col-sm-3 col-xl-3">Officer In Charge</dt>
-            <dd class="col-sm-9 col-xl-8">{{ $tax->cdn_officer }}</dd>
+            <dd class="col-sm-9 col-xl-8">&nbsp;{{ $tax->cdn_officer }}</dd>
             <dt class="col-sm-3 col-xl-3">Phone No</dt>
-            <dd class="col-sm-9 col-xl-8">{{ $tax->cdn_phone_no }}</dd>
+            <dd class="col-sm-9 col-xl-8">&nbsp;{{ $tax->cdn_phone_no }}</dd>
             <dt class="col-sm-3 col-xl-3">Email Address</dt>
-            <dd class="col-sm-9 col-xl-8">{{ $tax->cdn_email }}</dd>
+            <dd class="col-sm-9 col-xl-8">&nbsp;{{ $tax->cdn_email }}</dd>
         </dl>
     </div>
 </div>

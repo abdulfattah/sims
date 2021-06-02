@@ -58,7 +58,7 @@
                         </div>
                     </div>
                 </form>
-                    <div id="popup"></div>
+                <div id="popup"></div>
             </div>
         </div>
     </div>
@@ -75,7 +75,7 @@
 
             $("#forgot").click(function () {
                 const popup = $("#popup").dxPopup({
-                    contentTemplate: function() {
+                    contentTemplate: function () {
                         return $("<div>").append(
                             $(`<p>Please contact system admin to reset your password</p>`)
                         );

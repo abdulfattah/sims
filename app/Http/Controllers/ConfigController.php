@@ -14,9 +14,9 @@ class ConfigController extends Controller
     {
         $data = array(
             'menu'       => ['menu' => 'Tetapan', 'subMenu' => ''],
-            'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Utama</a></li>
-                             <li class="breadcrumb-item"><a href="' . \URL::to('user') . '">Pengguna</a></li>
-                             <li class="breadcrumb-item active">Tetapan</li>',
+            'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
+                             <li class="breadcrumb-item active">Configuration</li>',
+            'title'      => 'Configuration',
         );
 
         $data['defaultPassword'] = Models\SYSSetting::where('param', 'default_password')->get(['param', 'value'])->first()->toArray();

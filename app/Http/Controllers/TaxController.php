@@ -32,6 +32,7 @@ class TaxController extends Controller
             'menu'       => ['menu' => 'Tax', 'subMenu' => ''],
             'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
                              <li class="breadcrumb-item active">Tax Records</li>',
+            'title'      => 'All Tax Records',
             'trashed'    => request()->get('show') == 'trashed',
         );
 
@@ -47,6 +48,7 @@ class TaxController extends Controller
             'breadcrumb'      => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
                              <li class="breadcrumb-item"><a href="' . \URL::to('tax') . '">Tax Records</a></li>
                              <li class="breadcrumb-item active">Syncronization</li>',
+            'title'      => 'Import Tax Record From SST System',
             'uploadBase'      => $checkBase->count() < 1,
             'uploadStatement' => $checkStatement->count() < 1,
             'syncBase'        => $checkBase->count() > 0,
@@ -95,6 +97,7 @@ class TaxController extends Controller
             'breadcrumb'      => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
                              <li class="breadcrumb-item"><a href="' . \URL::to('tax') . '">Tax Records</a></li>
                              <li class="breadcrumb-item active">Syncronization</li>',
+            'title'      => 'Import Tax Record From SST System',
             'uploadBase'      => $fileBase != null ? false : true,
             'uploadStatement' => $fileStatement != null ? false : true,
             'syncBase'        => $checkBase->count() > 0,
@@ -254,6 +257,7 @@ class TaxController extends Controller
             'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
                              <li class="breadcrumb-item"><a href="' . \URL::to('tax') . '">Tax Records</a></li>
                              <li class="breadcrumb-item active">Edit</li>',
+            'title'      => 'Update Tax Record',
             'tax'        => Models\TAXRecords::find($id),
         );
 
@@ -439,6 +443,7 @@ class TaxController extends Controller
             'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
                              <li class="breadcrumb-item"><a href="' . \URL::to('tax') . '">Tax Record</a></li>
                              <li class="breadcrumb-item active">Show</li>',
+            'title'      => 'Show Tax Record',
             'tax'        => $tax,
             'histories'  => $logs,
 
@@ -520,7 +525,8 @@ class TaxController extends Controller
         $data = array(
             'menu'       => ['menu' => 'Report', 'subMenu' => 'Profile 01'],
             'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
-                             <li class="breadcrumb-item active">Report Profile 01</li>'
+                             <li class="breadcrumb-item active">Report Profile 01</li>',
+            'title'      => 'Report 01'
         );
 
         if ($reportWhat == 'profiling_01') {

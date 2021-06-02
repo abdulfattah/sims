@@ -1,9 +1,6 @@
 @extends('main')
 @section('content')
     <div class="card">
-        <div class="card-header">
-            Show User's Information
-        </div>
         <div class="card-body">
             <div class="row">
                 <div class="col-md-3">
@@ -17,28 +14,23 @@
                     <hr class="mt-1 mb-4">
                     <dl class="row">
                         <dt class="col-sm-3 col-xl-3">Fullname</dt>
-                        <dd class="col-sm-9 col-xl-7">: {!! $user->fullname !!}</dd>
+                        <dd class="col-sm-9 col-xl-7">&nbsp;{!! $user->fullname !!}</dd>
                         <dt class="col-sm-3 col-xl-3">Role</dt>
-                        <dd class="col-sm-9 col-xl-7">: {!! implode(' / ', json_decode($user->role)) !!}</dd>
+                        <dd class="col-sm-9 col-xl-7">&nbsp;{!! implode(' / ', json_decode($user->role)) !!}</dd>
                         <dt class="col-sm-3 col-xl-3">Jawatan</dt>
-                        <dd class="col-sm-9 col-xl-7">: {!! $user->position !!}</dd>
+                        <dd class="col-sm-9 col-xl-7">&nbsp;{!! $user->position !!}</dd>
                         <dt class="col-sm-3 col-xl-3">Jabatan</dt>
-                        <dd class="col-sm-9 col-xl-7">: {!! $user->department !!}</dd>
+                        <dd class="col-sm-9 col-xl-7">&nbsp;{!! $user->department !!}</dd>
                         <dt class="col-sm-3 col-xl-3">Email</dt>
-                        <dd class="col-sm-9 col-xl-7">: <a href="mailto:{!! $user->username !!}" target="_blank" class="text-navy">{!! $user->username !!}</a></dd>
+                        <dd class="col-sm-9 col-xl-7">&nbsp;<a href="mailto:{!! $user->username !!}" target="_blank" class="text-navy">{!! $user->username !!}</a></dd>
                         <dt class="col-sm-3 col-xl-3">Status</dt>
-                        <dd class="col-sm-9 col-xl-7">: {!! $user->enable ? 'ACTIVE' : 'NOT ACTIVE' !!}</dd>
+                        <dd class="col-sm-9 col-xl-7">&nbsp;{!! $user->enable ? 'ACTIVE' : 'NOT ACTIVE' !!}</dd>
                     </dl>
                 </div>
             </div>
         </div>
         <div class="card-footer text-right">
-            <button type="button" class="btn btn-sm btn-primary" style="height: 33px;width: 35px;" data-toggle="tooltip" data-placement="top" data-title="Back"
-                    onclick="location.href = '{{ URL::to('user') }}';">
-                <svg class="c-icon mr-2">
-                    <use xlink:href="{!! asset('icons/free.svg#cil-chevron-left') !!}"></use>
-                </svg>
-            </button>
+            <a href="{{ URL::to('user') }}" class="text-danger mr-4">Cancel</a>
             <button type="button" class="btn btn-sm btn-primary" style="height: 33px" onclick="location.href = '{{ URL::to('user/' . $user->id . '/edit') }}';">
                 Update
             </button>

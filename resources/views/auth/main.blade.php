@@ -6,7 +6,7 @@
     <meta name="description" content="Login">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimal-ui">
-    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="msapplication-tap-highlight" content="no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimal-ui">
@@ -31,10 +31,12 @@
         <div class="page-content-wrapper bg-transparent m-0">
             <div class="height-10 w-100 shadow-lg px-4 bg-brand-gradient">
                 <div class="d-flex align-items-center container p-0">
-                    <div class="page-logo width-mobile-auto m-0 align-items-center justify-content-center p-0 bg-transparent bg-img-none shadow-0 height-9 border-0">
+                    <div class="page-logo width-mobile-auto m-0 align-items-center justify-content-center p-0 bg-transparent bg-img-none shadow-0 height-9 border-0"
+                         style="width: 400px">
                         <a href="javascript:void(0)" class="page-logo-link press-scale-down d-flex align-items-center">
-                            <img src="{{ asset('images/logo.svg') }}" alt="CDN System" class="profile-image rounded-circle" style="width: 52px;height: 52px" aria-roledescription="logo">
-                            <span class="page-logo-text mr-1">CDN System</span>
+                            <img src="{{ asset('images/logo.svg') }}" alt="CDN System" class="profile-image rounded-circle" style="width: 52px;height: 52px"
+                                 aria-roledescription="logo">
+                            <span class="page-logo-text mr-1">CDN System <i>for</i> Royal Malaysian Customs</span>
                         </a>
                     </div>
                 </div>

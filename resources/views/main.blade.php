@@ -30,7 +30,7 @@
             <div class="page-logo">
                 <a href="#" class="page-logo-link press-scale-down d-flex align-items-center position-relative">
                     <img src="{{ asset('images/logo.svg') }}" alt="CDN System" class="profile-image rounded-circle" style="width: 52px;height: 52px" aria-roledescription="logo">
-                    <span class="page-logo-text mr-1">CDN System</span>
+                    <span class="page-logo-text mr-1">CDN System <i>for</i> Royal Malaysian Customs</span>
                 </a>
             </div>
             <!-- BEGIN PRIMARY NAVIGATION -->
@@ -45,14 +45,13 @@
                     </div>
                 </div>
                 <div class="info-card">
-                    <img src="{{ asset('images/demo/avatars/avatar-admin.png') }}" class="profile-image rounded-circle" alt="Dr. Codex Lantern">
+                    <img src="{{ URL::to('asset/image?in=avatar&filename=' . \App\Libs\App::getFilename('image', \Auth::user()->avatar)) }}" class="profile-image rounded-circle" alt="Dr. Codex Lantern">
                     <div class="info-card-text">
                         <a href="#" class="d-flex align-items-center text-white">
-                                    <span class="text-truncate text-truncate-sm d-inline-block">
-                                        Dr. Codex Lantern
-                                    </span>
+                            <span class="text-truncate text-truncate-sm d-inline-block">
+                                {{ \Auth::user()->fullname }}
+                            </span>
                         </a>
-                        <span class="d-inline-block text-truncate text-truncate-sm">Toronto, Canada</span>
                     </div>
                     <img src="{{ asset('images/card-backgrounds/cover-4-lg.png') }}" class="cover" alt="cover">
                     <a href="#" onclick="return false;" class="pull-trigger-btn" data-action="toggle" data-class="list-filter-active" data-target=".page-sidebar"
@@ -68,28 +67,28 @@
                         </a>
                     </li>
                     @if (strpos(Auth::user()->role, 'ADMINISTRATOR') !== false)
-                    <li class="@if ($menu['menu'] == 'User') active @endif">
-                        <a href="{{ route('user.index') }}" title="Dashboard" data-filter-tags="users">
-                            <i class="fal fa-users"></i>
-                            <span class="nav-link-text">Users</span>
-                        </a>
-                    </li>
+                        <li class="@if ($menu['menu'] == 'User') active @endif">
+                            <a href="{{ route('user.index') }}" title="Dashboard" data-filter-tags="users">
+                                <i class="fal fa-users"></i>
+                                <span class="nav-link-text">Users</span>
+                            </a>
+                        </li>
                     @endif
                     @if (strpos(Auth::user()->role, 'STAFF') !== false)
-                    <li class="@if ($menu['menu'] == 'Tax') active @endif">
-                        <a href="{{ route('tax.index') }}" title="Dashboard" data-filter-tags="tax records">
-                            <i class="fal fa-tags"></i>
-                            <span class="nav-link-text">Tax Records</span>
-                        </a>
-                    </li>
+                        <li class="@if ($menu['menu'] == 'Tax') active @endif">
+                            <a href="{{ route('tax.index') }}" title="Dashboard" data-filter-tags="tax records">
+                                <i class="fal fa-tags"></i>
+                                <span class="nav-link-text">Tax Records</span>
+                            </a>
+                        </li>
                     @endif
                     @if (strpos(Auth::user()->role, 'ADMINISTRATOR') !== false)
-                    <li class="@if ($menu['menu'] == 'Config') active @endif">
-                        <a href="{{ url()->to('config') }}" title="Dashboard" data-filter-tags="settings">
-                            <i class="fal fa-cog"></i>
-                            <span class="nav-link-text">Settings</span>
-                        </a>
-                    </li>
+                        <li class="@if ($menu['menu'] == 'Config') active @endif">
+                            <a href="{{ url()->to('config') }}" title="Dashboard" data-filter-tags="settings">
+                                <i class="fal fa-cog"></i>
+                                <span class="nav-link-text">Settings</span>
+                            </a>
+                        </li>
                     @endif
                     <li class="@if ($menu['menu'] == 'Report') active show @endif">
                         <a href="#" title="Reports" data-filter-tags="report">
@@ -143,8 +142,9 @@
                 <!-- we need this logo when user switches to nav-function-top -->
                 <div class="page-logo">
                     <a href="#" class="page-logo-link press-scale-down d-flex align-items-center position-relative">
-                        <img src="{{ asset('images/logo.svg') }}" alt="CDN System" class="profile-image rounded-circle" style="width: 52px;height: 52px" aria-roledescription="logo">
-                        <span class="page-logo-text mr-1">CDN System</span>
+                        <img src="{{ asset('images/logo.svg') }}" alt="CDN System" class="profile-image rounded-circle" style="width: 52px;height: 52px"
+                             aria-roledescription="logo">
+                        <span class="page-logo-text mr-1">CDN System <i>for</i> Royal Malaysian Customs</span>
                     </a>
                 </div>
                 <!-- DOC: nav menu layout change shortcut -->
@@ -173,7 +173,7 @@
                 </div>
                 <div class="search">
                     <form class="app-forms hidden-xs-down" role="search" action="page_search.html" autocomplete="off">
-                        <input type="text" id="search-field" placeholder="Search SST Number" class="form-control" tabindex="1" style="text-transform: none">
+                        <input type="text" id="search-field" placeholder="Search company name or SST number" class="form-control" tabindex="1" style="text-transform: none">
                         <a href="#" onclick="return false;" class="btn-danger btn-search-close js-waves-off d-none" data-action="toggle" data-class="mobile-search-on">
                             <i class="fal fa-times"></i>
                         </a>
@@ -187,44 +187,44 @@
                         </a>
                     </div>
                     <!-- app notification -->
-{{--                    <div>--}}
-{{--                        <a href="#" class="header-icon" data-toggle="dropdown" title="You got 11 notifications">--}}
-{{--                            <i class="fal fa-bell"></i>--}}
-{{--                            <span class="badge badge-icon">11</span>--}}
-{{--                        </a>--}}
-{{--                        <div class="dropdown-menu dropdown-menu-animated dropdown-xl">--}}
-{{--                            <div class="dropdown-header bg-trans-gradient d-flex justify-content-center align-items-center rounded-top mb-2">--}}
-{{--                                <h4 class="m-0 text-center color-white">--}}
-{{--                                    11 New--}}
-{{--                                    <small class="mb-0 opacity-80">User Notifications</small>--}}
-{{--                                </h4>--}}
-{{--                            </div>--}}
-{{--                            <div class="custom-scroll h-100">--}}
-{{--                                <ul class="notification">--}}
-{{--                                    <li class="unread">--}}
-{{--                                        <a href="#" class="d-flex align-items-center">--}}
-{{--                                            <span class="status mr-2">--}}
-{{--                                                <span class="profile-image rounded-circle d-inline-block" style="background-image:url('{{ asset('images/demo/avatars/avatar-c.png') }}')"></span>--}}
-{{--                                            </span>--}}
-{{--                                            <span class="d-flex flex-column flex-1 ml-1">--}}
-{{--                                                <span class="name">Melissa Ayre <span class="badge badge-primary fw-n position-absolute pos-top pos-right mt-1">INBOX</span></span>--}}
-{{--                                                <span class="msg-a fs-sm">Re: New security codes</span>--}}
-{{--                                                <span class="msg-b fs-xs">Hello again and thanks for being part...</span>--}}
-{{--                                                <span class="fs-nano text-muted mt-1">56 seconds ago</span>--}}
-{{--                                            </span>--}}
-{{--                                        </a>--}}
-{{--                                    </li>--}}
-{{--                                </ul>--}}
-{{--                            </div>--}}
-{{--                            <div class="py-2 px-3 bg-faded d-block rounded-bottom text-right border-faded border-bottom-0 border-right-0 border-left-0">--}}
-{{--                                <a href="#" class="fs-xs fw-500 ml-auto">view all notifications</a>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-                    <!-- app user menu -->
+                {{--                    <div>--}}
+                {{--                        <a href="#" class="header-icon" data-toggle="dropdown" title="You got 11 notifications">--}}
+                {{--                            <i class="fal fa-bell"></i>--}}
+                {{--                            <span class="badge badge-icon">11</span>--}}
+                {{--                        </a>--}}
+                {{--                        <div class="dropdown-menu dropdown-menu-animated dropdown-xl">--}}
+                {{--                            <div class="dropdown-header bg-trans-gradient d-flex justify-content-center align-items-center rounded-top mb-2">--}}
+                {{--                                <h4 class="m-0 text-center color-white">--}}
+                {{--                                    11 New--}}
+                {{--                                    <small class="mb-0 opacity-80">User Notifications</small>--}}
+                {{--                                </h4>--}}
+                {{--                            </div>--}}
+                {{--                            <div class="custom-scroll h-100">--}}
+                {{--                                <ul class="notification">--}}
+                {{--                                    <li class="unread">--}}
+                {{--                                        <a href="#" class="d-flex align-items-center">--}}
+                {{--                                            <span class="status mr-2">--}}
+                {{--                                                <span class="profile-image rounded-circle d-inline-block" style="background-image:url('{{ asset('images/demo/avatars/avatar-c.png') }}')"></span>--}}
+                {{--                                            </span>--}}
+                {{--                                            <span class="d-flex flex-column flex-1 ml-1">--}}
+                {{--                                                <span class="name">Melissa Ayre <span class="badge badge-primary fw-n position-absolute pos-top pos-right mt-1">INBOX</span></span>--}}
+                {{--                                                <span class="msg-a fs-sm">Re: New security codes</span>--}}
+                {{--                                                <span class="msg-b fs-xs">Hello again and thanks for being part...</span>--}}
+                {{--                                                <span class="fs-nano text-muted mt-1">56 seconds ago</span>--}}
+                {{--                                            </span>--}}
+                {{--                                        </a>--}}
+                {{--                                    </li>--}}
+                {{--                                </ul>--}}
+                {{--                            </div>--}}
+                {{--                            <div class="py-2 px-3 bg-faded d-block rounded-bottom text-right border-faded border-bottom-0 border-right-0 border-left-0">--}}
+                {{--                                <a href="#" class="fs-xs fw-500 ml-auto">view all notifications</a>--}}
+                {{--                            </div>--}}
+                {{--                        </div>--}}
+                {{--                    </div>--}}
+                <!-- app user menu -->
                     <div>
-                        <a href="#" data-toggle="dropdown" title="drlantern@gotbootstrap.com" class="header-icon d-flex align-items-center justify-content-center ml-2">
-                            <img src="{{ asset('images/demo/avatars/avatar-admin.png') }}" class="profile-image rounded-circle" alt="Dr. Codex Lantern">
+                        <a href="#" data-toggle="dropdown" title="{{ \Auth::user()->username }}" class="header-icon d-flex align-items-center justify-content-center ml-2">
+                            <img src="{{ URL::to('asset/image?in=avatar&filename=' . \App\Libs\App::getFilename('image', \Auth::user()->avatar)) }}" class="profile-image rounded-circle" alt="Dr. Codex Lantern">
                             <!-- you can also add username next to the avatar with the codes below:
                             <span class="ml-1 mr-1 text-truncate text-truncate-header hidden-xs-down">Me</span>
                             <i class="ni ni-chevron-down hidden-xs-down"></i> -->
@@ -233,25 +233,26 @@
                             <div class="dropdown-header bg-trans-gradient d-flex flex-row py-4 rounded-top">
                                 <div class="d-flex flex-row align-items-center mt-1 mb-1 color-white">
                                             <span class="mr-2">
-                                                <img src="{{ asset('images/demo/avatars/avatar-admin.png') }}" class="rounded-circle profile-image" alt="Dr. Codex Lantern">
+                                                <img src="{{ URL::to('asset/image?in=avatar&filename=' . \App\Libs\App::getFilename('image', \Auth::user()->avatar)) }}" class="rounded-circle profile-image" alt="Dr. Codex Lantern">
                                             </span>
                                     <div class="info-card-text">
-                                        <div class="fs-lg text-truncate text-truncate-lg">Dr. Codex Lantern</div>
-                                        <span class="text-truncate text-truncate-md opacity-80">drlantern@gotbootstrap.com</span>
+                                        <div class="fs-lg text-truncate text-truncate-lg">{{ \Auth::user()->fullname }}</div>
+                                        <span class="text-truncate text-truncate-md opacity-80">
+                                            {{ \Auth::user()->username }}
+                                        </span>
                                     </div>
                                 </div>
                             </div>
                             <div class="dropdown-divider m-0"></div>
-                            <a href="{{ url()->to('profile') }}" class="dropdown-item" data-action="app-reset">
+                            <a href="{{ url()->to('profile') }}" class="dropdown-item">
                                 <span>Profile</span>
                             </a>
-                            <a href="{{ url()->to('profile') }}" class="dropdown-item" data-toggle="modal" data-target=".js-modal-settings">
+                            <a href="{{ url()->to('password') }}" class="dropdown-item">
                                 <span>Change Password</span>
                             </a>
                             <div class="dropdown-divider m-0"></div>
                             <a class="dropdown-item fw-500 pt-3 pb-3" href="{{ url()->to('logout') }}">
                                 <span>Logout</span>
-                                <span class="float-right fw-n">&commat;codexlantern</span>
                             </a>
                         </div>
                     </div>
@@ -259,19 +260,13 @@
             </header>
             <main id="js-page-content" role="main" class="page-content">
                 <ol class="breadcrumb page-breadcrumb">
-                    <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
-                    <li class="breadcrumb-item">Theme Settings</li>
-                    <li class="breadcrumb-item active">How it works</li>
+                    {!! $breadcrumb !!}
                     <li class="position-absolute pos-top pos-right d-none d-sm-block"><span class="js-get-date"></span></li>
                 </ol>
-                <div class="subheader">
-                    <h1 class="subheader-title">
-                        Theme Settings: <span class='fw-300'>How it works</span>
-                        <small>
-                            <span class='fw-500 color-info-700'>Mix and match</span> layout options to create over <span
-                                    class='fw-500 color-info-700'>36 layout possibilities</span>. Get the perfect layout to suite your business needs
-                        </small>
-                    </h1>
+                <div class="subheader mb-3">
+                    <h2 class="subheader-title">
+                        {{ $title }}
+                    </h2>
                 </div>
                 @yield("content")
                 @yield("modal")

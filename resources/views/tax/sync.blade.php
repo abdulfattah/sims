@@ -2,11 +2,6 @@
 
 @section("content")
     <div class="card">
-        <div class="card-header">
-            <div class="mt-1 float-left">
-                <strong>Syncronize Tax Record From Excel File</strong>
-            </div>
-        </div>
         <div class="card-body">
             <h5>Import base record from SST system</h5>
             <hr class="mt-1 mb-4">

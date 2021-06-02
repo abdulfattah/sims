@@ -86,6 +86,7 @@ class UserController extends Controller
         $data = array(
             'menu'       => ['menu' => 'Home', 'subMenu' => ''],
             'breadcrumb' => '<li class="breadcrumb-item">Home</li>',
+            'title'      => 'Dashboard',
         );
 
         if (strpos(Auth::user()->role, 'ADMINISTRATOR') !== false) {
@@ -122,6 +123,7 @@ class UserController extends Controller
                 'menu'       => ['menu' => 'Home', 'subMenu' => ''],
                 'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
                              <li class="breadcrumb-item active">Change Password</li>',
+                'title'      => 'Change Your Password'
             );
             return view('system.users.change_password', $data);
         } else {
@@ -146,6 +148,7 @@ class UserController extends Controller
             'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
                              <li class="breadcrumb-item active">Users</li>',
             'trashed'    => request()->get('show') == 'trashed',
+            'title'      => 'List All Users',
         );
 
         return view('system.users.index', $data);
@@ -158,6 +161,7 @@ class UserController extends Controller
             'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
                              <li class="breadcrumb-item"><a href="' . \URL::to('user') . '">Users</a></li>
                              <li class="breadcrumb-item active">Add New</li>',
+            'title'      => 'Add New User',
         );
 
         return view('system.users.form', $data);
@@ -169,7 +173,7 @@ class UserController extends Controller
             $defaultPassword = Models\SYSSetting::where('param', 'default_password')->get(['param', 'value'])->first();
             $user            = new Models\USRUsers();
             $user            = $this->populateSaveValue($user, \Request::all(), array(
-                'exclude' => array('_token', 'profile_image', 'roles', 'avatar'),
+                'exclude' => array('_token', 'profile_image', 'files', 'roles', 'avatar'),
             ));
             $user->role      = json_encode(request()->get('roles'));
             $user->password  = \Hash::make($defaultPassword->value);
@@ -212,6 +216,7 @@ class UserController extends Controller
                              <li class="breadcrumb-item"><a href="' . \URL::to('user') . '">Users</a></li>
                              <li class="breadcrumb-item active">Update</li>',
             'user'       => Models\USRUsers::find($id),
+            'title'      => 'Update User',
         );
 
         return view('system.users.form', $data);
@@ -221,7 +226,7 @@ class UserController extends Controller
     {
         $user = Models\USRUsers::find($id);
         $user = $this->populateSaveValue($user, \Request::all(), array(
-            'exclude' => array('_token', '_method', 'roles', 'profile_image', 'avatar'),
+            'exclude' => array('_token', '_method', 'roles', 'profile_image', 'files', 'avatar'),
         ));
         if (request()->get('roles') != null) {
             $user->role = json_encode(request()->get('roles'));
@@ -273,6 +278,7 @@ class UserController extends Controller
                              <li class="breadcrumb-item"><a href="' . \URL::to('user') . '">Users</a></li>
                              <li class="breadcrumb-item active">Show</li>',
             'user'       => Models\USRUsers::find($id),
+            'title'      => 'Show User',
         );
         return view('system.users.show', $data);
     }
@@ -282,8 +288,9 @@ class UserController extends Controller
         $data = array(
             'menu'       => ['menu' => 'Home', 'subMenu' => ''],
             'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
-                             <li class="breadcrumb-item active">Profail Anda</li>',
+                             <li class="breadcrumb-item active">Your Profile</li>',
             'user'       => Auth::user(),
+            'title'      => 'Your Profile',
         );
         return view('system.users.profile', $data);
     }

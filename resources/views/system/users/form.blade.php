@@ -1,9 +1,6 @@
 @extends('main')
 @section('content')
     <div class="card">
-        <div class="card-header">
-            @if(isset($user)) Update @else Create New @endif User
-        </div>
         <div class="card-body">
             <form method="POST" action="{{ isset($user) ? \URL::to('user', $user->id) : \URL::to('user') }}" id="form-user" class="form-horizontal" enctype="multipart/form-data"
                   novalidate>
@@ -75,9 +72,9 @@
         </div>
         <div class="card-footer text-right">
             @if (strpos(Auth::user()->role, 'ADMINISTRATOR') !== false)
-                <a href="{{ URL::to('user') }}" class="btn btn-ghost-danger">Cancel</a>
+                <a href="{{ URL::to('user') }}" class="text-danger mr-4">Cancel</a>
             @else
-                <a href="{{ URL::to('/') }}" class="btn btn-ghost-danger">Cancel</a>
+                <a href="{{ URL::to('/') }}" class="text-danger mr-4">Cancel</a>
             @endif
             <div data-dx="btn-submit" data-type="default" data-text="Submit" data-disabled="false" data-validation-group="form" data-form="form-user"></div>
         </div>

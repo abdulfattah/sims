@@ -2,10 +2,6 @@
     padding: 0 10px;
 }
 
-.breadcrumb {
-    margin-bottom: 0.65rem;
-}
-
 .was-validated .form-control:valid,
 .form-control.is-valid {
     background-image: none;
@@ -33,13 +29,8 @@ a:hover {
     text-decoration: none;
 }
 
-.card-header {
-    padding: 0.5rem 1rem;
-}
-
-.card-header-actions {
-    margin-top: -3px;
-    margin-bottom: -3px;
+.form-group {
+    margin-bottom: 1rem !important;
 }
 
 .dx-texteditor-input {

@@ -121,7 +121,9 @@
                     <dt class="col-md-2 pr-0" style="font-weight: normal">Kumpulan B<span class="float-right">:</span></dt>
                     <dd class="col-md-10 pl-1">Makanan & Minuman (Restoran, bar, snek bar, kantin, kedai kopi dll)</dd>
                     <dt class="col-md-2 pr-0" style="font-weight: normal">Kumpulan I<span class="float-right">:</span></dt>
-                    <dd class="col-md-10 pl-1">Penyedia Perkhidmatan Lain (Ejen penghantaran, pusat servis kenderaan dan tempat letak kereta, taman hiburan, perkhidmatan pembersihan)</dd>
+                    <dd class="col-md-10 pl-1">Penyedia Perkhidmatan Lain (Ejen penghantaran, pusat servis kenderaan dan tempat letak kereta, taman hiburan, perkhidmatan
+                        pembersihan)
+                    </dd>
                     <dt class="col-md-2 pr-0" style="font-weight: normal">Kumpulan G<span class="float-right">:</span></dt>
                     <dd class="col-md-10 pl-1">Perkhidmatan Professional (Agensi Persendirian, Perkhidmatan Pekerjaan)</dd>
                 </dl>
@@ -141,7 +143,9 @@
                     <dt class="col-md-2 pr-0" style="font-weight: normal">Kumpulan A<span class="float-right">:</span></dt>
                     <dd class="col-md-10 pl-1">Penginapan (Hotel, rumah tumpangan, rumah penginapan, pangsapuri servis dan rumah inapan)</dd>
                     <dt class="col-md-2 pr-0" style="font-weight: normal">Kumpulan I<span class="float-right">:</span></dt>
-                    <dd class="col-md-10 pl-1">Penyedia Perkhidmatan Lain (syarikat kiriman cepat, kereta sewa, bas carter, bas persiaran, perkhidmatan pengiklanan, pembrokeran dan penajajaminan)</dd>
+                    <dd class="col-md-10 pl-1">Penyedia Perkhidmatan Lain (syarikat kiriman cepat, kereta sewa, bas carter, bas persiaran, perkhidmatan pengiklanan, pembrokeran dan
+                        penajajaminan)
+                    </dd>
                 </dl>
             </td>
             <td>
@@ -161,7 +165,9 @@
                     <dt class="col-md-2 pr-0" style="font-weight: normal">Kumpulan E<span class="float-right">:</span></dt>
                     <dd class="col-md-10 pl-1">Kelab Golf & Lapang Sasar Golf</dd>
                     <dt class="col-md-2 pr-0" style="font-weight: normal">Kumpulan G<span class="float-right">:</span></dt>
-                    <dd class="col-md-10 pl-1">Perkhidmatan professional (Peguambela & Peguamcara, Peguam Syarie, Akauntan Awam, Juruukur, Penilai, Penaksir, Ejen Hartanah, Jurutera Profesional, Arkitek, Perkhidmatan Perunding, Latihan & Tunjuk Ajar, Pembekal Teknologi Maklumat, Pengurusan)</dd>
+                    <dd class="col-md-10 pl-1">Perkhidmatan professional (Peguambela & Peguamcara, Peguam Syarie, Akauntan Awam, Juruukur, Penilai, Penaksir, Ejen Hartanah,
+                        Jurutera Profesional, Arkitek, Perkhidmatan Perunding, Latihan & Tunjuk Ajar, Pembekal Teknologi Maklumat, Pengurusan)
+                    </dd>
                     <dt class="col-md-2 pr-0" style="font-weight: normal">Kumpulan H<span class="float-right">:</span></dt>
                     <dd class="col-md-10 pl-1">Kad Kredit dan Kad Caj</dd>
                     <dt class="col-md-2 pr-0" style="font-weight: normal">Kumpulan I<span class="float-right">:</span></dt>
@@ -267,7 +273,9 @@
         </tr>
         <tr>
             <td class="text-center">iv</td>
-            <td>Pengurusan yang bersistematik di mana pembahagian tugas setiap bahagian telah ditetapkan dan mempunyai pekerja yang cukup untuk menjalankan tugas cawangan-cawangan lain juga.</td>
+            <td>Pengurusan yang bersistematik di mana pembahagian tugas setiap bahagian telah ditetapkan dan mempunyai pekerja yang cukup untuk menjalankan tugas cawangan-cawangan
+                lain juga.
+            </td>
             <td>
                 <div class="form-check">
                     <input class="form-check-input" id="q4iv" type="radio" value="1"
