@@ -2,28 +2,13 @@
 
 @section("content")
     <div class="card">
-        <div class="card-header">
-            <div class="mt-1 float-left">
-                <strong>Profile 02</strong>
-            </div>
-            <div class="float-right" style="display: flex;flex-direction: row;">
-                <button class="btn btn-primary btn-sm grid-btn-refresh" type="button" data-for="profiling_02" style="margin-right: 4px;">
-                    <svg class="c-icon">
-                        <use xlink:href="{{ asset('icons/free.svg#cil-reload') }}"></use>
-                    </svg>
-                </button>
-                <div data-dx="tooltip" class="d-none">Reset List</div>
-                <button class="btn btn-primary btn-sm grid-btn-excel" type="button" style="margin-right: 4px;" data-for="profiling_02">
-                    <svg class="c-icon">
-                        <use xlink:href="{{ asset('icons/free.svg#cil-cloud-download') }}"></use>
-                    </svg>
-                </button>
-                <div data-dx="tooltip" class="d-none">Download Excel</div>
-            </div>
-        </div>
         <div class="card-body">
+            <div class="float-right" style="display: flex;flex-direction: row;">
+                <button type="button" class="btn btn-sm btn-primary waves-effect waves-themed mr-1 grid-btn-refresh" data-for="risk_entity">Reset List</button>
+                <button type="button" class="btn btn-sm btn-primary waves-effect waves-themed mr-1 grid-btn-excel" data-for="risk_entity">Export</button>
+            </div>
             <div class="table-responsive" style="background-color: #ffffff">
-                <div id="grid" data-for="profiling_02"></div>
+                <div id="grid" data-for="risk_entity"></div>
             </div>
             @csrf
             <strong>Petunjuk</strong>

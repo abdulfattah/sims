@@ -72,9 +72,9 @@
         </div>
         <div class="card-footer text-right">
             @if (strpos(Auth::user()->role, 'ADMINISTRATOR') !== false)
-                <a href="{{ URL::to('user') }}" class="text-danger mr-4">Cancel</a>
+                <a href="{{ URL::to('user') }}" class="text-danger mr-3">Cancel</a>
             @else
-                <a href="{{ URL::to('/') }}" class="text-danger mr-4">Cancel</a>
+                <a href="{{ URL::to('/') }}" class="text-danger mr-3">Cancel</a>
             @endif
             <div data-dx="btn-submit" data-type="default" data-text="Submit" data-disabled="false" data-validation-group="form" data-form="form-user"></div>
         </div>

@@ -76,15 +76,15 @@
     <div class="col-md-12">
         <dl class="row">
             <dt class="col-sm-3 col-xl-3">Current Status</dt>
-            <dd class="col-sm-9 col-xl-8">:
+            <dd class="col-sm-9 col-xl-8">
                 @if($tax->cdn_status == 'PERMOHONAN PEMBATALAN')
-                    <span class="badge badge-warning">{{ $tax->cdn_status }}</span>
+                    <span class="badge badge-warning">&nbsp;{{ $tax->cdn_status }}</span>
                 @else
-                    <span class="badge badge-info">{{ $tax->cdn_status }}</span>
+                    <span class="badge badge-info">&nbsp;{{ $tax->cdn_status }}</span>
                 @endif
             </dd>
             <dt class="col-sm-3 col-xl-3">Status Description</dt>
-            <dd class="col-sm-9 col-xl-8">{{ $tax->cdn_status_desc }}</dd>
+            <dd class="col-sm-9 col-xl-8">&nbsp;{{ $tax->cdn_status_desc }}</dd>
         </dl>
         <div class="text-right">
             <a href="javascript:void(0)" data-id="{{ $tax->id }}" class="btn btn-sm btn-primary edit-cdn-status">
@@ -110,8 +110,10 @@
                             <div class="form-group row">
                                 <label class="col-md-4 col-form-label">New Status</label>
                                 <div class="col-md-8">
-                                    <div data-dx="selectbox" data-name="cdn_status" data-source="cdnStatus" data-value-exp="id"
-                                         data-value="{{ $tax->cdn_status }}"></div>
+                                    <select class="form-control" name="cdn_status">
+                                        <option @if($tax->cdn_status == '' || $tax->cdn_status == null) @endif value=""></option>
+                                        <option @if($tax->cdn_status == 'PERMOHONAN PEMBATALAN') selected @endif value="PERMOHONAN PEMBATALAN">PERMOHONAN PEMBATALAN</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -125,7 +127,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button id="close" type="button" class="btn btn-ghost-danger" data-dismiss="modal">Cancel</button>
+                <a href="javascript: void(0)" data-dismiss="modal" class="text-danger mr-3">Cancel</a>
                 <div data-dx="btn-submit" data-type="default" data-text="Submit" data-disabled="false" data-validation-group="cdn-status" data-form="form-cdn-status"></div>
             </div>
         </div>

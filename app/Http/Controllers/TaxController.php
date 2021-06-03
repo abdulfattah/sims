@@ -171,7 +171,7 @@ class TaxController extends Controller
                 ->log('Create profiling 01');
 
             return redirect()->to('tax/' . request()->get('tax_id') . '?section=profiling')->with('success', 'Profiling 01 has been added.');
-        } elseif (request()->get('section') == 'profiling_02') {
+        } elseif (request()->get('section') == 'risk_entity') {
             $input = \Request::all();
             $tax   = TAXRecords::find(request()->get('tax_id'));
 
@@ -203,7 +203,7 @@ class TaxController extends Controller
                 ->log('Create profiling 02');
 
             return redirect()->to('tax/' . request()->get('tax_id') . '?section=profiling')->with('success', 'Profiling 02 has been added.');
-        } elseif (request()->get('section') == 'profiling_03') {
+        } elseif (request()->get('section') == 'risk_person') {
             $input = \Request::all();
             $tax   = TAXRecords::find(request()->get('tax_id'));
 
@@ -355,7 +355,7 @@ class TaxController extends Controller
                 ->log('Update profiling 01');
 
             return redirect()->to('tax/' . $id . '?section=profiling')->with('success', 'Profiling 01 has been update.');
-        } elseif (request()->get('section') == 'profiling_02') {
+        } elseif (request()->get('section') == 'risk_entity') {
             $input                    = \Request::all();
             $profiling                = TAXProfiling02::find(request()->get('id'));
             $tax                      = TAXRecords::find($profiling->tax_id);
@@ -386,7 +386,7 @@ class TaxController extends Controller
                 ->log('Update profiling 02');
 
             return redirect()->to('tax/' . $id . '?section=profiling')->with('success', 'Profiling 02 has been update.');
-        } elseif (request()->get('section') == 'profiling_03') {
+        } elseif (request()->get('section') == 'risk_person') {
             $input = \Request::all();
 
             $profiling                = TAXProfiling03::find(request()->get('id'));
@@ -466,11 +466,11 @@ class TaxController extends Controller
             $controller = new DxGridOfficial('tax_profiling_01',
                                              $cols,
                                              '');
-        } elseif ($exportWhat == 'profiling_02') {
+        } elseif ($exportWhat == 'risk_entity') {
             $controller = new DxGridOfficial('tax_profiling_02',
                                              $cols,
                                              '');
-        } elseif ($exportWhat == 'profiling_03') {
+        } elseif ($exportWhat == 'risk_person') {
             $controller = new DxGridOfficial('tax_profiling_03',
                                              $cols,
                                              '');
@@ -483,9 +483,9 @@ class TaxController extends Controller
                 return Excel::download(new TaxRecordsExport($response['data'], $arrayCols), '[CDN Information Integration System] Tax Records (' . date('d-m-Y') . ').xlsx');
             } elseif ($exportWhat == 'profiling_01') {
                 return Excel::download(new Profiling01Export($response['data'], $arrayCols), '[CDN Information Integration System] Profiling 01 (' . date('d-m-Y') . ').xlsx');
-            } elseif ($exportWhat == 'profiling_02') {
+            } elseif ($exportWhat == 'risk_entity') {
                 return Excel::download(new Profiling02Export($response['data'], $arrayCols), '[CDN Information Integration System] Profiling 02 (' . date('d-m-Y') . ').xlsx');
-            } elseif ($exportWhat == 'profiling_03') {
+            } elseif ($exportWhat == 'risk_person') {
                 return Excel::download(new Profiling03Export($response['data'], $arrayCols), '[CDN Information Integration System] Profiling 03 (' . date('d-m-Y') . ').xlsx');
             }
         } else {
@@ -507,14 +507,14 @@ class TaxController extends Controller
             $pdf = \PDF::loadView('print.profiling_01', $data);
 
             return $pdf->stream('Profiling 01 (' . $tax->sst_no . ').pdf');
-        } elseif ($printWhat == 'profiling_02') {
-//            return view('print.profiling_02', $data);
-            $pdf = \PDF::loadView('print.profiling_02', $data);
+        } elseif ($printWhat == 'risk_entity') {
+//            return view('print.risk_entity', $data);
+            $pdf = \PDF::loadView('print.risk_entity', $data);
 
             return $pdf->stream('Profiling 02 (' . $tax->sst_no . ').pdf');
-        } elseif ($printWhat == 'profiling_03') {
-//            return view('print.profiling_03', $data);
-            $pdf = \PDF::loadView('print.profiling_03', $data);
+        } elseif ($printWhat == 'risk_person') {
+//            return view('print.risk_person', $data);
+            $pdf = \PDF::loadView('print.risk_person', $data);
 
             return $pdf->stream('Profiling 03 (' . $tax->sst_no . ').pdf');
         }
@@ -522,19 +522,30 @@ class TaxController extends Controller
 
     function report($reportWhat)
     {
-        $data = array(
-            'menu'       => ['menu' => 'Report', 'subMenu' => 'Profile 01'],
-            'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
-                             <li class="breadcrumb-item active">Report Profile 01</li>',
-            'title'      => 'Report 01'
-        );
-
         if ($reportWhat == 'profiling_01') {
+            $data = array(
+                'menu'       => ['menu' => 'Report', 'subMenu' => 'Profile 01'],
+                'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
+                             <li class="breadcrumb-item active">Report</li>',
+                'title'      => 'Report 01'
+            );
             return view('report.profiling_01', $data);
-        } elseif ($reportWhat == 'profiling_02') {
-            return view('report.profiling_02', $data);
-        } elseif ($reportWhat == 'profiling_03') {
-            return view('report.profiling_03', $data);
+        } elseif ($reportWhat == 'risk_entity') {
+            $data = array(
+                'menu'       => ['menu' => 'Report', 'subMenu' => 'Risk Entity'],
+                'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
+                             <li class="breadcrumb-item active">Report</li>',
+                'title'      => 'Report Risk Entity'
+            );
+            return view('report.risk_entity', $data);
+        } elseif ($reportWhat == 'risk_person') {
+            $data = array(
+                'menu'       => ['menu' => 'Report', 'subMenu' => 'Risk Person'],
+                'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
+                             <li class="breadcrumb-item active">Report</li>',
+                'title'      => 'Report Risk Person'
+            );
+            return view('report.risk_person', $data);
         }
     }
 

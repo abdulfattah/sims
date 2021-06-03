@@ -96,14 +96,14 @@
                             <span class="nav-link-text">Reports</span>
                         </a>
                         <ul>
-                            <li class="@if ($menu['subMenu'] == 'Profile 01') active @endif">
-                                <a href="{{ url()->to('report/profiling_01') }}" title="Introduction" data-filter-tags="application intel introduction">
-                                    <span class="nav-link-text">Profail 01</span>
+                            <li class="@if ($menu['subMenu'] == 'Risk Entity') active @endif">
+                                <a href="{{ url()->to('report/risk_entity') }}" title="Introduction" data-filter-tags="application intel introduction">
+                                    <span class="nav-link-text">Entiti Cukai Jualan</span>
                                 </a>
                             </li>
-                            <li class="@if ($menu['subMenu'] == 'Profile 02') active @endif">
-                                <a href="{{ url()->to('report/profiling_01') }}" title="Privacy" data-filter-tags="application intel privacy">
-                                    <span class="nav-link-text">Privacy</span>
+                            <li class="@if ($menu['subMenu'] == 'Risk Person') active @endif">
+                                <a href="{{ url()->to('report/risk_person') }}" title="Privacy" data-filter-tags="application intel privacy">
+                                    <span class="nav-link-text">Orang Berdaftar</span>
                                 </a>
                             </li>
                         </ul>

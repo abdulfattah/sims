@@ -30,26 +30,10 @@
             </div>
         </div>
         <div class="card-footer text-right">
-            <a href="{{ URL::to('user') }}" class="text-danger mr-4">Cancel</a>
+            <a href="{{ URL::to('user') }}" class="text-danger mr-3">Cancel</a>
             <button type="button" class="btn btn-sm btn-primary" style="height: 33px" onclick="location.href = '{{ URL::to('user/' . $user->id . '/edit') }}';">
                 Update
             </button>
         </div>
     </div>
 @stop
-
-@section('page-script')
-    <script>
-        var clipboard = new ClipboardJS('.btn');
-        clipboard.on('success', function (e) {
-            $("#toastContainer").dxToast({
-                message: 'Pautan telah disalin',
-                type: "success",
-                width: 280,
-                position: {my: "right", at: "top right", offset: '-20 0', of: ".c-subheader"},
-                displayTime: 5000,
-            });
-            $("#toastContainer").dxToast('instance').show();
-        });
-    </script>
-@endsection

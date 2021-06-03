@@ -65,7 +65,7 @@ var myapp_config = {
 	Activate last tab
 	Stores the last tab in localstorage and activates it
 	*/
-	activateLastTab: true,	
+	activateLastTab: false,
 	/*
 	Primary menu anchor point #js-primary-nav
 	This is the root anchor point where the menu script will begin its build

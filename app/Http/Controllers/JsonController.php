@@ -146,12 +146,12 @@ class JsonController extends Controller
                                              'id, business_name, brn_no, mark_01, mark_02, mark_03, mark_04, mark_05, mark_06, mark_07, mark_08, mark_09, mark_10, ' .
                                              'mark_11, mark_12, risk_level_text',
                                              '');
-        } elseif ($profile == 'profiling_02') {
+        } elseif ($profile == 'risk_entity') {
             $controller = new DxGridOfficial('tax_profiling_02',
                                              'id, business_name, brn_no, mark_01, mark_02, mark_03, mark_04, mark_05, mark_06, mark_07, mark_08, mark_09, mark_10, ' .
                                              'mark_11, mark_12, risk_level_text',
                                              '');
-        } elseif ($profile == 'profiling_03') {
+        } elseif ($profile == 'risk_person') {
             $controller = new DxGridOfficial('tax_profiling_03',
                                              'id, business_name, brn_no, mark_01, mark_02, mark_03, mark_04, mark_05, mark_06, mark_07, mark_08, mark_09, risk_level_text',
                                              '');

@@ -360,9 +360,9 @@ jQuery(function ($) {
             localStorage.removeItem("indexTax");
         } else if ($(this).attr('data-for') == 'profiling_01') {
             localStorage.removeItem("indexProfile01");
-        } else if ($(this).attr('data-for') == 'profiling_02') {
+        } else if ($(this).attr('data-for') == 'risk_entity') {
             localStorage.removeItem("indexProfile02");
-        } else if ($(this).attr('data-for') == 'profiling_03') {
+        } else if ($(this).attr('data-for') == 'risk_person') {
             localStorage.removeItem("indexProfile03");
         }
         grid.state({});
@@ -399,10 +399,10 @@ jQuery(function ($) {
             location.href = baseURL + '/export/excel/tax/list?column=' + JSON.stringify(column) + '&filter=' + JSON.stringify(grid.getCombinedFilter()) + '&sort=' + JSON.stringify(sort);
         } else if ($(this).attr('data-for') == 'profiling_01') {
             location.href = baseURL + '/export/excel/tax/profiling_01?column=' + JSON.stringify(column) + '&filter=' + JSON.stringify(grid.getCombinedFilter()) + '&sort=' + JSON.stringify(sort);
-        } else if ($(this).attr('data-for') == 'profiling_02') {
-            location.href = baseURL + '/export/excel/tax/profiling_02?column=' + JSON.stringify(column) + '&filter=' + JSON.stringify(grid.getCombinedFilter()) + '&sort=' + JSON.stringify(sort);
-        } else if ($(this).attr('data-for') == 'profiling_03') {
-            location.href = baseURL + '/export/excel/tax/profiling_03?column=' + JSON.stringify(column) + '&filter=' + JSON.stringify(grid.getCombinedFilter()) + '&sort=' + JSON.stringify(sort);
+        } else if ($(this).attr('data-for') == 'risk_entity') {
+            location.href = baseURL + '/export/excel/tax/risk_entity?column=' + JSON.stringify(column) + '&filter=' + JSON.stringify(grid.getCombinedFilter()) + '&sort=' + JSON.stringify(sort);
+        } else if ($(this).attr('data-for') == 'risk_person') {
+            location.href = baseURL + '/export/excel/tax/risk_person?column=' + JSON.stringify(column) + '&filter=' + JSON.stringify(grid.getCombinedFilter()) + '&sort=' + JSON.stringify(sort);
         }
     });
 
@@ -1013,11 +1013,11 @@ jQuery(function ($) {
                 width: '10%',
                 dataField: "risk_level_text"
             }]);
-        } else if ($this.attr('data-for') == 'profiling_02') {
+        } else if ($this.attr('data-for') == 'risk_entity') {
             grid.option('dataSource', {
                 store: DevExpress.data.AspNet.createStore({
                     key: 'id',
-                    loadUrl: baseURL + '/data?b=' + '55a0c604380fe' + '&c=profiling_02'
+                    loadUrl: baseURL + '/data?b=' + '55a0c604380fe' + '&c=risk_entity'
                 })
             });
             grid.option('stateStoring', {
@@ -1141,11 +1141,11 @@ jQuery(function ($) {
                 width: '10%',
                 dataField: "risk_level_text"
             }]);
-        } else if ($this.attr('data-for') == 'profiling_03') {
+        } else if ($this.attr('data-for') == 'risk_person') {
             grid.option('dataSource', {
                 store: DevExpress.data.AspNet.createStore({
                     key: 'id',
-                    loadUrl: baseURL + '/data?b=' + '55a0c604380fe' + '&c=profiling_03'
+                    loadUrl: baseURL + '/data?b=' + '55a0c604380fe' + '&c=risk_person'
                 })
             });
             grid.option('stateStoring', {

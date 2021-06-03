@@ -5,66 +5,72 @@
             <div class="panel-content">
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link @if(\Request::get('section') == 'basic') active @endif" data-toggle="tab" href="#basic" role="tab" aria-controls="basic">Basic
-                            Information</a>
+                        <a class="nav-link @if(\Request::get('section') == 'basic') active @endif p-3" href="{{ url()->to('tax/' . $tax->id . '?section=basic') }}">
+                            <i class="fal fa-list-alt text-success"></i>
+                            Basic Information
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link @if(\Request::get('section') == 'additional') active @endif" data-toggle="tab" href="#additional" role="tab" aria-controls="additional">Additional
-                            Information</a>
+                        <a class="nav-link @if(\Request::get('section') == 'additional') active @endif p-3" href="{{ url()->to('tax/' . $tax->id . '?section=additional') }}">
+                            <i class="fal fa-list text-success"></i>
+                            Additional Information
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link @if(\Request::get('section') == 'attachment') active @endif" data-toggle="tab" href="#attachment" role="tab" aria-controls="attachment">Attachment</a>
+                        <a class="nav-link @if(\Request::get('section') == 'attachment') active @endif p-3" href="{{ url()->to('tax/' . $tax->id . '?section=attachment') }}">
+                            <i class="fal fa-paperclip text-success"></i>
+                            Attachment
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link @if(\Request::get('section') == 'profiling') active @endif" data-toggle="tab" href="#profiling" role="tab"
-                           aria-controls="profiling">Profiling</a>
+                        <a class="nav-link @if(\Request::get('section') == 'profiling') active @endif p-3" href="{{ url()->to('tax/' . $tax->id . '?section=profiling') }}">
+                            <i class="fal fa-user-alt text-success"></i>
+                            Profiling
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link @if(\Request::get('section') == 'note') active @endif" data-toggle="tab" href="#note" role="tab" aria-controls="note">Note</a>
+                        <a class="nav-link @if(\Request::get('section') == 'note') active @endif p-3" href="{{ url()->to('tax/' . $tax->id . '?section=note') }}">
+                            <i class="fal fa-sticky-note text-success"></i>
+                            Note
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link @if(\Request::get('section') == 'history') active @endif" data-toggle="tab" href="#history" role="tab"
-                           aria-controls="history">History</a>
+                        <a class="nav-link @if(\Request::get('section') == 'history') active @endif p-3" href="{{ url()->to('tax/' . $tax->id . '?section=history') }}">
+                            <i class="fal fa-history text-success"></i>
+                            History
+                        </a>
                     </li>
                 </ul>
                 <div class="tab-content border border-top-0 p-3">
-                    <div class="tab-pane @if(\Request::get('section') == 'basic') active @endif" id="basic" role="tabpanel">
+                    <div class="tab-pane @if(\Request::get('section') == 'basic') active @endif">
                         @include('tax.show.basic')
                     </div>
-                    <div class="tab-pane @if(\Request::get('section') == 'additional') active @endif" id="additional" role="tabpanel">
+                    <div class="tab-pane @if(\Request::get('section') == 'additional') active @endif">
                         @include('tax.show.additional')
                     </div>
-                    <div class="tab-pane @if(\Request::get('section') == 'attachment') active @endif" id="attachment" role="tabpanel">
+                    <div class="tab-pane @if(\Request::get('section') == 'attachment') active @endif">
                         @include('tax.show.attachment')
                     </div>
-                    <div class="tab-pane @if(\Request::get('section') == 'profiling') active @endif" id="profiling" role="tabpanel">
-                        <div class="row">
-                            <div class="col-2">
-                                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                    <a class="nav-link active" data-toggle="pill" href="#profiling_01" role="tab">Profile 01</a>
-                                    <a class="nav-link" data-toggle="pill" href="#profiling_02" role="tab">Profile 02</a>
-                                    <a class="nav-link" data-toggle="pill" href="#profiling_03" role="tab">Profile 03</a>
-                                </div>
-                            </div>
-                            <div class="col-10">
-                                <div class="tab-content" id="v-pills-tabContent">
-                                    <div class="tab-pane fade show active" id="profiling_01" role="tabpanel">
-                                        @include('tax.show.profiling_01')
+                    <div class="tab-pane @if(\Request::get('section') == 'profiling') active @endif">
+                            <div class="panel-content">
+                                <ul class="nav nav-pills" role="tablist">
+                                    <li class="nav-item"><a class="nav-link active" data-toggle="pill" href="#risk_entity">Entiti Cukai Jualan</a></li>
+                                    <li class="nav-item"><a class="nav-link" data-toggle="pill" href="#risk_person">Orang Berdaftar</a></li>
+                                </ul>
+                                <div class="tab-content py-3">
+                                    <div class="tab-pane fade active show" id="risk_entity" role="tabpanel">
+                                        @include('tax.show.risk_entity')
                                     </div>
-                                    <div class="tab-pane fade" id="profiling_02" role="tabpanel">
-                                        @include('tax.show.profiling_02')
-                                    </div>
-                                    <div class="tab-pane fade" id="profiling_03" role="tabpanel">
-                                        @include('tax.show.profiling_03')
+                                    <div class="tab-pane fade" id="risk_person" role="tabpanel">
+                                        @include('tax.show.risk_person')
                                     </div>
                                 </div>
                             </div>
-                        </div>
                     </div>
-                    <div class="tab-pane @if(\Request::get('section') == 'note') active @endif" id="note" role="tabpanel">
+                    <div class="tab-pane @if(\Request::get('section') == 'note') active @endif">
                         @include('tax.show.note')
                     </div>
-                    <div class="tab-pane @if(\Request::get('section') == 'history') active @endif" id="history" role="tabpanel">
+                    <div class="tab-pane @if(\Request::get('section') == 'history') active @endif">
                         @include('tax.show.history')
                     </div>
                 </div>
