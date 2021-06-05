@@ -57,7 +57,7 @@
             </td>
         </tr>
         <tr>
-            <td style="padding-left: 20px;">{{ $tax->profiling03->answer_02 }}</td>
+            <td style="padding-left: 20px;">{!! $tax->profiling03->answer_02 !!}</td>
             <td style="text-align: center;">{{ $tax->profiling03->mark_02 }}</td>
         </tr>
         <tr>

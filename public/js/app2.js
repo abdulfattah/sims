@@ -361,9 +361,9 @@ jQuery(function ($) {
         } else if ($(this).attr('data-for') == 'profiling_01') {
             localStorage.removeItem("indexProfile01");
         } else if ($(this).attr('data-for') == 'risk_entity') {
-            localStorage.removeItem("indexProfile02");
+            localStorage.removeItem("indexRiskEntity");
         } else if ($(this).attr('data-for') == 'risk_person') {
-            localStorage.removeItem("indexProfile03");
+            localStorage.removeItem("indexRiskPerson");
         }
         grid.state({});
         grid.option("searchPanel.visible", false);
@@ -925,7 +925,7 @@ jQuery(function ($) {
                     $('<a/>').addClass('dx-link')
                         .text(options.text)
                         .on('dxclick', function () {
-                            location.href = baseURL + '/tax/' + options.data.id + '?section=basic';
+                            location.href = baseURL + '/tax/' + options.data.tax_id + '?section=profiling';
                         })
                         .appendTo(container);
                 }
@@ -1023,17 +1023,17 @@ jQuery(function ($) {
             grid.option('stateStoring', {
                 enabled: true,
                 type: 'custom',
-                storageKey: 'indexProfile02',
+                storageKey: 'indexRiskEntity',
                 customLoad: function () {
                     var d = new $.Deferred();
                     setTimeout(function () {
-                        var state = localStorage.getItem("indexProfile02");
+                        var state = localStorage.getItem("indexRiskEntity");
                         d.resolve($.parseJSON(state));
                     }, 1000);
                     return d.promise();
                 },
                 customSave: function (gridState) {
-                    localStorage.setItem("indexProfile02", JSON.stringify(gridState));
+                    localStorage.setItem("indexRiskEntity", JSON.stringify(gridState));
                 }
             });
 
@@ -1053,7 +1053,7 @@ jQuery(function ($) {
                     $('<a/>').addClass('dx-link')
                         .text(options.text)
                         .on('dxclick', function () {
-                            location.href = baseURL + '/tax/' + options.data.id + '?section=basic';
+                            location.href = baseURL + '/tax/' + options.data.tax_id + '?section=profiling';
                         })
                         .appendTo(container);
                 }
@@ -1151,17 +1151,17 @@ jQuery(function ($) {
             grid.option('stateStoring', {
                 enabled: true,
                 type: 'custom',
-                storageKey: 'indexProfile03',
+                storageKey: 'indexRiskPerson',
                 customLoad: function () {
                     var d = new $.Deferred();
                     setTimeout(function () {
-                        var state = localStorage.getItem("indexProfile03");
+                        var state = localStorage.getItem("indexRiskPerson");
                         d.resolve($.parseJSON(state));
                     }, 1000);
                     return d.promise();
                 },
                 customSave: function (gridState) {
-                    localStorage.setItem("indexProfile03", JSON.stringify(gridState));
+                    localStorage.setItem("indexRiskPerson", JSON.stringify(gridState));
                 }
             });
             grid.option('columns', [
@@ -1181,7 +1181,7 @@ jQuery(function ($) {
                     $('<a/>').addClass('dx-link')
                         .text(options.text)
                         .on('dxclick', function () {
-                            location.href = baseURL + '/tax/' + options.data.id + '?section=basic';
+                            location.href = baseURL + '/tax/' + options.data.tax_id + '?section=profiling';
                         })
                         .appendTo(container);
                 }

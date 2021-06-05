@@ -13,7 +13,7 @@ class ConfigController extends Controller
     public function index()
     {
         $data = array(
-            'menu'       => ['menu' => 'Tetapan', 'subMenu' => ''],
+            'menu'       => ['menu' => 'Config', 'subMenu' => ''],
             'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
                              <li class="breadcrumb-item active">Configuration</li>',
             'title'      => 'Configuration',

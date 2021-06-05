@@ -143,17 +143,17 @@ class JsonController extends Controller
         $response   = null;
         if ($profile == 'profiling_01') {
             $controller = new DxGridOfficial('tax_profiling_01',
-                                             'id, business_name, brn_no, mark_01, mark_02, mark_03, mark_04, mark_05, mark_06, mark_07, mark_08, mark_09, mark_10, ' .
+                                             'id, tax_id, business_name, brn_no, mark_01, mark_02, mark_03, mark_04, mark_05, mark_06, mark_07, mark_08, mark_09, mark_10, ' .
                                              'mark_11, mark_12, risk_level_text',
                                              '');
         } elseif ($profile == 'risk_entity') {
             $controller = new DxGridOfficial('tax_profiling_02',
-                                             'id, business_name, brn_no, mark_01, mark_02, mark_03, mark_04, mark_05, mark_06, mark_07, mark_08, mark_09, mark_10, ' .
+                                             'id, tax_id, business_name, brn_no, mark_01, mark_02, mark_03, mark_04, mark_05, mark_06, mark_07, mark_08, mark_09, mark_10, ' .
                                              'mark_11, mark_12, risk_level_text',
                                              '');
         } elseif ($profile == 'risk_person') {
             $controller = new DxGridOfficial('tax_profiling_03',
-                                             'id, business_name, brn_no, mark_01, mark_02, mark_03, mark_04, mark_05, mark_06, mark_07, mark_08, mark_09, risk_level_text',
+                                             'id, tax_id, business_name, brn_no, mark_01, mark_02, mark_03, mark_04, mark_05, mark_06, mark_07, mark_08, mark_09, risk_level_text',
                                              '');
         }
         $params     = $controller->GetParseParams($_GET);

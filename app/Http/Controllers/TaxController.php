@@ -202,7 +202,7 @@ class TaxController extends Controller
                 ->performedOn($tax)
                 ->log('Create profiling 02');
 
-            return redirect()->to('tax/' . request()->get('tax_id') . '?section=profiling')->with('success', 'Profiling 02 has been added.');
+            return redirect()->to('tax/' . request()->get('tax_id') . '?section=profiling')->with('success', 'Risk entity has been added.');
         } elseif (request()->get('section') == 'risk_person') {
             $input = \Request::all();
             $tax   = TAXRecords::find(request()->get('tax_id'));
@@ -231,7 +231,7 @@ class TaxController extends Controller
                 ->performedOn($tax)
                 ->log('Create profiling 03');
 
-            return redirect()->to('tax/' . request()->get('tax_id') . '?section=profiling')->with('success', 'Profiling 03 has been added.');
+            return redirect()->to('tax/' . request()->get('tax_id') . '?section=profiling')->with('success', 'Risk person has been added.');
         } elseif (request()->get('section') == 'note') {
             $note                = new TAXNote();
             $note->tax_record_id = request()->get('tax_record_id');
@@ -385,7 +385,7 @@ class TaxController extends Controller
                 ->performedOn($tax)
                 ->log('Update profiling 02');
 
-            return redirect()->to('tax/' . $id . '?section=profiling')->with('success', 'Profiling 02 has been update.');
+            return redirect()->to('tax/' . $id . '?section=profiling')->with('success', 'Risk entity has been update.');
         } elseif (request()->get('section') == 'risk_person') {
             $input = \Request::all();
 
@@ -414,7 +414,7 @@ class TaxController extends Controller
                 ->performedOn($tax)
                 ->log('Update profiling 03');
 
-            return redirect()->to('tax/' . $id . '?section=profiling')->with('success', 'Profiling 03 has been update.');
+            return redirect()->to('tax/' . $id . '?section=profiling')->with('success', 'Risk person has been update.');
         } elseif (request()->get('section') == 'note') {
             $note             = TAXNote::find(request()->get('id'));
             $note->note_title = request()->get('note_title');
@@ -484,9 +484,9 @@ class TaxController extends Controller
             } elseif ($exportWhat == 'profiling_01') {
                 return Excel::download(new Profiling01Export($response['data'], $arrayCols), '[CDN Information Integration System] Profiling 01 (' . date('d-m-Y') . ').xlsx');
             } elseif ($exportWhat == 'risk_entity') {
-                return Excel::download(new Profiling02Export($response['data'], $arrayCols), '[CDN Information Integration System] Profiling 02 (' . date('d-m-Y') . ').xlsx');
+                return Excel::download(new Profiling02Export($response['data'], $arrayCols), '[CDN Information Integration System] Risk Entity (' . date('d-m-Y') . ').xlsx');
             } elseif ($exportWhat == 'risk_person') {
-                return Excel::download(new Profiling03Export($response['data'], $arrayCols), '[CDN Information Integration System] Profiling 03 (' . date('d-m-Y') . ').xlsx');
+                return Excel::download(new Profiling03Export($response['data'], $arrayCols), '[CDN Information Integration System] Risk Person (' . date('d-m-Y') . ').xlsx');
             }
         } else {
             header("HTTP/1.1 500 Internal Server Error");
@@ -511,12 +511,12 @@ class TaxController extends Controller
 //            return view('print.risk_entity', $data);
             $pdf = \PDF::loadView('print.risk_entity', $data);
 
-            return $pdf->stream('Profiling 02 (' . $tax->sst_no . ').pdf');
+            return $pdf->stream('Risk Entity (' . $tax->sst_no . ').pdf');
         } elseif ($printWhat == 'risk_person') {
 //            return view('print.risk_person', $data);
             $pdf = \PDF::loadView('print.risk_person', $data);
 
-            return $pdf->stream('Profiling 03 (' . $tax->sst_no . ').pdf');
+            return $pdf->stream('Risk Person (' . $tax->sst_no . ').pdf');
         }
     }
 
