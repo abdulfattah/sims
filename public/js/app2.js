@@ -603,6 +603,14 @@ jQuery(function ($) {
                     loadUrl: baseURL + '/data?b=' + '55a0c60437d14' + '&c=' + $this.attr('data-trashed')
                 })
             });
+            grid.option('onContentReady', function (e) {
+                var visibleRowsCount = e.component.totalCount();
+                var pageSize = e.component.pageSize();
+                if (visibleRowsCount > pageSize)
+                    visibleRowsCount = pageSize;
+                var totalCount = e.component.option('dataSource').length;
+                e.component.option('pager.infoText', 'Displaying ' + visibleRowsCount + ' of '+totalCount+' records');
+            });
             grid.option('stateStoring', {
                 enabled: true,
                 type: 'custom',
@@ -622,6 +630,20 @@ jQuery(function ($) {
             var columns = [];
             if ($this.attr('data-trashed') == '1') {
                 columns.push({
+                    caption: '#',
+                    dataField: 'id',
+                    fixed: true,
+                    showInColumnChooser: false,
+                    allowSearch: false,
+                    allowSorting: false,
+                    allowGrouping: false,
+                    allowHiding: false,
+                    allowFiltering: false,
+                    allowHeaderFiltering: false,
+                    cellTemplate: function(cellElement, cellInfo) {
+                        cellElement.text(cellInfo.row.rowIndex)
+                    }
+                },{
                     caption: '',
                     alignment: 'center',
                     dataField: 'id',
@@ -637,7 +659,7 @@ jQuery(function ($) {
                     cellTemplate: function (container, options) {
                         $("<a/>")
                             .attr('href', 'javascript:void')
-                            .html('<i class="c-icon cil-action-undo"></i>')
+                            .html('<i class="fal fa-undo"></i>')
                             .bind("click", function () {
                                 var msg = "This tax record will be restored";
                                 restoreRecord(baseURL + '/tax/restore/' + options.data.id, grid, msg);
@@ -654,6 +676,22 @@ jQuery(function ($) {
                 });
             } else {
                 columns.push({
+                    caption: '#',
+                    dataField: 'id',
+                    fixed: true,
+                    showInColumnChooser: false,
+                    allowSearch: false,
+                    allowSorting: false,
+                    allowGrouping: false,
+                    allowHiding: false,
+                    allowFiltering: false,
+                    allowHeaderFiltering: false,
+                    cellTemplate: function (cellElement, e) {
+                        var dataGrid = $('#grid[data-for="tax"]').dxDataGrid("instance");
+                        var index = dataGrid.pageIndex() * dataGrid.pageSize() + e.rowIndex + 1;
+                        cellElement.text(index);
+                    }
+                }, {
                     caption: '',
                     alignment: 'center',
                     dataField: 'id',
@@ -669,7 +707,7 @@ jQuery(function ($) {
                     cellTemplate: function (container, options) {
                         $("<a/>")
                             .attr('href', 'javascript:void')
-                            .html('<i class="c-icon cil-trash text-danger"></i>')
+                            .html('<i class="fal fa-trash text-danger"></i>')
                             .bind("click", function () {
                                 var msg = "This tax record will be deleted from system";
                                 deleteGridRecord(baseURL + '/tax/' + options.data.id, grid, msg);
@@ -911,108 +949,108 @@ jQuery(function ($) {
             grid.option('columns', [
                 {
                     caption: '#',
-                    cellTemplate: function(cellElement, cellInfo) {
+                    cellTemplate: function (cellElement, cellInfo) {
                         cellElement.text(cellInfo.row.rowIndex + 1)
                     }
                 }, {
-                caption: 'Business Name',
-                dataType: 'string',
-                dataField: "business_name",
-                width: '24%',
-                sortOrder: 'asc',
-                allowHeaderFiltering: false,
-                cellTemplate: function (container, options) {
-                    $('<a/>').addClass('dx-link')
-                        .text(options.text)
-                        .on('dxclick', function () {
-                            location.href = baseURL + '/tax/' + options.data.tax_id + '?section=profiling';
-                        })
-                        .appendTo(container);
-                }
-            }, {
-                caption: 'Brn No',
-                dataType: 'string',
-                dataField: "brn_no",
-                allowHeaderFiltering: false,
-                width: '10%'
-            }, {
-                caption: 'S1',
-                dataType: 'number',
-                width: '5%',
-                allowHeaderFiltering: false,
-                dataField: "mark_01"
-            }, {
-                caption: 'S2',
-                dataType: 'number',
-                width: '5%',
-                allowHeaderFiltering: false,
-                dataField: "mark_02"
-            }, {
-                caption: 'S3',
-                dataType: 'number',
-                width: '5%',
-                allowHeaderFiltering: false,
-                dataField: "mark_03"
-            }, {
-                caption: 'S4',
-                dataType: 'number',
-                width: '5%',
-                allowHeaderFiltering: false,
-                dataField: "mark_04"
-            }, {
-                caption: 'S5',
-                dataType: 'number',
-                width: '5%',
-                allowHeaderFiltering: false,
-                dataField: "mark_05"
-            }, {
-                caption: 'S6',
-                dataType: 'number',
-                width: '5%',
-                allowHeaderFiltering: false,
-                dataField: "mark_06"
-            }, {
-                caption: 'S7',
-                dataType: 'number',
-                width: '5%',
-                allowHeaderFiltering: false,
-                dataField: "mark_07"
-            }, {
-                caption: 'S8',
-                dataType: 'number',
-                width: '5%',
-                allowHeaderFiltering: false,
-                dataField: "mark_08"
-            }, {
-                caption: 'S9',
-                dataType: 'number',
-                width: '5%',
-                allowHeaderFiltering: false,
-                dataField: "mark_09"
-            }, {
-                caption: 'S10',
-                dataType: 'number',
-                width: '5%',
-                allowHeaderFiltering: false,
-                dataField: "mark_10"
-            }, {
-                caption: 'S11',
-                dataType: 'number',
-                width: '5%',
-                allowHeaderFiltering: false,
-                dataField: "mark_11"
-            }, {
-                caption: 'S12',
-                dataType: 'number',
-                width: '5%',
-                allowHeaderFiltering: false,
-                dataField: "mark_12"
-            }, {
-                caption: 'Risk Level',
-                dataType: 'string',
-                width: '10%',
-                dataField: "risk_level_text"
-            }]);
+                    caption: 'Business Name',
+                    dataType: 'string',
+                    dataField: "business_name",
+                    width: '24%',
+                    sortOrder: 'asc',
+                    allowHeaderFiltering: false,
+                    cellTemplate: function (container, options) {
+                        $('<a/>').addClass('dx-link')
+                            .text(options.text)
+                            .on('dxclick', function () {
+                                location.href = baseURL + '/tax/' + options.data.tax_id + '?section=profiling';
+                            })
+                            .appendTo(container);
+                    }
+                }, {
+                    caption: 'Brn No',
+                    dataType: 'string',
+                    dataField: "brn_no",
+                    allowHeaderFiltering: false,
+                    width: '10%'
+                }, {
+                    caption: 'S1',
+                    dataType: 'number',
+                    width: '5%',
+                    allowHeaderFiltering: false,
+                    dataField: "mark_01"
+                }, {
+                    caption: 'S2',
+                    dataType: 'number',
+                    width: '5%',
+                    allowHeaderFiltering: false,
+                    dataField: "mark_02"
+                }, {
+                    caption: 'S3',
+                    dataType: 'number',
+                    width: '5%',
+                    allowHeaderFiltering: false,
+                    dataField: "mark_03"
+                }, {
+                    caption: 'S4',
+                    dataType: 'number',
+                    width: '5%',
+                    allowHeaderFiltering: false,
+                    dataField: "mark_04"
+                }, {
+                    caption: 'S5',
+                    dataType: 'number',
+                    width: '5%',
+                    allowHeaderFiltering: false,
+                    dataField: "mark_05"
+                }, {
+                    caption: 'S6',
+                    dataType: 'number',
+                    width: '5%',
+                    allowHeaderFiltering: false,
+                    dataField: "mark_06"
+                }, {
+                    caption: 'S7',
+                    dataType: 'number',
+                    width: '5%',
+                    allowHeaderFiltering: false,
+                    dataField: "mark_07"
+                }, {
+                    caption: 'S8',
+                    dataType: 'number',
+                    width: '5%',
+                    allowHeaderFiltering: false,
+                    dataField: "mark_08"
+                }, {
+                    caption: 'S9',
+                    dataType: 'number',
+                    width: '5%',
+                    allowHeaderFiltering: false,
+                    dataField: "mark_09"
+                }, {
+                    caption: 'S10',
+                    dataType: 'number',
+                    width: '5%',
+                    allowHeaderFiltering: false,
+                    dataField: "mark_10"
+                }, {
+                    caption: 'S11',
+                    dataType: 'number',
+                    width: '5%',
+                    allowHeaderFiltering: false,
+                    dataField: "mark_11"
+                }, {
+                    caption: 'S12',
+                    dataType: 'number',
+                    width: '5%',
+                    allowHeaderFiltering: false,
+                    dataField: "mark_12"
+                }, {
+                    caption: 'Risk Level',
+                    dataType: 'string',
+                    width: '10%',
+                    dataField: "risk_level_text"
+                }]);
         } else if ($this.attr('data-for') == 'risk_entity') {
             grid.option('dataSource', {
                 store: DevExpress.data.AspNet.createStore({
@@ -1039,7 +1077,7 @@ jQuery(function ($) {
 
             grid.option('columns', [{
                 caption: '#',
-                cellTemplate: function(cellElement, cellInfo) {
+                cellTemplate: function (cellElement, cellInfo) {
                     cellElement.text(cellInfo.row.rowIndex + 1)
                 }
             }, {
@@ -1167,90 +1205,90 @@ jQuery(function ($) {
             grid.option('columns', [
                 {
                     caption: '#',
-                    cellTemplate: function(cellElement, cellInfo) {
+                    cellTemplate: function (cellElement, cellInfo) {
                         cellElement.text(cellInfo.row.rowIndex + 1)
                     }
                 }, {
-                caption: 'Business Name',
-                dataType: 'string',
-                dataField: "business_name",
-                width: '35%',
-                sortOrder: 'asc',
-                allowHeaderFiltering: false,
-                cellTemplate: function (container, options) {
-                    $('<a/>').addClass('dx-link')
-                        .text(options.text)
-                        .on('dxclick', function () {
-                            location.href = baseURL + '/tax/' + options.data.tax_id + '?section=profiling';
-                        })
-                        .appendTo(container);
-                }
-            }, {
-                caption: 'Brn No',
-                dataType: 'string',
-                dataField: "brn_no",
-                width: '14%',
-                allowHeaderFiltering: false
-            }, {
-                caption: 'S1',
-                dataType: 'number',
-                width: '5%',
-                allowHeaderFiltering: false,
-                dataField: "mark_01"
-            }, {
-                caption: 'S2',
-                dataType: 'number',
-                width: '5%',
-                allowHeaderFiltering: false,
-                dataField: "mark_02"
-            }, {
-                caption: 'S3',
-                dataType: 'number',
-                width: '5%',
-                allowHeaderFiltering: false,
-                dataField: "mark_03"
-            }, {
-                caption: 'S4',
-                dataType: 'number',
-                width: '5%',
-                allowHeaderFiltering: false,
-                dataField: "mark_04"
-            }, {
-                caption: 'S5',
-                dataType: 'number',
-                width: '5%',
-                allowHeaderFiltering: false,
-                dataField: "mark_05"
-            }, {
-                caption: 'S6',
-                dataType: 'number',
-                width: '5%',
-                allowHeaderFiltering: false,
-                dataField: "mark_06"
-            }, {
-                caption: 'S7',
-                dataType: 'number',
-                width: '5%',
-                allowHeaderFiltering: false,
-                dataField: "mark_07"
-            }, {
-                caption: 'S8',
-                dataType: 'number',
-                width: '5%',
-                allowHeaderFiltering: false,
-                dataField: "mark_08"
-            }, {
-                caption: 'S9',
-                dataType: 'number',
-                width: '5%',
-                allowHeaderFiltering: false,
-                dataField: "mark_09"
-            }, {
-                caption: 'Risk Level',
-                dataType: 'string',
-                width: '10%',
-                dataField: "risk_level_text"
-            }]);
+                    caption: 'Business Name',
+                    dataType: 'string',
+                    dataField: "business_name",
+                    width: '35%',
+                    sortOrder: 'asc',
+                    allowHeaderFiltering: false,
+                    cellTemplate: function (container, options) {
+                        $('<a/>').addClass('dx-link')
+                            .text(options.text)
+                            .on('dxclick', function () {
+                                location.href = baseURL + '/tax/' + options.data.tax_id + '?section=profiling';
+                            })
+                            .appendTo(container);
+                    }
+                }, {
+                    caption: 'Brn No',
+                    dataType: 'string',
+                    dataField: "brn_no",
+                    width: '14%',
+                    allowHeaderFiltering: false
+                }, {
+                    caption: 'S1',
+                    dataType: 'number',
+                    width: '5%',
+                    allowHeaderFiltering: false,
+                    dataField: "mark_01"
+                }, {
+                    caption: 'S2',
+                    dataType: 'number',
+                    width: '5%',
+                    allowHeaderFiltering: false,
+                    dataField: "mark_02"
+                }, {
+                    caption: 'S3',
+                    dataType: 'number',
+                    width: '5%',
+                    allowHeaderFiltering: false,
+                    dataField: "mark_03"
+                }, {
+                    caption: 'S4',
+                    dataType: 'number',
+                    width: '5%',
+                    allowHeaderFiltering: false,
+                    dataField: "mark_04"
+                }, {
+                    caption: 'S5',
+                    dataType: 'number',
+                    width: '5%',
+                    allowHeaderFiltering: false,
+                    dataField: "mark_05"
+                }, {
+                    caption: 'S6',
+                    dataType: 'number',
+                    width: '5%',
+                    allowHeaderFiltering: false,
+                    dataField: "mark_06"
+                }, {
+                    caption: 'S7',
+                    dataType: 'number',
+                    width: '5%',
+                    allowHeaderFiltering: false,
+                    dataField: "mark_07"
+                }, {
+                    caption: 'S8',
+                    dataType: 'number',
+                    width: '5%',
+                    allowHeaderFiltering: false,
+                    dataField: "mark_08"
+                }, {
+                    caption: 'S9',
+                    dataType: 'number',
+                    width: '5%',
+                    allowHeaderFiltering: false,
+                    dataField: "mark_09"
+                }, {
+                    caption: 'Risk Level',
+                    dataType: 'string',
+                    width: '10%',
+                    dataField: "risk_level_text"
+                }]);
         }
     });
     //end grid
