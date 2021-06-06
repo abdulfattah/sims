@@ -6,9 +6,9 @@
 <table class="table table-responsive-sm table-sm mt-3">
     <thead>
     <tr>
-        <th style="width: 65%;">Title</th>
-        <th style="width: 20%;">Note By</th>
-        <th style="width: 12%;">Date</th>
+        <th style="width: 50%;">Title</th>
+        <th style="width: 32%;">Note By</th>
+        <th style="width: 15%;">Date</th>
         <th style="width: 70px">&nbsp;</th>
     </tr>
     </thead>
@@ -51,7 +51,7 @@
                         <div class="col-md-12">
                             <div class="form-group" style="height:350px">
                                 <label for="name">Note</label>
-                                <div id="quill-note"></div>
+                                <div id="note-content"></div>
                             </div>
                         </div>
                     </div>
@@ -96,24 +96,24 @@
     </div>
 </div>
 
-@section('page-css')
-    <style>
-        #quill-note {
-            height: 84%;
-        }
-    </style>
-@stop
-
 @section('page-script')
     <script type="text/javascript">
         $(document).ready(function () {
-            var quill = new Quill('#quill-note', {
-                placeholder: 'Type your note here...',
-                theme: 'snow'
+            tinymce.init({
+                selector: '#note-content',
+                menubar: false,
+                toolbar: 'undo redo styleselect bold italic alignleft aligncenter alignright alignjustify | bullist numlist outdent indent',
+                height: 350
             });
-
+            
+            $(document).on('focusin', function(e) {
+                if ($(e.target).closest(".tox-tinymce, .tox-tinymce-aux, .moxman-window, .tam-assetmanager-root").length) {
+                    e.stopImmediatePropagation();
+                }
+            });
+            
             $("#form-note").on("submit", function () {
-                $(this).append("<textarea name='note' style='display:none'>" + $('.ql-editor')[0].innerHTML + "</textarea>");
+                $(this).append("<textarea name='note' style='display:none'>" + tinymce.activeEditor.getContent() + "</textarea>");
             });
         });
     </script>
