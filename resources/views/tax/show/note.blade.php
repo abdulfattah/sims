@@ -20,7 +20,9 @@
             <td>{{ $note->created_at != null ? date('d-M-Y h:i:s A', strtotime($note->created_at)) : null }}</td>
             <th style="text-align: right">
                 <a href="javascript:void(0)" data-id="{{ $note->id }}" class="edit-note"><i class="c-icon cil-pencil"></i></a>
-                <a href="javascript:void(0)" data-id="{{ $note->id }}" data-tax-id="{{ $note->tax_record_id }}" class="delete-note"><i class="c-icon cil-trash text-danger"></i></a>
+                <a href="javascript:void(0)" data-id="{{ $note->id }}" data-tax-id="{{ $note->tax_record_id }}" class="delete-note">
+                    <i class="fal fa-trash text-danger"></i></a>
+                </a>
             </th>
         </tr>
     @endforeach
@@ -58,7 +60,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button id="close" type="button" class="btn btn-ghost-danger" data-dismiss="modal">Cancel</button>
+                <a href="javascript: void(0)" data-dismiss="modal" class="text-danger mr-3">Cancel</a>
                 <div data-dx="btn-submit" data-type="default" data-text="Submit" data-disabled="false" data-validation-group="note" data-form="form-note"></div>
             </div>
         </div>

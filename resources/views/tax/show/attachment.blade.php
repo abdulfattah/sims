@@ -24,8 +24,8 @@
             <td>{{ $attachment->created_at != null ? date('d-M-Y h:i:s A', strtotime($attachment->created_at)) : null }}</td>
             <th style="text-align: right">
                 <a href="javascript:void(0)" data-id="{{ $attachment->id }}" class="edit-attachment"><i class="c-icon cil-pencil"></i></a>
-                <a href="javascript:void(0)" data-id="{{ $attachment->id }}" data-tax-id="{{ $attachment->for_id }}" class="delete-attachment"><i
-                            class="c-icon cil-trash text-danger"></i></a>
+                <a href="javascript:void(0)" data-id="{{ $attachment->id }}" data-tax-id="{{ $attachment->for_id }}" class="delete-attachment">
+                    <i class="fal fa-trash text-danger"></i></a>
             </th>
         </tr>
     @endforeach
@@ -71,7 +71,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button id="close" type="button" class="btn btn-ghost-danger" data-dismiss="modal">Cancel</button>
+                <a href="javascript: void(0)" data-dismiss="modal" class="text-danger mr-3">Cancel</a>
                 <div data-dx="btn-submit" data-type="default" data-text="Upload" data-disabled="false" data-validation-group="attachment" data-form="form-attachment"></div>
             </div>
         </div>

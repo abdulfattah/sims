@@ -284,7 +284,7 @@
                             <a href="intel_introduction.html" class="text-secondary fw-700">About CDN</a>
                         </li>
                         <li class="pl-3">
-                            <a href="info_app_docs.html" class="text-secondary fw-700">User Manual</a>
+                            <a href="{{ asset('user_manual.pdf') }}" target="_blank" style="text-decoration: none !important;" class="text-secondary fw-700">User Manual</a>
                         </li>
                         <li class="pl-3 fs-xl">
                             <a href="https://wrapbootstrap.com/user/MyOrange" class="text-secondary" target="_blank">
