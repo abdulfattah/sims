@@ -35,9 +35,18 @@ return [
     */
 
     'channels' => [
+        'rollbar' => [
+            'driver' => 'monolog',
+            'person_fn' => 'Auth::user',
+            'capture_username' => true,
+            'handler' => \Rollbar\Laravel\MonologHandler::class,
+            'access_token' => env('ROLLBAR_TOKEN'),
+            'level' => 'debug',
+        ],
+
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['single'],
+            'channels' => ['rollbar','single'],
             'ignore_exceptions' => false,
         ],
 

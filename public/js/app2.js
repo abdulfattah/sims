@@ -444,7 +444,8 @@ jQuery(function ($) {
                 pageSize: 15
             },
             pager: {
-                visible: true
+                visible: true,
+                showInfo: true
             },
             headerFilter: {
                 visible: true
@@ -457,8 +458,9 @@ jQuery(function ($) {
                 enabled: true
             },
             columnAutoWidth: true,
-            onContentReady: function (e) {
-                e.element.find(".dx-datagrid-text-content").removeClass("dx-text-content-alignment-left");
+            onContentReady: function(e) {
+                var totalRecords = e.component.totalCount();
+                e.component.option('pager.infoText', 'Total Records: ' + totalRecords + ', Page {0} of {1}');
             }
         }).dxDataGrid('instance');
 
@@ -603,14 +605,6 @@ jQuery(function ($) {
                     loadUrl: baseURL + '/data?b=' + '55a0c60437d14' + '&c=' + $this.attr('data-trashed')
                 })
             });
-            grid.option('onContentReady', function (e) {
-                var visibleRowsCount = e.component.totalCount();
-                var pageSize = e.component.pageSize();
-                if (visibleRowsCount > pageSize)
-                    visibleRowsCount = pageSize;
-                var totalCount = e.component.option('dataSource').length;
-                e.component.option('pager.infoText', 'Displaying ' + visibleRowsCount + ' of '+totalCount+' records');
-            });
             grid.option('stateStoring', {
                 enabled: true,
                 type: 'custom',
@@ -641,7 +635,9 @@ jQuery(function ($) {
                     allowFiltering: false,
                     allowHeaderFiltering: false,
                     cellTemplate: function(cellElement, cellInfo) {
-                        cellElement.text(cellInfo.row.rowIndex)
+                        var dataGrid = $('#grid[data-for="tax"]').dxDataGrid("instance");
+                        var index = dataGrid.pageIndex() * dataGrid.pageSize() + e.rowIndex + 1;
+                        cellElement.text(index);
                     }
                 },{
                     caption: '',
@@ -710,7 +706,7 @@ jQuery(function ($) {
                             .html('<i class="fal fa-trash text-danger"></i>')
                             .bind("click", function () {
                                 var msg = "This tax record will be deleted from system";
-                                deleteGridRecord(baseURL + '/tax/' + options.data.id, grid, msg);
+                                deleteGridRecord(baseURL + '/tax/' + options.data.id + '?section=basic', grid, msg);
                             })
                             .appendTo(container);
                     }
