@@ -45,7 +45,8 @@
                     </div>
                 </div>
                 <div class="info-card">
-                    <img src="{{ URL::to('asset/image?in=avatar&filename=' . \App\Libs\App::getFilename('image', \Auth::user()->avatar)) }}" class="profile-image rounded-circle" alt="Dr. Codex Lantern">
+                    <img src="{{ URL::to('asset/image?in=avatar&filename=' . \App\Libs\App::getFilename('image', \Auth::user()->avatar)) }}" class="profile-image rounded-circle"
+                         alt="Dr. Codex Lantern">
                     <div class="info-card-text">
                         <a href="#" class="d-flex align-items-center text-white">
                             <span class="text-truncate text-truncate-sm d-inline-block">
@@ -224,7 +225,8 @@
                 <!-- app user menu -->
                     <div>
                         <a href="#" data-toggle="dropdown" title="{{ \Auth::user()->username }}" class="header-icon d-flex align-items-center justify-content-center ml-2">
-                            <img src="{{ URL::to('asset/image?in=avatar&filename=' . \App\Libs\App::getFilename('image', \Auth::user()->avatar)) }}" class="profile-image rounded-circle" alt="Dr. Codex Lantern">
+                            <img src="{{ URL::to('asset/image?in=avatar&filename=' . \App\Libs\App::getFilename('image', \Auth::user()->avatar)) }}"
+                                 class="profile-image rounded-circle" alt="Dr. Codex Lantern">
                             <!-- you can also add username next to the avatar with the codes below:
                             <span class="ml-1 mr-1 text-truncate text-truncate-header hidden-xs-down">Me</span>
                             <i class="ni ni-chevron-down hidden-xs-down"></i> -->
@@ -233,7 +235,8 @@
                             <div class="dropdown-header bg-trans-gradient d-flex flex-row py-4 rounded-top">
                                 <div class="d-flex flex-row align-items-center mt-1 mb-1 color-white">
                                             <span class="mr-2">
-                                                <img src="{{ URL::to('asset/image?in=avatar&filename=' . \App\Libs\App::getFilename('image', \Auth::user()->avatar)) }}" class="rounded-circle profile-image" alt="Dr. Codex Lantern">
+                                                <img src="{{ URL::to('asset/image?in=avatar&filename=' . \App\Libs\App::getFilename('image', \Auth::user()->avatar)) }}"
+                                                     class="rounded-circle profile-image" alt="Dr. Codex Lantern">
                                             </span>
                                     <div class="info-card-text">
                                         <div class="fs-lg text-truncate text-truncate-lg">{{ \Auth::user()->fullname }}</div>
@@ -284,7 +287,12 @@
                             <a href="intel_introduction.html" class="text-secondary fw-700">About CDN</a>
                         </li>
                         <li class="pl-3">
-                            <a href="{{ asset('user_manual.pdf') }}" target="_blank" style="text-decoration: none !important;" class="text-secondary fw-700">User Manual</a>
+{{--                            @if (strpos(Auth::user()->role, 'ADMINISTRATOR') !== false)--}}
+{{--                                <a href="{{ asset('um/admin.pdf') }}" target="_blank" style="text-decoration: none !important;" class="text-secondary fw-700 mr-2">User Manual (Admin)</a>--}}
+{{--                            @endif--}}
+                            @if (strpos(Auth::user()->role, 'STAFF') !== false)
+                                <a href="{{ asset('um/staff.pdf') }}" target="_blank" style="text-decoration: none !important;" class="text-secondary fw-700">User Manual (Staf)</a>
+                            @endif
                         </li>
                         <li class="pl-3 fs-xl">
                             <a href="https://wrapbootstrap.com/user/MyOrange" class="text-secondary" target="_blank">

@@ -6,10 +6,10 @@
 <table class="table table-responsive-sm table-sm mt-3">
     <thead>
     <tr>
-        <th style="width: 50%;">Title</th>
+        <th style="width: 46%;">Title</th>
         <th style="width: 32%;">Note By</th>
         <th style="width: 15%;">Date</th>
-        <th style="width: 70px">&nbsp;</th>
+        <th style="width: 100px">&nbsp;</th>
     </tr>
     </thead>
     <tbody>
@@ -19,7 +19,9 @@
             <td>{{ $note->writer != null ? $note->writer->fullname : null }}</td>
             <td>{{ $note->created_at != null ? date('d-M-Y h:i:s A', strtotime($note->created_at)) : null }}</td>
             <th style="text-align: right">
-                <a href="javascript:void(0)" data-id="{{ $note->id }}" class="edit-note"><i class="c-icon cil-pencil"></i></a>
+                <a href="javascript:void(0)" data-id="{{ $note->id }}" class="edit-note">
+                    <i class="fal fa-pencil text-primary"></i>
+                </a>
                 <a href="javascript:void(0)" data-id="{{ $note->id }}" data-tax-id="{{ $note->tax_record_id }}" class="delete-note">
                     <i class="fal fa-trash text-danger"></i></a>
                 </a>

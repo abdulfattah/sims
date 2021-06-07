@@ -1362,7 +1362,7 @@ jQuery(function ($) {
             $('#method-note').val('PUT');
             $('#title-note').html('Update Note');
             $('[data-name="note_title"]').dxTextBox('instance').option('value', data.note_title);
-            $('.ql-editor')[0].innerHTML = data.note;
+            tinymce.activeEditor.setContent(data.note);
             $('#modal-note').modal('show');
         });
     });
