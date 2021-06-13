@@ -44,16 +44,16 @@
             </td>
         </tr>
         <tr>
-            <td><strong>1. Jenis aktiviti perniagaan</strong></td>
+            <td><strong>1. Jenis entiti</strong></td>
             <td class="text-center"><strong>Markah</strong></td>
         </tr>
         <tr>
-            <td style="width: 80%">{{ $tax->profiling02->answer_01 }}</td>
-            <td style="width: 20%;text-align: center;">{{ $tax->profiling02->mark_01 }}</td>
+            <td style="padding-left: 20px;">{{ $tax->profiling02->answer_01 }}</td>
+            <td style="text-align: center;">{{ $tax->profiling02->mark_01 }}</td>
         </tr>
         <tr>
             <td colspan="2">
-                <strong>2. Adakah pengilang menjalankan kerja sub-kontrak?</strong>
+                <strong>2. Jenis bangunan yang didiami oleh syarikat/perniagaan</strong>
             </td>
         </tr>
         <tr>
@@ -62,7 +62,7 @@
         </tr>
         <tr>
             <td colspan="2">
-                <strong>3. Sekiranya ya, apakah jenis pembekalan barang yang diterima?</strong>
+                <strong>3. Hak milik bangunan / premis</strong>
             </td>
         </tr>
         <tr>
@@ -71,7 +71,7 @@
         </tr>
         <tr>
             <td colspan="2">
-                <strong>4. Adakah caj nilai jualan barang yang dikilangkan mengikut Seksyen 9(3) Akta Cukai Jualan 2018?</strong>
+                <strong>4. Jenis aktiviti</strong>
             </td>
         </tr>
         <tr>
@@ -80,7 +80,7 @@
         </tr>
         <tr>
             <td colspan="2">
-                <strong>5. Hubungan pembeli dengan pengilang berdaftar</strong>
+                <strong>5. Jenis kemudahan yang diberi</strong>
             </td>
         </tr>
         <tr>
@@ -89,7 +89,7 @@
         </tr>
         <tr>
             <td colspan="2">
-                <strong>6. Status pembeli/pemasar kepada pengilang berdaftar</strong>
+                <strong>6. Kegagalan mengemukakan penyata atau membuat pembayaran cukai.</strong>
             </td>
         </tr>
         <tr>
@@ -107,7 +107,7 @@
         </tr>
         <tr>
             <td colspan="2">
-                <strong>8. Adakah terdapat perubahan harga jualan tempatan sebelum pelaksanaan SST dengan semasa pelaksanaan SST?</strong>
+                <strong>8. Kegagalan mengemukakan penyata stok pembelian bahan mentah, komponen, bahan pembungkusan (3 bulan sekali)</strong>
             </td>
         </tr>
         <tr>
@@ -116,7 +116,7 @@
         </tr>
         <tr>
             <td colspan="2">
-                <strong>9. Adakah terdapat perbezaan harga jualan antara setiap pembeli?</strong>
+                <strong>9. Cara pelupusan sisa, hampas, bahan mentah, komponen dan barang siap rosak</strong>
             </td>
         </tr>
         <tr>
@@ -125,7 +125,7 @@
         </tr>
         <tr>
             <td colspan="2">
-                <strong>10. Jenis kemudahan pengecualian yang digunakan oleh syarikat</strong>
+                <strong>10. Kekerapan verifikasi ke atas entiti</strong>
             </td>
         </tr>
         <tr>
@@ -134,7 +134,7 @@
         </tr>
         <tr>
             <td colspan="2">
-                <strong>11. Kegagalan mengemukakan penyata atau membuat pembayaran cukai</strong>
+                <strong>11. Tahap pematuhan ke atas pemeriksaan semasa yang dilakukan oleh pegawai</strong>
             </td>
         </tr>
         <tr>
@@ -143,7 +143,7 @@
         </tr>
         <tr>
             <td colspan="2">
-                <strong>12. Profil dan rekod dengan jabatan</strong>
+                <strong>12. Profil dan rekod dengan Jabatan</strong>
             </td>
         </tr>
         <tr>

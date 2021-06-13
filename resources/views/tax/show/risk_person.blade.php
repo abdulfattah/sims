@@ -42,7 +42,7 @@
             </td>
         </tr>
         <tr>
-            <td><strong>1. Jenis aktiviti perniagaan</strong></td>
+            <td><strong>1. Jenis Perniagaan</strong></td>
             <td class="text-center"><strong>Markah</strong></td>
         </tr>
         <tr>
@@ -51,7 +51,7 @@
         </tr>
         <tr>
             <td colspan="2">
-                <strong>2. Adakah pengilang menjalankan kerja sub-kontrak?</strong>
+                <strong>2. Jenis Tempat Perniagaan Orang Berdaftar</strong>
             </td>
         </tr>
         <tr>
@@ -60,7 +60,7 @@
         </tr>
         <tr>
             <td colspan="2">
-                <strong>3. Sekiranya ya, apakah jenis pembekalan barang yang diterima?</strong>
+                <strong>3. Pengauditan atas akaun Orang Berdaftar</strong>
             </td>
         </tr>
         <tr>
@@ -69,7 +69,7 @@
         </tr>
         <tr>
             <td colspan="2">
-                <strong>4. Adakah caj nilai jualan barang yang dikilangkan mengikut Seksyen 9(3) Akta Cukai Jualan 2018?</strong>
+                <strong>4. Sistem Pengurusan</strong>
             </td>
         </tr>
         <tr>
@@ -78,7 +78,7 @@
         </tr>
         <tr>
             <td colspan="2">
-                <strong>5. Hubungan pembeli dengan pengilang berdaftar</strong>
+                <strong>5. Penyelenggaraan rekod dan dokumen</strong>
             </td>
         </tr>
         <tr>
@@ -87,7 +87,7 @@
         </tr>
         <tr>
             <td colspan="2">
-                <strong>6. Status pembeli/pemasar kepada pengilang berdaftar</strong>
+                <strong>6. Kegagalan mengemukakan penyata atau membuat pembayaran cukai</strong>
             </td>
         </tr>
         <tr>
@@ -96,7 +96,7 @@
         </tr>
         <tr>
             <td colspan="2">
-                <strong>7. Cara pemasaran keluaran barang siap</strong>
+                <strong>7. Profil dan rekod syarikat</strong>
             </td>
         </tr>
         <tr>
@@ -105,7 +105,7 @@
         </tr>
         <tr>
             <td colspan="2">
-                <strong>8. Adakah terdapat perubahan harga jualan tempatan sebelum pelaksanaan SST dengan semasa pelaksanaan SST?</strong>
+                <strong>8. Jenis bangunan yang didiami oleh syarikat/perniagaan</strong>
             </td>
         </tr>
         <tr>
@@ -114,7 +114,7 @@
         </tr>
         <tr>
             <td colspan="2">
-                <strong>9. Adakah terdapat perbezaan harga jualan antara setiap pembeli?</strong>
+                <strong>9. Hak milik bangunan / premis</strong>
             </td>
         </tr>
         <tr>
