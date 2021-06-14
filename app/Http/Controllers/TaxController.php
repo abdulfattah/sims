@@ -48,7 +48,7 @@ class TaxController extends Controller
             'breadcrumb'      => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
                              <li class="breadcrumb-item"><a href="' . \URL::to('tax') . '">Tax Records</a></li>
                              <li class="breadcrumb-item active">Syncronization</li>',
-            'title'      => 'Import Tax Record From SST System',
+            'title'           => 'Import Tax Record From SST System',
             'uploadBase'      => $checkBase->count() < 1,
             'uploadStatement' => $checkStatement->count() < 1,
             'syncBase'        => $checkBase->count() > 0,
@@ -97,7 +97,7 @@ class TaxController extends Controller
             'breadcrumb'      => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
                              <li class="breadcrumb-item"><a href="' . \URL::to('tax') . '">Tax Records</a></li>
                              <li class="breadcrumb-item active">Syncronization</li>',
-            'title'      => 'Import Tax Record From SST System',
+            'title'           => 'Import Tax Record From SST System',
             'uploadBase'      => $fileBase != null ? false : true,
             'uploadStatement' => $fileStatement != null ? false : true,
             'syncBase'        => $checkBase->count() > 0,
@@ -151,18 +151,18 @@ class TaxController extends Controller
                 'exclude' => array('_token', '_method', 'section'),
             ));
             //maintain original case
-            $profiling->answer_01  = request()->get('answer_01');
-            $profiling->answer_02  = request()->get('answer_02');
-            $profiling->answer_03  = request()->get('answer_03');
-            $profiling->answer_04  = request()->get('answer_04');
-            $profiling->answer_05  = request()->get('answer_05');
-            $profiling->answer_06  = request()->get('answer_06');
-            $profiling->answer_07  = request()->get('answer_07');
-            $profiling->answer_08  = request()->get('answer_08');
-            $profiling->answer_09  = request()->get('answer_09');
-            $profiling->answer_10  = request()->get('answer_10');
-            $profiling->answer_11  = request()->get('answer_11');
-            $profiling->answer_12  = request()->get('answer_12');
+            $profiling->answer_01 = request()->get('answer_01');
+            $profiling->answer_02 = request()->get('answer_02');
+            $profiling->answer_03 = request()->get('answer_03');
+            $profiling->answer_04 = request()->get('answer_04');
+            $profiling->answer_05 = request()->get('answer_05');
+            $profiling->answer_06 = request()->get('answer_06');
+            $profiling->answer_07 = request()->get('answer_07');
+            $profiling->answer_08 = request()->get('answer_08');
+            $profiling->answer_09 = request()->get('answer_09');
+            $profiling->answer_10 = request()->get('answer_10');
+            $profiling->answer_11 = request()->get('answer_11');
+            $profiling->answer_12 = request()->get('answer_12');
             $profiling->save();
 
             activity('tax')
@@ -183,18 +183,18 @@ class TaxController extends Controller
                 'exclude' => array('_token', '_method', 'section'),
             ));
             //maintain original case
-            $profiling->answer_01  = request()->get('answer_01');
-            $profiling->answer_02  = request()->get('answer_02');
-            $profiling->answer_03  = request()->get('answer_03');
-            $profiling->answer_04  = request()->get('answer_04');
-            $profiling->answer_05  = request()->get('answer_05');
-            $profiling->answer_06  = request()->get('answer_06');
-            $profiling->answer_07  = request()->get('answer_07');
-            $profiling->answer_08  = request()->get('answer_08');
-            $profiling->answer_09  = request()->get('answer_09');
-            $profiling->answer_10  = request()->get('answer_10');
-            $profiling->answer_11  = request()->get('answer_11');
-            $profiling->answer_12  = request()->get('answer_12');
+            $profiling->answer_01 = request()->get('answer_01');
+            $profiling->answer_02 = request()->get('answer_02');
+            $profiling->answer_03 = request()->get('answer_03');
+            $profiling->answer_04 = request()->get('answer_04');
+            $profiling->answer_05 = request()->get('answer_05');
+            $profiling->answer_06 = request()->get('answer_06');
+            $profiling->answer_07 = request()->get('answer_07');
+            $profiling->answer_08 = request()->get('answer_08');
+            $profiling->answer_09 = request()->get('answer_09');
+            $profiling->answer_10 = request()->get('answer_10');
+            $profiling->answer_11 = request()->get('answer_11');
+            $profiling->answer_12 = request()->get('answer_12');
             $profiling->save();
 
             activity('tax')
@@ -215,15 +215,15 @@ class TaxController extends Controller
                 'exclude' => array('_token', '_method', 'section'),
             ));
             //maintain original case
-            $profiling->answer_01  = request()->get('answer_01');
-            $profiling->answer_02  = request()->get('answer_02');
-            $profiling->answer_03  = request()->get('answer_03');
-            $profiling->answer_04  = request()->get('answer_04');
-            $profiling->answer_05  = request()->get('answer_05');
-            $profiling->answer_06  = request()->get('answer_06');
-            $profiling->answer_07  = request()->get('answer_07');
-            $profiling->answer_08  = request()->get('answer_08');
-            $profiling->answer_09  = request()->get('answer_09');
+            $profiling->answer_01 = request()->get('answer_01');
+            $profiling->answer_02 = request()->get('answer_02');
+            $profiling->answer_03 = request()->get('answer_03');
+            $profiling->answer_04 = request()->get('answer_04');
+            $profiling->answer_05 = request()->get('answer_05');
+            $profiling->answer_06 = request()->get('answer_06');
+            $profiling->answer_07 = request()->get('answer_07');
+            $profiling->answer_08 = request()->get('answer_08');
+            $profiling->answer_09 = request()->get('answer_09');
             $profiling->save();
 
             activity('tax')
@@ -335,18 +335,18 @@ class TaxController extends Controller
                 'exclude' => array('_token', '_method', 'section'),
             ));
             //maintain original case
-            $profiling->answer_01  = request()->get('answer_01');
-            $profiling->answer_02  = request()->get('answer_02');
-            $profiling->answer_03  = request()->get('answer_03');
-            $profiling->answer_04  = request()->get('answer_04');
-            $profiling->answer_05  = request()->get('answer_05');
-            $profiling->answer_06  = request()->get('answer_06');
-            $profiling->answer_07  = request()->get('answer_07');
-            $profiling->answer_08  = request()->get('answer_08');
-            $profiling->answer_09  = request()->get('answer_09');
-            $profiling->answer_10  = request()->get('answer_10');
-            $profiling->answer_11  = request()->get('answer_11');
-            $profiling->answer_12  = request()->get('answer_12');
+            $profiling->answer_01 = request()->get('answer_01');
+            $profiling->answer_02 = request()->get('answer_02');
+            $profiling->answer_03 = request()->get('answer_03');
+            $profiling->answer_04 = request()->get('answer_04');
+            $profiling->answer_05 = request()->get('answer_05');
+            $profiling->answer_06 = request()->get('answer_06');
+            $profiling->answer_07 = request()->get('answer_07');
+            $profiling->answer_08 = request()->get('answer_08');
+            $profiling->answer_09 = request()->get('answer_09');
+            $profiling->answer_10 = request()->get('answer_10');
+            $profiling->answer_11 = request()->get('answer_11');
+            $profiling->answer_12 = request()->get('answer_12');
             $profiling->save();
 
             activity('tax')
@@ -366,18 +366,18 @@ class TaxController extends Controller
                 'exclude' => array('_token', '_method', 'section'),
             ));
             //maintain original case
-            $profiling->answer_01  = request()->get('answer_01');
-            $profiling->answer_02  = request()->get('answer_02');
-            $profiling->answer_03  = request()->get('answer_03');
-            $profiling->answer_04  = request()->get('answer_04');
-            $profiling->answer_05  = request()->get('answer_05');
-            $profiling->answer_06  = request()->get('answer_06');
-            $profiling->answer_07  = request()->get('answer_07');
-            $profiling->answer_08  = request()->get('answer_08');
-            $profiling->answer_09  = request()->get('answer_09');
-            $profiling->answer_10  = request()->get('answer_10');
-            $profiling->answer_11  = request()->get('answer_11');
-            $profiling->answer_12  = request()->get('answer_12');
+            $profiling->answer_01 = request()->get('answer_01');
+            $profiling->answer_02 = request()->get('answer_02');
+            $profiling->answer_03 = request()->get('answer_03');
+            $profiling->answer_04 = request()->get('answer_04');
+            $profiling->answer_05 = request()->get('answer_05');
+            $profiling->answer_06 = request()->get('answer_06');
+            $profiling->answer_07 = request()->get('answer_07');
+            $profiling->answer_08 = request()->get('answer_08');
+            $profiling->answer_09 = request()->get('answer_09');
+            $profiling->answer_10 = request()->get('answer_10');
+            $profiling->answer_11 = request()->get('answer_11');
+            $profiling->answer_12 = request()->get('answer_12');
             $profiling->save();
 
             activity('tax')
@@ -398,15 +398,15 @@ class TaxController extends Controller
                 'exclude' => array('_token', '_method', 'section'),
             ));
             //maintain original case
-            $profiling->answer_01  = request()->get('answer_01');
-            $profiling->answer_02  = request()->get('answer_02');
-            $profiling->answer_03  = request()->get('answer_03');
-            $profiling->answer_04  = request()->get('answer_04');
-            $profiling->answer_05  = request()->get('answer_05');
-            $profiling->answer_06  = request()->get('answer_06');
-            $profiling->answer_07  = request()->get('answer_07');
-            $profiling->answer_08  = request()->get('answer_08');
-            $profiling->answer_09  = request()->get('answer_09');
+            $profiling->answer_01 = request()->get('answer_01');
+            $profiling->answer_02 = request()->get('answer_02');
+            $profiling->answer_03 = request()->get('answer_03');
+            $profiling->answer_04 = request()->get('answer_04');
+            $profiling->answer_05 = request()->get('answer_05');
+            $profiling->answer_06 = request()->get('answer_06');
+            $profiling->answer_07 = request()->get('answer_07');
+            $profiling->answer_08 = request()->get('answer_08');
+            $profiling->answer_09 = request()->get('answer_09');
             $profiling->save();
 
             activity('tax')
@@ -596,6 +596,30 @@ class TaxController extends Controller
             } catch (\Exception $ex) {
                 return redirect()->to('tax/' . $taxId . '?section=' . \Request::get('section'))->with('error', 'Error on deleted that record.');
             }
+        } elseif (request()->get('section') == 'risk_entity') {
+            $riskEntity  = Models\TAXProfiling02::find(request()->get('id'));
+            $taxId = $riskEntity->tax_id;
+            $riskEntity->delete();
+
+            $tax = TAXRecords::find($taxId);
+            activity('tax')
+                ->causedBy(\Auth::user())
+                ->performedOn($tax)
+                ->log('Delete risk entity profile');
+
+            return redirect()->to('tax/' . $taxId . '?section=profiling')->with('success', 'Risk entity has been deleted.');
+        } elseif (request()->get('section') == 'risk_person') {
+            $riskPerson  = Models\TAXProfiling03::find(request()->get('id'));
+            $taxId = $riskPerson->tax_id;
+            $riskPerson->delete();
+
+            $tax = TAXRecords::find($taxId);
+            activity('tax')
+                ->causedBy(\Auth::user())
+                ->performedOn($tax)
+                ->log('Delete risk person profile');
+
+            return redirect()->to('tax/' . $taxId . '?section=profiling')->with('success', 'Risk person has been deleted.');
         }
     }
 

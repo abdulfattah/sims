@@ -36,4 +36,100 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-sm-6 col-xl-6">
+            <div class="p-3 bg-white rounded">
+                <div id="chart_risk_entity"></div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-6">
+            <div class="p-3 bg-white rounded">
+                <div id="chart_risk_person"></div>
+            </div>
+        </div>
+    </div>
+@stop
+
+@section('page-script')
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#chart_risk_entity").dxPieChart({
+                size: {
+                    width: 500
+                },
+                palette: "bright",
+                dataSource: {!! $chartEntity !!},
+                series: [
+                    {
+                        argumentField: "risk",
+                        valueField: "total",
+                        label: {
+                            visible: true,
+                            connector: {
+                                visible: true,
+                                width: 1
+                            }
+                        }
+                    }
+                ],
+                title: "Risiko Entiti Cukai Jualan",
+                "export": {
+                    enabled: true
+                },
+                onPointClick: function (e) {
+                    var point = e.target;
+
+                    toggleVisibility(point);
+                },
+                onLegendClick: function (e) {
+                    var arg = e.target;
+
+                    toggleVisibility(this.getAllSeries()[0].getPointsByArg(arg)[0]);
+                }
+            });
+
+            $("#chart_risk_person").dxPieChart({
+                size: {
+                    width: 500
+                },
+                palette: "bright",
+                dataSource: {!! $chartPerson !!},
+                series: [
+                    {
+                        argumentField: "risk",
+                        valueField: "total",
+                        label: {
+                            visible: true,
+                            connector: {
+                                visible: true,
+                                width: 1
+                            }
+                        }
+                    }
+                ],
+                title: "Risiko Orang Berdaftar",
+                "export": {
+                    enabled: true
+                },
+                onPointClick: function (e) {
+                    var point = e.target;
+
+                    toggleVisibility(point);
+                },
+                onLegendClick: function (e) {
+                    var arg = e.target;
+
+                    toggleVisibility(this.getAllSeries()[0].getPointsByArg(arg)[0]);
+                }
+            });
+
+            function toggleVisibility(item) {
+                if (item.isVisible()) {
+                    item.hide();
+                } else {
+                    item.show();
+                }
+            }
+        });
+    </script>
 @stop

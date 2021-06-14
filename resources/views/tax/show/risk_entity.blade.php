@@ -5,7 +5,8 @@
 @else
     <div class="text-right">
         <a href="{{ URL::to('tax/' . $tax->id . '/edit?section=profiling&page=risk_entity') }}" class="btn btn-sm btn-primary mr-1" type="button">Update</a>
-        <a href="{{ URL::to('print/risk_entity/' . $tax->id) }}" class="btn btn-sm btn-warning" type="button" target="_blank">Print</a>
+        <a href="{{ URL::to('print/risk_entity/' . $tax->id) }}" class="btn btn-sm btn-warning mr-1" type="button" target="_blank">Print</a>
+        <a href="javascript:void(0)" class="btn btn-sm btn-danger delete-risk-entity" data-tax-id="{{ $tax->id }}" data-id="{{ $tax->profiling02->id }}" type="button">Delete</a>
     </div>
     <table class="table table-responsive-sm table-sm mt-3" style="border-style: hidden">
         <tbody>

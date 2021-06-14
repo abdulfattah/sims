@@ -89,16 +89,23 @@ class UserController extends Controller
             'title'      => 'Dashboard',
         );
 
+        $entityLowRisk                  = Models\TAXProfiling02::where('risk_level_text', 'RENDAH')->get()->count();
+        $entityMediumRisk               = Models\TAXProfiling02::where('risk_level_text', 'SEDERHANA')->get()->count();
+        $entityHighRisk                 = Models\TAXProfiling02::where('risk_level_text', 'TINGGI')->get()->count();
+        $personLowRisk                  = Models\TAXProfiling03::where('risk_level_text', 'RENDAH')->get()->count();
+        $personMediumRisk               = Models\TAXProfiling03::where('risk_level_text', 'SEDERHANA')->get()->count();
+        $personHighRisk                 = Models\TAXProfiling03::where('risk_level_text', 'TINGGI')->get()->count();
+        $chartEntity                    = [['risk' => 'RENDAH', 'total' => $entityLowRisk], ['risk' => 'SEDERHANA', 'total' => $entityMediumRisk], ['risk' => 'TINGGI', 'total' => $entityHighRisk]];
+        $chartPerson                    = [['risk' => 'RENDAH', 'total' => $personLowRisk], ['risk' => 'SEDERHANA', 'total' => $personMediumRisk], ['risk' => 'TINGGI', 'total' => $personHighRisk]];
+        $data['totalRegistered']        = TAXRecords::where('registration_status', 'CANCEL')->get()->count();
+        $data['totalCancelled']         = TAXRecords::where('registration_status', 'REGISTERED')->get()->count();
+        $data['totalApplyForCancelled'] = TAXRecords::where('cdn_status', 'REQUEST FOR CANCELLATION')->get()->count();
+        $data['chartEntity']            = json_encode($chartEntity);
+        $data['chartPerson']           = json_encode($chartPerson);
         if (strpos(Auth::user()->role, 'ADMINISTRATOR') !== false) {
-            $data['totalRegistered']        = TAXRecords::where('registration_status', 'CANCEL')->get()->count();
-            $data['totalCancelled']         = TAXRecords::where('registration_status', 'REGISTERED')->get()->count();
-            $data['totalApplyForCancelled'] = TAXRecords::where('cdn_status', 'REQUEST FOR CANCELLATION')->get()->count();
-            $view                           = 'dashboard.administrator';
+            $view = 'dashboard.administrator';
         } elseif (strpos(Auth::user()->role, 'STAFF') !== false) {
-            $data['totalRegistered']        = TAXRecords::where('registration_status', 'CANCEL')->get()->count();
-            $data['totalCancelled']         = TAXRecords::where('registration_status', 'REGISTERED')->get()->count();
-            $data['totalApplyForCancelled'] = TAXRecords::where('cdn_status', 'REQUEST FOR CANCELLATION')->get()->count();
-            $view                           = 'dashboard.staff';
+            $view = 'dashboard.staff';
         }
 
         return view($view, $data);

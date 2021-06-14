@@ -1380,6 +1380,16 @@ jQuery(function ($) {
         deleteRecord(baseURL + '/tax/' + $(this).attr('data-tax-id') + '?section=note&id=' + $(this).attr('data-id'), null, 'Are you sure?', msg);
     });
 
+    $('.delete-risk-entity').click(function () {
+        var msg = "This risk entity will be deleted from this tax record";
+        deleteRecord(baseURL + '/tax/' + $(this).attr('data-tax-id') + '?section=risk_entity&id=' + $(this).attr('data-id'), null, 'Are you sure?', msg);
+    });
+
+    $('.delete-risk-person').click(function () {
+        var msg = "This risk person will be deleted from this tax record";
+        deleteRecord(baseURL + '/tax/' + $(this).attr('data-tax-id') + '?section=risk_person&id=' + $(this).attr('data-id'), null, 'Are you sure?', msg);
+    });
+
     function toast(type, msg) {
         $("#toastContainer").dxToast({
             message: msg,
