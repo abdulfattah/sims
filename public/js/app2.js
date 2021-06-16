@@ -1205,7 +1205,7 @@ jQuery(function ($) {
                         cellElement.text(cellInfo.row.rowIndex + 1)
                     }
                 }, {
-                    caption: 'Business Name',
+                    caption: 'NAMA SYARIKAT',
                     dataType: 'string',
                     dataField: "business_name",
                     width: '35%',
@@ -1220,7 +1220,7 @@ jQuery(function ($) {
                             .appendTo(container);
                     }
                 }, {
-                    caption: 'Brn No',
+                    caption: 'NO PENDAFTARAN',
                     dataType: 'string',
                     dataField: "brn_no",
                     width: '14%',
@@ -1280,7 +1280,7 @@ jQuery(function ($) {
                     allowHeaderFiltering: false,
                     dataField: "mark_09"
                 }, {
-                    caption: 'Risk Level',
+                    caption: 'TAHAP RISIKO',
                     dataType: 'string',
                     width: '10%',
                     dataField: "risk_level_text"

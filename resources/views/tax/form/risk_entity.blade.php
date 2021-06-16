@@ -384,7 +384,7 @@
         </tr>
         <tr>
             <td class="text-center">iii</td>
-            <td>Jualan kepada pasaran bebas tempatan</td>
+            <td>Jualan ke Pasaran bebas tempatan dan eksport</td>
             <td>
                 <div class="form-check">
                     <input class="form-check-input" id="q7iii" type="radio" value="4"
@@ -395,7 +395,7 @@
         </tr>
         <tr>
             <td class="text-center">iv</td>
-            <td>Aktiviti sub-kontrak</td>
+            <td>Jualan ke pasaran bebas tempatan</td>
             <td>
                 <div class="form-check">
                     <input class="form-check-input" id="q7iv" type="radio" value="1"
