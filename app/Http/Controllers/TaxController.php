@@ -7,6 +7,7 @@ use App\Excel\Exports\Profiling02Export;
 use App\Excel\Exports\Profiling03Export;
 use App\Excel\Exports\TaxRecordsExport;
 use App\Jobs\ProcessExcelBase;
+use App\Jobs\ProcessExcelCrs;
 use App\Jobs\ProcessExcelStatement;
 use App\Libs\App;
 use App\Libs\DxGridOfficial;
@@ -41,8 +42,9 @@ class TaxController extends Controller
 
     public function sync()
     {
-        $checkBase      = SYSSetting::where('param', 'syncronize.base')->get();
-        $checkStatement = SYSSetting::where('param', 'syncronize.statement')->get();
+        $checkBase      = SYSSetting::where('param', 'synchronize.base')->get();
+        $checkStatement = SYSSetting::where('param', 'synchronize.statement')->get();
+        $checkCrs       = SYSSetting::where('param', 'synchronize.crs')->get();
         $data           = array(
             'menu'            => ['menu' => 'Tax', 'subMenu' => ''],
             'breadcrumb'      => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
@@ -51,8 +53,10 @@ class TaxController extends Controller
             'title'           => 'Import Tax Record From SST System',
             'uploadBase'      => $checkBase->count() < 1,
             'uploadStatement' => $checkStatement->count() < 1,
+            'uploadCrs'       => $checkCrs->count() < 1,
             'syncBase'        => $checkBase->count() > 0,
             'syncStatement'   => $checkStatement->count() > 0,
+            'syncCrs'         => $checkCrs->count() > 0,
         );
 
         return view('tax.sync', $data);
@@ -61,15 +65,15 @@ class TaxController extends Controller
     public function doSync()
     {
         $fileBase  = \Request::file('excelBase');
-        $checkBase = SYSSetting::where('param', 'syncronize.base')->get();
+        $checkBase = SYSSetting::where('param', 'synchronize.base')->get();
         if ($fileBase != null) {
             if ($checkBase->count() > 0) {
                 return redirect()->to('tax/sync');
             } else {
                 $newName = 'excel-base.' . $fileBase->getClientOriginalExtension();
-                $fileBase->move(env('ASSETS_STORAGE') . 'syncronize', $newName);
+                $fileBase->move(env('ASSETS_STORAGE') . 'synchronize', $newName);
                 $setting        = new SYSSetting();
-                $setting->param = 'syncronize.base';
+                $setting->param = 'synchronize.base';
                 $setting->value = '1';
                 $setting->save();
                 ProcessExcelBase::dispatch($setting, $newName, \Auth::user());
@@ -77,18 +81,34 @@ class TaxController extends Controller
         }
 
         $fileStatement  = \Request::file('excelStatement');
-        $checkStatement = SYSSetting::where('param', 'syncronize.statement')->get();
+        $checkStatement = SYSSetting::where('param', 'synchronize.statement')->get();
         if ($fileStatement != null) {
             if ($checkStatement->count() > 0) {
                 return redirect()->to('tax/sync');
             } else {
                 $newName = 'excel-statement.' . $fileStatement->getClientOriginalExtension();
-                $fileStatement->move(env('ASSETS_STORAGE') . 'syncronize', $newName);
+                $fileStatement->move(env('ASSETS_STORAGE') . 'synchronize', $newName);
                 $setting        = new SYSSetting();
-                $setting->param = 'syncronize.statement';
+                $setting->param = 'synchronize.statement';
                 $setting->value = '1';
                 $setting->save();
                 ProcessExcelStatement::dispatch($setting, $newName, \Auth::user());
+            }
+        }
+
+        $fileCrs  = \Request::file('excelCrs');
+        $checkCrs = SYSSetting::where('param', 'synchronize.crs')->get();
+        if ($fileCrs != null) {
+            if ($checkCrs->count() > 0) {
+                return redirect()->to('tax/sync');
+            } else {
+                $newName = 'excel-Crs.' . $fileCrs->getClientOriginalExtension();
+                $fileCrs->move(env('ASSETS_STORAGE') . 'synchronize', $newName);
+                $setting        = new SYSSetting();
+                $setting->param = 'synchronize.Crs';
+                $setting->value = '1';
+                $setting->save();
+                ProcessExcelCrs::dispatch($setting, $newName, \Auth::user());
             }
         }
 
@@ -98,10 +118,12 @@ class TaxController extends Controller
                              <li class="breadcrumb-item"><a href="' . \URL::to('tax') . '">Tax Records</a></li>
                              <li class="breadcrumb-item active">Syncronization</li>',
             'title'           => 'Import Tax Record From SST System',
-            'uploadBase'      => $fileBase != null ? false : true,
-            'uploadStatement' => $fileStatement != null ? false : true,
+            'uploadBase'      => !($fileBase != null),
+            'uploadStatement' => !($fileStatement != null),
+            'uploadCrs'       => !($fileCrs != null),
             'syncBase'        => $checkBase->count() > 0,
             'syncStatement'   => $checkStatement->count() > 0,
+            'syncCrs'         => $checkCrs->count() > 0,
         );
 
         return view('tax.sync', $data);
@@ -597,8 +619,8 @@ class TaxController extends Controller
                 return redirect()->to('tax/' . $taxId . '?section=' . \Request::get('section'))->with('error', 'Error on deleted that record.');
             }
         } elseif (request()->get('section') == 'risk_entity') {
-            $riskEntity  = Models\TAXProfiling02::find(request()->get('id'));
-            $taxId = $riskEntity->tax_id;
+            $riskEntity = Models\TAXProfiling02::find(request()->get('id'));
+            $taxId      = $riskEntity->tax_id;
             $riskEntity->delete();
 
             $tax = TAXRecords::find($taxId);
@@ -609,8 +631,8 @@ class TaxController extends Controller
 
             return redirect()->to('tax/' . $taxId . '?section=profiling')->with('success', 'Risk entity has been deleted.');
         } elseif (request()->get('section') == 'risk_person') {
-            $riskPerson  = Models\TAXProfiling03::find(request()->get('id'));
-            $taxId = $riskPerson->tax_id;
+            $riskPerson = Models\TAXProfiling03::find(request()->get('id'));
+            $taxId      = $riskPerson->tax_id;
             $riskPerson->delete();
 
             $tax = TAXRecords::find($taxId);

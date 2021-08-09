@@ -170,7 +170,7 @@ class JsonController extends Controller
 
     private function getProcessedExcelBase()
     {
-        $setting = SYSSetting::where('param', 'syncronize.base')->get()->first();
+        $setting = SYSSetting::where('param', 'synchronize.base')->get()->first();
         if ($setting != null) {
             return $setting->value;
         } else {
@@ -180,7 +180,7 @@ class JsonController extends Controller
 
     private function getProcessedExcelStatement()
     {
-        $setting = SYSSetting::where('param', 'syncronize.statement')->get()->first();
+        $setting = SYSSetting::where('param', 'synchronize.statement')->get()->first();
         if ($setting != null) {
             return $setting->value;
         } else {

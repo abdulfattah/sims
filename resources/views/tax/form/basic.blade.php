@@ -1,4 +1,4 @@
-<span class="badge badge-success float-right" style="margin-top: -15px; padding: 0.50em 0.6em;">Last Syncronize at {{ $tax->syncronizing_at != null ? date('d-M-Y h:i:s A',
+<span class="badge badge-success float-right" style="margin-top: -15px; padding: 0.50em 0.6em;">Last synchronize at {{ $tax->syncronizing_at != null ? date('d-M-Y h:i:s A',
     strtotime($tax->syncronizing_at)) : null }}</span>
 <dl class="row mt-4">
     <dt class="col-sm-3 col-xl-3 pl-5">Business Name</dt>

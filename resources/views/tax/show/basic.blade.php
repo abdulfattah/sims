@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-12">
         <span class="badge badge-success float-right"
-              style="padding: 0.50em 0.6em;">Last Syncronize at &nbsp;{{ $tax->syncronizing_at != null ? date('d-M-Y h:i:s A', strtotime($tax->syncronizing_at)) : null }}</span>
+              style="padding: 0.50em 0.6em;">Last synchronize at &nbsp;{{ $tax->syncronizing_at != null ? date('d-M-Y h:i:s A', strtotime($tax->syncronizing_at)) : null }}</span>
     </div>
 </div>
 <div class="row">
