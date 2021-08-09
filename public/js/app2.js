@@ -1486,6 +1486,31 @@ jQuery(function ($) {
         }, 1000);
     }
 
+    if ($('#progress-bar-crs').length > 0) {
+        var intervalProgressBar = setInterval(() => {
+            $.getJSON(baseURL + '/data?b=55a0c60438403', function (data) {
+                if (data == '100') {
+                    clearInterval(intervalProgressBar);
+                    $('#progress-bar-crs').attr('aria-valuenow', data);
+                    $('#progress-bar-crs').css('width', '100%');
+                    $('#progress-bar-crs').html('100%');
+                    var counter = 6;
+                    setInterval(function () {
+                        counter--;
+                        $('#progress-label-crs').html('Syncronization has been success. Redirect in ' + counter + ' seconds');
+                    }, 1000);
+                    setTimeout(() => {
+                        location.href = baseURL + '/tax';
+                    }, 6000);
+                } else {
+                    $('#progress-bar-crs').attr('aria-valuenow', data);
+                    $('#progress-bar-crs').css('width', data + '%');
+                    $('#progress-bar-crs').html(data + '%');
+                }
+            });
+        }, 1000);
+    }
+
     function deleteRecord(url, id, title, msg) {
         DevExpress.ui.dialog.custom({
             title: title,
