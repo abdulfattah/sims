@@ -19,7 +19,8 @@
                     </li>
                     <li class="nav-item">
                         @if(\Request::get('section') == 'additional')
-                            <a class="nav-link @if(\Request::get('section') == 'additional') active @endif" data-toggle="tab" href="#additional" role="tab" aria-controls="additional">
+                            <a class="nav-link @if(\Request::get('section') == 'additional') active @endif" data-toggle="tab" href="#additional" role="tab"
+                               aria-controls="additional">
                                 <i class="fal fa-list text-success"></i>
                                 Additional Information
                             </a>
@@ -31,8 +32,37 @@
                         @endif
                     </li>
                     <li class="nav-item">
+                        @if(\Request::get('section') == 'crs')
+                            <a class="nav-link @if(\Request::get('section') == 'crs') active @endif" data-toggle="tab" href="#crs" role="tab"
+                               aria-controls="crs">
+                                <i class="fal fa-list text-success"></i>
+                                Current Return Status
+                            </a>
+                        @else
+                            <a class="nav-link" href="{{ URL::to('tax/'.$tax->id.'?section=crs') }}">
+                                <i class="fal fa-list text-success"></i>
+                                Current Return Status
+                            </a>
+                        @endif
+                    </li>
+                    <li class="nav-item">
+                        @if(\Request::get('section') == 'tajuk')
+                            <a class="nav-link @if(\Request::get('section') == 'tajuk') active @endif" data-toggle="tab" href="#tajuk" role="tab"
+                               aria-controls="tajuk">
+                                <i class="fal fa-list text-success"></i>
+                                Apa Tajuk Di Sini?
+                            </a>
+                        @else
+                            <a class="nav-link" href="{{ URL::to('tax/'.$tax->id.'?section=tajuk') }}">
+                                <i class="fal fa-list text-success"></i>
+                                Apa Tajuk Di Sini?
+                            </a>
+                        @endif
+                    </li>
+                    <li class="nav-item">
                         @if(\Request::get('section') == 'attachment')
-                            <a class="nav-link @if(\Request::get('section') == 'attachment') active @endif" data-toggle="tab" href="#attachment" role="tab" aria-controls="attachment">
+                            <a class="nav-link @if(\Request::get('section') == 'attachment') active @endif" data-toggle="tab" href="#attachment" role="tab"
+                               aria-controls="attachment">
                                 <i class="fal fa-paperclip text-success"></i>
                                 Attachment
                             </a>
@@ -89,6 +119,10 @@
                     </div>
                     <div class="tab-pane @if(\Request::get('section') == 'additional') active @endif" id="additional" role="tabpanel">
                         @include('tax.form.additional')
+                    </div>
+                    <div class="tab-pane @if(\Request::get('section') == 'crs') active @endif" id="crs" role="tabpanel"></div>
+                    <div class="tab-pane @if(\Request::get('section') == 'tajuk') active @endif" id="tajuk" role="tabpanel">
+                        @include('tax.form.tajuk')
                     </div>
                     <div class="tab-pane @if(\Request::get('section') == 'attachment') active @endif" id="attachment" role="tabpanel"></div>
                     <div class="tab-pane @if(\Request::get('section') == 'profiling') active @endif" id="profiling" role="tabpanel">

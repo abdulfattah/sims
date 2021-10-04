@@ -23,6 +23,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link @if(\Request::get('section') == 'tajuk') active @endif p-3" href="{{ url()->to('tax/' . $tax->id . '?section=tajuk') }}">
+                            <i class="fal fa-check text-success"></i>
+                            Apa Tajuk Di Sini?
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link @if(\Request::get('section') == 'attachment') active @endif p-3" href="{{ url()->to('tax/' . $tax->id . '?section=attachment') }}">
                             <i class="fal fa-paperclip text-success"></i>
                             Attachment
@@ -54,11 +60,14 @@
                     <div class="tab-pane @if(\Request::get('section') == 'additional') active @endif">
                         @include('tax.show.additional')
                     </div>
-                    <div class="tab-pane @if(\Request::get('section') == 'additional') active @endif">
-                        @include('tax.show.additional')
-                    </div>
                     <div class="tab-pane @if(\Request::get('section') == 'crs') active @endif">
                         @include('tax.show.crs')
+                    </div>
+                    <div class="tab-pane @if(\Request::get('section') == 'tajuk') active @endif">
+                        @include('tax.show.tajuk')
+                    </div>
+                    <div class="tab-pane @if(\Request::get('section') == 'attachment') active @endif">
+                        @include('tax.show.attachment')
                     </div>
                     <div class="tab-pane @if(\Request::get('section') == 'profiling') active @endif">
                             <div class="panel-content">

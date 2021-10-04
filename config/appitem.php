@@ -82,4 +82,10 @@ return [
         'KEMUDAHAN',
         'LAIN-LAIN (NYATAKAN)',
     ],
+    //Jenis B.O.D gesaan
+    'pushType' => [
+        'B.O.D',
+        'PENYATA',
+        'BAYARAN',
+    ],
 ];

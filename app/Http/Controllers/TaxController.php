@@ -568,6 +568,14 @@ class TaxController extends Controller
                 'title'      => 'Report Risk Person'
             );
             return view('report.risk_person', $data);
+        } elseif ($reportWhat == 'push_report') {
+            $data = array(
+                'menu'       => ['menu' => 'Report', 'subMenu' => 'Risk Person'],
+                'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
+                             <li class="breadcrumb-item active">Report</li>',
+                'title'      => 'Report Risk Person'
+            );
+            return view('report.risk_person', $data);
         }
     }
 

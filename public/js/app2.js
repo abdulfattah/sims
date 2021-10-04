@@ -165,6 +165,18 @@ jQuery(function ($) {
             });
         }
 
+        if ($this.attr('data-dx') === 'timebox') {
+            $this.dxDateBox({
+                name: $this.attr('data-name'),
+                width: '100%',
+                displayFormat: "HH:mm",
+                pickerType: 'rollers',
+                value: $this.attr('data-value') == '' ? new Date() : $this.attr('data-value'),
+                readOnly: $this.attr('data-readonly'),
+                type: 'time'
+            });
+        }
+
         if ($this.attr('data-dx') === 'radiogroup') {
             $.getJSON(baseURL + '/data?b=55a0c60438017&c=' + $this.attr('data-source'), function (data) {
                 dataSource = new DevExpress.data.DataSource({
@@ -1437,10 +1449,10 @@ jQuery(function ($) {
     }
 
     if ($('#progress-bar-base').length > 0) {
-        var intervalProgressBar = setInterval(() => {
+        var intervalProgressBarBase = setInterval(() => {
             $.getJSON(baseURL + '/data?b=55a0c60438203', function (data) {
                 if (data == '100') {
-                    clearInterval(intervalProgressBar);
+                    clearInterval(intervalProgressBarBase);
                     $('#progress-bar-base').attr('aria-valuenow', data);
                     $('#progress-bar-base').css('width', '100%');
                     $('#progress-bar-base').html('100%');
@@ -1462,10 +1474,10 @@ jQuery(function ($) {
     }
 
     if ($('#progress-bar-statement').length > 0) {
-        var intervalProgressBar = setInterval(() => {
+        var intervalProgressBarStatement = setInterval(() => {
             $.getJSON(baseURL + '/data?b=55a0c60438303', function (data) {
                 if (data == '100') {
-                    clearInterval(intervalProgressBar);
+                    clearInterval(intervalProgressBarStatement);
                     $('#progress-bar-statement').attr('aria-valuenow', data);
                     $('#progress-bar-statement').css('width', '100%');
                     $('#progress-bar-statement').html('100%');
@@ -1487,10 +1499,10 @@ jQuery(function ($) {
     }
 
     if ($('#progress-bar-crs').length > 0) {
-        var intervalProgressBar = setInterval(() => {
+        var intervalProgressBarCrs = setInterval(() => {
             $.getJSON(baseURL + '/data?b=55a0c60438403', function (data) {
                 if (data == '100') {
-                    clearInterval(intervalProgressBar);
+                    clearInterval(intervalProgressBarCrs);
                     $('#progress-bar-crs').attr('aria-valuenow', data);
                     $('#progress-bar-crs').css('width', '100%');
                     $('#progress-bar-crs').html('100%');
