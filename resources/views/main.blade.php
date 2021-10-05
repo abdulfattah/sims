@@ -107,8 +107,8 @@
                                     <span class="nav-link-text">Orang Berdaftar</span>
                                 </a>
                             </li>
-                            <li class="@if ($menu['subMenu'] == 'Risk Person') active @endif">
-                                <a href="{{ url()->to('report/push_report') }}" title="Privacy" data-filter-tags="application intel privacy">
+                            <li class="@if ($menu['subMenu'] == 'Push Format') active @endif">
+                                <a href="{{ url()->to('report/push_format') }}" title="Privacy" data-filter-tags="application intel privacy">
                                     <span class="nav-link-text">Laporan Gesaan</span>
                                 </a>
                             </li>

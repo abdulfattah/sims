@@ -171,7 +171,7 @@ jQuery(function ($) {
                 width: '100%',
                 displayFormat: "HH:mm",
                 pickerType: 'rollers',
-                value: $this.attr('data-value') == '' ? new Date() : $this.attr('data-value'),
+                value: $this.attr('data-value') == '' ? null : $this.attr('data-value'),
                 readOnly: $this.attr('data-readonly'),
                 type: 'time'
             });
@@ -376,6 +376,8 @@ jQuery(function ($) {
             localStorage.removeItem("indexRiskEntity");
         } else if ($(this).attr('data-for') == 'risk_person') {
             localStorage.removeItem("indexRiskPerson");
+        } else if ($(this).attr('data-for') == 'push_report') {
+            localStorage.removeItem("indexPushReport");
         }
         grid.state({});
         grid.option("searchPanel.visible", false);
@@ -415,6 +417,8 @@ jQuery(function ($) {
             location.href = baseURL + '/export/excel/tax/risk_entity?column=' + JSON.stringify(column) + '&filter=' + JSON.stringify(grid.getCombinedFilter()) + '&sort=' + JSON.stringify(sort);
         } else if ($(this).attr('data-for') == 'risk_person') {
             location.href = baseURL + '/export/excel/tax/risk_person?column=' + JSON.stringify(column) + '&filter=' + JSON.stringify(grid.getCombinedFilter()) + '&sort=' + JSON.stringify(sort);
+        } else if ($(this).attr('data-for') == 'push_report') {
+            location.href = baseURL + '/export/excel/tax/push_report?column=' + JSON.stringify(column) + '&filter=' + JSON.stringify(grid.getCombinedFilter()) + '&sort=' + JSON.stringify(sort);
         }
     });
 
@@ -470,7 +474,7 @@ jQuery(function ($) {
                 enabled: true
             },
             columnAutoWidth: true,
-            onContentReady: function(e) {
+            onContentReady: function (e) {
                 var totalRecords = e.component.totalCount();
                 e.component.option('pager.infoText', 'Total Records: ' + totalRecords + ', Page {0} of {1}');
             }
@@ -646,12 +650,12 @@ jQuery(function ($) {
                     allowHiding: false,
                     allowFiltering: false,
                     allowHeaderFiltering: false,
-                    cellTemplate: function(cellElement, cellInfo) {
+                    cellTemplate: function (cellElement, cellInfo) {
                         var dataGrid = $('#grid[data-for="tax"]').dxDataGrid("instance");
                         var index = dataGrid.pageIndex() * dataGrid.pageSize() + e.rowIndex + 1;
                         cellElement.text(index);
                     }
-                },{
+                }, {
                     caption: '',
                     alignment: 'center',
                     dataField: 'id',
@@ -1297,6 +1301,211 @@ jQuery(function ($) {
                     width: '10%',
                     dataField: "risk_level_text"
                 }]);
+        } else if ($this.attr('data-for') == 'push_report') {
+            grid.option('dataSource', {
+                store: DevExpress.data.AspNet.createStore({
+                    key: 'id',
+                    loadUrl: baseURL + '/data?b=' + '55a0c604380fe' + '&c=push_report'
+                })
+            });
+            grid.option('stateStoring', {
+                enabled: true,
+                type: 'custom',
+                storageKey: 'indexPushReport',
+                customLoad: function () {
+                    var d = new $.Deferred();
+                    setTimeout(function () {
+                        var state = localStorage.getItem("indexPushReport");
+                        d.resolve($.parseJSON(state));
+                    }, 1000);
+                    return d.promise();
+                },
+                customSave: function (gridState) {
+                    localStorage.setItem("indexPushReport", JSON.stringify(gridState));
+                }
+            });
+            grid.option('columns', [
+                {
+                    caption: '#',
+                    cellTemplate: function (cellElement, cellInfo) {
+                        cellElement.text(cellInfo.row.rowIndex + 1)
+                    }
+                }, {
+                    caption: 'JENIS',
+                    width: '100',
+                    dataType: 'string',
+                    dataField: "push_type",
+                    allowHeaderFiltering: false
+                }, {
+                    caption: 'BUSINESS NAME',
+                    width: '280',
+                    dataType: 'string',
+                    dataField: "business_name",
+                    sortOrder: 'asc',
+                    allowHeaderFiltering: false,
+                    cellTemplate: function (container, options) {
+                        $('<a/>').addClass('dx-link')
+                            .text(options.text)
+                            .on('dxclick', function () {
+                                location.href = baseURL + '/tax/' + options.data.tax_id + '?section=tajuk';
+                            })
+                            .appendTo(container);
+                    }
+                }, {
+                    caption: 'SST NO',
+                    width: '100',
+                    dataType: 'string',
+                    dataField: "sst_no",
+                    allowHeaderFiltering: false
+                }, {
+                    caption: 'EMAIL ADDRESS',
+                    width: '200',
+                    dataType: 'string',
+                    allowHeaderFiltering: false,
+                    dataField: "email_address"
+                }, {
+                    caption: 'TELEPHONE',
+                    width: '100',
+                    dataType: 'number',
+                    allowHeaderFiltering: false,
+                    dataField: "telephone_no"
+                }, {
+                    caption: 'TAXABLE PERIOD',
+                    width: '150',
+                    dataType: 'number',
+                    allowHeaderFiltering: false,
+                    dataField: "crs_taxable_period"
+                }, {
+                    caption: 'DUE DATE',
+                    width: '150',
+                    dataType: "date",
+                    format: 'dd MMM yyyy',
+                    allowHeaderFiltering: false,
+                    dataField: "crs_due_date"
+                }, {
+                    caption: 'SUBMISSION DATE',
+                    width: '180',
+                    columns: [
+                        {
+                            caption: 'KALENDAR',
+                            dataType: "date",
+                            format: 'dd MMM yyyy',
+                            allowHeaderFiltering: false,
+                            dataField: "push_submission_date_1"
+                        },
+                        {
+                            caption: 'KALENDAR',
+                            dataType: "date",
+                            format: 'dd MMM yyyy',
+                            allowHeaderFiltering: false,
+                            dataField: "push_submission_date_2"
+                        },
+                    ],
+                }, {
+                    caption: 'PIC',
+                    width: '280',
+                    dataType: 'string',
+                    allowHeaderFiltering: false,
+                    dataField: "push_pic"
+                }, {
+                    caption: 'EMAIL',
+                    width: '180',
+                    columns: [
+                        {
+                            caption: 'TARIKH',
+                            dataType: "date",
+                            format: 'dd MMM yyyy',
+                            allowHeaderFiltering: false,
+                            dataField: "push_email_date"
+                        },
+                        {
+                            caption: 'MASA',
+                            allowHeaderFiltering: false,
+                            dataField: "push_email_time"
+                        },
+                    ],
+                }, {
+                    caption: 'TELEFON',
+                    width: '180',
+                    columns: [
+                        {
+                            caption: 'TARIKH',
+                            dataType: "date",
+                            format: 'dd MMM yyyy',
+                            allowHeaderFiltering: false,
+                            dataField: "push_phone_date"
+                        },
+                        {
+                            caption: 'MASA',
+                            allowHeaderFiltering: false,
+                            dataField: "push_phone_time"
+                        },
+                    ],
+                }, {
+                    caption: 'WHATSAPP',
+                    width: '180',
+                    columns: [
+                        {
+                            caption: 'TARIKH',
+                            dataType: "date",
+                            format: 'dd MMM yyyy',
+                            allowHeaderFiltering: false,
+                            dataField: "push_whatsapp_date"
+                        },
+                        {
+                            caption: 'MASA',
+                            allowHeaderFiltering: false,
+                            dataField: "push_whatsapp_time"
+                        },
+                    ],
+                }, {
+                    caption: 'LAWATAN',
+                    width: '180',
+                    columns: [
+                        {
+                            caption: 'TARIKH',
+                            dataType: "date",
+                            format: 'dd MMM yyyy',
+                            allowHeaderFiltering: false,
+                            dataField: "push_visit_date"
+                        },
+                        {
+                            caption: 'MASA',
+                            allowHeaderFiltering: false,
+                            dataField: "push_visit_time"
+                        },
+                    ],
+                }, {
+                    caption: 'B.O.D',
+                    width: '280',
+                    columns: [
+                        {
+                            caption: 'Penalty Rate',
+                            allowHeaderFiltering: false,
+                            dataField: "push_bod_penalty_rate"
+                        },
+                        {
+                            caption: 'Penalty Amount',
+                            allowHeaderFiltering: false,
+                            dataField: "push_bod_penalty_amount"
+                        },
+                        {
+                            caption: 'Status',
+                            allowHeaderFiltering: false,
+                            dataField: "push_bod_status"
+                        },
+                        {
+                            caption: 'ABT',
+                            allowHeaderFiltering: false,
+                            dataField: "push_bod_abt"
+                        },
+                    ],
+                }, {
+                    caption: 'CATATAN',
+                    width: '150',
+                    allowHeaderFiltering: false,
+                    dataField: "push_note"
+                }, ]);
         }
     });
     //end grid

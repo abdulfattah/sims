@@ -160,6 +160,13 @@ class JsonController extends Controller
             $controller = new DxGridOfficial('tax_profiling_03',
                                              'id, tax_id, business_name, brn_no, mark_01, mark_02, mark_03, mark_04, mark_05, mark_06, mark_07, mark_08, mark_09, risk_level_text',
                                              '');
+        } elseif ($profile == 'push_report') {
+            $controller = new DxGridOfficial('tax_records',
+                                             'business_name, sst_no, email_address, telephone_no, push_type, push_submission_date_1, push_submission_date_2, 
+                                             push_pic, push_summit_date, push_email_date, push_email_time, push_phone_date, push_phone_time, push_whatsapp_date, 
+                                             push_whatsapp_time, push_visit_date, push_visit_time, push_bod_penalty_rate, push_bod_penalty_amount, push_bod_status, push_bod_abt, 
+                                             push_note',
+                                             '');
         }
         $params     = $controller->GetParseParams($_GET);
         $response   = $controller->Get($params);

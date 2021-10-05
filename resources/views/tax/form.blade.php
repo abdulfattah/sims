@@ -115,14 +115,20 @@
                 </ul>
                 <div class="tab-content border border-top-0 p-3">
                     <div class="tab-pane @if(\Request::get('section') == 'basic') active @endif" id="basic" role="tabpanel">
-                        @include('tax.form.basic')
+                        @if(\Request::get('section') == 'basic')
+                            @include('tax.form.basic')
+                        @endif
                     </div>
                     <div class="tab-pane @if(\Request::get('section') == 'additional') active @endif" id="additional" role="tabpanel">
-                        @include('tax.form.additional')
+                        @if(\Request::get('section') == 'additional')
+                            @include('tax.form.additional')
+                        @endif
                     </div>
                     <div class="tab-pane @if(\Request::get('section') == 'crs') active @endif" id="crs" role="tabpanel"></div>
                     <div class="tab-pane @if(\Request::get('section') == 'tajuk') active @endif" id="tajuk" role="tabpanel">
-                        @include('tax.form.tajuk')
+                        @if(\Request::get('section') == 'tajuk')
+                            @include('tax.form.tajuk')
+                        @endif
                     </div>
                     <div class="tab-pane @if(\Request::get('section') == 'attachment') active @endif" id="attachment" role="tabpanel"></div>
                     <div class="tab-pane @if(\Request::get('section') == 'profiling') active @endif" id="profiling" role="tabpanel">

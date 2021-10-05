@@ -30,9 +30,9 @@
             <dt class="col-sm-3 col-xl-3">Summit Date</dt>
             <dd class="col-sm-9 col-xl-8">&nbsp;{{ $tax->push_summit_date != null ? date('d M Y', strtotime($tax->push_summit_date)) : null }}</dd>
             <dt class="col-sm-3 col-xl-3">Tax Payable</dt>
-            <dd class="col-sm-9 col-xl-8">&nbsp;{{ $tax->crs_tax_payable }}</dd>
+            <dd class="col-sm-9 col-xl-8">&nbsp;RM{{ number_format($tax->crs_tax_payable, 2) }}</dd>
             <dt class="col-sm-3 col-xl-3">Receipt Amount</dt>
-            <dd class="col-sm-9 col-xl-8">&nbsp;{{ $tax->crs_receipt_amt }}</dd>
+            <dd class="col-sm-9 col-xl-8">&nbsp;RM{{ number_format($tax->crs_receipt_amt, 2) }}</dd>
             <dt class="col-sm-3 col-xl-3">Receipt Date</dt>
             <dd class="col-sm-9 col-xl-8">&nbsp;{{ $tax->crs_receipt_date != null ? date('d M Y', strtotime($tax->crs_receipt_date)) : null }}</dd>
             <dt class="col-sm-3 col-xl-3">Email (Tarikh)</dt>

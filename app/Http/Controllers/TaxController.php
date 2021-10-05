@@ -317,6 +317,20 @@ class TaxController extends Controller
                 ->log('Update additional information');
 
             return redirect()->to('tax/' . $id . '?section=' . \Request::get('section'))->with('success', 'Tax information has been update.');
+        }  elseif (request()->get('section') == 'tajuk') {
+            $input = \Request::all();
+            $tax   = Models\TAXRecords::find($id);
+            $tax   = $this->populateSaveValue($tax, $input, array(
+                'exclude' => array('_token', '_method', 'section'),
+            ));
+            $tax->save();
+
+            activity('tax')
+                ->causedBy(\Auth::user())
+                ->performedOn($tax)
+                ->log('Update tajuk information');
+
+            return redirect()->to('tax/' . $id . '?section=' . \Request::get('section'))->with('success', 'Tax information has been update.');
         } elseif (request()->get('section') == 'attachment') {
             $attachment              = SYSAsset::find(request()->get('id'));
             $attachment->title       = strtoupper(request()->get('title'));
@@ -568,14 +582,14 @@ class TaxController extends Controller
                 'title'      => 'Report Risk Person'
             );
             return view('report.risk_person', $data);
-        } elseif ($reportWhat == 'push_report') {
+        } elseif ($reportWhat == 'push_format') {
             $data = array(
-                'menu'       => ['menu' => 'Report', 'subMenu' => 'Risk Person'],
+                'menu'       => ['menu' => 'Report', 'subMenu' => 'Push Format'],
                 'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
                              <li class="breadcrumb-item active">Report</li>',
                 'title'      => 'Report Risk Person'
             );
-            return view('report.risk_person', $data);
+            return view('report.push_format', $data);
         }
     }
 

@@ -150,6 +150,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="modal-footer">
+                        <a href="{{ URL::to('tax/' . $tax->id . '?section=additional') }}" class="text-danger mr-3">Cancel</a>
                         <div data-dx="btn-submit" data-type="default" data-text="Submit" data-disabled="false" data-validation-group="form" data-form="form-tax"></div>
                     </div>
                 </div>

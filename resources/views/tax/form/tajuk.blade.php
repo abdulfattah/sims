@@ -1,4 +1,4 @@
-<form method="POST" action="{{ \URL::to('tax/' . $tax->id . '?section=additional') }}" id="form-tax" class="form-horizontal" enctype="multipart/form-data" novalidate>
+<form method="POST" action="{{ \URL::to('tax/' . $tax->id . '?section=tajuk') }}" id="form-tax" class="form-horizontal" enctype="multipart/form-data" novalidate>
     @csrf
     @if (isset($tax)) <input type="hidden" name="_method" value="PUT"/> @endif
     <div class="row">
@@ -144,6 +144,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="modal-footer">
+                        <a href="{{ URL::to('tax/' . $tax->id . '?section=tajuk') }}" class="text-danger mr-3">Cancel</a>
                         <div data-dx="btn-submit" data-type="default" data-text="Submit" data-disabled="false" data-validation-group="form" data-form="form-tax"></div>
                     </div>
                 </div>
