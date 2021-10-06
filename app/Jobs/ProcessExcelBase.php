@@ -64,9 +64,51 @@ class ProcessExcelBase implements ShouldQueue
                 }
 
                 $tax->registration_status      = $v[0];
-                $tax->registration_date        = !empty($v[1]) ? Carbon::createFromFormat('d/m/Y', $v[1])->format('Y-m-d') : null;
-                $tax->cancellation_approval    = !empty($v[2]) ? Carbon::createFromFormat('d/m/Y', $v[2])->format('Y-m-d') : null;
-                $tax->cancellation_effective   = !empty($v[3]) ? Carbon::createFromFormat('d/m/Y', $v[3])->format('Y-m-d') : null;
+                $registrationDate = null;
+                if (strpos($v[1], '/') !== false) {
+                    $registrationDate = str_replace(' ', '', $v[1]);
+                    $registrationDate = Carbon::createFromFormat('d/m/Y', $registrationDate)->format('Y-m-d');
+                } else {
+                    if (!empty($v[1])) {
+                        $registrationDate = Carbon::parse($v[1])->format('Y-m-d');
+                        if ($registrationDate == '1970-01-01') {
+                            $registrationDate = Carbon::instance(\PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($v[1]));
+                            $registrationDate = $registrationDate->format('Y-m-d');
+                        }
+                    }
+                }
+                $tax->registration_date = $registrationDate;
+
+                $cancellationApproval = null;
+                if (strpos($v[2], '/') !== false) {
+                    $cancellationApproval = str_replace(' ', '', $v[2]);
+                    $cancellationApproval = Carbon::createFromFormat('d/m/Y', $cancellationApproval)->format('Y-m-d');
+                } else {
+                    if (!empty($v[2])) {
+                        $cancellationApproval = Carbon::parse($v[2])->format('Y-m-d');
+                        if ($cancellationApproval == '1970-01-01') {
+                            $cancellationApproval = Carbon::instance(\PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($v[2]));
+                            $cancellationApproval = $cancellationApproval->format('Y-m-d');
+                        }
+                    }
+                }
+                $tax->cancellation_approval = $cancellationApproval;
+
+                $cancellationEffective = null;
+                if (strpos($v[3], '/') !== false) {
+                    $cancellationEffective = str_replace(' ', '', $v[3]);
+                    $cancellationEffective = Carbon::createFromFormat('d/m/Y', $cancellationEffective)->format('Y-m-d');
+                } else {
+                    if (!empty($v[3])) {
+                        $cancellationEffective = Carbon::parse($v[3])->format('Y-m-d');
+                        if ($cancellationEffective == '1970-01-01') {
+                            $cancellationEffective = Carbon::instance(\PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($v[3]));
+                            $cancellationEffective = $cancellationEffective->format('Y-m-d');
+                        }
+                    }
+                }
+                $tax->cancellation_effective = $cancellationEffective;
+
                 $tax->sst_no                   = $v[4];
                 $tax->station_code             = $v[5];
                 $tax->station_name             = $v[6];

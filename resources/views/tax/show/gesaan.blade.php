@@ -15,7 +15,7 @@
             <dd class="col-sm-9 col-xl-8">&nbsp;{{ $tax->getCompanyAddress() }}</dd>
             <dt class="col-sm-3 col-xl-3">Taxable Period</dt>
             <dd class="col-sm-9 col-xl-8">&nbsp;{{ $tax->crs_taxable_period }}</dd>
-            <dt class="col-sm-3 col-xl-3">Due Date)</dt>
+            <dt class="col-sm-3 col-xl-3">Due Date</dt>
             <dd class="col-sm-9 col-xl-8">&nbsp;{{ $tax->crs_due_date != null ? date('d M Y', strtotime($tax->crs_due_date)) : null }}</dd>
             <dt class="col-sm-3 col-xl-3">Submission Status</dt>
             <dd class="col-sm-9 col-xl-8">&nbsp;{{ $tax->crs_submission_status }}</dd>
@@ -39,8 +39,8 @@
                     <th rowspan="2" class="text-center" style="width: 100px;">#</th>
                     <th rowspan="2" class="text-center" style="width: 120px;">Jenis</th>
                     <th colspan="2" class="text-center">Submission Status</th>
-                    <th rowspan="2" class="text-center" style="width: 250px;">PIC</th>
-                    <th rowspan="2" class="text-center" style="width: 150px;">Summit Date</th>
+                    <th rowspan="2" class="text-center" style="width: 250px;">Pegawai</th>
+                    <th rowspan="2" class="text-center" style="width: 150px;">Tarikh Ikrar Penyata</th>
                     <th colspan="2" class="text-center">Email</th>
                     <th colspan="2" class="text-center">Telefon</th>
                     <th colspan="2" class="text-center">Whatsapp</th>
@@ -71,10 +71,10 @@
                     <tr>
                         <td>{{ ++$key }}</td>
                         <td>{{ $gesaan->push_type }}</td>
-                        <td>{{ $gesaan->push_submission_date_1 != null ? date('d-m-Y', strtotime($gesaan->push_submission_date_1)) : null }}</td>
-                        <td>{{ $gesaan->push_submission_date_2 != null ? date('d-m-Y', strtotime($gesaan->push_submission_date_2)) : null }}</td>
+                        <td>{{ $gesaan->push_gesaan_date != null ? date('d-m-Y', strtotime($gesaan->push_gesaan_date)) : null }}</td>
+                        <td>{{ $gesaan->push_status_penyata != null ? date('d-m-Y', strtotime($gesaan->push_status_penyata)) : null }}</td>
                         <td>{{ $gesaan->push_pic }}</td>
-                        <td>{{ $gesaan->push_summit_date != null ? date('d-m-Y', strtotime($gesaan->push_summit_date)) : null }}</td>
+                        <td>{{ $gesaan->push_ikrar_penyata_date != null ? date('d-m-Y', strtotime($gesaan->push_ikrar_penyata_date)) : null }}</td>
                         <td>{{ $gesaan->push_email_date != null ? date('d-m-Y', strtotime($gesaan->push_email_date)) : null }}</td>
                         <td>{{ $gesaan->push_email_time != null ? date('H:i', strtotime($gesaan->push_email_time)) : null }}</td>
                         <td>{{ $gesaan->push_phone_date != null ? date('d-m-Y', strtotime($gesaan->push_phone_date)) : null }}</td>
@@ -121,15 +121,15 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="form-label" for="push_summit_date">Summit Date</label>
-                                        <div data-dx="datebox" data-name="push_summit_date" data-display-format="dd MMM YYYY" data-value=""></div>
+                                        <label class="form-label" for="push_ikrar_penyata_date">Tarikh Ikrar Penyata</label>
+                                        <div data-dx="datebox" data-name="push_ikrar_penyata_date" data-display-format="dd MMM YYYY" data-value=""></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="form-label" for="push_pic">PIC</label>
+                                        <label class="form-label" for="push_pic">Pegawai</label>
                                         <div data-dx="textbox" data-name="push_pic" data-mode="text" data-value="">
                                         </div>
                                     </div>
@@ -138,14 +138,14 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="form-label" for="push_submission_date_1">Submission Status</label>
-                                        <div data-dx="datebox" data-name="push_submission_date_1" data-display-format="dd MMM YYYY" data-value=""></div>
+                                        <label class="form-label" for="push_gesaan_date">Tarikh Gesaan</label>
+                                        <div data-dx="datebox" data-name="push_gesaan_date" data-display-format="dd MMM YYYY" data-value=""></div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="form-label" for="push_submission_date_2">Submission Status</label>
-                                        <div data-dx="datebox" data-name="push_submission_date_2" data-display-format="dd MMM YYYY" data-value=""></div>
+                                        <label class="form-label" for="push_status_penyata">Status Penyata</label>
+                                        <div data-dx="selectbox" data-name="push_status_penyata" data-source="statusPenyata" data-value-exp="id" data-value=""></div>
                                     </div>
                                 </div>
                             </div>

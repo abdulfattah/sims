@@ -25,25 +25,25 @@
             <dd class="col-sm-9 col-xl-8">&nbsp;{{ $tax->crs_receipt_no }}</dd>
             <dt class="col-sm-3 col-xl-3">Receipt Date</dt>
             <dd class="col-sm-9 col-xl-8">&nbsp;{{ $tax->crs_receipt_date != null ? date('d M Y', strtotime($tax->crs_receipt_date)) : null }}</dd>
-            <dt class="col-sm-3 col-xl-3">Receipt Amt</dt>
+            <dt class="col-sm-3 col-xl-3">Receipt Amount</dt>
             <dd class="col-sm-9 col-xl-8">&nbsp;{{ $tax->crs_receipt_amt }}</dd>
             <dt class="col-sm-3 col-xl-3">Mode of Payment</dt>
             <dd class="col-sm-9 col-xl-8">&nbsp;{{ $tax->crs_mode_of_payment }}</dd>
             <dt class="col-sm-3 col-xl-3">Penalty Rate</dt>
             <dd class="col-sm-9 col-xl-8">&nbsp;{{ $tax->crs_penalty_rate }}</dd>
-            <dt class="col-sm-3 col-xl-3">Penalty Smt</dt>
+            <dt class="col-sm-3 col-xl-3">Penalty Amount</dt>
             <dd class="col-sm-9 col-xl-8">&nbsp;{{ $tax->crs_penalty_amt }}</dd>
-            <dt class="col-sm-3 col-xl-3">Bod Status</dt>
+            <dt class="col-sm-3 col-xl-3">B.O.D Status</dt>
             <dd class="col-sm-9 col-xl-8">&nbsp;{{ $tax->crs_bod_status }}</dd>
-            <dt class="col-sm-3 col-xl-3">Bod Rcpt No</dt>
+            <dt class="col-sm-3 col-xl-3">B.O.D Rcpt No</dt>
             <dd class="col-sm-9 col-xl-8">&nbsp;{{ $tax->crs_bod_receipt_no }}</dd>
-            <dt class="col-sm-3 col-xl-3">Bod Tax Paid</dt>
+            <dt class="col-sm-3 col-xl-3">B.O.D Tax Paid</dt>
             <dd class="col-sm-9 col-xl-8">&nbsp;{{ $tax->crs_bod_tax_paid }}</dd>
-            <dt class="col-sm-3 col-xl-3">Bod Total Tax</dt>
+            <dt class="col-sm-3 col-xl-3">B.O.D Total Tax</dt>
             <dd class="col-sm-9 col-xl-8">&nbsp;{{ $tax->crs_bod_total_tax }}</dd>
-            <dt class="col-sm-3 col-xl-3">Bod Penalty Paid</dt>
+            <dt class="col-sm-3 col-xl-3">B.O.D Penalty Paid</dt>
             <dd class="col-sm-9 col-xl-8">&nbsp;{{ $tax->crs_bod_penalty_paid }}</dd>
-            <dt class="col-sm-3 col-xl-3">Bod Total Penalty</dt>
+            <dt class="col-sm-3 col-xl-3">B.O.D Total Penalty</dt>
             <dd class="col-sm-9 col-xl-8">&nbsp;{{ $tax->crs_bod_total_penalty }}</dd>
         </dl>
     </div>

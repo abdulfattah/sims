@@ -16,6 +16,7 @@ use App\Http\Controllers\JsonController;
 use App\Http\Controllers\SystemController;
 use App\Http\Controllers\TaxController;
 use App\Http\Controllers\UserController;
+use Carbon\Carbon;
 
 Route::any('login', [UserController::class, 'login'])->name('login');
 
@@ -51,6 +52,11 @@ Route::group(array('middleware' => 'auth'), function () {
 
 Route::group(array("prefix" => "print/preview"), function () {
 
+});
+
+Route::get("fattah", function () {
+    $a = $crsSubmitDate = Carbon::parse('03-04-2001')->format('Y-m-d');
+    dd($a);
 });
 
 Route::get('logout', [UserController::class, 'logout']);

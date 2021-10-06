@@ -1382,26 +1382,19 @@ jQuery(function ($) {
                     allowHeaderFiltering: false,
                     dataField: "crs_due_date"
                 }, {
-                    caption: 'SUBMISSION DATE',
-                    width: '180',
-                    columns: [
-                        {
-                            caption: 'KALENDAR',
-                            dataType: "date",
-                            format: 'dd MMM yyyy',
-                            allowHeaderFiltering: false,
-                            dataField: "push_submission_date_1"
-                        },
-                        {
-                            caption: 'KALENDAR',
-                            dataType: "date",
-                            format: 'dd MMM yyyy',
-                            allowHeaderFiltering: false,
-                            dataField: "push_submission_date_2"
-                        },
-                    ],
+                    caption: 'TARIKH GESAAN',
+                    dataType: "date",
+                    format: 'dd MMM yyyy',
+                    allowHeaderFiltering: false,
+                    dataField: "push_gesaan_date"
                 }, {
-                    caption: 'PIC',
+                    caption: 'STATUS PENYATA',
+                    dataType: "date",
+                    format: 'dd MMM yyyy',
+                    allowHeaderFiltering: false,
+                    dataField: "push_status_penyata"
+                }, {
+                    caption: 'PEGAWAI',
                     width: '280',
                     dataType: 'string',
                     allowHeaderFiltering: false,
@@ -1613,9 +1606,9 @@ jQuery(function ($) {
             $('#title-gesaan').html('Update Gesaan');
             $('[data-name="push_type"]').dxSelectBox('instance').option('value', data.push_type);
             $('[data-name="push_pic"]').dxTextBox('instance').option('value', data.push_pic);
-            $('[data-name="push_summit_date"]').dxDateBox('instance').option('value', data.push_summit_date);
-            $('[data-name="push_submission_date_1"]').dxDateBox('instance').option('value', data.push_submission_date_1);
-            $('[data-name="push_submission_date_2"]').dxDateBox('instance').option('value', data.push_submission_date_2);
+            $('[data-name="push_ikrar_penyata_date"]').dxDateBox('instance').option('value', data.push_ikrar_penyata_date);
+            $('[data-name="push_gesaan_date"]').dxDateBox('instance').option('value', data.push_gesaan_date);
+            $('[data-name="push_status_penyata"]').dxSelectBox('instance').option('value', data.push_status_penyata);
             $('[data-name="push_email_date"]').dxDateBox('instance').option('value', data.push_email_date);
             $('[data-name="push_email_time"]').dxDateBox('instance').option('value', data.push_email_time);
             $('[data-name="push_phone_date"]').dxDateBox('instance').option('value', data.push_phone_date);

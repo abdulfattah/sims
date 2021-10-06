@@ -102,4 +102,9 @@ return [
         '40%',
         'OTHERS'
     ],
+    //Status penyata
+    'statusPenyata' => [
+        'SUBMITTED',
+        'NOT SUBMITTED'
+    ],
 ];

@@ -60,26 +60,50 @@ class ProcessExcelCrs implements ShouldQueue
                 if ($tax != null) {
                     $tax->crs_taxable_period     = $v[12];
                     $crsDueDate                = null;
-                    if (strpos($v[12], '/') != false) {
+                    if (strpos($v[13], '/') !== false) {
                         $crsDueDate = str_replace(' ', '', $v[13]);
                         $crsDueDate = Carbon::createFromFormat('d/m/Y', $crsDueDate)->format('Y-m-d');
+                    } else {
+                        if (!empty($v[13])) {
+                            $crsDueDate = Carbon::parse($v[13])->format('Y-m-d');
+                            if ($crsDueDate == '1970-01-01') {
+                                $crsDueDate = Carbon::instance(\PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($v[13]));
+                                $crsDueDate = $crsDueDate->format('Y-m-d');
+                            }
+                        }
                     }
                     $tax->crs_due_date = $crsDueDate;
                     $tax->crs_submission_status  = $v[14];
                     $tax->crs_sst_02_no          = $v[15];
                     $crsSubmitDate                = null;
-                    if (strpos($v[16], '/') != false) {
+                    if (strpos($v[16], '/') !== false) {
                         $crsSubmitDate = str_replace(' ', '', $v[16]);
                         $crsSubmitDate = Carbon::createFromFormat('d/m/Y', $crsSubmitDate)->format('Y-m-d');
+                    } else {
+                        if (!empty($v[16])) {
+                            $crsSubmitDate = Carbon::parse($v[16])->format('Y-m-d');
+                            if ($crsSubmitDate == '1970-01-01') {
+                                $crsSubmitDate = Carbon::instance(\PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($v[16]));
+                                $crsSubmitDate = $crsSubmitDate->format('Y-m-d');
+                            }
+                        }
                     }
                     $tax->crs_submit_date = $crsSubmitDate;
                     $tax->crs_mode_of_submission = $v[17];
                     $tax->crs_tax_payable        = $v[18];
                     $tax->crs_receipt_no         = $v[19];
                     $crsReceiptDate                = null;
-                    if (strpos($v[20], '/') != false) {
+                    if (strpos($v[20], '/') !== false) {
                         $crsReceiptDate = str_replace(' ', '', $v[20]);
                         $crsReceiptDate = Carbon::createFromFormat('d/m/Y', $crsReceiptDate)->format('Y-m-d');
+                    } else {
+                        if (!empty($v[20])) {
+                            $crsReceiptDate = Carbon::parse($v[20])->format('Y-m-d');
+                            if ($crsReceiptDate == '1970-01-01') {
+                                $crsReceiptDate = Carbon::instance(\PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($v[20]));
+                                $crsReceiptDate = $crsReceiptDate->format('Y-m-d');
+                            }
+                        }
                     }
                     $tax->crs_receipt_date = $crsReceiptDate;
                     $tax->crs_receipt_amt        = $v[21];
