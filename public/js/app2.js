@@ -1628,6 +1628,7 @@ jQuery(function ($) {
             $('[data-name="push_bod_penalty_amount"]').dxTextBox('instance').option('value', data.push_bod_penalty_amount);
             $('[data-name="push_bod_status"]').dxSelectBox('instance').option('value', data.push_bod_status);
             $('[data-name="push_bod_abt"]').dxDateBox('instance').option('value', data.push_bod_abt);
+            $('[data-name="push_note"]').dxTextArea('instance').option('value', data.push_note);
             $('#modal-gesaan').modal('show');
         });
     });

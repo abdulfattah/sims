@@ -46,6 +46,7 @@
                     <th colspan="2" class="text-center">Whatsapp</th>
                     <th colspan="2" class="text-center">Lawatan</th>
                     <th colspan="4" class="text-center">B.O.D</th>
+                    <th rowspan="2" style="width: 200px;">Catatan</th>
                     <th rowspan="2" style="width: 100px;">&nbsp;</th>
                 </tr>
                 <tr>
@@ -86,6 +87,7 @@
                         <td>{{ $gesaan->push_bod_penalty_amount }}</td>
                         <td>{{ $gesaan->push_bod_status }}</td>
                         <td>{{ $gesaan->push_bod_abt != null ? date('d-m-Y', strtotime($gesaan->push_bod_abt)) : null }}</td>
+                        <td>{{ $gesaan->push_note }}</td>
                         <td style="text-align: right">
                             <a href="javascript:void(0)" data-id="{{ $gesaan->id }}" class="edit-gesaan mr-2">
                                 <i class="fal fa-pencil text-primary"></i>
@@ -231,11 +233,22 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="form-label" for="push_pic">Catatan</label>
+                                        <div data-dx="textarea" data-name="push_note" data-mode="text" data-value="" data-height="50">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </form>
-                    </div>
-                    <div class="modal-footer">
-                        <a href="javascript: void(0)" data-dismiss="modal" class="text-danger mr-3">Cancel</a>
-                        <div data-dx="btn-submit" data-type="default" data-text="Submit" data-disabled="false" data-validation-group="gesaan" data-form="form-gesaan"></div>
+                        <div class="row">
+                            <div class="col-md-12 text-right">
+                                <a href="javascript: void(0)" data-dismiss="modal" class="text-danger mr-3">Cancel</a>
+                                <div data-dx="btn-submit" data-type="default" data-text="Submit" data-disabled="false" data-validation-group="gesaan" data-form="form-gesaan"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

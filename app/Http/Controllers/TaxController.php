@@ -138,6 +138,7 @@ class TaxController extends Controller
             $gesaan                = $this->populateSaveValue($gesaan, $input, array(
                 'exclude' => array('_token', '_method', 'section'),
             ));
+            $gesaan->push_note = request()->get('push_note');
             $gesaan->save();
 
             activity('tax')
@@ -338,6 +339,7 @@ class TaxController extends Controller
             $gesaan = $this->populateSaveValue($gesaan, $input, array(
                 'exclude' => array('id', 'tax_record_id', '_token', '_method', 'section'),
             ));
+            $gesaan->push_note = request()->get('push_note');
             $gesaan->save();
 
             activity('tax')
