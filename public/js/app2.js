@@ -1389,8 +1389,7 @@ jQuery(function ($) {
                     dataField: "push_gesaan_date"
                 }, {
                     caption: 'STATUS PENYATA',
-                    dataType: "date",
-                    format: 'dd MMM yyyy',
+                    dataType: 'string',
                     allowHeaderFiltering: false,
                     dataField: "push_status_penyata"
                 }, {
