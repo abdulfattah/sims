@@ -131,7 +131,22 @@ class TaxController extends Controller
 
     public function store()
     {
-        if (request()->get('section') == 'attachment') {
+        if (request()->get('section') == 'gesaan') {
+            $input                 = \Request::all();
+            $gesaan                = new Models\TAXGesaan();
+            $gesaan->tax_record_id = request()->get('tax_record_id');
+            $gesaan                = $this->populateSaveValue($gesaan, $input, array(
+                'exclude' => array('_token', '_method', 'section'),
+            ));
+            $gesaan->save();
+
+            activity('tax')
+                ->causedBy(\Auth::user())
+                ->performedOn($gesaan)
+                ->log('Add gesaan');
+
+            return redirect()->to('tax/' . request()->get('tax_record_id') . '?section=' . \Request::get('section'))->with('success', 'Attachment has been uploaded.');
+        } elseif (request()->get('section') == 'attachment') {
             $file       = \Request::file('filename');
             $attachment = new SYSAsset();
             if ($file != null) {
@@ -317,18 +332,18 @@ class TaxController extends Controller
                 ->log('Update additional information');
 
             return redirect()->to('tax/' . $id . '?section=' . \Request::get('section'))->with('success', 'Tax information has been update.');
-        }  elseif (request()->get('section') == 'tajuk') {
-            $input = \Request::all();
-            $tax   = Models\TAXRecords::find($id);
-            $tax   = $this->populateSaveValue($tax, $input, array(
-                'exclude' => array('_token', '_method', 'section'),
+        } elseif (request()->get('section') == 'gesaan') {
+            $input  = \Request::all();
+            $gesaan = Models\TAXGesaan::find(request()->get('id'));
+            $gesaan = $this->populateSaveValue($gesaan, $input, array(
+                'exclude' => array('id', 'tax_record_id', '_token', '_method', 'section'),
             ));
-            $tax->save();
+            $gesaan->save();
 
             activity('tax')
                 ->causedBy(\Auth::user())
-                ->performedOn($tax)
-                ->log('Update tajuk information');
+                ->performedOn($gesaan)
+                ->log('Update gesaan information');
 
             return redirect()->to('tax/' . $id . '?section=' . \Request::get('section'))->with('success', 'Tax information has been update.');
         } elseif (request()->get('section') == 'attachment') {
@@ -603,6 +618,15 @@ class TaxController extends Controller
                 return response()->json(['status' => true, 'message' => 'Tax record has been deleted']);
             } catch (\Exception $ex) {
                 return response()->json(['status' => false, 'message' => 'Error on deleted that record']);
+            }
+        } elseif (request()->get('section') == 'gesaan') {
+            try {
+                $gesaan = Models\TAXGesaan::find(request()->get('id'));
+                $gesaan->delete();
+
+                return redirect()->to('tax/' . $id . '?section=' . \Request::get('section'))->with('success', 'Gesaan has been deleted.');
+            } catch (\Exception $ex) {
+                return redirect()->to('tax/' . $id . '?section=' . \Request::get('section'))->with('error', 'Error on deleted that record.');
             }
         } elseif (request()->get('section') == 'attachment') {
             try {

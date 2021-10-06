@@ -138,7 +138,8 @@ jQuery(function ($) {
                     searchEnabled: true,
                     name: $this.attr('data-name'),
                     showClearButton: true,
-                    value: $this.attr('data-value')
+                    value: $this.attr('data-value'),
+                    acceptCustomValue: $this.attr('data-accept-custom-value') === 'true',
                 });
             });
         }
@@ -1334,20 +1335,18 @@ jQuery(function ($) {
                     caption: 'JENIS',
                     width: '100',
                     dataType: 'string',
-                    dataField: "push_type",
-                    allowHeaderFiltering: false
+                    dataField: "push_type"
                 }, {
                     caption: 'BUSINESS NAME',
                     width: '280',
                     dataType: 'string',
                     dataField: "business_name",
                     sortOrder: 'asc',
-                    allowHeaderFiltering: false,
                     cellTemplate: function (container, options) {
                         $('<a/>').addClass('dx-link')
                             .text(options.text)
                             .on('dxclick', function () {
-                                location.href = baseURL + '/tax/' + options.data.tax_id + '?section=tajuk';
+                                location.href = baseURL + '/tax/' + options.data.tax_id + '?section=gesaan';
                             })
                             .appendTo(container);
                     }
@@ -1500,12 +1499,7 @@ jQuery(function ($) {
                             dataField: "push_bod_abt"
                         },
                     ],
-                }, {
-                    caption: 'CATATAN',
-                    width: '150',
-                    allowHeaderFiltering: false,
-                    dataField: "push_note"
-                }, ]);
+                }]);
         }
     });
     //end grid
@@ -1599,6 +1593,48 @@ jQuery(function ($) {
     $('.delete-note').click(function () {
         var msg = "This note will be deleted from this tax record";
         deleteRecord(baseURL + '/tax/' + $(this).attr('data-tax-id') + '?section=note&id=' + $(this).attr('data-id'), null, 'Are you sure?', msg);
+    });
+
+    $('#add-gesaan').click(function () {
+        $('#method-gesaan').val('');
+        $('#title-gesaan').html('Create New Gesaan');
+        $('[data-name="push_type"]').dxSelectBox('instance').option('value', '');
+        $('[data-name="push_pic"]').dxTextBox('instance').option('value', '');
+        $('[data-name="push_bod_penalty_rate"]').dxSelectBox('instance').option('value', '');
+        $('[data-name="push_bod_penalty_amount"]').dxTextBox('instance').option('value', '');
+        $('[data-name="push_bod_status"]').dxSelectBox('instance').option('value', '');
+        $('#modal-gesaan').modal('show');
+    });
+
+    $('.edit-gesaan').click(function () {
+        $.getJSON(baseURL + '/data?b=55abc604310b5&c=' + $(this).attr('data-id'), function (data) {
+            $('#form-gesaan').attr('action', baseURL + '/tax/' + data.tax_record_id + '?section=gesaan&id=' + data.id);
+            $('#method-gesaan').val('PUT');
+            $('#title-gesaan').html('Update Gesaan');
+            $('[data-name="push_type"]').dxSelectBox('instance').option('value', data.push_type);
+            $('[data-name="push_pic"]').dxTextBox('instance').option('value', data.push_pic);
+            $('[data-name="push_summit_date"]').dxDateBox('instance').option('value', data.push_summit_date);
+            $('[data-name="push_submission_date_1"]').dxDateBox('instance').option('value', data.push_submission_date_1);
+            $('[data-name="push_submission_date_2"]').dxDateBox('instance').option('value', data.push_submission_date_2);
+            $('[data-name="push_email_date"]').dxDateBox('instance').option('value', data.push_email_date);
+            $('[data-name="push_email_time"]').dxDateBox('instance').option('value', data.push_email_time);
+            $('[data-name="push_phone_date"]').dxDateBox('instance').option('value', data.push_phone_date);
+            $('[data-name="push_phone_time"]').dxDateBox('instance').option('value', data.push_phone_time);
+            $('[data-name="push_whatsapp_date"]').dxDateBox('instance').option('value', data.push_whatsapp_date);
+            $('[data-name="push_whatsapp_time"]').dxDateBox('instance').option('value', data.push_whatsapp_time);
+            $('[data-name="push_visit_date"]').dxDateBox('instance').option('value', data.push_visit_date);
+            $('[data-name="push_visit_time"]').dxDateBox('instance').option('value', data.push_visit_time);
+            $('[data-name="push_bod_penalty_rate"]').dxSelectBox('instance').option('value', data.push_bod_penalty_rate);
+            $('[data-name="push_bod_penalty_amount"]').dxTextBox('instance').option('value', data.push_bod_penalty_amount);
+            $('[data-name="push_bod_status"]').dxSelectBox('instance').option('value', data.push_bod_status);
+            $('[data-name="push_bod_abt"]').dxDateBox('instance').option('value', data.push_bod_abt);
+            $('#modal-gesaan').modal('show');
+        });
+    });
+
+    $('.delete-gesaan').click(function () {
+        var msg = "This gesaan will be deleted from the tax record";
+        deleteRecord(baseURL + '/tax/' + $(this).attr('data-tax-id') + '?section=gesaan&id=' + $(this).attr('data-id'), null, 'Are you sure?', msg);
     });
 
     $('.delete-risk-entity').click(function () {

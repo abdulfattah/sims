@@ -46,16 +46,16 @@
                         @endif
                     </li>
                     <li class="nav-item">
-                        @if(\Request::get('section') == 'tajuk')
-                            <a class="nav-link @if(\Request::get('section') == 'tajuk') active @endif" data-toggle="tab" href="#tajuk" role="tab"
-                               aria-controls="tajuk">
+                        @if(\Request::get('section') == 'gesaan')
+                            <a class="nav-link @if(\Request::get('section') == 'gesaan') active @endif" data-toggle="tab" href="#gesaan" role="tab"
+                               aria-controls="gesaan">
                                 <i class="fal fa-list text-success"></i>
-                                Apa Tajuk Di Sini?
+                                Gesaan
                             </a>
                         @else
-                            <a class="nav-link" href="{{ URL::to('tax/'.$tax->id.'?section=tajuk') }}">
+                            <a class="nav-link" href="{{ URL::to('tax/'.$tax->id.'?section=gesaan') }}">
                                 <i class="fal fa-list text-success"></i>
-                                Apa Tajuk Di Sini?
+                                Gesaan
                             </a>
                         @endif
                     </li>
@@ -125,9 +125,9 @@
                         @endif
                     </div>
                     <div class="tab-pane @if(\Request::get('section') == 'crs') active @endif" id="crs" role="tabpanel"></div>
-                    <div class="tab-pane @if(\Request::get('section') == 'tajuk') active @endif" id="tajuk" role="tabpanel">
-                        @if(\Request::get('section') == 'tajuk')
-                            @include('tax.form.tajuk')
+                    <div class="tab-pane @if(\Request::get('section') == 'gesaan') active @endif" id="gesaan" role="tabpanel">
+                        @if(\Request::get('section') == 'gesaan')
+                            @include('tax.form.gesaan')
                         @endif
                     </div>
                     <div class="tab-pane @if(\Request::get('section') == 'attachment') active @endif" id="attachment" role="tabpanel"></div>

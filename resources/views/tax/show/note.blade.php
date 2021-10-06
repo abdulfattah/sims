@@ -1,5 +1,5 @@
 <div class="text-right">
-    <button type="button" id="add-note" class="btn btn-sm btn-primary" style="height: 33px">
+    <button type="button" id="add-note" class="btn btn-sm btn-primary" style="height: 33px" disabled>
         Create Note
     </button>
 </div>
@@ -10,6 +10,7 @@
         <th style="width: 32%;">Note By</th>
         <th style="width: 15%;">Date</th>
         <th style="width: 100px">&nbsp;</th>
+
     </tr>
     </thead>
     <tbody>
@@ -18,14 +19,14 @@
             <td><a href="javascript:void(0)" data-id="{{ $note->id }}" class="show-note">{{ $note->note_title }}</a></td>
             <td>{{ $note->writer != null ? $note->writer->fullname : null }}</td>
             <td>{{ $note->created_at != null ? date('d-M-Y h:i:s A', strtotime($note->created_at)) : null }}</td>
-            <th style="text-align: right">
-                <a href="javascript:void(0)" data-id="{{ $note->id }}" class="edit-note">
+            <td style="text-align: right">
+                <a href="javascript:void(0)" data-id="{{ $note->id }}" class="edit-note mr-2">
                     <i class="fal fa-pencil text-primary"></i>
                 </a>
                 <a href="javascript:void(0)" data-id="{{ $note->id }}" data-tax-id="{{ $note->tax_record_id }}" class="delete-note">
                     <i class="fal fa-trash text-danger"></i></a>
                 </a>
-            </th>
+            </td>
         </tr>
     @endforeach
     </tbody>
@@ -99,26 +100,3 @@
         </div>
     </div>
 </div>
-
-@section('page-script')
-    <script type="text/javascript">
-        $(document).ready(function () {
-            tinymce.init({
-                selector: '#note-content',
-                menubar: false,
-                toolbar: 'undo redo styleselect bold italic alignleft aligncenter alignright alignjustify | bullist numlist outdent indent',
-                height: 350
-            });
-            
-            $(document).on('focusin', function(e) {
-                if ($(e.target).closest(".tox-tinymce, .tox-tinymce-aux, .moxman-window, .tam-assetmanager-root").length) {
-                    e.stopImmediatePropagation();
-                }
-            });
-            
-            $("#form-note").on("submit", function () {
-                $(this).append("<textarea name='note' style='display:none'>" + tinymce.activeEditor.getContent() + "</textarea>");
-            });
-        });
-    </script>
-@stop

@@ -1,5 +1,5 @@
 <div class="text-right">
-    <button type="button" id="upload-attachment" class="btn btn-sm btn-primary" style="height: 33px">
+    <button type="button" id="upload-attachment" class="btn btn-sm btn-primary" style="height: 33px" disabled>
         Upload
     </button>
 </div>
@@ -22,11 +22,14 @@
             <td>{{ $attachment->description }}</td>
             <td>{{ $attachment->uploader != null ? $attachment->uploader->fullname : null }}</td>
             <td>{{ $attachment->created_at != null ? date('d-M-Y h:i:s A', strtotime($attachment->created_at)) : null }}</td>
-            <th style="text-align: right">
-                <a href="javascript:void(0)" data-id="{{ $attachment->id }}" class="edit-attachment"><i class="c-icon cil-pencil"></i></a>
+            <td style="text-align: right">
+                <a href="javascript:void(0)" data-id="{{ $attachment->id }}" class="edit-attachment mr-2">
+                    <i class="fal fa-pencil text-primary"></i>
+                </a>
                 <a href="javascript:void(0)" data-id="{{ $attachment->id }}" data-tax-id="{{ $attachment->for_id }}" class="delete-attachment">
-                    <i class="fal fa-trash text-danger"></i></a>
-            </th>
+                    <i class="fal fa-trash text-danger"></i>
+                </a>
+            </td>
         </tr>
     @endforeach
     </tbody>

@@ -23,9 +23,9 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link @if(\Request::get('section') == 'tajuk') active @endif p-3" href="{{ url()->to('tax/' . $tax->id . '?section=tajuk') }}">
+                        <a class="nav-link @if(\Request::get('section') == 'gesaan') active @endif p-3" href="{{ url()->to('tax/' . $tax->id . '?section=gesaan') }}">
                             <i class="fal fa-check text-success"></i>
-                            Apa Tajuk Di Sini?
+                            Gesaan
                         </a>
                     </li>
                     <li class="nav-item">
@@ -63,27 +63,27 @@
                     <div class="tab-pane @if(\Request::get('section') == 'crs') active @endif">
                         @include('tax.show.crs')
                     </div>
-                    <div class="tab-pane @if(\Request::get('section') == 'tajuk') active @endif">
-                        @include('tax.show.tajuk')
+                    <div class="tab-pane @if(\Request::get('section') == 'gesaan') active @endif">
+                        @include('tax.show.gesaan')
                     </div>
                     <div class="tab-pane @if(\Request::get('section') == 'attachment') active @endif">
                         @include('tax.show.attachment')
                     </div>
                     <div class="tab-pane @if(\Request::get('section') == 'profiling') active @endif">
-                            <div class="panel-content">
-                                <ul class="nav nav-pills" role="tablist">
-                                    <li class="nav-item"><a class="nav-link active" data-toggle="pill" href="#risk_entity">Entiti Cukai Jualan</a></li>
-                                    <li class="nav-item"><a class="nav-link" data-toggle="pill" href="#risk_person">Orang Berdaftar</a></li>
-                                </ul>
-                                <div class="tab-content py-3">
-                                    <div class="tab-pane fade active show" id="risk_entity" role="tabpanel">
-                                        @include('tax.show.risk_entity')
-                                    </div>
-                                    <div class="tab-pane fade" id="risk_person" role="tabpanel">
-                                        @include('tax.show.risk_person')
-                                    </div>
+                        <div class="panel-content">
+                            <ul class="nav nav-pills" role="tablist">
+                                <li class="nav-item"><a class="nav-link active" data-toggle="pill" href="#risk_entity">Entiti Cukai Jualan</a></li>
+                                <li class="nav-item"><a class="nav-link" data-toggle="pill" href="#risk_person">Orang Berdaftar</a></li>
+                            </ul>
+                            <div class="tab-content py-3">
+                                <div class="tab-pane fade active show" id="risk_entity" role="tabpanel">
+                                    @include('tax.show.risk_entity')
+                                </div>
+                                <div class="tab-pane fade" id="risk_person" role="tabpanel">
+                                    @include('tax.show.risk_person')
                                 </div>
                             </div>
+                        </div>
                     </div>
                     <div class="tab-pane @if(\Request::get('section') == 'note') active @endif">
                         @include('tax.show.note')
@@ -95,4 +95,33 @@
             </div>
         </div>
     </div>
+@stop
+
+@section('page-script')
+    <script type="text/javascript">
+        $(document).ready(function () {
+            tinymce.init({
+                selector: '#note-content',
+                menubar: false,
+                toolbar: 'undo redo styleselect bold italic alignleft aligncenter alignright alignjustify | bullist numlist outdent indent',
+                height: 350
+            });
+
+            $("#form-note").on("submit", function () {
+                $(this).append("<textarea name='note' style='display:none'>" + tinymce.activeEditor.getContent() + "</textarea>");
+            });
+
+            $(document).on('focusin', function (e) {
+                if ($(e.target).closest(".tox-tinymce, .tox-tinymce-aux, .moxman-window, .tam-assetmanager-root").length) {
+                    e.stopImmediatePropagation();
+                }
+            });
+
+            setTimeout(function () {
+                $('#upload-attachment').removeAttr('disabled');
+                $('#add-note').removeAttr('disabled');
+                $('#add-gesaan').removeAttr('disabled');
+            }, 2000)
+        });
+    </script>
 @stop

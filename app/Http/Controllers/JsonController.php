@@ -6,6 +6,7 @@ use App\Libs\App;
 use App\Libs\DxGridOfficial;
 use App\Models\SYSAsset;
 use App\Models\SYSSetting;
+use App\Models\TAXGesaan;
 use App\Models\TAXNote;
 use App\Models\TAXRecords;
 use App\Models\USRUsers;
@@ -75,6 +76,12 @@ class JsonController extends Controller
                 return response()->json($this->getNote($id), 200, []);
                 break;
             }
+            case '55abc604310b5':
+            { //Dapatkan form note//
+                $id = \Request::get('c');
+                return response()->json($this->getGesaan($id), 200, []);
+                break;
+            }
         }
     }
 
@@ -90,7 +97,7 @@ class JsonController extends Controller
             }
         } else {
             $lists = config('appitem.' . $for);
-            if ($for != 'roles') {
+            if ($for != 'roles' || $for != 'pushType' || $for != 'bodStatus' || $for != 'bodPenaltyRate') {
                 asort($lists);
             }
             foreach ($lists as $key => $value) {
@@ -161,7 +168,7 @@ class JsonController extends Controller
                                              'id, tax_id, business_name, brn_no, mark_01, mark_02, mark_03, mark_04, mark_05, mark_06, mark_07, mark_08, mark_09, risk_level_text',
                                              '');
         } elseif ($profile == 'push_report') {
-            $controller = new DxGridOfficial('tax_records',
+            $controller = new DxGridOfficial('vw_tax_gesaan',
                                              'business_name, sst_no, email_address, telephone_no, push_type, push_submission_date_1, push_submission_date_2, 
                                              push_pic, push_summit_date, push_email_date, push_email_time, push_phone_date, push_phone_time, push_whatsapp_date, 
                                              push_whatsapp_time, push_visit_date, push_visit_time, push_bod_penalty_rate, push_bod_penalty_amount, push_bod_status, push_bod_abt, 
@@ -235,6 +242,16 @@ class JsonController extends Controller
         $asset = SYSAsset::find($id, ['id', 'for_id', 'title', 'description']);
         if ($asset != null) {
             return $asset->toArray();
+        } else {
+            return null;
+        }
+    }
+
+    private function getGesaan($id)
+    {
+        $gesaan = TAXGesaan::find($id);
+        if ($gesaan != null) {
+            return $gesaan->toArray();
         } else {
             return null;
         }

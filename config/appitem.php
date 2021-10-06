@@ -88,4 +88,18 @@ return [
         'PENYATA',
         'BAYARAN',
     ],
+    //B.O.D status
+    'bodStatus' => [
+        'PAID',
+        'UNPAID',
+        'PARTIAL PAID',
+        'OTHERS'
+    ],
+    //B.O.D penalty rate
+    'bodPenaltyRate' => [
+        '10%',
+        '25%',
+        '40%',
+        'OTHERS'
+    ],
 ];

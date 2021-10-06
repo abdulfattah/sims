@@ -58,7 +58,7 @@ a:hover {
     font-size: 0.815rem;
 }
 
-.dx-invalid-message>.dx-overlay-content {
+.dx-invalid-message > .dx-overlay-content {
     font-size: 1em;
 }
 
@@ -124,7 +124,7 @@ td[role="columnheader"] {
     width: 200px;
 }
 
-.dx-datagrid .dx-row>td {
+.dx-datagrid .dx-row > td {
     padding: 7px;
 }
 
@@ -132,11 +132,11 @@ td[role="columnheader"] {
     text-transform: none;
 }
 
-.dx-datagrid-nowrap.dx-datagrid-headers .dx-header-row>td>.dx-datagrid-text-content {
+.dx-datagrid-nowrap.dx-datagrid-headers .dx-header-row > td > .dx-datagrid-text-content {
     font-size: 14px;
 }
 
-.dx-datagrid-content .dx-datagrid-table .dx-row>td {
+.dx-datagrid-content .dx-datagrid-table .dx-row > td {
     font-size: 12px;
 }
 
@@ -148,13 +148,13 @@ td[role="columnheader"] {
     text-decoration: underline !important;
 }
 
-.dx-datagrid-rowsview .dx-selection.dx-row:hover>td,
-.dx-datagrid-rowsview .dx-selection.dx-row>td {
+.dx-datagrid-rowsview .dx-selection.dx-row:hover > td,
+.dx-datagrid-rowsview .dx-selection.dx-row > td {
     background-color: #f9e3dd;
 }
 
-.dx-datagrid-rowsview .dx-selection.dx-row:hover:not(.dx-row-lines)>td,
-.dx-datagrid-rowsview .dx-selection.dx-row:not(.dx-row-lines)>td {
+.dx-datagrid-rowsview .dx-selection.dx-row:hover:not(.dx-row-lines) > td,
+.dx-datagrid-rowsview .dx-selection.dx-row:not(.dx-row-lines) > td {
     border-bottom: 1px solid #f9e3dd;
     border-top: 1px solid #f9e3dd;
 }
@@ -226,7 +226,7 @@ td[role="columnheader"] {
 
 .btn-ghost-danger:not(:disabled):not(.disabled).active,
 .btn-ghost-danger:not(:disabled):not(.disabled):active,
-.show>.btn-ghost-danger.dropdown-toggle {
+.show > .btn-ghost-danger.dropdown-toggle {
     height: 33px;
     padding-top: 5px;
 }
@@ -255,7 +255,7 @@ td[role="columnheader"] {
     padding: 0px 3px 0;
 }
 
-.profile-pic>img {
+.profile-pic > img {
     border-radius: 0;
     position: relative;
     border: 5px solid #cc6262;
@@ -268,110 +268,119 @@ td[role="columnheader"] {
 
 /* error page */
 #notfound {
-  position: relative;
-  height: 100vh;
+    position: relative;
+    height: 100vh;
 }
 
 #notfound .notfound {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
 }
 
 .notfound {
-  max-width: 767px;
-  width: 100%;
-  line-height: 1.4;
-  text-align: center;
-  padding: 15px;
+    max-width: 767px;
+    width: 100%;
+    line-height: 1.4;
+    text-align: center;
+    padding: 15px;
 }
 
 .notfound .notfound-404 {
-  position: relative;
-  height: 220px;
+    position: relative;
+    height: 220px;
 }
 
 .notfound .notfound-404 h1 {
-  font-family: 'Kanit', sans-serif;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-  font-size: 186px;
-  font-weight: 200;
-  margin: 0px;
-  background: linear-gradient(130deg, #ffa34f, #ff6f68);
-  color:transparent;
-  -webkit-background-clip: text;
-  background-clip: text;
-  text-transform: uppercase;
+    font-family: 'Kanit', sans-serif;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    font-size: 186px;
+    font-weight: 200;
+    margin: 0px;
+    background: linear-gradient(130deg, #ffa34f, #ff6f68);
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-transform: uppercase;
 }
 
 .notfound h2 {
-  font-family: 'Kanit', sans-serif;
-  font-size: 33px;
-  font-weight: 200;
-  text-transform: uppercase;
-  margin-top: 0px;
-  margin-bottom: 25px;
-  letter-spacing: 3px;
+    font-family: 'Kanit', sans-serif;
+    font-size: 33px;
+    font-weight: 200;
+    text-transform: uppercase;
+    margin-top: 0px;
+    margin-bottom: 25px;
+    letter-spacing: 3px;
 }
 
 
 .notfound p {
-  font-family: 'Kanit', sans-serif;
-  font-size: 16px;
-  font-weight: 200;
-  margin-top: 0px;
-  margin-bottom: 25px;
+    font-family: 'Kanit', sans-serif;
+    font-size: 16px;
+    font-weight: 200;
+    margin-top: 0px;
+    margin-bottom: 25px;
 }
 
 
 .notfound a {
-  font-family: 'Kanit', sans-serif;
-  color: #ff6f68;
-  font-weight: 200;
-  text-decoration: none;
-  border-bottom: 1px dashed #ff6f68;
-  border-radius: 2px;
+    font-family: 'Kanit', sans-serif;
+    color: #ff6f68;
+    font-weight: 200;
+    text-decoration: none;
+    border-bottom: 1px dashed #ff6f68;
+    border-radius: 2px;
 }
 
-.notfound-social>a {
-  display: inline-block;
-  height: 40px;
-  line-height: 40px;
-  width: 40px;
-  font-size: 14px;
-  color: #ff6f68;
-  border: 1px solid #efefef;
-  border-radius: 50%;
-  margin: 3px;
-  -webkit-transition: 0.2s all;
-  transition: 0.2s all;
+.notfound-social > a {
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    width: 40px;
+    font-size: 14px;
+    color: #ff6f68;
+    border: 1px solid #efefef;
+    border-radius: 50%;
+    margin: 3px;
+    -webkit-transition: 0.2s all;
+    transition: 0.2s all;
 }
-.notfound-social>a:hover {
-  color: #fff;
-  background-color: #ff6f68;
-  border-color: #ff6f68;
+
+.notfound-social > a:hover {
+    color: #fff;
+    background-color: #ff6f68;
+    border-color: #ff6f68;
 }
 
 @media only screen and (max-width: 480px) {
-  .notfound .notfound-404 {
-    position: relative;
-    height: 168px;
-  }
+    .notfound .notfound-404 {
+        position: relative;
+        height: 168px;
+    }
 
-  .notfound .notfound-404 h1 {
-    font-size: 142px;
-  }
+    .notfound .notfound-404 h1 {
+        font-size: 142px;
+    }
 
-  .notfound h2 {
-    font-size: 22px;
-  }
+    .notfound h2 {
+        font-size: 22px;
+    }
 }
+
 /* end error page*/
+.modal {
+    z-index: 1041;
+}
+
+.modal-backdrop {
+    z-index: 1039;
+}
