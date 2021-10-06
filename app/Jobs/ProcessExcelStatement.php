@@ -60,12 +60,22 @@ class ProcessExcelStatement implements ShouldQueue
                 if ($tax != null) {
                     $tax->smk_no                 = $v[5];
                     $tax->undeclaration_duration = $v[11];
+
                     $reminderDate                = null;
-                    if (strpos($v[12], '/') != false) {
+                    if (strpos($v[12], '/') !== false) {
                         $reminderDate = str_replace(' ', '', $v[12]);
                         $reminderDate = Carbon::createFromFormat('d/m/Y', $reminderDate)->format('Y-m-d');
+                    } else {
+                        if (!empty($v[12])) {
+                            $reminderDate = Carbon::parse($v[12])->format('Y-m-d');
+                            if ($reminderDate == '1970-01-01') {
+                                $reminderDate = Carbon::instance(\PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($v[12]));
+                                $reminderDate = $reminderDate->format('Y-m-d');
+                            }
+                        }
                     }
                     $tax->reminder_date = $reminderDate;
+
                     $tax->save();
 
                     activity('tax')

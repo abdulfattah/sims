@@ -97,8 +97,8 @@ class UserController extends Controller
         $personHighRisk                 = Models\TAXProfiling03::where('risk_level_text', 'TINGGI')->get()->count();
         $chartEntity                    = [['risk' => 'RENDAH', 'total' => $entityLowRisk], ['risk' => 'SEDERHANA', 'total' => $entityMediumRisk], ['risk' => 'TINGGI', 'total' => $entityHighRisk]];
         $chartPerson                    = [['risk' => 'RENDAH', 'total' => $personLowRisk], ['risk' => 'SEDERHANA', 'total' => $personMediumRisk], ['risk' => 'TINGGI', 'total' => $personHighRisk]];
-        $data['totalRegistered']        = TAXRecords::where('registration_status', 'CANCEL')->get()->count();
-        $data['totalCancelled']         = TAXRecords::where('registration_status', 'REGISTERED')->get()->count();
+        $data['totalRegistered']        = TAXRecords::where('registration_status', 'REGISTERED')->get()->count();
+        $data['totalCancelled']         = TAXRecords::where('registration_status', 'CANCEL')->get()->count();
         $data['totalApplyForCancelled'] = TAXRecords::where('cdn_status', 'REQUEST FOR CANCELLATION')->get()->count();
         $data['chartEntity']            = json_encode($chartEntity);
         $data['chartPerson']           = json_encode($chartPerson);
