@@ -55,7 +55,12 @@ class JsonController extends Controller
             }
             case '55a0c60438403':
             { //Dapatkan % processed excel//
-                return response()->json($this->getProcessedExcelCrs(), 200, []);
+                return response()->json($this->getProcessedExcelCrsCp(), 200, []);
+                break;
+            }
+            case '55a0c60411103':
+            { //Dapatkan % processed excel//
+                return response()->json($this->getProcessedExcelCrsCj(), 200, []);
                 break;
             }
             case '55a0c604381b6':
@@ -207,9 +212,19 @@ class JsonController extends Controller
         }
     }
 
-    private function getProcessedExcelCrs(): string
+    private function getProcessedExcelCrsCp(): string
     {
-        $setting = SYSSetting::where('param', 'synchronize.Crs')->get()->first();
+        $setting = SYSSetting::where('param', 'synchronize.crs.cp')->get()->first();
+        if ($setting != null) {
+            return $setting->value;
+        } else {
+            return '100';
+        }
+    }
+
+    private function getProcessedExcelCrsCj(): string
+    {
+        $setting = SYSSetting::where('param', 'synchronize.crs.cj')->get()->first();
         if ($setting != null) {
             return $setting->value;
         } else {

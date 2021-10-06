@@ -7,7 +7,8 @@ use App\Excel\Exports\Profiling02Export;
 use App\Excel\Exports\Profiling03Export;
 use App\Excel\Exports\TaxRecordsExport;
 use App\Jobs\ProcessExcelBase;
-use App\Jobs\ProcessExcelCrs;
+use App\Jobs\ProcessExcelCrsCj;
+use App\Jobs\ProcessExcelCrsCp;
 use App\Jobs\ProcessExcelStatement;
 use App\Libs\App;
 use App\Libs\DxGridOfficial;
@@ -44,7 +45,8 @@ class TaxController extends Controller
     {
         $checkBase      = SYSSetting::where('param', 'synchronize.base')->get();
         $checkStatement = SYSSetting::where('param', 'synchronize.statement')->get();
-        $checkCrs       = SYSSetting::where('param', 'synchronize.crs')->get();
+        $checkCrsCp     = SYSSetting::where('param', 'synchronize.cp')->get();
+        $checkCrsCj     = SYSSetting::where('param', 'synchronize.cj')->get();
         $data           = array(
             'menu'            => ['menu' => 'Tax', 'subMenu' => ''],
             'breadcrumb'      => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
@@ -53,10 +55,12 @@ class TaxController extends Controller
             'title'           => 'Import Tax Record From SST System',
             'uploadBase'      => $checkBase->count() < 1,
             'uploadStatement' => $checkStatement->count() < 1,
-            'uploadCrs'       => $checkCrs->count() < 1,
+            'uploadCrsCp'     => $checkCrsCp->count() < 1,
+            'uploadCrsCj'     => $checkCrsCj->count() < 1,
             'syncBase'        => $checkBase->count() > 0,
             'syncStatement'   => $checkStatement->count() > 0,
-            'syncCrs'         => $checkCrs->count() > 0,
+            'syncCrsCp'       => $checkCrsCp->count() > 0,
+            'syncCrsCj'       => $checkCrsCj->count() > 0,
         );
 
         return view('tax.sync', $data);
@@ -96,19 +100,35 @@ class TaxController extends Controller
             }
         }
 
-        $fileCrs  = \Request::file('excelCrs');
-        $checkCrs = SYSSetting::where('param', 'synchronize.crs')->get();
-        if ($fileCrs != null) {
-            if ($checkCrs->count() > 0) {
+        $fileCrsCp  = \Request::file('excelCrsCp');
+        $checkCrsCp = SYSSetting::where('param', 'synchronize.crs.cp')->get();
+        if ($fileCrsCp != null) {
+            if ($checkCrsCp->count() > 0) {
                 return redirect()->to('tax/sync');
             } else {
-                $newName = 'excel-Crs.' . $fileCrs->getClientOriginalExtension();
-                $fileCrs->move(env('ASSETS_STORAGE') . 'synchronize', $newName);
+                $newName = 'excel-CrsCp.' . $fileCrsCp->getClientOriginalExtension();
+                $fileCrsCp->move(env('ASSETS_STORAGE') . 'synchronize', $newName);
                 $setting        = new SYSSetting();
-                $setting->param = 'synchronize.Crs';
+                $setting->param = 'synchronize.crs.cp';
                 $setting->value = '1';
                 $setting->save();
-                ProcessExcelCrs::dispatch($setting, $newName, \Auth::user());
+                ProcessExcelCrsCp::dispatch($setting, $newName, \Auth::user());
+            }
+        }
+
+        $fileCrsCj  = \Request::file('excelCrsCj');
+        $checkCrsCj = SYSSetting::where('param', 'synchronize.crs.cj')->get();
+        if ($fileCrsCj != null) {
+            if ($checkCrsCj->count() > 0) {
+                return redirect()->to('tax/sync');
+            } else {
+                $newName = 'excel-CrsCj.' . $fileCrsCj->getClientOriginalExtension();
+                $fileCrsCj->move(env('ASSETS_STORAGE') . 'synchronize', $newName);
+                $setting        = new SYSSetting();
+                $setting->param = 'synchronize.crs.cj';
+                $setting->value = '1';
+                $setting->save();
+                ProcessExcelCrsCj::dispatch($setting, $newName, \Auth::user());
             }
         }
 
@@ -120,10 +140,12 @@ class TaxController extends Controller
             'title'           => 'Import Tax Record From SST System',
             'uploadBase'      => !($fileBase != null),
             'uploadStatement' => !($fileStatement != null),
-            'uploadCrs'       => !($fileCrs != null),
+            'uploadCrsCp'     => !($fileCrsCp != null),
+            'uploadCrsCj'     => !($fileCrsCj != null),
             'syncBase'        => $checkBase->count() > 0,
             'syncStatement'   => $checkStatement->count() > 0,
-            'syncCrs'         => $checkCrs->count() > 0,
+            'syncCrsCp'       => $checkCrsCp->count() > 0,
+            'syncCrsCj'       => $checkCrsCj->count() > 0,
         );
 
         return view('tax.sync', $data);
@@ -138,7 +160,7 @@ class TaxController extends Controller
             $gesaan                = $this->populateSaveValue($gesaan, $input, array(
                 'exclude' => array('_token', '_method', 'section'),
             ));
-            $gesaan->push_note = request()->get('push_note');
+            $gesaan->push_note     = request()->get('push_note');
             $gesaan->save();
 
             activity('tax')
@@ -334,9 +356,9 @@ class TaxController extends Controller
 
             return redirect()->to('tax/' . $id . '?section=' . \Request::get('section'))->with('success', 'Tax information has been update.');
         } elseif (request()->get('section') == 'gesaan') {
-            $input  = \Request::all();
-            $gesaan = Models\TAXGesaan::find(request()->get('id'));
-            $gesaan = $this->populateSaveValue($gesaan, $input, array(
+            $input             = \Request::all();
+            $gesaan            = Models\TAXGesaan::find(request()->get('id'));
+            $gesaan            = $this->populateSaveValue($gesaan, $input, array(
                 'exclude' => array('id', 'tax_record_id', '_token', '_method', 'section'),
             ));
             $gesaan->push_note = request()->get('push_note');

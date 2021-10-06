@@ -1737,26 +1737,51 @@ jQuery(function ($) {
         }, 1000);
     }
 
-    if ($('#progress-bar-crs').length > 0) {
+    if ($('#progress-bar-crs-cp').length > 0) {
         var intervalProgressBarCrs = setInterval(() => {
             $.getJSON(baseURL + '/data?b=55a0c60438403', function (data) {
                 if (data == '100') {
                     clearInterval(intervalProgressBarCrs);
-                    $('#progress-bar-crs').attr('aria-valuenow', data);
-                    $('#progress-bar-crs').css('width', '100%');
-                    $('#progress-bar-crs').html('100%');
+                    $('#progress-bar-crs-cp').attr('aria-valuenow', data);
+                    $('#progress-bar-crs-cp').css('width', '100%');
+                    $('#progress-bar-crs-cp').html('100%');
                     var counter = 6;
                     setInterval(function () {
                         counter--;
-                        $('#progress-label-crs').html('Syncronization has been success. Redirect in ' + counter + ' seconds');
+                        $('#progress-label-crs-cp').html('Syncronization has been success. Redirect in ' + counter + ' seconds');
                     }, 1000);
                     setTimeout(() => {
                         location.href = baseURL + '/tax';
                     }, 6000);
                 } else {
-                    $('#progress-bar-crs').attr('aria-valuenow', data);
-                    $('#progress-bar-crs').css('width', data + '%');
-                    $('#progress-bar-crs').html(data + '%');
+                    $('#progress-bar-crs-cp').attr('aria-valuenow', data);
+                    $('#progress-bar-crs-cp').css('width', data + '%');
+                    $('#progress-bar-crs-cp').html(data + '%');
+                }
+            });
+        }, 1000);
+    }
+
+    if ($('#progress-bar-crs-cj').length > 0) {
+        var intervalProgressBarCrs = setInterval(() => {
+            $.getJSON(baseURL + '/data?b=55a0c60411103', function (data) {
+                if (data == '100') {
+                    clearInterval(intervalProgressBarCrs);
+                    $('#progress-bar-crs-cj').attr('aria-valuenow', data);
+                    $('#progress-bar-crs-cj').css('width', '100%');
+                    $('#progress-bar-crs-cj').html('100%');
+                    var counter = 6;
+                    setInterval(function () {
+                        counter--;
+                        $('#progress-label-crs-cj').html('Syncronization has been success. Redirect in ' + counter + ' seconds');
+                    }, 1000);
+                    setTimeout(() => {
+                        location.href = baseURL + '/tax';
+                    }, 6000);
+                } else {
+                    $('#progress-bar-crs-cj').attr('aria-valuenow', data);
+                    $('#progress-bar-crs-cj').css('width', data + '%');
+                    $('#progress-bar-crs-cj').html(data + '%');
                 }
             });
         }, 1000);

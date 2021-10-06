@@ -8,7 +8,7 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithStartRow;
 
-class TaxImportCrs implements ToModel, WithStartRow, WithBatchInserts
+class TaxImportCrsCp implements ToModel, WithStartRow, WithBatchInserts
 {
     protected $setting;
 

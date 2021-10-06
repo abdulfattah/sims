@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Excel\Imports\TaxImportCrs;
+use App\Excel\Imports\TaxImportCrsCp;
 use App\Models\SYSSetting;
 use App\Models\TAXRecords;
 use Carbon\Carbon;
@@ -13,7 +13,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class ProcessExcelCrs implements ShouldQueue
+class ProcessExcelCrsCp implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -52,7 +52,7 @@ class ProcessExcelCrs implements ShouldQueue
      */
     public function handle()
     {
-        $taxRecords = Excel::toCollection(new TaxImportCrs($this->setting),
+        $taxRecords = Excel::toCollection(new TaxImportCrsCp($this->setting),
                                           storage_path('assets') . DIRECTORY_SEPARATOR . 'synchronize' . DIRECTORY_SEPARATOR . $this->filename);
         foreach ($taxRecords as $records) {
             foreach ($records as $k => $v) {

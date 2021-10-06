@@ -19,6 +19,7 @@
     <link media="all" type="text/css" rel="stylesheet" href="{{ asset('css/app2.css') }}?t=06102021">
     <link media="all" type="text/css" rel="stylesheet" href="{{ asset('css/magnific-popup.css') }}">
     <link media="all" type="text/css" rel="stylesheet" href="{{ asset('css/cropper.min.css') }}">
+    <link media="all" type="text/css" rel="stylesheet" href="{{ asset('css/lightbox.min.css') }}">
     @yield("page-css")
 </head>
 
@@ -385,6 +386,7 @@
 <script src="{{ asset('js/app2.js') }}?t=06102021"></script>
 <script src="{{ asset('js/jquery.magnific-popup.min.js') }}"></script>
 <script src="{{ asset('js/cropper.min.js') }}"></script>
+<script src="{{ asset('js/lightbox.min.js') }}"></script>
 @yield("page-script")
 @if ($errors->any())
     <script type="text/javascript">
