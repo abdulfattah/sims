@@ -51,7 +51,7 @@
                 </tr>
                 <tr>
                     <th class="text-center" style="width: 100px;">Tarikh</th>
-                    <th class="text-center" style="width: 100px;">Tarikh</th>
+                    <th class="text-center" style="width: 100px;">Status</th>
                     <th class="text-center" style="width: 130px;">Tarikh</th>
                     <th class="text-center" style="width: 100px;">Masa</th>
                     <th class="text-center" style="width: 130px;">Tarikh</th>

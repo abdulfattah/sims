@@ -1471,17 +1471,17 @@ jQuery(function ($) {
                     width: '280',
                     columns: [
                         {
-                            caption: 'Penalty Rate',
+                            caption: 'PENALTY RATE',
                             allowHeaderFiltering: false,
                             dataField: "push_bod_penalty_rate"
                         },
                         {
-                            caption: 'Penalty Amount',
+                            caption: 'PENALTY AMOUNT',
                             allowHeaderFiltering: false,
                             dataField: "push_bod_penalty_amount"
                         },
                         {
-                            caption: 'Status',
+                            caption: 'STATUS',
                             allowHeaderFiltering: false,
                             dataField: "push_bod_status"
                         },

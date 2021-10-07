@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Excel\Exports\Profiling01Export;
 use App\Excel\Exports\Profiling02Export;
 use App\Excel\Exports\Profiling03Export;
+use App\Excel\Exports\PushReportExport;
 use App\Excel\Exports\TaxRecordsExport;
 use App\Jobs\ProcessExcelBase;
 use App\Jobs\ProcessExcelCrsCj;
@@ -549,6 +550,10 @@ class TaxController extends Controller
             $controller = new DxGridOfficial('tax_profiling_03',
                                              $cols,
                                              '');
+        } elseif ($exportWhat == 'push_report') {
+            $controller = new DxGridOfficial('vw_tax_gesaan',
+                                             $cols,
+                                             '');
         }
         $params   = $controller->GetParseParams($_GET);
         $response = $controller->Get($params);
@@ -562,6 +567,8 @@ class TaxController extends Controller
                 return Excel::download(new Profiling02Export($response['data'], $arrayCols), '[CDN Information Integration System] Risk Entity (' . date('d-m-Y') . ').xlsx');
             } elseif ($exportWhat == 'risk_person') {
                 return Excel::download(new Profiling03Export($response['data'], $arrayCols), '[CDN Information Integration System] Risk Person (' . date('d-m-Y') . ').xlsx');
+            } elseif ($exportWhat == 'push_report') {
+                return Excel::download(new PushReportExport($response['data'], $arrayCols), '[CDN Information Integration System] Report Gesaan (' . date('d-m-Y') . ').xlsx');
             }
         } else {
             header("HTTP/1.1 500 Internal Server Error");
@@ -626,7 +633,7 @@ class TaxController extends Controller
                 'menu'       => ['menu' => 'Report', 'subMenu' => 'Push Format'],
                 'breadcrumb' => '<li class="breadcrumb-item"><a href="' . \URL::to('/') . '">Home</a></li>
                              <li class="breadcrumb-item active">Report</li>',
-                'title'      => 'Report Risk Person'
+                'title'      => 'Report Gesaan'
             );
             return view('report.push_format', $data);
         }
