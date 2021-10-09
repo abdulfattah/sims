@@ -8,6 +8,7 @@
     </thead>
     <tbody>
     @foreach ($histories as $k => $history)
+{{--        @if($history->actionBy == null) {{ dd($history) }} @endif--}}
         <tr>
             <td>{{ $history->created_at->format('d-m-Y h:iA') }}</td>
             <td>{{ ucwords(strtolower($history->actionBy->fullname)) }}</td>

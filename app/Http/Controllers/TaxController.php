@@ -157,7 +157,6 @@ class TaxController extends Controller
         if (request()->get('section') == 'gesaan') {
             $input                 = \Request::all();
             $gesaan                = new Models\TAXGesaan();
-            $gesaan->tax_record_id = request()->get('tax_record_id');
             $gesaan                = $this->populateSaveValue($gesaan, $input, array(
                 'exclude' => array('_token', '_method', 'section'),
             ));
@@ -169,7 +168,7 @@ class TaxController extends Controller
                 ->performedOn($gesaan)
                 ->log('Add gesaan');
 
-            return redirect()->to('tax/' . request()->get('tax_record_id') . '?section=' . \Request::get('section'))->with('success', 'Attachment has been uploaded.');
+            return redirect()->to('tax/' . request()->get('tax_record_id') . '?section=crs&crsid=' . $gesaan->tax_crs_id)->with('success', 'Attachment has been uploaded.');
         } elseif (request()->get('section') == 'attachment') {
             $file       = \Request::file('filename');
             $attachment = new SYSAsset();
@@ -339,7 +338,7 @@ class TaxController extends Controller
             activity('tax')
                 ->causedBy(\Auth::user())
                 ->performedOn($tax)
-                ->log('Update CDN Status');
+                ->log('Update SIMS Status');
 
             return redirect()->to('tax/' . $id . '?section=' . \Request::get('section'))->with('success', 'Tax information has been update.');
         } elseif (request()->get('section') == 'additional') {
@@ -360,7 +359,7 @@ class TaxController extends Controller
             $input             = \Request::all();
             $gesaan            = Models\TAXGesaan::find(request()->get('id'));
             $gesaan            = $this->populateSaveValue($gesaan, $input, array(
-                'exclude' => array('id', 'tax_record_id', '_token', '_method', 'section'),
+                'exclude' => array('id', 'tax_crs_id', 'tax_record_id', '_token', '_method', 'section'),
             ));
             $gesaan->push_note = request()->get('push_note');
             $gesaan->save();
@@ -370,7 +369,7 @@ class TaxController extends Controller
                 ->performedOn($gesaan)
                 ->log('Update gesaan information');
 
-            return redirect()->to('tax/' . $id . '?section=' . \Request::get('section'))->with('success', 'Tax information has been update.');
+            return redirect()->to('tax/' . $id . '?section=crs&crsid=' . $gesaan->tax_crs_id)->with('success', 'Tax information has been update.');
         } elseif (request()->get('section') == 'attachment') {
             $attachment              = SYSAsset::find(request()->get('id'));
             $attachment->title       = strtoupper(request()->get('title'));
@@ -560,15 +559,15 @@ class TaxController extends Controller
         unset($controller);
         if (isset($response) && !is_string($response)) {
             if ($exportWhat == 'list') {
-                return Excel::download(new TaxRecordsExport($response['data'], $arrayCols), '[CDN Information Integration System] Tax Records (' . date('d-m-Y') . ').xlsx');
+                return Excel::download(new TaxRecordsExport($response['data'], $arrayCols), '[SIMS] Tax Records (' . date('d-m-Y') . ').xlsx');
             } elseif ($exportWhat == 'profiling_01') {
-                return Excel::download(new Profiling01Export($response['data'], $arrayCols), '[CDN Information Integration System] Profiling 01 (' . date('d-m-Y') . ').xlsx');
+                return Excel::download(new Profiling01Export($response['data'], $arrayCols), '[SIMS] Profiling 01 (' . date('d-m-Y') . ').xlsx');
             } elseif ($exportWhat == 'risk_entity') {
-                return Excel::download(new Profiling02Export($response['data'], $arrayCols), '[CDN Information Integration System] Risk Entity (' . date('d-m-Y') . ').xlsx');
+                return Excel::download(new Profiling02Export($response['data'], $arrayCols), '[SIMS] Risk Entity (' . date('d-m-Y') . ').xlsx');
             } elseif ($exportWhat == 'risk_person') {
-                return Excel::download(new Profiling03Export($response['data'], $arrayCols), '[CDN Information Integration System] Risk Person (' . date('d-m-Y') . ').xlsx');
+                return Excel::download(new Profiling03Export($response['data'], $arrayCols), '[SIMS] Risk Person (' . date('d-m-Y') . ').xlsx');
             } elseif ($exportWhat == 'push_report') {
-                return Excel::download(new PushReportExport($response['data'], $arrayCols), '[CDN Information Integration System] Report Gesaan (' . date('d-m-Y') . ').xlsx');
+                return Excel::download(new PushReportExport($response['data'], $arrayCols), '[SIMS] Report Gesaan (' . date('d-m-Y') . ').xlsx');
             }
         } else {
             header("HTTP/1.1 500 Internal Server Error");
@@ -653,11 +652,12 @@ class TaxController extends Controller
         } elseif (request()->get('section') == 'gesaan') {
             try {
                 $gesaan = Models\TAXGesaan::find(request()->get('id'));
+                $crsId = $gesaan->tax_crs_id;
                 $gesaan->delete();
 
-                return redirect()->to('tax/' . $id . '?section=' . \Request::get('section'))->with('success', 'Gesaan has been deleted.');
+                return redirect()->to('tax/' . $id . '?section=crs&crsid=' . $crsId)->with('success', 'Gesaan has been deleted.');
             } catch (\Exception $ex) {
-                return redirect()->to('tax/' . $id . '?section=' . \Request::get('section'))->with('error', 'Error on deleted that record.');
+                return redirect()->to('tax/' . $id . '?section=crs&crsid=' . $crsId)->with('error', 'Error on deleted that record.');
             }
         } elseif (request()->get('section') == 'attachment') {
             try {

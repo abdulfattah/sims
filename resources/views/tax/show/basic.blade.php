@@ -68,7 +68,7 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-        <h5>CDN Status</h5>
+        <h5>SIMS Status</h5>
         <hr class="mt-1 mb-1">
     </div>
 </div>
@@ -87,24 +87,24 @@
             <dd class="col-sm-9 col-xl-8">&nbsp;{{ $tax->cdn_status_desc }}</dd>
         </dl>
         <div class="text-right">
-            <a href="javascript:void(0)" data-id="{{ $tax->id }}" class="btn btn-sm btn-primary edit-cdn-status">
+            <a href="javascript:void(0)" data-id="{{ $tax->id }}" class="btn btn-sm btn-primary edit-sims-status">
                 Change Status
             </a>
         </div>
     </div>
 </div>
 
-<div class="modal fade" id="modal-cdn-status" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+<div class="modal fade" id="modal-sims-status" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
     <div class="modal-dialog" style="margin: 10px auto;">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 id="title-cdn-status" class="modal-title">Change Status</h5>
+                <h5 id="title-sims-status" class="modal-title">Change Status</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="{{ \URL::to('tax/' . $tax->id . '?section=basic') }}" id="form-cdn-status" class="form-horizontal" novalidate>
+                <form method="POST" action="{{ \URL::to('tax/' . $tax->id . '?section=basic') }}" id="form-sims-status" class="form-horizontal" novalidate>
                     @csrf
-                    <input id="method-cdn-status" type="hidden" name="_method" value="PUT"/>
+                    <input id="method-sims-status" type="hidden" name="_method" value="PUT"/>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group row">
@@ -128,7 +128,7 @@
             </div>
             <div class="modal-footer">
                 <a href="javascript: void(0)" data-dismiss="modal" class="text-danger mr-3">Cancel</a>
-                <div data-dx="btn-submit" data-type="default" data-text="Submit" data-disabled="false" data-validation-group="cdn-status" data-form="form-cdn-status"></div>
+                <div data-dx="btn-submit" data-type="default" data-text="Submit" data-disabled="false" data-validation-group="cdn-status" data-form="form-sims-status"></div>
             </div>
         </div>
     </div>

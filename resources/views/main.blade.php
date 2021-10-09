@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>CDN Information Integration System</title>
+    <title>SIMS</title>
     <meta name="description" content="How it works">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimal-ui">
@@ -30,8 +30,8 @@
         <aside class="page-sidebar">
             <div class="page-logo">
                 <a href="#" class="page-logo-link press-scale-down d-flex align-items-center position-relative">
-                    <img src="{{ asset('images/logo.svg') }}" alt="CDN System" class="profile-image rounded-circle" style="width: 52px;height: 52px" aria-roledescription="logo">
-                    <span class="page-logo-text mr-1">CDN System <i>for</i> Royal Malaysian Customs</span>
+                    <img src="{{ asset('images/logo.svg') }}" alt="SIMS" class="profile-image rounded-circle" style="width: 52px;height: 52px" aria-roledescription="logo">
+                    <span class="page-logo-text mr-1">SIMS <i>for</i> Royal Malaysian Customs</span>
                 </a>
             </div>
             <!-- BEGIN PRIMARY NAVIGATION -->
@@ -149,9 +149,9 @@
                 <!-- we need this logo when user switches to nav-function-top -->
                 <div class="page-logo">
                     <a href="#" class="page-logo-link press-scale-down d-flex align-items-center position-relative">
-                        <img src="{{ asset('images/logo.svg') }}" alt="CDN System" class="profile-image rounded-circle" style="width: 52px;height: 52px"
+                        <img src="{{ asset('images/logo.svg') }}" alt="SIMS" class="profile-image rounded-circle" style="width: 52px;height: 52px"
                              aria-roledescription="logo">
-                        <span class="page-logo-text mr-1">CDN System <i>for</i> Royal Malaysian Customs</span>
+                        <span class="page-logo-text mr-1">SIMS <i>for</i> Royal Malaysian Customs</span>
                     </a>
                 </div>
                 <!-- DOC: nav menu layout change shortcut -->
@@ -285,12 +285,12 @@
             <!-- BEGIN Page Footer -->
             <footer class="page-footer" role="contentinfo">
                 <div class="d-flex align-items-center flex-1 text-muted">
-                    <span class="hidden-md-down fw-700">2021 © CDN Information Integration System V2021.1</span>
+                    <span class="hidden-md-down fw-700">2021 © SIMS V2021.1</span>
                 </div>
                 <div>
                     <ul class="list-table m-0">
                         <li>
-                            <a href="intel_introduction.html" class="text-secondary fw-700">About CDN</a>
+                            <a href="intel_introduction.html" class="text-secondary fw-700">About SIMS</a>
                         </li>
                         <li class="pl-3">
 {{--                            @if (strpos(Auth::user()->role, 'ADMINISTRATOR') !== false)--}}
@@ -377,6 +377,7 @@
             <!-- END Color profile -->
         </div>
     </div>
+    <div id="toastContainer"></div>
 </div>
 <script src="{{ asset('js/vendors.bundle.js') }}"></script>
 <script src="{{ asset('js/app.bundle.js') }}"></script>
@@ -399,7 +400,7 @@
                 message: a,
                 type: "error",
                 width: 280,
-                position: {my: "right", at: "top right", offset: '-20 0', of: ".c-subheader"},
+                position: {my: "right", at: "top right", offset: '-20 0', of: ".js-get-date"},
                 displayTime: 10000
             });
             $("#toastContainer").dxToast("show");
@@ -413,7 +414,7 @@
                 message: '{!! e(Session::get('error')) !!}',
                 type: "error",
                 width: 280,
-                position: {my: "right", at: "top right", offset: '-20 0', of: ".c-subheader"},
+                position: {my: "right", at: "top right", offset: '-20 0', of: ".js-get-date"},
                 displayTime: 5000
             });
             $("#toastContainer").dxToast("show");
@@ -427,7 +428,7 @@
                 message: '{!! e(Session::get('success')) !!}',
                 type: "success",
                 width: 280,
-                position: {my: "right", at: "top right", offset: '-20 0', of: ".c-subheader"},
+                position: {my: "right", at: "top right", offset: '-20 0', of: ".js-get-date"},
                 displayTime: 5000,
             });
             $("#toastContainer").dxToast('instance').show();

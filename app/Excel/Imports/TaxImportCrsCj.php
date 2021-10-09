@@ -20,6 +20,7 @@ class TaxImportCrsCj implements ToModel, WithStartRow, WithBatchInserts
     public function model(array $row)
     {
         return new TAXRecords([
+                                  'sst_no'                 => $row[2],
                                   'crs_taxable_period'     => $row[11],
                                   'crs_due_date'           => $row[12],
                                   'crs_submission_status'  => $row[13],

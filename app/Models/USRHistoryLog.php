@@ -32,7 +32,7 @@ class USRHistoryLog extends \Eloquent implements ActivityContract
 
     public function actionBy()
     {
-        return $this->belongsTo('App\Models\USRUsers', 'causer_id', 'id');
+        return $this->belongsTo('App\Models\USRUsers', 'causer_id', 'id')->withTrashed();
     }
 
     public function subject(): MorphTo
@@ -46,7 +46,7 @@ class USRHistoryLog extends \Eloquent implements ActivityContract
 
     public function causer(): MorphTo
     {
-        return $this->morphTo();
+        return $this->morphTo()->withTrashed();
     }
 
     public function getExtraProperty(string $propertyName)

@@ -23,12 +23,6 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link @if(\Request::get('section') == 'gesaan') active @endif p-3" href="{{ url()->to('tax/' . $tax->id . '?section=gesaan') }}">
-                            <i class="fal fa-check text-success"></i>
-                            Gesaan
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link @if(\Request::get('section') == 'attachment') active @endif p-3" href="{{ url()->to('tax/' . $tax->id . '?section=attachment') }}">
                             <i class="fal fa-paperclip text-success"></i>
                             Attachment
@@ -62,9 +56,6 @@
                     </div>
                     <div class="tab-pane @if(\Request::get('section') == 'crs') active @endif">
                         @include('tax.show.crs')
-                    </div>
-                    <div class="tab-pane @if(\Request::get('section') == 'gesaan') active @endif">
-                        @include('tax.show.gesaan')
                     </div>
                     <div class="tab-pane @if(\Request::get('section') == 'attachment') active @endif">
                         @include('tax.show.attachment')
@@ -120,8 +111,20 @@
             setTimeout(function () {
                 $('#upload-attachment').removeAttr('disabled');
                 $('#add-note').removeAttr('disabled');
-                $('#add-gesaan').removeAttr('disabled');
+                $('.add-gesaan').removeAttr('disabled');
             }, 2000)
         });
+
+        function showHideRow(row) {
+            $("#" + row).toggle();
+        }
     </script>
+@stop
+
+@section('page-css')
+    <style>
+        .hidden_row {
+            display: none;
+        }
+    </style>
 @stop

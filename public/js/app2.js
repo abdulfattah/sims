@@ -1346,7 +1346,7 @@ jQuery(function ($) {
                         $('<a/>').addClass('dx-link')
                             .text(options.text)
                             .on('dxclick', function () {
-                                location.href = baseURL + '/tax/' + options.data.tax_id + '?section=gesaan';
+                                window.open(baseURL + '/tax/' + options.data.tax_record_id + '?section=crs&crsid=' + options.data.tax_crs_id);
                             })
                             .appendTo(container);
                     }
@@ -1513,10 +1513,10 @@ jQuery(function ($) {
         closeOnOutsideClick: false
     }).dxLoadPanel("instance");
 
-    $('.edit-cdn-status').click(function () {
+    $('.edit-sims-status').click(function () {
         $.getJSON(baseURL + '/data?b=55a0c604381b6&c=' + $(this).attr('data-id'), function (data) {
             $('[data-name="cdn_status_desc"]').dxTextArea('instance').option('value', data.cdn_status_desc);
-            $('#modal-cdn-status').modal('show');
+            $('#modal-sims-status').modal('show');
         });
     });
 
@@ -1587,9 +1587,35 @@ jQuery(function ($) {
         deleteRecord(baseURL + '/tax/' + $(this).attr('data-tax-id') + '?section=note&id=' + $(this).attr('data-id'), null, 'Are you sure?', msg);
     });
 
-    $('#add-gesaan').click(function () {
+    $('.show-crs').click(function () {
+        $.getJSON(baseURL + '/data?b=55a0c605481b5&c=' + $(this).attr('data-id'), function (data) {
+            $('#details_crs_taxable_period').html('&nbsp;' + data.crs_taxable_period);
+            $('#details_crs_due_date').html('&nbsp;' + data.crs_due_date);
+            $('#details_crs_submission_status').html('&nbsp;' + data.crs_submission_status);
+            $('#details_crs_sst_02_no').html('&nbsp;' + data.crs_sst_02_no);
+            $('#details_crs_submit_date').html('&nbsp;' + data.crs_submit_date);
+            $('#details_crs_mode_of_submission').html('&nbsp;' + data.crs_mode_of_submission);
+            $('#details_crs_tax_payable').html('&nbsp;' + data.crs_tax_payable);
+            $('#details_crs_receipt_no').html((data.crs_receipt_no != null ? '&nbsp;' + data.crs_receipt_no : '&nbsp;'));
+            $('#details_crs_receipt_date').html((data.crs_receipt_date != null ? '&nbsp;' + data.crs_receipt_date : '&nbsp;'));
+            $('#details_crs_receipt_amt').html('&nbsp;' + data.crs_receipt_amt);
+            $('#details_crs_mode_of_payment').html((data.crs_mode_of_payment != null ? '&nbsp;' + data.crs_mode_of_payment : '&nbsp;'));
+            $('#details_crs_penalty_rate').html('&nbsp;' + data.crs_penalty_rate);
+            $('#details_crs_penalty_amt').html('&nbsp;' + data.crs_penalty_amt);
+            $('#details_crs_bod_status').html((data.crs_bod_status != null ? '&nbsp;' + data.crs_bod_status : '&nbsp;'));
+            $('#details_crs_bod_receipt_no').html((data.crs_bod_receipt_no != null ? '&nbsp;' + data.crs_bod_receipt_no : '&nbsp;'));
+            $('#details_crs_bod_tax_paid').html('&nbsp;' + data.crs_bod_tax_paid);
+            $('#details_crs_bod_total_tax').html('&nbsp;' + data.crs_bod_total_tax);
+            $('#details_crs_bod_penalty_paid').html('&nbsp;' + data.crs_bod_penalty_paid);
+            $('#details_crs_bod_total_penalty').html('&nbsp;' + data.crs_bod_total_penalty);
+            $('#modal-crs').modal('show');
+        });
+    });
+
+    $('.add-gesaan').click(function () {
         $('#method-gesaan').val('');
         $('#title-gesaan').html('Create New Gesaan');
+        $('[name="tax_crs_id"]').val($(this).attr('data-crs-id'));
         $('[data-name="push_type"]').dxSelectBox('instance').option('value', '');
         $('[data-name="push_pic"]').dxTextBox('instance').option('value', '');
         $('[data-name="push_bod_penalty_rate"]').dxSelectBox('instance').option('value', '');
@@ -1649,7 +1675,7 @@ jQuery(function ($) {
                 my: "right",
                 at: "top right",
                 offset: '-20 0',
-                of: ".c-subheader"
+                of: ".js-get-date"
             },
             displayTime: 10000
         });

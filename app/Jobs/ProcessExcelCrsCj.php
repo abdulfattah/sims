@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Excel\Imports\TaxImportCrsCj;
 use App\Models\SYSSetting;
+use App\Models\TAXCurrentReturnStatus;
 use App\Models\TAXRecords;
 use Carbon\Carbon;
 use Excel;
@@ -58,8 +59,15 @@ class ProcessExcelCrsCj implements ShouldQueue
             foreach ($records as $k => $v) {
                 $tax = TAXRecords::where('sst_no', $v[2])->withTrashed()->get()->first();
                 if ($tax != null) {
-                    $tax->crs_taxable_period     = $v[11];
-                    $crsDueDate                = null;
+                    $crs = TAXCurrentReturnStatus::where('tax_record_id', $tax->id)->where('crs_taxable_period', $v[11])->get()->first();
+                    if ($crs == null) {
+                        $crs                     = new TAXCurrentReturnStatus();
+                        $crs->tax_record_id      = $tax->id;
+                        $crs->tax_sst_no         = $tax->sst_no;
+                        $crs->excel_type         = 'CJ';
+                        $crs->crs_taxable_period = $v[11];
+                    }
+                    $crsDueDate = null;
                     if (strpos($v[12], '/') !== false) {
                         $crsDueDate = str_replace(' ', '', $v[12]);
                         $crsDueDate = Carbon::createFromFormat('d/m/Y', $crsDueDate)->format('Y-m-d');
@@ -72,10 +80,10 @@ class ProcessExcelCrsCj implements ShouldQueue
                             }
                         }
                     }
-                    $tax->crs_due_date = $crsDueDate;
-                    $tax->crs_submission_status  = $v[13];
-                    $tax->crs_sst_02_no          = $v[14];
-                    $crsSubmitDate                = null;
+                    $crs->crs_due_date          = $crsDueDate;
+                    $crs->crs_submission_status = $v[13];
+                    $crs->crs_sst_02_no         = $v[14];
+                    $crsSubmitDate              = null;
                     if (strpos($v[15], '/') !== false) {
                         $crsSubmitDate = str_replace(' ', '', $v[15]);
                         $crsSubmitDate = Carbon::createFromFormat('d/m/Y', $crsSubmitDate)->format('Y-m-d');
@@ -88,11 +96,11 @@ class ProcessExcelCrsCj implements ShouldQueue
                             }
                         }
                     }
-                    $tax->crs_submit_date = $crsSubmitDate;
-                    $tax->crs_mode_of_submission = $v[16];
-                    $tax->crs_tax_payable        = $v[17];
-                    $tax->crs_receipt_no         = $v[18];
-                    $crsReceiptDate                = null;
+                    $crs->crs_submit_date        = $crsSubmitDate;
+                    $crs->crs_mode_of_submission = $v[16];
+                    $crs->crs_tax_payable        = $v[17];
+                    $crs->crs_receipt_no         = $v[18];
+                    $crsReceiptDate              = null;
                     if (strpos($v[19], '/') !== false) {
                         $crsReceiptDate = str_replace(' ', '', $v[19]);
                         $crsReceiptDate = Carbon::createFromFormat('d/m/Y', $crsReceiptDate)->format('Y-m-d');
@@ -105,18 +113,18 @@ class ProcessExcelCrsCj implements ShouldQueue
                             }
                         }
                     }
-                    $tax->crs_receipt_date = $crsReceiptDate;
-                    $tax->crs_receipt_amt        = $v[20];
-                    $tax->crs_mode_of_payment    = $v[21];
-                    $tax->crs_penalty_rate       = $v[22];
-                    $tax->crs_penalty_amt        = $v[23];
-                    $tax->crs_bod_status         = $v[24];
-                    $tax->crs_bod_receipt_no     = $v[25];
-                    $tax->crs_bod_tax_paid       = $v[26];
-                    $tax->crs_bod_total_tax      = $v[27];
-                    $tax->crs_bod_penalty_paid   = $v[28];
-                    $tax->crs_bod_total_penalty   = $v[29];
-                    $tax->save();
+                    $crs->crs_receipt_date      = $crsReceiptDate;
+                    $crs->crs_receipt_amt       = $v[20];
+                    $crs->crs_mode_of_payment   = $v[21];
+                    $crs->crs_penalty_rate      = $v[22];
+                    $crs->crs_penalty_amt       = $v[23];
+                    $crs->crs_bod_status        = $v[24];
+                    $crs->crs_bod_receipt_no    = $v[25];
+                    $crs->crs_bod_tax_paid      = $v[26];
+                    $crs->crs_bod_total_tax     = $v[27];
+                    $crs->crs_bod_penalty_paid  = $v[28];
+                    $crs->crs_bod_total_penalty = $v[29];
+                    $crs->save();
 
                     activity('tax')
                         ->causedBy($this->user)

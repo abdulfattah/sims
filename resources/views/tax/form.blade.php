@@ -46,20 +46,6 @@
                         @endif
                     </li>
                     <li class="nav-item">
-                        @if(\Request::get('section') == 'gesaan')
-                            <a class="nav-link @if(\Request::get('section') == 'gesaan') active @endif" data-toggle="tab" href="#gesaan" role="tab"
-                               aria-controls="gesaan">
-                                <i class="fal fa-list text-success"></i>
-                                Gesaan
-                            </a>
-                        @else
-                            <a class="nav-link" href="{{ URL::to('tax/'.$tax->id.'?section=gesaan') }}">
-                                <i class="fal fa-list text-success"></i>
-                                Gesaan
-                            </a>
-                        @endif
-                    </li>
-                    <li class="nav-item">
                         @if(\Request::get('section') == 'attachment')
                             <a class="nav-link @if(\Request::get('section') == 'attachment') active @endif" data-toggle="tab" href="#attachment" role="tab"
                                aria-controls="attachment">
@@ -125,11 +111,7 @@
                         @endif
                     </div>
                     <div class="tab-pane @if(\Request::get('section') == 'crs') active @endif" id="crs" role="tabpanel"></div>
-                    <div class="tab-pane @if(\Request::get('section') == 'gesaan') active @endif" id="gesaan" role="tabpanel">
-                        @if(\Request::get('section') == 'gesaan')
-                            @include('tax.form.gesaan')
-                        @endif
-                    </div>
+                    <div class="tab-pane @if(\Request::get('section') == 'gesaan') active @endif" id="gesaan" role="tabpanel"></div>
                     <div class="tab-pane @if(\Request::get('section') == 'attachment') active @endif" id="attachment" role="tabpanel"></div>
                     <div class="tab-pane @if(\Request::get('section') == 'profiling') active @endif" id="profiling" role="tabpanel">
                         @if(\Request::get('section') == 'profiling')

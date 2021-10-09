@@ -6,6 +6,7 @@ use App\Libs\App;
 use App\Libs\DxGridOfficial;
 use App\Models\SYSAsset;
 use App\Models\SYSSetting;
+use App\Models\TAXCurrentReturnStatus;
 use App\Models\TAXGesaan;
 use App\Models\TAXNote;
 use App\Models\TAXRecords;
@@ -64,7 +65,7 @@ class JsonController extends Controller
                 break;
             }
             case '55a0c604381b6':
-            { //Dapatkan form CDN status//
+            { //Dapatkan form SIMS status//
                 $id = \Request::get('c');
                 return response()->json($this->getCDNStatus($id), 200, []);
                 break;
@@ -79,6 +80,12 @@ class JsonController extends Controller
             { //Dapatkan form note//
                 $id = \Request::get('c');
                 return response()->json($this->getNote($id), 200, []);
+                break;
+            }
+            case '55a0c605481b5':
+            { //Dapatkan crs data//
+                $id = \Request::get('c');
+                return response()->json($this->getCRS($id), 200, []);
                 break;
             }
             case '55abc604310b5':
@@ -174,7 +181,7 @@ class JsonController extends Controller
                                              '');
         } elseif ($profile == 'push_report') {
             $controller = new DxGridOfficial('vw_tax_gesaan',
-                                             'business_name, sst_no, email_address, telephone_no, push_type, push_gesaan_date, push_status_penyata, 
+                                             'id, tax_crs_id, tax_record_id, business_name, sst_no, email_address, telephone_no, push_type, push_gesaan_date, push_status_penyata, 
                                              push_pic, push_ikrar_penyata_date, push_email_date, push_email_time, push_phone_date, push_phone_time, push_whatsapp_date, 
                                              push_whatsapp_time, push_visit_date, push_visit_time, push_bod_penalty_rate, push_bod_penalty_amount, push_bod_status, push_bod_abt, 
                                              push_note',
@@ -247,6 +254,27 @@ class JsonController extends Controller
         $note = TAXNote::find($id, ['id', 'tax_record_id', 'note_title', 'note']);
         if ($note != null) {
             return $note->toArray();
+        } else {
+            return null;
+        }
+    }
+
+    private function getCRS($id)
+    {
+        $crs = TAXCurrentReturnStatus::find($id);
+        if ($crs != null) {
+            $crs->crs_due_date = $crs->crs_due_date != null ? date('d M Y', strtotime($crs->crs_due_date)) : null;
+            $crs->crs_submit_date = $crs->crs_submit_date != null ? date('d M Y', strtotime($crs->crs_submit_date)) : null;
+            $crs->crs_receipt_date = $crs->crs_receipt_date != null ? date('d M Y', strtotime($crs->crs_receipt_date)) : null;
+            $crs->crs_tax_payable = $crs->crs_tax_payable != null ? 'RM' . number_format($crs->crs_tax_payable, 2) : null;
+            $crs->crs_receipt_amt = $crs->crs_receipt_amt != null ? 'RM' . number_format($crs->crs_receipt_amt, 2) : null;
+            $crs->crs_penalty_amt = $crs->crs_penalty_amt != null ? 'RM' . number_format($crs->crs_penalty_amt, 2) : null;
+            $crs->crs_bod_tax_paid = $crs->crs_bod_tax_paid != null ? 'RM' . number_format($crs->crs_bod_tax_paid, 2) : null;
+            $crs->crs_bod_total_tax = $crs->crs_bod_total_tax != null ? 'RM' . number_format($crs->crs_bod_total_tax, 2) : null;
+            $crs->crs_bod_penalty_paid = $crs->crs_bod_penalty_paid != null ? 'RM' . number_format($crs->crs_bod_penalty_paid, 2) : null;
+            $crs->crs_bod_total_penalty = $crs->crs_bod_total_penalty != null ? 'RM' . number_format($crs->crs_bod_total_penalty, 2) : null;
+
+            return $crs->toArray();
         } else {
             return null;
         }

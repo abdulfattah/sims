@@ -6,8 +6,8 @@ return [
         'ADMINISTRATOR',
         'STAFF',
     ],
-    //CDN Status
-    'cdnStatus'             => [
+    //SIMS Status
+    'simsStatus'             => [
         'PERMOHONAN PEMBATALAN'
     ],
     //State

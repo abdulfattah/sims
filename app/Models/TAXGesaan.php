@@ -7,8 +7,8 @@ class TAXGesaan extends \Eloquent
 
     protected $table = 'tax_gesaan';
 
-    public function taxRecord()
+    public function crs()
     {
-        return $this->hasOne('App\Models\TAXRecords', 'id', 'tax_record_id');
+        return $this->hasOne('App\Models\TAXCurrentReturnStatus', 'id', 'tax_record_id');
     }
 }

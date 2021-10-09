@@ -312,7 +312,7 @@ class UserController extends Controller
         $response   = $controller->Get($params);
         unset($controller);
         if (isset($response) && !is_string($response)) {
-            return Excel::download(new UsersExport($response['data']), '[CDN Information Integration System] Users (' . date('d-m-Y') . ').xlsx');
+            return Excel::download(new UsersExport($response['data']), '[SIMS] Users (' . date('d-m-Y') . ').xlsx');
         } else {
             header("HTTP/1.1 500 Internal Server Error");
             header("Content-Type: application/json");
@@ -329,6 +329,10 @@ class UserController extends Controller
         }
         $check2 = SYSAsset::where('for_id', $id)->get();
         if ($check2->count() > 0) {
+            $relatedWithOthers = true;
+        }
+        $check3 = Models\USRHistoryLog::where('causer_id', $id)->get();
+        if ($check3->count() > 0) {
             $relatedWithOthers = true;
         }
 

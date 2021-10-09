@@ -15,9 +15,9 @@ class TAXRecords extends \Eloquent
         return $this->hasMany('App\Models\TAXNote', 'tax_record_id', 'id');
     }
 
-    public function gesaans()
+    public function crs()
     {
-        return $this->hasMany('App\Models\TAXGesaan', 'tax_record_id', 'id');
+        return $this->hasMany('App\Models\TAXCurrentReturnStatus', 'tax_record_id', 'id');
     }
 
     public function attachments()

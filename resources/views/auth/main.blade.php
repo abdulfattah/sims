@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>CDN Information Integration System</title>
+    <title>SIMS</title>
     <meta name="description" content="Login">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimal-ui">
@@ -34,9 +34,9 @@
                     <div class="page-logo width-mobile-auto m-0 align-items-center justify-content-center p-0 bg-transparent bg-img-none shadow-0 height-9 border-0"
                          style="width: 400px">
                         <a href="javascript:void(0)" class="page-logo-link press-scale-down d-flex align-items-center">
-                            <img src="{{ asset('images/logo.svg') }}" alt="CDN System" class="profile-image rounded-circle" style="width: 52px;height: 52px"
+                            <img src="{{ asset('images/logo.svg') }}" alt="SIMS" class="profile-image rounded-circle" style="width: 52px;height: 52px"
                                  aria-roledescription="logo">
-                            <span class="page-logo-text mr-1">CDN System <i>for</i> Royal Malaysian Customs</span>
+                            <span class="page-logo-text mr-1">SIMS <i>for</i> Royal Malaysian Customs</span>
                         </a>
                     </div>
                 </div>
@@ -45,7 +45,7 @@
                 <div class="container py-4 py-lg-5 my-lg-5 px-4 px-sm-0">
                     @yield('content')
                     <div class="position-absolute pos-bottom pos-left pos-right p-3 text-center text-white">
-                        2021 © CDN Information Integration System V2021.1
+                        2021 © SIMS V2021.1
                     </div>
                 </div>
             </div>
