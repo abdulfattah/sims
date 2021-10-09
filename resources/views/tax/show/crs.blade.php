@@ -87,37 +87,39 @@
                                 @if ($returnStatus->gesaans->count() > 0)
                                     <span class="text-muted"><i>Put your cursor on the table and use Shift + Mouse Scroll to scroll horizontally</i></span>
                                     <div class="table-responsive">
-                                        <table class="table table-bordered table-hover m-0">
+                                        <table class="table table-bordered table-hover m-0 table">
                                             <thead class="thead-themed">
                                             <tr>
                                                 <th rowspan="2" style="width: 100px;">&nbsp;</th>
                                                 <th rowspan="2" class="text-center" style="width: 100px;">#</th>
                                                 <th rowspan="2" class="text-center" style="width: 120px;">Jenis</th>
-                                                <th colspan="2" class="text-center">Submission Status</th>
+                                                <th colspan="2" class="text-center" style="width: 200px;">Submission Status</th>
                                                 <th rowspan="2" class="text-center" style="width: 250px;">Pegawai</th>
                                                 <th rowspan="2" class="text-center" style="width: 150px;">Tarikh Ikrar Penyata</th>
-                                                <th colspan="2" class="text-center">Email</th>
-                                                <th colspan="2" class="text-center">Telefon</th>
-                                                <th colspan="2" class="text-center">Whatsapp</th>
-                                                <th colspan="2" class="text-center">Lawatan</th>
-                                                <th colspan="4" class="text-center">B.O.D</th>
+                                                <th colspan="2" class="text-center" style="width: 230px;">Email</th>
+                                                <th colspan="2" class="text-center" style="width: 230px;">Telefon</th>
+                                                <th colspan="2" class="text-center" style="width: 230px;">Whatsapp</th>
+                                                <th colspan="2" class="text-center" style="width: 230px;">Lawatan</th>
+                                                <th colspan="6" class="text-center" style="width: 630px;">B.O.D</th>
                                                 <th rowspan="2" style="width: 200px;">Catatan</th>
                                             </tr>
                                             <tr>
-                                                <th class="text-center" style="width: 100px;">Tarikh</th>
-                                                <th class="text-center" style="width: 100px;">Status</th>
-                                                <th class="text-center" style="width: 130px;">Tarikh</th>
-                                                <th class="text-center" style="width: 100px;">Masa</th>
-                                                <th class="text-center" style="width: 130px;">Tarikh</th>
-                                                <th class="text-center" style="width: 100px;">Masa</th>
-                                                <th class="text-center" style="width: 130px;">Tarikh</th>
-                                                <th class="text-center" style="width: 100px;">Masa</th>
-                                                <th class="text-center" style="width: 130px;">Tarikh</th>
-                                                <th class="text-center" style="width: 100px;">Masa</th>
-                                                <th class="text-center" style="width: 100px;">Penalty Rate</th>
-                                                <th class="text-center" style="width: 100px;">Penalty Amount</th>
-                                                <th class="text-center" style="width: 100px;">Status</th>
-                                                <th class="text-center" style="width: 130px;">ABT</th>
+                                                <th class="text-center">Tarikh</th>
+                                                <th class="text-center">Status</th>
+                                                <th class="text-center">Tarikh</th>
+                                                <th class="text-center">Masa</th>
+                                                <th class="text-center">Tarikh</th>
+                                                <th class="text-center">Masa</th>
+                                                <th class="text-center">Tarikh</th>
+                                                <th class="text-center">Masa</th>
+                                                <th class="text-center">Tarikh</th>
+                                                <th class="text-center">Masa</th>
+                                                <th class="text-center">Penalty Rate</th>
+                                                <th class="text-center">Penalty Amount</th>
+                                                <th class="text-center">Status</th>
+                                                <th class="text-center">ABT</th>
+                                                <th class="text-center">No</th>
+                                                <th class="text-center">Tax Amount</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -145,9 +147,11 @@
                                                     <td>{{ $gesaan->push_visit_date != null ? date('d-m-Y', strtotime($gesaan->push_visit_date)) : null }}</td>
                                                     <td>{{ $gesaan->push_visit_time != null ? date('H:i', strtotime($gesaan->push_visit_time)) : null }}</td>
                                                     <td>{{ $gesaan->push_bod_penalty_rate }}</td>
-                                                    <td>{{ $gesaan->push_bod_penalty_amount }}</td>
+                                                    <td>{{ $gesaan->push_bod_penalty_amount != null ? number_format($gesaan->push_bod_penalty_amount, 2) : null }}</td>
                                                     <td>{{ $gesaan->push_bod_status }}</td>
                                                     <td>{{ $gesaan->push_bod_abt != null ? date('d-m-Y', strtotime($gesaan->push_bod_abt)) : null }}</td>
+                                                    <td>{{ $gesaan->push_bod_no }}</td>
+                                                    <td>{{ $gesaan->push_bod_tax_amount != null ? number_format($gesaan->push_bod_tax_amount, 2) : null }}</td>
                                                     <td>{{ $gesaan->push_note }}</td>
                                                 </tr>
                                             @endforeach
@@ -334,7 +338,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label" for="push_bod_penalty_amount">B.O.D (Penalty Amount)</label>
-                                    <div data-dx="textbox" data-name="push_bod_penalty_amount" data-mode="text" data-value=""></div>
+                                    <div data-dx="numberbox" data-name="push_bod_penalty_amount" data-mode="text" data-value=""></div>
                                 </div>
                             </div>
                         </div>
@@ -350,6 +354,20 @@
                                 <div class="form-group">
                                     <label class="form-label" for="push_bod_abt">B.O.D (ABT)</label>
                                     <div data-dx="datebox" data-name="push_bod_abt" data-display-format="dd MMM YYYY" data-value=""></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="push_bod_no">No B.O.D</label>
+                                    <div data-dx="textbox" data-name="push_bod_no" data-mode="text" data-value=""></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="push_bod_tax_amount">B.O.D (Tax Amount)</label>
+                                    <div data-dx="numberbox" data-name="push_bod_tax_amount" data-mode="text" data-value=""></div>
                                 </div>
                             </div>
                         </div>

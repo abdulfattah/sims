@@ -1,5 +1,5 @@
-<table class="table table-responsive-sm table-sm mt-3">
-    <thead>
+<table class="table table-bordered table-hover mt-3">
+    <thead class="thead-themed">
     <tr>
         <th style="width: 20%;">When</th>
         <th style="width: 30%;">Action By</th>

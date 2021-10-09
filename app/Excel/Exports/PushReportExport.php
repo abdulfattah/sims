@@ -52,7 +52,9 @@ class PushReportExport implements FromCollection, ShouldAutoSize, WithHeadings, 
             'push_bod_penalty_rate'   => 'B.O.D (PENALTY RATE)',
             'push_bod_penalty_amount' => 'B.O.D (PENALTY AMOUNT)',
             'push_bod_status'         => 'B.O.D (STATUS)',
-            'push_bod_abt'            => 'B.O.D (ABT)'
+            'push_bod_abt'            => 'B.O.D (ABT)',
+            'push_bod_no'             => 'B.O.D (NO)',
+            'push_bod_tax_amount'     => 'B.O.D (TAX AMOUNT)'
         ];
         $newCols = [];
         foreach ($this->column as $col) {
@@ -65,28 +67,30 @@ class PushReportExport implements FromCollection, ShouldAutoSize, WithHeadings, 
     public function columnFormats(): array
     {
         return [
-            'A'  => NumberFormat::FORMAT_TEXT,
-            'B'  => NumberFormat::FORMAT_TEXT,
-            'C'  => NumberFormat::FORMAT_TEXT,
-            'D'  => NumberFormat::FORMAT_TEXT,
-            'E'  => NumberFormat::FORMAT_TEXT,
-            'F'  => NumberFormat::FORMAT_TEXT,
-            'G'  => NumberFormat::FORMAT_TEXT,
-            'H'  => NumberFormat::FORMAT_TEXT,
-            'I'  => NumberFormat::FORMAT_TEXT,
-            'J'  => NumberFormat::FORMAT_TEXT,
-            'K'  => NumberFormat::FORMAT_TEXT,
-            'L'  => NumberFormat::FORMAT_TEXT,
-            'M'  => NumberFormat::FORMAT_TEXT,
-            'N'  => NumberFormat::FORMAT_TEXT,
-            'O'  => NumberFormat::FORMAT_TEXT,
-            'P'  => NumberFormat::FORMAT_TEXT,
-            'Q'  => NumberFormat::FORMAT_TEXT,
-            'R'  => NumberFormat::FORMAT_TEXT,
-            'S'  => NumberFormat::FORMAT_TEXT,
-            'T'  => NumberFormat::FORMAT_TEXT,
-            'U'  => NumberFormat::FORMAT_TEXT,
-            'V'  => NumberFormat::FORMAT_TEXT
+            'A' => NumberFormat::FORMAT_TEXT,
+            'B' => NumberFormat::FORMAT_TEXT,
+            'C' => NumberFormat::FORMAT_TEXT,
+            'D' => NumberFormat::FORMAT_TEXT,
+            'E' => NumberFormat::FORMAT_TEXT,
+            'F' => NumberFormat::FORMAT_TEXT,
+            'G' => NumberFormat::FORMAT_TEXT,
+            'H' => NumberFormat::FORMAT_TEXT,
+            'I' => NumberFormat::FORMAT_TEXT,
+            'J' => NumberFormat::FORMAT_TEXT,
+            'K' => NumberFormat::FORMAT_TEXT,
+            'L' => NumberFormat::FORMAT_TEXT,
+            'M' => NumberFormat::FORMAT_TEXT,
+            'N' => NumberFormat::FORMAT_TEXT,
+            'O' => NumberFormat::FORMAT_TEXT,
+            'P' => NumberFormat::FORMAT_TEXT,
+            'Q' => NumberFormat::FORMAT_TEXT,
+            'R' => NumberFormat::FORMAT_TEXT,
+            'S' => NumberFormat::FORMAT_TEXT,
+            'T' => NumberFormat::FORMAT_TEXT,
+            'U' => NumberFormat::FORMAT_TEXT,
+            'V' => NumberFormat::FORMAT_TEXT,
+            'W' => NumberFormat::FORMAT_TEXT,
+            'X' => NumberFormat::FORMAT_TEXT
         ];
     }
 
@@ -101,7 +105,7 @@ class PushReportExport implements FromCollection, ShouldAutoSize, WithHeadings, 
                 //set row height
                 $event->sheet->getDelegate()->getRowDimension(1)->setRowHeight(20);
                 //set by array
-                $event->sheet->getDelegate()->getStyle('A1:AF1')->applyFromArray([
+                $event->sheet->getDelegate()->getStyle('A1:X1')->applyFromArray([
                                                                                      'font'      => [
                                                                                          'name'   => 'Calibri',
                                                                                          'bold'   => true,

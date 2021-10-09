@@ -16,7 +16,7 @@
     <link rel="mask-icon" href="{{ asset('images/favicon/safari-pinned-tab.svg') }}" color="#5bbad5">
     <link rel="stylesheet" media="screen, print" href="{{ asset('css/theme-demo.css') }}">
     <link media="all" type="text/css" rel="stylesheet" href="{{ asset('css/app1.min.css') }}">
-    <link media="all" type="text/css" rel="stylesheet" href="{{ asset('css/app2.css') }}?t=10102021">
+    <link media="all" type="text/css" rel="stylesheet" href="{{ asset('css/app2.css') }}?t=11102021">
     <link media="all" type="text/css" rel="stylesheet" href="{{ asset('css/magnific-popup.css') }}">
     <link media="all" type="text/css" rel="stylesheet" href="{{ asset('css/cropper.min.css') }}">
     <link media="all" type="text/css" rel="stylesheet" href="{{ asset('css/lightbox.min.css') }}">
@@ -384,7 +384,7 @@
 <script src="{{ asset('js/moment-with-locales.min.js') }}"></script>
 <script src="{{ asset('js/tinymce/tinymce.min.js') }}"></script>
 <script src="{{ asset('js/app1.min.js') }}"></script>
-<script src="{{ asset('js/app2.js') }}?t=10102021"></script>
+<script src="{{ asset('js/app2.js') }}?t=11102021"></script>
 <script src="{{ asset('js/jquery.magnific-popup.min.js') }}"></script>
 <script src="{{ asset('js/cropper.min.js') }}"></script>
 <script src="{{ asset('js/lightbox.min.js') }}"></script>

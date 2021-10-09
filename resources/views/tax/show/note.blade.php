@@ -3,8 +3,9 @@
         Create Note
     </button>
 </div>
-<table class="table table-responsive-sm table-sm mt-3">
-    <thead>
+
+<table class="table table-bordered table-hover mt-3">
+    <thead class="thead-themed">
     <tr>
         <th style="width: 46%;">Title</th>
         <th style="width: 32%;">Note By</th>

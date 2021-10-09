@@ -1352,7 +1352,7 @@ jQuery(function ($) {
                     }
                 }, {
                     caption: 'SST NO',
-                    width: '100',
+                    width: '140',
                     dataType: 'string',
                     dataField: "sst_no",
                     allowHeaderFiltering: false
@@ -1376,19 +1376,21 @@ jQuery(function ($) {
                     dataField: "crs_taxable_period"
                 }, {
                     caption: 'DUE DATE',
-                    width: '150',
+                    width: '100',
                     dataType: "date",
                     format: 'dd MMM yyyy',
                     allowHeaderFiltering: false,
                     dataField: "crs_due_date"
                 }, {
                     caption: 'TARIKH GESAAN',
+                    width: '100',
                     dataType: "date",
                     format: 'dd MMM yyyy',
                     allowHeaderFiltering: false,
                     dataField: "push_gesaan_date"
                 }, {
                     caption: 'STATUS PENYATA',
+                    width: '150',
                     dataType: 'string',
                     allowHeaderFiltering: false,
                     dataField: "push_status_penyata"
@@ -1400,10 +1402,10 @@ jQuery(function ($) {
                     dataField: "push_pic"
                 }, {
                     caption: 'EMAIL',
-                    width: '180',
                     columns: [
                         {
                             caption: 'TARIKH',
+                            width: '100',
                             dataType: "date",
                             format: 'dd MMM yyyy',
                             allowHeaderFiltering: false,
@@ -1411,16 +1413,17 @@ jQuery(function ($) {
                         },
                         {
                             caption: 'MASA',
+                            width: '100',
                             allowHeaderFiltering: false,
                             dataField: "push_email_time"
                         },
                     ],
                 }, {
                     caption: 'TELEFON',
-                    width: '180',
                     columns: [
                         {
                             caption: 'TARIKH',
+                            width: '100',
                             dataType: "date",
                             format: 'dd MMM yyyy',
                             allowHeaderFiltering: false,
@@ -1428,16 +1431,17 @@ jQuery(function ($) {
                         },
                         {
                             caption: 'MASA',
+                            width: '100',
                             allowHeaderFiltering: false,
                             dataField: "push_phone_time"
                         },
                     ],
                 }, {
                     caption: 'WHATSAPP',
-                    width: '180',
                     columns: [
                         {
                             caption: 'TARIKH',
+                            width: '100',
                             dataType: "date",
                             format: 'dd MMM yyyy',
                             allowHeaderFiltering: false,
@@ -1445,16 +1449,17 @@ jQuery(function ($) {
                         },
                         {
                             caption: 'MASA',
+                            width: '100',
                             allowHeaderFiltering: false,
                             dataField: "push_whatsapp_time"
                         },
                     ],
                 }, {
                     caption: 'LAWATAN',
-                    width: '180',
                     columns: [
                         {
                             caption: 'TARIKH',
+                            width: '100',
                             dataType: "date",
                             format: 'dd MMM yyyy',
                             allowHeaderFiltering: false,
@@ -1462,33 +1467,49 @@ jQuery(function ($) {
                         },
                         {
                             caption: 'MASA',
+                            width: '100',
                             allowHeaderFiltering: false,
                             dataField: "push_visit_time"
                         },
                     ],
                 }, {
                     caption: 'B.O.D',
-                    width: '280',
                     columns: [
                         {
                             caption: 'PENALTY RATE',
+                            width: '100',
                             allowHeaderFiltering: false,
                             dataField: "push_bod_penalty_rate"
                         },
                         {
                             caption: 'PENALTY AMOUNT',
+                            width: '100',
                             allowHeaderFiltering: false,
                             dataField: "push_bod_penalty_amount"
                         },
                         {
                             caption: 'STATUS',
+                            width: '100',
                             allowHeaderFiltering: false,
                             dataField: "push_bod_status"
                         },
                         {
                             caption: 'ABT',
+                            width: '100',
                             allowHeaderFiltering: false,
                             dataField: "push_bod_abt"
+                        },
+                        {
+                            caption: 'NO',
+                            width: '100',
+                            allowHeaderFiltering: false,
+                            dataField: "push_bod_no"
+                        },
+                        {
+                            caption: 'TAX AMOUNT',
+                            width: '100',
+                            allowHeaderFiltering: false,
+                            dataField: "push_bod_tax_amount"
                         },
                     ],
                 }]);
@@ -1613,14 +1634,30 @@ jQuery(function ($) {
     });
 
     $('.add-gesaan').click(function () {
-        $('#method-gesaan').val('');
+        $('#form-gesaan').attr('action', baseURL + '/tax?section=gesaan');
+        $('#method-gesaan').val('POST');
         $('#title-gesaan').html('Create New Gesaan');
         $('[name="tax_crs_id"]').val($(this).attr('data-crs-id'));
         $('[data-name="push_type"]').dxSelectBox('instance').option('value', '');
         $('[data-name="push_pic"]').dxTextBox('instance').option('value', '');
+        $('[data-name="push_ikrar_penyata_date"]').dxDateBox('instance').option('value', '');
+        $('[data-name="push_gesaan_date"]').dxDateBox('instance').option('value', '');
+        $('[data-name="push_status_penyata"]').dxSelectBox('instance').option('value', '');
+        $('[data-name="push_email_date"]').dxDateBox('instance').option('value', '');
+        $('[data-name="push_email_time"]').dxDateBox('instance').option('value', '');
+        $('[data-name="push_phone_date"]').dxDateBox('instance').option('value', '');
+        $('[data-name="push_phone_time"]').dxDateBox('instance').option('value', '');
+        $('[data-name="push_whatsapp_date"]').dxDateBox('instance').option('value', '');
+        $('[data-name="push_whatsapp_time"]').dxDateBox('instance').option('value', '');
+        $('[data-name="push_visit_date"]').dxDateBox('instance').option('value', '');
+        $('[data-name="push_visit_time"]').dxDateBox('instance').option('value', '');
         $('[data-name="push_bod_penalty_rate"]').dxSelectBox('instance').option('value', '');
-        $('[data-name="push_bod_penalty_amount"]').dxTextBox('instance').option('value', '');
+        $('[data-name="push_bod_penalty_amount"]').dxNumberBox('instance').option('value', '');
         $('[data-name="push_bod_status"]').dxSelectBox('instance').option('value', '');
+        $('[data-name="push_bod_abt"]').dxDateBox('instance').option('value', '');
+        $('[data-name="push_bod_no"]').dxTextBox('instance').option('value', '');
+        $('[data-name="push_bod_tax_amount"]').dxNumberBox('instance').option('value', '');
+        $('[data-name="push_note"]').dxTextArea('instance').option('value', '');
         $('#modal-gesaan').modal('show');
     });
 
@@ -1643,9 +1680,11 @@ jQuery(function ($) {
             $('[data-name="push_visit_date"]').dxDateBox('instance').option('value', data.push_visit_date);
             $('[data-name="push_visit_time"]').dxDateBox('instance').option('value', data.push_visit_time);
             $('[data-name="push_bod_penalty_rate"]').dxSelectBox('instance').option('value', data.push_bod_penalty_rate);
-            $('[data-name="push_bod_penalty_amount"]').dxTextBox('instance').option('value', data.push_bod_penalty_amount);
+            $('[data-name="push_bod_penalty_amount"]').dxNumberBox('instance').option('value', data.push_bod_penalty_amount);
             $('[data-name="push_bod_status"]').dxSelectBox('instance').option('value', data.push_bod_status);
             $('[data-name="push_bod_abt"]').dxDateBox('instance').option('value', data.push_bod_abt);
+            $('[data-name="push_bod_no"]').dxTextBox('instance').option('value', data.push_bod_no);
+            $('[data-name="push_bod_tax_amount"]').dxNumberBox('instance').option('value', data.push_bod_tax_amount);
             $('[data-name="push_note"]').dxTextArea('instance').option('value', data.push_note);
             $('#modal-gesaan').modal('show');
         });
