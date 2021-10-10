@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>SIMS</title>
+    <title>SIMS - SST INTEGRATED MONITORING SYSTEM</title>
     <meta name="description" content="How it works">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimal-ui">
@@ -16,7 +16,7 @@
     <link rel="mask-icon" href="{{ asset('images/favicon/safari-pinned-tab.svg') }}" color="#5bbad5">
     <link rel="stylesheet" media="screen, print" href="{{ asset('css/theme-demo.css') }}">
     <link media="all" type="text/css" rel="stylesheet" href="{{ asset('css/app1.min.css') }}">
-    <link media="all" type="text/css" rel="stylesheet" href="{{ asset('css/app2.css') }}?t=11102021">
+    <link media="all" type="text/css" rel="stylesheet" href="{{ asset('css/app2.css') }}?t=1010211300">
     <link media="all" type="text/css" rel="stylesheet" href="{{ asset('css/magnific-popup.css') }}">
     <link media="all" type="text/css" rel="stylesheet" href="{{ asset('css/cropper.min.css') }}">
     <link media="all" type="text/css" rel="stylesheet" href="{{ asset('css/lightbox.min.css') }}">
@@ -31,7 +31,7 @@
             <div class="page-logo">
                 <a href="#" class="page-logo-link press-scale-down d-flex align-items-center position-relative">
                     <img src="{{ asset('images/logo.svg') }}" alt="SIMS" class="profile-image rounded-circle" style="width: 52px;height: 52px" aria-roledescription="logo">
-                    <span class="page-logo-text mr-1">SIMS <i>for</i> Royal Malaysian Customs</span>
+                    <span class="page-logo-text mr-1">SST INTEGRATED MONITORING SYSTEM</span>
                 </a>
             </div>
             <!-- BEGIN PRIMARY NAVIGATION -->
@@ -151,7 +151,7 @@
                     <a href="#" class="page-logo-link press-scale-down d-flex align-items-center position-relative">
                         <img src="{{ asset('images/logo.svg') }}" alt="SIMS" class="profile-image rounded-circle" style="width: 52px;height: 52px"
                              aria-roledescription="logo">
-                        <span class="page-logo-text mr-1">SIMS <i>for</i> Royal Malaysian Customs</span>
+                        <span class="page-logo-text mr-1">SST INTEGRATED MONITORING SYSTEM</span>
                     </a>
                 </div>
                 <!-- DOC: nav menu layout change shortcut -->
@@ -384,7 +384,7 @@
 <script src="{{ asset('js/moment-with-locales.min.js') }}"></script>
 <script src="{{ asset('js/tinymce/tinymce.min.js') }}"></script>
 <script src="{{ asset('js/app1.min.js') }}"></script>
-<script src="{{ asset('js/app2.js') }}?t=11102021"></script>
+<script src="{{ asset('js/app2.js') }}?t=1010211300"></script>
 <script src="{{ asset('js/jquery.magnific-popup.min.js') }}"></script>
 <script src="{{ asset('js/cropper.min.js') }}"></script>
 <script src="{{ asset('js/lightbox.min.js') }}"></script>

@@ -82,7 +82,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Registration Date</label>
-                                <div data-dx="datebox" data-name="registration_date" data-display-format="dd MMM YYYY"
+                                <div data-dx="datebox" data-name="registration_date" data-display-format="dd MMM y"
                                      data-value="{{ \Request::old('registration_date', isset($tax) ? $tax->registration_date : NULL) }}" data-readonly="true"></div>
                             </div>
                         </div>
@@ -91,14 +91,14 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Cancellation Approval</label>
-                                <div data-dx="datebox" data-name="cancellation_approval" data-display-format="dd MMM YYYY"
+                                <div data-dx="datebox" data-name="cancellation_approval" data-display-format="dd MMM y"
                                      data-value="{{ \Request::old('cancellation_approval', isset($tax) ? $tax->cancellation_approval : NULL) }}" data-readonly="true"></div>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Cancellation Effective</label>
-                                <div data-dx="datebox" data-name="cancellation_effective" data-display-format="dd MMM YYYY"
+                                <div data-dx="datebox" data-name="cancellation_effective" data-display-format="dd MMM y"
                                      data-value="{{ \Request::old('cancellation_effective', isset($tax) ? $tax->cancellation_effective : NULL) }}" data-readonly="true"></div>
                             </div>
                         </div>

@@ -162,7 +162,8 @@ jQuery(function ($) {
                 displayFormat: $this.attr('data-display-format'),
                 maxZoomLevel: $this.attr('data-max-level'),
                 minZoomLevel: $this.attr('data-min-level'),
-                readOnly: $this.attr('data-readonly')
+                readOnly: $this.attr('data-readonly'),
+                showClearButton: true
             });
         }
 
@@ -174,6 +175,7 @@ jQuery(function ($) {
                 pickerType: 'rollers',
                 value: $this.attr('data-value') == '' ? null : $this.attr('data-value'),
                 readOnly: $this.attr('data-readonly'),
+                showClearButton: true,
                 type: 'time'
             });
         }
@@ -1644,13 +1646,13 @@ jQuery(function ($) {
         $('[data-name="push_gesaan_date"]').dxDateBox('instance').option('value', '');
         $('[data-name="push_status_penyata"]').dxSelectBox('instance').option('value', '');
         $('[data-name="push_email_date"]').dxDateBox('instance').option('value', '');
-        $('[data-name="push_email_time"]').dxDateBox('instance').option('value', '');
+        // $('[data-name="push_email_time"]').dxDateBox('instance').option('value', '');
         $('[data-name="push_phone_date"]').dxDateBox('instance').option('value', '');
-        $('[data-name="push_phone_time"]').dxDateBox('instance').option('value', '');
+        // $('[data-name="push_phone_time"]').dxDateBox('instance').option('value', '');
         $('[data-name="push_whatsapp_date"]').dxDateBox('instance').option('value', '');
-        $('[data-name="push_whatsapp_time"]').dxDateBox('instance').option('value', '');
+        // $('[data-name="push_whatsapp_time"]').dxDateBox('instance').option('value', '');
         $('[data-name="push_visit_date"]').dxDateBox('instance').option('value', '');
-        $('[data-name="push_visit_time"]').dxDateBox('instance').option('value', '');
+        // $('[data-name="push_visit_time"]').dxDateBox('instance').option('value', '');
         $('[data-name="push_bod_penalty_rate"]').dxSelectBox('instance').option('value', '');
         $('[data-name="push_bod_penalty_amount"]').dxNumberBox('instance').option('value', '');
         $('[data-name="push_bod_status"]').dxSelectBox('instance').option('value', '');

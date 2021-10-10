@@ -2,10 +2,13 @@
 @section('content')
     <div class="row">
         <div class="col col-md-6 col-lg-7 hidden-sm-down">
-            <h2 class="fs-xxl fw-500 mt-4 text-white">
-                Login
-                <small class="h3 fw-300 mt-3 mb-5 text-white opacity-60">
-                    Please enter your username and password
+            <h2 class="fs-xxl fw-500 text-center text-white">
+                <img src="{{ asset('images/logo_transparent.svg') }}" alt="SIMS" class="profile-image rounded-circle" style="width: 232px;height: 232px"
+                     aria-roledescription="logo">
+                <div>SIMS</div>
+                <small class="h3 fw-300 mt-1 mb-5 text-white opacity-60">
+                    SST INTEGRATED MONITORING SYSTEM<br>
+                    (SISTEM PEMANTAUAN BERSEPADU SST)
                 </small>
             </h2>
         </div>

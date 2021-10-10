@@ -249,7 +249,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label" for="push_ikrar_penyata_date">Tarikh Ikrar Penyata</label>
-                                    <div data-dx="datebox" data-name="push_ikrar_penyata_date" data-display-format="dd MMM YYYY" data-value=""></div>
+                                    <div data-dx="datebox" data-name="push_ikrar_penyata_date" data-display-format="dd MMM y" data-value=""></div>
                                 </div>
                             </div>
                         </div>
@@ -266,7 +266,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label" for="push_gesaan_date">Tarikh Gesaan</label>
-                                    <div data-dx="datebox" data-name="push_gesaan_date" data-display-format="dd MMM YYYY" data-value=""></div>
+                                    <div data-dx="datebox" data-name="push_gesaan_date" data-display-format="dd MMM y" data-value=""></div>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -280,7 +280,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label" for="push_email_date">Email (Tarikh)</label>
-                                    <div data-dx="datebox" data-name="push_email_date" data-display-format="dd MMM YYYY" data-value=""></div>
+                                    <div data-dx="datebox" data-name="push_email_date" data-display-format="dd MMM y" data-value=""></div>
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -292,7 +292,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label" for="push_phone_date">Telefon (Tarikh)</label>
-                                    <div data-dx="datebox" data-name="push_phone_date" data-display-format="dd MMM YYYY" data-value=""></div>
+                                    <div data-dx="datebox" data-name="push_phone_date" data-display-format="dd MMM y" data-value=""></div>
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -306,7 +306,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label" for="push_whatsapp_date">Whatsapp (Tarikh)</label>
-                                    <div data-dx="datebox" data-name="push_whatsapp_date" data-display-format="dd MMM YYYY" data-value=""></div>
+                                    <div data-dx="datebox" data-name="push_whatsapp_date" data-display-format="dd MMM y" data-value=""></div>
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -318,7 +318,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label" for="push_visit_date">Lawatan (Tarikh)</label>
-                                    <div data-dx="datebox" data-name="push_visit_date" data-display-format="dd MMM YYYY" data-value=""></div>
+                                    <div data-dx="datebox" data-name="push_visit_date" data-display-format="dd MMM y" data-value=""></div>
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -353,7 +353,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label" for="push_bod_abt">B.O.D (ABT)</label>
-                                    <div data-dx="datebox" data-name="push_bod_abt" data-display-format="dd MMM YYYY" data-value=""></div>
+                                    <div data-dx="datebox" data-name="push_bod_abt" data-display-format="dd MMM y" data-value=""></div>
                                 </div>
                             </div>
                         </div>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>SIMS</title>
+    <title>SIMS - SST INTEGRATED MONITORING SYSTEM</title>
     <meta name="description" content="Login">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimal-ui">
@@ -36,7 +36,7 @@
                         <a href="javascript:void(0)" class="page-logo-link press-scale-down d-flex align-items-center">
                             <img src="{{ asset('images/logo.svg') }}" alt="SIMS" class="profile-image rounded-circle" style="width: 52px;height: 52px"
                                  aria-roledescription="logo">
-                            <span class="page-logo-text mr-1">SIMS <i>for</i> Royal Malaysian Customs</span>
+                            <span class="page-logo-text mr-1">SST INTEGRATED MONITORING SYSTEM</span>
                         </a>
                     </div>
                 </div>
