@@ -92,29 +92,31 @@
                             </a>
                         </li>
                     @endif
-                    <li class="@if ($menu['menu'] == 'Report') active show @endif">
-                        <a href="#" title="Reports" data-filter-tags="report">
-                            <i class="fal fa-info-circle"></i>
-                            <span class="nav-link-text">Reports</span>
-                        </a>
-                        <ul>
-                            <li class="@if ($menu['subMenu'] == 'Risk Entity') active @endif">
-                                <a href="{{ url()->to('report/risk_entity') }}" title="Introduction" data-filter-tags="application intel introduction">
-                                    <span class="nav-link-text">Entiti Cukai Jualan</span>
-                                </a>
-                            </li>
-                            <li class="@if ($menu['subMenu'] == 'Risk Person') active @endif">
-                                <a href="{{ url()->to('report/risk_person') }}" title="Privacy" data-filter-tags="application intel privacy">
-                                    <span class="nav-link-text">Orang Berdaftar</span>
-                                </a>
-                            </li>
-                            <li class="@if ($menu['subMenu'] == 'Push Format') active @endif">
-                                <a href="{{ url()->to('report/push_format') }}" title="Privacy" data-filter-tags="application intel privacy">
-                                    <span class="nav-link-text">Laporan Gesaan</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                    @if (strpos(Auth::user()->role, 'STAFF') !== false)
+                        <li class="@if ($menu['menu'] == 'Report') active show @endif">
+                            <a href="#" title="Reports" data-filter-tags="report">
+                                <i class="fal fa-info-circle"></i>
+                                <span class="nav-link-text">Reports</span>
+                            </a>
+                            <ul>
+                                <li class="@if ($menu['subMenu'] == 'Risk Entity') active @endif">
+                                    <a href="{{ url()->to('report/risk_entity') }}" title="Introduction" data-filter-tags="application intel introduction">
+                                        <span class="nav-link-text">Entiti Cukai Jualan</span>
+                                    </a>
+                                </li>
+                                <li class="@if ($menu['subMenu'] == 'Risk Person') active @endif">
+                                    <a href="{{ url()->to('report/risk_person') }}" title="Privacy" data-filter-tags="application intel privacy">
+                                        <span class="nav-link-text">Orang Berdaftar</span>
+                                    </a>
+                                </li>
+                                <li class="@if ($menu['subMenu'] == 'Push Format') active @endif">
+                                    <a href="{{ url()->to('report/push_format') }}" title="Privacy" data-filter-tags="application intel privacy">
+                                        <span class="nav-link-text">Laporan Gesaan</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    @endif
                 </ul>
                 <div class="filter-message js-filter-message bg-success-600"></div>
             </nav>
@@ -293,9 +295,9 @@
                             <a href="intel_introduction.html" class="text-secondary fw-700">About SIMS</a>
                         </li>
                         <li class="pl-3">
-{{--                            @if (strpos(Auth::user()->role, 'ADMINISTRATOR') !== false)--}}
-{{--                                <a href="{{ asset('um/admin.pdf') }}" target="_blank" style="text-decoration: none !important;" class="text-secondary fw-700 mr-2">User Manual (Admin)</a>--}}
-{{--                            @endif--}}
+                            {{--                            @if (strpos(Auth::user()->role, 'ADMINISTRATOR') !== false)--}}
+                            {{--                                <a href="{{ asset('um/admin.pdf') }}" target="_blank" style="text-decoration: none !important;" class="text-secondary fw-700 mr-2">User Manual (Admin)</a>--}}
+                            {{--                            @endif--}}
                             @if (strpos(Auth::user()->role, 'STAFF') !== false)
                                 <a href="{{ asset('um/staff.pdf') }}" target="_blank" style="text-decoration: none !important;" class="text-secondary fw-700">User Manual (Staf)</a>
                             @endif
