@@ -181,7 +181,7 @@ class JsonController extends Controller
                                              '');
         } elseif ($profile == 'push_report') {
             $controller = new DxGridOfficial('vw_tax_gesaan',
-                                             'id, tax_crs_id, tax_record_id, business_name, sst_no, email_address, telephone_no, push_type, push_gesaan_date, push_status_penyata, 
+                                             'id, tax_crs_id, crs_taxable_period, tax_record_id, business_name, sst_no, email_address, telephone_no, push_type, push_gesaan_date, push_status_penyata, 
                                              push_pic, push_ikrar_penyata_date, push_email_date, push_email_time, push_phone_date, push_phone_time, push_whatsapp_date, 
                                              push_whatsapp_time, push_visit_date, push_visit_time, push_bod_penalty_rate, push_bod_penalty_amount, push_bod_status, push_bod_abt, 
                                              push_note',

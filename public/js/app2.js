@@ -1372,8 +1372,8 @@ jQuery(function ($) {
                     dataField: "telephone_no"
                 }, {
                     caption: 'TAXABLE PERIOD',
-                    width: '150',
-                    dataType: 'number',
+                    width: '170',
+                    dataType: 'string',
                     allowHeaderFiltering: true,
                     dataField: "crs_taxable_period"
                 }, {
