@@ -1374,7 +1374,7 @@ jQuery(function ($) {
                     caption: 'TAXABLE PERIOD',
                     width: '150',
                     dataType: 'number',
-                    allowHeaderFiltering: false,
+                    allowHeaderFiltering: true,
                     dataField: "crs_taxable_period"
                 }, {
                     caption: 'DUE DATE',
@@ -1394,7 +1394,7 @@ jQuery(function ($) {
                     caption: 'STATUS PENYATA',
                     width: '150',
                     dataType: 'string',
-                    allowHeaderFiltering: false,
+                    allowHeaderFiltering: true,
                     dataField: "push_status_penyata"
                 }, {
                     caption: 'PEGAWAI',
@@ -1498,6 +1498,8 @@ jQuery(function ($) {
                         {
                             caption: 'ABT',
                             width: '100',
+                            dataType: "date",
+                            format: 'dd MMM yyyy',
                             allowHeaderFiltering: false,
                             dataField: "push_bod_abt"
                         },

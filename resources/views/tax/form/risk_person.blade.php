@@ -211,7 +211,7 @@
             </td>
         </tr>
         <tr>
-            <td class="text-center">ii</td>
+            <td class="text-center">iii</td>
             <td>Diaudit oleh akauntan awam bertauliah</td>
             <td>
                 <div class="form-check">
@@ -222,7 +222,7 @@
             </td>
         </tr>
         <tr>
-            <td class="text-center">ii</td>
+            <td class="text-center">iv</td>
             <td>Diaudit oleh juruaudit dan diaudit / disahkan semula oleh akauntan awam bertauliah</td>
             <td>
                 <div class="form-check">

@@ -295,11 +295,14 @@
                             <a href="intel_introduction.html" class="text-secondary fw-700">About SIMS</a>
                         </li>
                         <li class="pl-3">
-                            {{--                            @if (strpos(Auth::user()->role, 'ADMINISTRATOR') !== false)--}}
-                            {{--                                <a href="{{ asset('um/admin.pdf') }}" target="_blank" style="text-decoration: none !important;" class="text-secondary fw-700 mr-2">User Manual (Admin)</a>--}}
-                            {{--                            @endif--}}
-                            @if (strpos(Auth::user()->role, 'STAFF') !== false)
-                                <a href="{{ asset('um/staff.pdf') }}" target="_blank" style="text-decoration: none !important;" class="text-secondary fw-700">User Manual (Staf)</a>
+                            @if (strpos(Auth::user()->role, 'ADMINISTRATOR') !== false && strpos(Auth::user()->role, 'STAFF') === false)
+                                <a href="{{ asset('um/admin.pdf') }}" target="_blank" style="text-decoration: none !important;" class="text-secondary fw-700 mr-2">User Manual</a>
+                            @endif
+                            @if (strpos(Auth::user()->role, 'STAFF') !== false && strpos(Auth::user()->role, 'ADMINISTRATOR') === false)
+                                <a href="{{ asset('um/staff.pdf') }}" target="_blank" style="text-decoration: none !important;" class="text-secondary fw-700">User Manual</a>
+                            @endif
+                            @if (strpos(Auth::user()->role, 'STAFF') !== false && strpos(Auth::user()->role, 'ADMINISTRATOR') !== false)
+                                <a href="{{ asset('um/all.pdf') }}" target="_blank" style="text-decoration: none !important;" class="text-secondary fw-700">User Manual</a>
                             @endif
                         </li>
                         <li class="pl-3 fs-xl">
